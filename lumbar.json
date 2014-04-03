@@ -47,21 +47,6 @@
                 "bower_components/bootstrap/css/bootstrap.css"
             ]
         },
-        "alerts": {
-            "routes": {
-                "routing/alerts": "index"
-            },
-            "scripts": [
-                "js/routers/alerts.js",
-                "js/views/alerts/index.js",
-                "js/views/alerts/detail.js",
-                "js/views/alerts/header.js",
-                "js/views/alerts/footer.js"
-            ],
-            "styles": [
-                "stylesheets/alerts.css"
-            ]
-        },
         "home": {
             "routes": {
                 "": "index"

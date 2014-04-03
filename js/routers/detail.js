@@ -5,17 +5,17 @@ new(Backbone.Router.extend({
         console.log('params sent to detail action from router are ' + params);
 
         var model = window.alertsCollection.get(params);
+        console.log('model properties from collection are:');
+        console.debug(model);
 
-        console.log('Do we have a view for detail?');
-        console.debug(Application.Views.detailView);
-
-        this.detailView = Application.Views.detailView = new Application.Views["detail/index"]({
+        var view = new Application.Views["detail/index"]({
             el: '#page2',
-            visible: true
+            visible: true,
+            model: model
         });
-        this.detailView.appendTo('body');
+        view.appendTo('body');  // apend the view to the body now?
 
-        var view = Application.Views.detailView;
+        //var view = Application.Views.detailView;
 
         // swap views
         Application.setView(view, {
@@ -44,9 +44,11 @@ new(Backbone.Router.extend({
                         $(oldView.el).removeClass().addClass('fadeOutLeft animated')
                             .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',
                                 function() {
+                                    append();
+
                                     $(this).removeClass('fadeOutLeft animated');
 
-                                    append();
+                                    //append();
                                 });
 
                         // slide in the new detail view
@@ -55,9 +57,11 @@ new(Backbone.Router.extend({
                                 function() {
                                     $(this).removeClass(newView.transitionIn + ' animated');
 
-                                    setTimeout(function() {
-                                        complete();
-                                    }, 300);
+                                    complete();
+                                    
+                                    // setTimeout(function() {
+                                    //     complete();
+                                    // }, 300);
                                 });
 
 

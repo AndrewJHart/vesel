@@ -1,7 +1,8 @@
+// main collection view for the list and list items
 Application.CollectionView.extend({
     name: "home/index",
     transitionIn: 'fadeIn',
-    transitionOut: 'fadeOutLeft',
+    transitionOut: 'fadeOut',
 
     events: {
         'click .table-view-cell': function(event) {
@@ -19,3 +20,8 @@ Application.CollectionView.extend({
 
 // Instances of this view can be created by calling:
 // new Application.Views["home/index"]()
+
+// home layout view
+Application.View.extend({
+    name: "home/layout"
+});
