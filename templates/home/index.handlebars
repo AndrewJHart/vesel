@@ -1,18 +1,9 @@
-{{view "home/header" type="home-header"}}
+{{view "home/header" tag="header" className="bar bar-nav" type="home-header"}}
 
 <div class="content" data-transition-in="{{transitionIn}}" data-transition-out="{{transitionOut}}">
 	{{#collection item-view="AlertsItemView" tag="ul" class="table-view" }}
 		{{! Content from the list item (index-item) template auto-inserted here :) }}
-		<li id="item{{id}}" class="table-view-cell media">
-		  <a href="#{{id}}" class="navigate-right">
-		    <img class="media-object pull-left" src="http://placehold.it/42x42">
-		    <div class="media-body">
-		      Item {{id}}
-		      <p>{{title}} Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet.</p>
-		    </div>
-		  </a>
-		</li>
 	{{/collection}}
 </div>
 
-{{view "home/footer" type="home-footer"}}
+{{view "home/footer" tag="nav" className="bar bar-tab" type="home-footer"}}

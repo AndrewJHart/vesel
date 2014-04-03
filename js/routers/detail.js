@@ -6,53 +6,65 @@ new(Backbone.Router.extend({
 
         var model = window.alertsCollection.get(params);
 
-        console.log('logging model...');
-        console.log(model);
+        console.log('Do we have a view for detail?');
+        console.debug(Application.Views.detailView);
 
-        if (model === null || model === undefined) {
-            model = {
-                id: 4,
-                title: 'ListItem Element 4 (not in collection)',
-                visible: true
-            };
-        }
-
-        var view = new Application.Views["detail/index"]({
-            model: model
+        this.detailView = Application.Views.detailView = new Application.Views["detail/index"]({
+            el: '#page2',
+            visible: true
         });
+        this.detailView.appendTo('body');
+
+        var view = Application.Views.detailView;
 
         // swap views
-        Application.setView(view);
-        // , {
-        //     transition: function(newView, oldView, append, remove, complete) {
-        //         console.log('Old View:');
-        //         console.debug(oldView);
-        //         console.log('Old Views Element');
-        //         console.debug(oldView.$el);
+        Application.setView(view, {
+            transition: function(newView, oldView, append, remove, complete) {
+                oldView.retain(Application);
 
-        //         console.log('New View:');
-        //         console.debug(newView);
-        //         console.log('New Views Element');
-        //         console.debug(newView.$el);
+                console.log('Old View:');
+                console.debug(oldView);
+                console.log('Old Views Element');
+                console.debug(oldView.$el);
 
-        //         if ((oldView !== null && oldView !== undefined) &&
-        //             (newView !== null && newView !== undefined)) {
+                console.log('New View:');
+                console.debug(newView);
+                console.log('New Views Element');
+                console.debug(newView.$el);
 
-        //             append(); // append the new view?
+                if ((oldView !== null && oldView !== undefined) &&
+                    (newView !== null && newView !== undefined)) {
 
-        //             setTimeout(function() {
-        //                 // slide out the current detail view
-        //                 $('.content', oldView.el).removeClass('fade out').addClass('fade in');
+                    // make everything happen at once
+                    //append(); // append the new view?
+                    setTimeout(function() {
 
-        //                 // slide in the new detail view
-        //                 $('.content', newView.el).removeClass('sliding left').addClass('sliding').addClass('left');
 
-        //                 setTimeout(function() {
-        //                     remove();
-        //                     complete();
-        //                 }, 300);
-        //             }, 0);
-        //         }
+                        // slide out the current detail view
+                        $(oldView.el).removeClass().addClass('fadeOutLeft animated')
+                            .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',
+                                function() {
+                                    $(this).removeClass('fadeOutLeft animated');
+
+                                    append();
+                                });
+
+                        // slide in the new detail view
+                        $(newView.el).addClass(newView.transitionIn + ' animated')
+                            .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',
+                                function() {
+                                    $(this).removeClass(newView.transitionIn + ' animated');
+
+                                    setTimeout(function() {
+                                        complete();
+                                    }, 300);
+                                });
+
+
+                    }, 0);
+                }
+            }
+        }); // closing setView(...)
 
         // ****
         // Create a single function that performs animation operations

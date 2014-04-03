@@ -1,6 +1,6 @@
 {
     "application": {
-        "name": "Application",
+        "name": "Vesel",
         "module": "base"
     },
     "modules": {
@@ -112,7 +112,7 @@
             "url"
         ],
         "js/init.js": [
-            "templates/application.handlebars"
+            "templates/layout.handlebars"
         ]
     }
 }

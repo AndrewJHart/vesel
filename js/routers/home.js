@@ -14,14 +14,19 @@ new(Backbone.Router.extend({
             id: 3,
             title: 'ListItem Element 3',
             visible: false
+        }, {
+            id: 4,
+            title: 'ListItem Element 4',
+            visible: true
         }]);
 
         this.indexView = new Application.Views["home/index"]({
+            el: '#page',
             collection: this.alerts
         });
 
         // retain the main collection list view in memory
-        this.indexView.retain();
+        this.indexView.retain(Application);
 
         // This is where we will do our transition work with callbacks
         Application.setView(this.indexView);
