@@ -2,7 +2,7 @@
 // place a view inside the {{layout-element}} in
 // templates/application.handlebars
 var Application = window.Application = new Thorax.LayoutView({
-  name: 'application'
+    name: 'Vesel'
 });
 
 // Alias the special hashes for naming consistency
@@ -22,23 +22,22 @@ _.extend(Application, module.exports);
 module.exports = Application;
 
 Application.initBackboneLoader(Application, function(type, module) {
-  // You have failed to load the module. Let the world know.
+    // You have failed to load the module. Let the world know.
 });
 
 $(function() {
-  // Application and other templates included by the base
-  // Application may want to use the link and url helpers
-  // which use hasPushstate, etc. so setup history, then
-  // render, then dispatch
-  Backbone.history.start({
-    pushState: false,
-    root: '/',
-    silent: true
-  });
-  // TODO: can remove after this is fixed:
-  // https://github.com/walmartlabs/lumbar/issues/84
-  Application.template = Thorax.templates.application;
-  Application.appendTo('body');
-  Backbone.history.loadUrl();
+    // Application and other templates included by the base
+    // Application may want to use the link and url helpers
+    // which use hasPushstate, etc. so setup history, then
+    // render, then dispatch
+    Backbone.history.start({
+        pushState: false,
+        root: '/',
+        silent: true
+    });
+    // TODO: can remove after this is fixed:
+    // https://github.com/walmartlabs/lumbar/issues/84
+    Application.template = Thorax.templates.application;
+    Application.appendTo('body');
+    Backbone.history.loadUrl();
 });
-
