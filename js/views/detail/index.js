@@ -44,3 +44,15 @@ Application.View.extend({
 
 // Instances of this view can be created by calling:
 // new Application.Views["detail/index"]()
+
+
+// This should be nested or not even a view -- 
+Application.View.extend({
+    name: "detail/mask",
+
+    initialize: function() {
+        console.debug("** ContentMask View loaded");
+
+        return this;
+    }
+});

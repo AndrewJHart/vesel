@@ -4,23 +4,23 @@ new(Backbone.Router.extend({
     index: function(params) {
         console.log('params sent to detail action from router are ' + params);
 
-        var model = window.alertsCollection.get(params);
+        var model = Application.Collection['alerts'].get(params);
         console.log('model properties from collection are:');
         console.debug(model);
 
         var view = new Application.Views["detail/index"]({
             el: '#page2',
-            visible: false,
+            visible: true,
             model: model
         });
         view.appendTo('body'); // apend the view to the body or page2 now?
 
-        //var view = Application.Views.detailView;
 
         // swap views
         Application.setView(view, {
             transition: function(newView, oldView, append, remove, complete) {
-                oldView.retain(Application);
+                //oldView.retain(Application);
+                Application.retain(oldView);
 
                 console.log('Old View:');
                 console.debug(oldView);
@@ -55,10 +55,6 @@ new(Backbone.Router.extend({
                                     $(this).removeClass(newView.transitionIn + ' animated');
 
                                     complete();
-
-                                    // setTimeout(function() {
-                                    //     complete();
-                                    // }, 300);
                                 });
 
                     }, 0);

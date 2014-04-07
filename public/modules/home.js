@@ -11,27 +11,11 @@ new(Backbone.Router.extend({
     routes: module.routes,
 
     index: function(params) {
-        this.alerts = window.alertsCollection = new Application.Collection([{
-            id: 1,
-            title: 'ListItem Element 1',
-            visible: true
-        }, {
-            id: 2,
-            title: 'ListItem Element 2',
-            visible: true
-        }, {
-            id: 3,
-            title: 'ListItem Element 3',
-            visible: false
-        }, {
-            id: 4,
-            title: 'ListItem Element 4',
-            visible: true
-        }]);
+        Application.Collection['alerts'] = new Application.Collections["home/alerts"]();
 
         this.indexView = new Application.Views["home/index"]({
             el: '#page',
-            collection: this.alerts
+            collection: Application.Collection['alerts']
         });
 
         // retain the main collection list view in memory
@@ -46,7 +30,7 @@ new(Backbone.Router.extend({
     }
 }));
 ;;
-Handlebars.templates['home/index-empty'] = Handlebars.compile('<h1>Home Region view home/index is empty..</h1>');Handlebars.templates['home/index-item'] = Handlebars.compile('<li id=\"item{{id}}\" class=\"table-view-cell media\">\n  <a href=\"#{{id}}\" class=\"navigate-right\">\n    <img class=\"media-object pull-left\" src=\"http://placehold.it/42x42\">\n    <div class=\"media-body\">\n      Item {{id}}\n      <p>{{title}} Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet.</p>\n    </div>\n  </a>\n</li>');Handlebars.templates['home/index'] = Handlebars.compile('{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\" type=\"home-header\"}}\n  <a class=\"icon icon-gear pull-right\"></a>\n  <h1 class=\"title\">Vesel Framework</h1>\n{{/view}}\n\n<div class=\"content\" data-transition-in=\"{{transitionIn}}\" data-transition-out=\"{{transitionOut}}\">\n\t{{#collection item-view=\"AlertsItemView\" tag=\"ul\" class=\"table-view\" }}\n\t\t{{! Content from the list item (index-item) template auto-inserted here :) }}\n\t{{/collection}}\n</div>\n\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\" type=\"home-footer\"}}\n\t<a class=\"tab-item active\" href=\"#\">\n\t\t<span class=\"icon icon-home\"></span>\n\t\t<span class=\"tab-label\">Home</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#2\">\n\t\t<span class=\"icon icon-person\"></span>\n\t\t<span class=\"tab-label\">Profile</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#3\">\n\t\t<span class=\"icon icon-gear\"></span>\n\t\t<span class=\"tab-label\">Settings</span>\n\t</a>\n{{/view}}\n\n<div id=\"page2\" style=\"display:none\"></div>');// main collection view for the list and list items
+Handlebars.templates['home/index-empty'] = Handlebars.compile('<h1>Home Region view home/index is empty..</h1>');Handlebars.templates['home/index-item'] = Handlebars.compile('<li id=\"item{{id}}\" class=\"table-view-cell media\">\n  <a href=\"#{{id}}\" class=\"navigate-right\">\n    <img class=\"media-object pull-left\" src=\"http://placehold.it/42x42\">\n    <div class=\"media-body\">\n      {{category.name}}\n      <p>{{subject}}</p>\n    </div>\n  </a>\n</li>');Handlebars.templates['home/index'] = Handlebars.compile('{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\" type=\"home-header\"}}\n  <a class=\"icon icon-gear pull-right\"></a>\n  <h1 class=\"title\">Vesel Framework</h1>\n{{/view}}\n\n<div class=\"content\" data-transition-in=\"{{transitionIn}}\" data-transition-out=\"{{transitionOut}}\">\n\t{{#collection item-view=\"AlertsItemView\" tag=\"ul\" class=\"table-view\" }}\n\t\t{{! Content from the list item (index-item) template auto-inserted here :) }}\n\t{{/collection}}\n</div>\n\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\" type=\"home-footer\"}}\n\t<a class=\"tab-item active\" href=\"#\">\n\t\t<span class=\"icon icon-home\"></span>\n\t\t<span class=\"tab-label\">Home</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#2\">\n\t\t<span class=\"icon icon-person\"></span>\n\t\t<span class=\"tab-label\">Profile</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#3\">\n\t\t<span class=\"icon icon-gear\"></span>\n\t\t<span class=\"tab-label\">Settings</span>\n\t</a>\n{{/view}}\n\n<div id=\"page2\" style=\"display:none\"></div>');// main collection view for the list and list items
 Application.CollectionView.extend({
     name: "home/index",
     transitionIn: 'iosFadeLeft',
@@ -117,6 +101,44 @@ Handlebars.templates['home/settings'] = Handlebars.compile('<ul class=\"table-vi
 
 // Instances of this view can be created by calling:
 // new Application.Views["home/settings"]()
+;;
+Application.Collection.extend({
+  name: "home/alerts",
+
+  // model: Application.Models["home/alert"],
+
+  url: "https://headsuphuntington.herokuapp.com/api/app/v1/alerts/",
+
+  initialize: function() {
+  	console.debug("Alerts Collection initialize triggered.");
+
+  	this.fetch({ wait: true });
+
+  	return this;
+  }
+});
+
+// Instances of this collection can be created by calling:
+// new Application.Collections["home/alerts"]()
+;;
+Application.Model.extend({
+  name: "home/alert", 
+
+  urlRoot: 'https://headsuphuntington.herokuapp.com/api/app/v1/alerts/',
+
+  initialize: function() {
+  	console.debug("Alert Model initialize triggered.");
+
+  	return this;
+  },
+
+  url: function() {
+  	return (this.urlRoot + this.id + '/');
+  }
+});
+
+// Instances of this model can be created by calling:
+// new Application.Models["home/alert"]()
 ;;
 
 

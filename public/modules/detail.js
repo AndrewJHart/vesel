@@ -13,23 +13,23 @@ new(Backbone.Router.extend({
     index: function(params) {
         console.log('params sent to detail action from router are ' + params);
 
-        var model = window.alertsCollection.get(params);
+        var model = Application.Collection['alerts'].get(params);
         console.log('model properties from collection are:');
         console.debug(model);
 
         var view = new Application.Views["detail/index"]({
             el: '#page2',
-            visible: false,
+            visible: true,
             model: model
         });
         view.appendTo('body'); // apend the view to the body or page2 now?
 
-        //var view = Application.Views.detailView;
 
         // swap views
         Application.setView(view, {
             transition: function(newView, oldView, append, remove, complete) {
-                oldView.retain(Application);
+                //oldView.retain(Application);
+                Application.retain(oldView);
 
                 console.log('Old View:');
                 console.debug(oldView);
@@ -64,10 +64,6 @@ new(Backbone.Router.extend({
                                     $(this).removeClass(newView.transitionIn + ' animated');
 
                                     complete();
-
-                                    // setTimeout(function() {
-                                    //     complete();
-                                    // }, 300);
                                 });
 
                     }, 0);
@@ -104,7 +100,7 @@ Application.View.extend({
 // Instances of this view can be created by calling:
 // new Application.Views["detail/header"]()
 ;;
-Handlebars.templates['detail/index'] = Handlebars.compile('{{#view \"detail/header\" tag=\"header\" className=\"bar bar-nav\" type=\"detail-header\"}}\n  \t<a href=\"#\" class=\"icon icon-left-nav pull-left\"></a>\n    <a href=\"\" class=\"icon icon-gear pull-right\"></a>\n  \t<h1 class=\"title\">Details</h1>\n{{/view}}\n<div class=\"content\" data-transition-in=\"{{transitionIn}}\" data-transition-out=\"{{transitionOut}}\">\n\t<div class=\"content-padded\">\n\t  <h4>{{title}}</h4>\n\n\t  <h6>{{#visible}} Visible: {{id}} {{/visible}}</h6>\n\t  <p>Item {{id}} has a visible status of {{visible}}</p>\n\t  <p>{{description}}</p>\n\t  <br>\n\t  <small>{{extra}}</small>\n\t</div>\n</div>\n{{#view \"detail/footer\" tag=\"nav\" className=\"bar bar-tab\" type=\"detail-footer\"}}\n  <a class=\"tab-item active\" href=\"#\">\n    <span class=\"icon icon-home\"></span>\n    <span class=\"tab-label\">Home</span>\n  </a>\n  <a class=\"tab-item\" href=\"#\">\n    <span class=\"icon icon-gear\"></span>\n    <span class=\"tab-label\">Settings</span>\n  </a>\n{{/view}}');Application.View.extend({
+Handlebars.templates['detail/index'] = Handlebars.compile('{{#view \"detail/mask\" tag=\"div\" className=\"contentMask\"}}\n{{/view}}\n{{#view \"detail/header\" tag=\"header\" className=\"bar bar-nav\" type=\"detail-header\"}}\n  \t<a href=\"#\" class=\"icon icon-left-nav pull-left\">Back</a>\n    <a href=\"\" class=\"icon icon-gear pull-right\"></a>\n  \t<h1 class=\"title\">Details</h1>\n{{/view}}\n<div class=\"content\" data-transition-in=\"{{transitionIn}}\" data-transition-out=\"{{transitionOut}}\">\n\t<div class=\"content-padded\">\n\t  <h4>{{title}}</h4>\n\n\t  <h6>{{#visible}} Visible: {{id}} {{/visible}}</h6>\n\t  <p>Item {{id}} has a visible status of {{visible}}</p>\n\t  <p>{{description}}</p>\n\t  <br>\n\t  <small>{{extra}}</small>\n\t</div>\n</div>\n{{#view \"detail/footer\" tag=\"nav\" className=\"bar bar-tab\" type=\"detail-footer\"}}\n  <a class=\"tab-item active\" href=\"#\">\n    <span class=\"icon icon-home\"></span>\n    <span class=\"tab-label\">Home</span>\n  </a>\n  <a class=\"tab-item\" href=\"#\">\n    <span class=\"icon icon-gear\"></span>\n    <span class=\"tab-label\">Settings</span>\n  </a>\n{{/view}}');Application.View.extend({
     name: "detail/index",
     transitionIn: "iosSlideInRight",
     transitionOut: "slideOutRight",
@@ -150,6 +146,18 @@ Handlebars.templates['detail/index'] = Handlebars.compile('{{#view \"detail/head
 
 // Instances of this view can be created by calling:
 // new Application.Views["detail/index"]()
+
+
+// This should be nested or not even a view -- 
+Application.View.extend({
+    name: "detail/mask",
+
+    initialize: function() {
+        console.debug("** ContentMask View loaded");
+
+        return this;
+    }
+});
 ;;
 Application.View.extend({
     name: "detail/footer",
