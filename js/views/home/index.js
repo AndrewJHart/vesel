@@ -1,8 +1,8 @@
 // main collection view for the list and list items
 Application.CollectionView.extend({
     name: "home/index",
-    transitionIn: 'fadeIn',
-    transitionOut: 'fadeOut',
+    transitionIn: 'iosFadeLeft',
+    transitionOut: 'iosFadeLeft',
 
     events: {
         'click .table-view-cell': function(event) {

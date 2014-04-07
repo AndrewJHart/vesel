@@ -1,6 +1,6 @@
 Application.View.extend({
     name: "detail/index",
-    transitionIn: "slideInRight",
+    transitionIn: "iosSlideInRight",
     transitionOut: "slideOutRight",
     visible: false,
 
@@ -16,13 +16,29 @@ Application.View.extend({
         console.log('What about context? :)');
         console.log(this.context());
 
-        if (this.visible == true) {
+        if (this.visible) {
             this.$el.show();
+            console.log('Detail layout visible on initialize()');
         } else {
             this.$el.hide();
+            console.log('Detail Layout hidden on initialize()');
         }
 
         return this;
+    },
+
+    isVisible: function(state) {
+        if (state) {
+            console.debug('DetailLayout#index-view.isVisible triggered. state = ' + state);
+
+            this.visible = state;
+
+            return this.$el.css({
+                'display': state
+            });
+        }
+
+        return this.visible;
     }
 });
 

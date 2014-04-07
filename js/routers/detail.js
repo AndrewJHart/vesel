@@ -10,10 +10,10 @@ new(Backbone.Router.extend({
 
         var view = new Application.Views["detail/index"]({
             el: '#page2',
-            visible: true,
+            visible: false,
             model: model
         });
-        view.appendTo('body');  // apend the view to the body now?
+        view.appendTo('body'); // apend the view to the body or page2 now?
 
         //var view = Application.Views.detailView;
 
@@ -24,13 +24,10 @@ new(Backbone.Router.extend({
 
                 console.log('Old View:');
                 console.debug(oldView);
-                console.log('Old Views Element');
-                console.debug(oldView.$el);
 
                 console.log('New View:');
                 console.debug(newView);
-                console.log('New Views Element');
-                console.debug(newView.$el);
+
 
                 if ((oldView !== null && oldView !== undefined) &&
                     (newView !== null && newView !== undefined)) {
@@ -39,31 +36,30 @@ new(Backbone.Router.extend({
                     //append(); // append the new view?
                     setTimeout(function() {
 
-
                         // slide out the current detail view
-                        $(oldView.el).removeClass().addClass('fadeOutLeft animated')
+                        $(oldView.el).removeClass().addClass(oldView.transitionOut + ' animated')
                             .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',
                                 function() {
-                                    append();
+                                    // append();
 
-                                    $(this).removeClass('fadeOutLeft animated');
+                                    $(this).removeClass(oldView.transitionOut + ' animated');
 
                                     //append();
                                 });
 
+
                         // slide in the new detail view
-                        $(newView.el).addClass(newView.transitionIn + ' animated')
+                        $(newView.el).show().addClass(newView.transitionIn + ' animated')
                             .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',
                                 function() {
                                     $(this).removeClass(newView.transitionIn + ' animated');
 
                                     complete();
-                                    
+
                                     // setTimeout(function() {
                                     //     complete();
                                     // }, 300);
                                 });
-
 
                     }, 0);
                 }

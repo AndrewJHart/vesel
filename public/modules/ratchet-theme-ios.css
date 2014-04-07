@@ -484,8 +484,10 @@ textarea,
 }*/
 
 #page > header, #page > div.content, #page > nav {
-  -webkit-animation-duration: .4s;
-     -moz-animation-duration: .4s;
-          animation-duration: .4s;
-  -vendor-animation-delay: 2s;
+/*  -webkit-animation-duration: 3s;
+     -moz-animation-duration: 3s;
+          animation-duration: 3s;*/
+/*  -webkit-animation-delay: 2s;
+     -moz-animation-delay: 2s;
+          animation-delay: 2s;*/
 }

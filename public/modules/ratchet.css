@@ -234,7 +234,17 @@ th {
           box-sizing: border-box;
 }
 
-body > * {
+/* Currently all thorax views wrap themselves in an extra div (Standard
+ * Backbone behavior - annoying most of the time). Since the outermost container 
+ * needs to have pos: fixed; to make ratchet styles match markup, its easier
+ * to adjust the selector below from body {} to body > div, section to get
+ * same functionality. Notice div's and section's only - e.g. we will use an
+ * aside tag for the settings panel / infotext area and if it sits on the root
+ * of the body then it breaks its intended functionality.
+ * Andrew Hart - MSCNS Web Team Bravo; Follow @andruwhart
+ */
+
+body > div, section {
   position: fixed;
   top: 0;
   right: 0;
