@@ -1,8 +1,8 @@
 
-Vesel['detail'] = (function() {
+vesel['detail'] = (function() {
   var module = {exports: {}};
   var exports = module.exports;
-  Vesel['detail'] = exports;
+  vesel['detail'] = exports;
 
   /* router : detail */
 module.name = "detail";
@@ -176,8 +176,8 @@ Application.View.extend({
 ;;
 
 
-  if (Vesel['detail'] !== module.exports) {
-    console.warn("Vesel['detail'] internally differs from global");
+  if (vesel['detail'] !== module.exports) {
+    console.warn("vesel['detail'] internally differs from global");
   }
   return module.exports;
 }).call(this);

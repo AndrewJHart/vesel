@@ -1,25 +1,30 @@
 
-Vesel['home'] = (function() {
+vesel['home'] = (function() {
   var module = {exports: {}};
   var exports = module.exports;
-  Vesel['home'] = exports;
+  vesel['home'] = exports;
 
   /* router : home */
 module.name = "home";
 module.routes = {"":"index"};
 new(Backbone.Router.extend({
     routes: module.routes,
+    alerts: null,
+    indexView: null,
 
     index: function(params) {
-        Application.Collection['alerts'] = new Application.Collections["home/alerts"]();
+        if (!this.alerts)
+            this.alerts = Application.Collection['alerts'] = new Application.Collections["home/alerts"]();
 
+        //if (!this.indexView) {
         this.indexView = new Application.Views["home/index"]({
             el: '#page',
             collection: Application.Collection['alerts']
         });
+        //}
 
         // retain the main collection list view in memory
-        this.indexView.retain(Application);
+        Application.retain(this.indexView);
 
         // This is where we will do our transition work with callbacks
         Application.setView(this.indexView);
@@ -105,8 +110,6 @@ Handlebars.templates['home/settings'] = Handlebars.compile('<ul class=\"table-vi
 Application.Collection.extend({
   name: "home/alerts",
 
-  // model: Application.Models["home/alert"],
-
   url: "https://headsuphuntington.herokuapp.com/api/app/v1/alerts/",
 
   initialize: function() {
@@ -142,8 +145,8 @@ Application.Model.extend({
 ;;
 
 
-  if (Vesel['home'] !== module.exports) {
-    console.warn("Vesel['home'] internally differs from global");
+  if (vesel['home'] !== module.exports) {
+    console.warn("vesel['home'] internally differs from global");
   }
   return module.exports;
 }).call(this);

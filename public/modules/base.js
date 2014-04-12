@@ -17374,11 +17374,11 @@ Handlebars.template = Handlebars.VM.template;
 
 }(window.jQuery);
 ;;
-var Vesel;
-Vesel = (function() {
+var vesel;
+vesel = (function() {
   var module = {exports: {}};
   var exports = module.exports;
-  var Vesel = exports;
+  var vesel = exports;
 
   /*
 Copyright (c) 2011-2013 @WalmartLabs
@@ -20820,8 +20820,8 @@ Application.CollectionView = Thorax.CollectionView.extend({
 ;;
 
 
-  if (Vesel !== module.exports) {
-    console.warn("Vesel internally differs from global");
+  if (vesel !== module.exports) {
+    console.warn("vesel internally differs from global");
   }
   return module.exports;
 }).call(this);
