@@ -3,7 +3,7 @@ Application.View.extend({
     type: null,
 
     initialize: function() {
-        console.log('HomeRegion#footer view init triggered!');
+        console.log('HomeRegion#header view init triggered!');
         console.log('Type of partial is: ' + this.type);
 
         return this;

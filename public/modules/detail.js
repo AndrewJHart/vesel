@@ -29,7 +29,7 @@ new(Backbone.Router.extend({
         Application.setView(view, {
             transition: function(newView, oldView, append, remove, complete) {
                 //oldView.retain(Application);
-                Application.retain(oldView);
+                //Application.retain(oldView);
 
                 console.log('Old View:');
                 console.debug(oldView);
@@ -84,21 +84,6 @@ new(Backbone.Router.extend({
         // });
     }
 }));
-;;
-Application.View.extend({
-    name: "detail/header",
-    type: null,
-
-    initialize: function() {
-        console.log('DetailRegion#header view init triggered!');
-        console.log('Type of partial is: ' + this.type);
-
-        return this;
-    }
-});
-
-// Instances of this view can be created by calling:
-// new Application.Views["detail/header"]()
 ;;
 Handlebars.templates['detail/index'] = Handlebars.compile('{{#view \"detail/mask\" tag=\"div\" className=\"contentMask\"}}\n{{/view}}\n{{#view \"detail/header\" tag=\"header\" className=\"bar bar-nav\" type=\"detail-header\"}}\n  \t<a href=\"#\" class=\"icon icon-left-nav pull-left\">Back</a>\n    <a href=\"\" class=\"icon icon-gear pull-right\"></a>\n  \t<h1 class=\"title\">Details</h1>\n{{/view}}\n<div class=\"content\" data-transition-in=\"{{transitionIn}}\" data-transition-out=\"{{transitionOut}}\">\n\t<div class=\"content-padded\">\n\t  <h4>{{title}}</h4>\n\n\t  <h6>{{#visible}} Visible: {{id}} {{/visible}}</h6>\n\t  <p>Item {{id}} has a visible status of {{visible}}</p>\n\t  <p>{{description}}</p>\n\t  <br>\n\t  <small>{{extra}}</small>\n\t</div>\n</div>\n{{#view \"detail/footer\" tag=\"nav\" className=\"bar bar-tab\" type=\"detail-footer\"}}\n  <a class=\"tab-item active\" href=\"#\">\n    <span class=\"icon icon-home\"></span>\n    <span class=\"tab-label\">Home</span>\n  </a>\n  <a class=\"tab-item\" href=\"#\">\n    <span class=\"icon icon-gear\"></span>\n    <span class=\"tab-label\">Settings</span>\n  </a>\n{{/view}}');Application.View.extend({
     name: "detail/index",
@@ -158,21 +143,32 @@ Application.View.extend({
         return this;
     }
 });
-;;
+
+
 Application.View.extend({
-    name: "detail/footer",
+    name: "detail/header",
     type: null,
 
     initialize: function() {
-        console.log('DetailRegion#footer view init triggered!');
+        console.log('DetailView#header view init triggered!');
         console.log('Type of partial is: ' + this.type);
 
         return this;
     }
 });
 
-// Instances of this view can be created by calling:
-// new Application.Views["detail/footer"]()
+
+Application.View.extend({
+    name: "detail/footer",
+    type: null,
+
+    initialize: function() {
+        console.log('DetailView#footer view init triggered!');
+        console.log('Type of partial is: ' + this.type);
+
+        return this;
+    }
+});
 ;;
 
 

@@ -20,7 +20,7 @@ new(Backbone.Router.extend({
         Application.setView(view, {
             transition: function(newView, oldView, append, remove, complete) {
                 //oldView.retain(Application);
-                Application.retain(oldView);
+                //Application.retain(oldView);
 
                 console.log('Old View:');
                 console.debug(oldView);

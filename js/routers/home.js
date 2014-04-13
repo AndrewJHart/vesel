@@ -7,15 +7,16 @@ new(Backbone.Router.extend({
         if (!this.alerts)
             this.alerts = Application.Collection['alerts'] = new Application.Collections["home/alerts"]();
 
-        //if (!this.indexView) {
+        // if (!this.indexView) {
         this.indexView = new Application.Views["home/index"]({
             el: '#page',
             collection: Application.Collection['alerts']
         });
-        //}
+        // }
 
         // retain the main collection list view in memory
         Application.retain(this.indexView);
+        //this.indexView.retain(Application);
 
         // This is where we will do our transition work with callbacks
         Application.setView(this.indexView);
