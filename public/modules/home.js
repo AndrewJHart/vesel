@@ -6,19 +6,33 @@ vesel['home'] = (function() {
 
   /* router : home */
 module.name = "home";
-module.routes = {"":"index"};
+module.routes = {"":"index",":id":"detail"};
 new(Backbone.Router.extend({
     routes: module.routes,
     alerts: null,
     indexView: null,
+    detailView: null,
+
+    // initialize: function(options) {
+    //     console.log('routers/home#initialize triggered');
+
+    //     // get alerts collection on init since it persists
+    //     this.alerts = Application.Collection['alerts'] = new Application.Collections["home/alerts"]();
+        
+
+    //     return this;
+    // },
+
+    //-----------------
+    // route handlers
 
     index: function(params) {
-        if (!this.alerts)
-            this.alerts = Application.Collection['alerts'] = new Application.Collections["home/alerts"]();
-
+        this.alerts = Application.Collection['alerts'] = new Application.Collections["home/alerts"]();
+        
         // if (!this.indexView) {
         this.indexView = new Application.Views["home/index"]({
-            el: '#page',
+            el: '#home',
+            className: 'page is-visible',
             collection: Application.Collection['alerts']
         });
         // }
@@ -32,14 +46,101 @@ new(Backbone.Router.extend({
     },
 
     detail: function(params) {
-        console.debug('Detail route triggered in wrong router..');
+        var self = this;
+
+        console.log('params sent to detail action from router are ' + params);
+
+        var model = Application.Collection['alerts'].get(params);
+        console.log('model properties from collection are:');
+        console.debug(model);
+
+        var view = new Application.Views["detail/index"]({
+            el: '#detail',
+            visible: false,
+            model: model
+        });
+        //view.appendTo('body'); // apend the view to the body or page2 now?
+
+
+        // swap views
+        Application.setView(view, {
+            transition: function(newView, oldView, append, remove, complete) {
+                append();
+
+                self.animHelper(function() {
+                    complete();
+                });
+            }
+        }); // closing setView(...)
+
+        // ****
+        // Create a single function that performs animation operations
+        // passed to it via params and then triggers callback so thorax
+        // can append/remove/complete() the cycle
+        // ****
+
+        // append();
+        // yourAnimation(function() {
+        //     remove();
+        //     complete();
+        // });
+    },
+
+    //------------------
+    // helper methods
+    animHelper: function(callback) {
+        // do stuff 
+        console.log('Old View:');
+        console.debug(oldView);
+
+        console.log('New View:');
+        console.debug(newView);
+
+
+        if ((oldView !== null && oldView !== undefined) &&
+            (newView !== null && newView !== undefined)) {
+
+            // make everything happen at once
+            //append(); // append the new view?
+            _.delay(function() {
+
+                // slide out the current detail view
+                $(oldView.el).removeClass().addClass(oldView.transitionOut + ' animated')
+                    .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',
+                        function() {
+                            // append();
+
+                            $(this).removeClass('is-visible ' + oldView.transitionOut + ' animated');
+
+                            //append();
+                        });
+
+
+                // slide in the new detail view
+                $(newView.el).show().addClass(newView.transitionIn + ' animated')
+                    .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',
+                        function() {
+                            $(this).removeClass(newView.transitionIn + ' animated');
+
+                            //complete();
+                        });
+
+            }, 20);
+        }
+
+        // then trigger cb
+        if (_.isFunction(callback)) {
+            callback();
+        }
     }
+
+
 }));
 ;;
-Handlebars.templates['home/index-empty'] = Handlebars.compile('<h1>Home Region view home/index is empty..</h1>');Handlebars.templates['home/index-item'] = Handlebars.compile('<li id=\"{{id}}\" class=\"table-view-cell media\">\n  <a href=\"#{{id}}\" class=\"navigate-right\">\n    <img class=\"media-object pull-left\" src=\"http://placehold.it/42x42\">\n    <div class=\"media-body\">\n      {{category.name}}\n      <p>{{subject}}</p>\n    </div>\n  </a>\n</li>');Handlebars.templates['home/index'] = Handlebars.compile('{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\" type=\"home-header\"}}\n  <a class=\"icon icon-gear pull-right\"></a>\n  <h1 class=\"title\">Vesel Framework</h1>\n{{/view}}\n\n<div class=\"content\" data-transition-in=\"{{transitionIn}}\" data-transition-out=\"{{transitionOut}}\">\n\t{{#collection item-view=\"AlertsItemView\" tag=\"ul\" class=\"table-view\" }}\n\t\t{{! Content from the list item (index-item) template auto-inserted here :) }}\n\t{{/collection}}\n</div>\n\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\" type=\"home-footer\"}}\n\t<a class=\"tab-item active\" href=\"#\">\n\t\t<span class=\"icon icon-home\"></span>\n\t\t<span class=\"tab-label\">Home</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#2\">\n\t\t<span class=\"icon icon-person\"></span>\n\t\t<span class=\"tab-label\">Profile</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#3\">\n\t\t<span class=\"icon icon-gear\"></span>\n\t\t<span class=\"tab-label\">Settings</span>\n\t</a>\n{{/view}}\n\n<div id=\"page2\" style=\"display:none\"></div>');// main collection view for the list and list items
+Handlebars.templates['home/index-empty'] = Handlebars.compile('<h1>Home Region view home/index is empty..</h1>');Handlebars.templates['home/index-item'] = Handlebars.compile('<li id=\"{{id}}\" class=\"table-view-cell media\">\n  <a href=\"#{{id}}\" class=\"navigate-right\">\n    <img class=\"media-object pull-left\" src=\"http://placehold.it/42x42\">\n    <div class=\"media-body\">\n      {{category.name}}\n      <p>{{subject}}</p>\n    </div>\n  </a>\n</li>');Handlebars.templates['home/index'] = Handlebars.compile('<div id=\"home\" class=\"page\">\n{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\" type=\"home-header\"}}\n  <a class=\"icon icon-gear pull-right\"></a>\n  <h1 class=\"title\">Vesel Framework</h1>\n{{/view}}\n\n<div class=\"content\" data-transition-in=\"{{transitionIn}}\" data-transition-out=\"{{transitionOut}}\">\n\t{{#collection item-view=\"AlertsItemView\" tag=\"ul\" class=\"table-view\" }}\n\t\t{{! Content from the list item (index-item) template auto-inserted here :) }}\n\t{{/collection}}\n</div>\n\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\" type=\"home-footer\"}}\n\t<a class=\"tab-item active\" href=\"#\">\n\t\t<span class=\"icon icon-home\"></span>\n\t\t<span class=\"tab-label\">Home</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#2\">\n\t\t<span class=\"icon icon-person\"></span>\n\t\t<span class=\"tab-label\">Profile</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#3\">\n\t\t<span class=\"icon icon-gear\"></span>\n\t\t<span class=\"tab-label\">Settings</span>\n\t</a>\n{{/view}}\n</div>\n\n<div id=\"detail\" class=\"page\" style=\"display:none\"></div>');// main collection view for the list and list items
 Application.CollectionView.extend({
     name: "home/index",
-    transitionIn: 'iosFadeLeft',
+    transitionIn: 'fadeIn',
     transitionOut: 'iosFadeLeft',
     initOnce: true,
 
@@ -263,11 +364,13 @@ Application.Collection.extend({
   name: "home/alerts",
 
   url: "https://headsuphuntington.herokuapp.com/api/app/v1/alerts/",
+  urlRoot: "https://headsuphuntington.herokuapp.com/api/app/v1/alerts/",
 
   initialize: function() {
   	console.debug("Alerts Collection initialize triggered.");
 
-  	this.fetch({ wait: true });
+  	// refactored to prevent duplicate fetching
+  	//this.fetch({ wait: true });
 
   	return this;
   }
@@ -279,16 +382,12 @@ Application.Collection.extend({
 Application.Model.extend({
   name: "home/alert", 
 
-  urlRoot: 'https://headsuphuntington.herokuapp.com/api/app/v1/alerts/',
+  //urlRoot: 'https://headsuphuntington.herokuapp.com/api/app/v1/alerts/',
 
   initialize: function() {
   	console.debug("Alert Model initialize triggered.");
 
   	return this;
-  },
-
-  url: function() {
-  	return (this.urlRoot + this.id + '/');
   }
 });
 

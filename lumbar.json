@@ -49,7 +49,8 @@
         },
         "home": {
             "routes": {
-                "": "index"
+                "": "index",
+                ":id": "detail"
             },
             "scripts": [
                 "js/routers/home.js",
@@ -66,7 +67,6 @@
         },
         "detail": {
             "routes": {
-                ":id": "index"
             },
             "scripts": [
                 "js/routers/detail.js",

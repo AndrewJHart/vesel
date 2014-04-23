@@ -17,10 +17,10 @@ Application.View.extend({
         console.log(this.context());
 
         if (this.visible) {
-            this.$el.show();
+            this.$el.addClass('is-visible');
             console.log('Detail layout visible on initialize()');
         } else {
-            this.$el.hide();
+            this.$el.removeClass('is-visible');
             console.log('Detail Layout hidden on initialize()');
         }
 

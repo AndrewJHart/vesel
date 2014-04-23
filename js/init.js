@@ -2,8 +2,7 @@
 // place a view inside the {{layout-element}} in
 // templates/application.handlebars
 var Application = window.Application = new Thorax.LayoutView({
-    name: 'layout',
-    el: 'body'
+    name: 'layout'
 });
 
 // Alias the special hashes for naming consistency

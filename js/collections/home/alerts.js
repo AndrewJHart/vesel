@@ -2,11 +2,13 @@ Application.Collection.extend({
   name: "home/alerts",
 
   url: "https://headsuphuntington.herokuapp.com/api/app/v1/alerts/",
+  urlRoot: "https://headsuphuntington.herokuapp.com/api/app/v1/alerts/",
 
   initialize: function() {
   	console.debug("Alerts Collection initialize triggered.");
 
-  	this.fetch({ wait: true });
+  	// refactored to prevent duplicate fetching
+  	//this.fetch({ wait: true });
 
   	return this;
   }

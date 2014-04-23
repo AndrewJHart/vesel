@@ -20756,13 +20756,12 @@ if (module.exports.loader && module.exports.loader.map && window.Backbone) {
 
 ;;
 /* lumbar module map */
-module.exports.moduleMap({"base":{"css":{"href":"base.css"},"js":"base.js"},"modules":{"detail":{"css":{"href":"detail.css"},"js":"detail.js"},"home":{"css":{"href":"home.css"},"js":"home.js"}},"routes":{"":"home",":id":"detail"}});
+module.exports.moduleMap({"base":{"css":{"href":"base.css"},"js":"base.js"},"modules":{"detail":{"css":{"href":"detail.css"},"js":"detail.js"},"home":{"css":{"href":"home.css"},"js":"home.js"}},"routes":{"":"home",":id":"home"}});
 Handlebars.templates['layout'] = Handlebars.compile('{{! This template is used by the Application object created\n    created in init.js, calling Application.setView() will\n    place a view where layout-element is called below. }}\n\n\n\n  {{! \n  Using embedded layout from master layout-view we can render all dynamic\n  content within the proper div very easily! :) :) this is fun.  \n  }}\n\t{{layout-element tag=\"div\" id=\"page\"}}\n\n\t{{!-- <div id=\"page2\" style=\"display:none\"></div> --}}');// Create the Application object, Application.setView() will
 // place a view inside the {{layout-element}} in
 // templates/application.handlebars
 var Application = window.Application = new Thorax.LayoutView({
-    name: 'layout',
-    el: 'body'
+    name: 'layout'
 });
 
 // Alias the special hashes for naming consistency

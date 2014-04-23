@@ -1,7 +1,7 @@
 // main collection view for the list and list items
 Application.CollectionView.extend({
     name: "home/index",
-    transitionIn: 'iosFadeLeft',
+    transitionIn: 'fadeIn',
     transitionOut: 'iosFadeLeft',
     initOnce: true,
 

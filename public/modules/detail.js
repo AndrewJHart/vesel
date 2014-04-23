@@ -6,7 +6,7 @@ vesel['detail'] = (function() {
 
   /* router : detail */
 module.name = "detail";
-module.routes = {":id":"index"};
+module.routes = {};
 new(Backbone.Router.extend({
     routes: module.routes,
 
@@ -104,10 +104,10 @@ Handlebars.templates['detail/index'] = Handlebars.compile('{{#view \"detail/mask
         console.log(this.context());
 
         if (this.visible) {
-            this.$el.show();
+            this.$el.addClass('is-visible');
             console.log('Detail layout visible on initialize()');
         } else {
-            this.$el.hide();
+            this.$el.removeClass('is-visible');
             console.log('Detail Layout hidden on initialize()');
         }
 
