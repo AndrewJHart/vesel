@@ -18965,9 +18965,10 @@ Thorax.CollectionView = Thorax.View.extend({
         }, this);
       }
       this.trigger('rendered:collection', this, this.collection);
-    } else {
-      handleChangeFromNotEmptyToEmpty.call(this);
-    }
+    } 
+    // else {
+    //   handleChangeFromNotEmptyToEmpty.call(this);
+    // }
   },
   emptyClass: 'empty',
   renderEmpty: function() {
@@ -20757,11 +20758,26 @@ if (module.exports.loader && module.exports.loader.map && window.Backbone) {
 ;;
 /* lumbar module map */
 module.exports.moduleMap({"base":{"css":{"href":"base.css"},"js":"base.js"},"modules":{"detail":{"css":{"href":"detail.css"},"js":"detail.js"},"home":{"css":{"href":"home.css"},"js":"home.js"}},"routes":{"":"home",":id":"home"}});
-Handlebars.templates['layout'] = Handlebars.compile('{{! This template is used by the Application object created\n    created in init.js, calling Application.setView() will\n    place a view where layout-element is called below. }}\n\n\n\n  {{! \n  Using embedded layout from master layout-view we can render all dynamic\n  content within the proper div very easily! :) :) this is fun.  \n  }}\n\t{{layout-element tag=\"div\" id=\"page\"}}\n\n\t{{!-- <div id=\"page2\" style=\"display:none\"></div> --}}');// Create the Application object, Application.setView() will
+// Create the Application object, Application.setView() will
 // place a view inside the {{layout-element}} in
 // templates/application.handlebars
+var AnimView = Thorax.View.extend({
+    initialize: function() {
+        console.debug('AnimView base class initialize triggered');
+
+        return this;
+    }
+});
+
+// mixin the layout view to get some properties from it
+_.extend(AnimView.prototype, Thorax.LayoutView.prototype);
+
+
+// create our application
 var Application = window.Application = new Thorax.LayoutView({
-    name: 'layout'
+    name: 'root',
+
+    template: Handlebars.compile('<div id="home" class="page"></div> <div id="detail" class="page"></div>')
 });
 
 // Alias the special hashes for naming consistency

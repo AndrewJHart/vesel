@@ -1,8 +1,23 @@
 // Create the Application object, Application.setView() will
 // place a view inside the {{layout-element}} in
 // templates/application.handlebars
+var AnimView = Thorax.View.extend({
+    initialize: function() {
+        console.debug('AnimView base class initialize triggered');
+
+        return this;
+    }
+});
+
+// mixin the layout view to get some properties from it
+_.extend(AnimView.prototype, Thorax.LayoutView.prototype);
+
+
+// create our application
 var Application = window.Application = new Thorax.LayoutView({
-    name: 'layout'
+    name: 'root',
+
+    template: Handlebars.compile('<div id="home" class="page"></div> <div id="detail" class="page"></div>')
 });
 
 // Alias the special hashes for naming consistency

@@ -95,9 +95,9 @@
             "empty",
             "loading",
             "url"
-        ],
-        "js/init.js": [
-            "templates/layout.handlebars"
-        ]
+        ]//,
+        //"js/init.js": [
+            // "templates/layout.handlebars"
+        //]
     }
 }

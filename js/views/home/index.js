@@ -84,6 +84,17 @@ Application.CollectionView.extend({
         'rendered:collection': function(collectionView, collection) {
             console.debug('Event *rendered:collection* triggered!');
 
+            collectionView.$("ul.table-view").mobiscroll().listview({
+                theme: 'ios7',
+                actions: [
+                    { icon: 'link', action: function (li, inst) { notify('Linked', inst.settings.context); } },
+                    { icon: 'star3', action: function (li, inst) { notify('Rated', inst.settings.context); } },
+                    { icon: 'tag', action: function (li, inst) { notify('Tagged', inst.settings.context); } },
+                    { icon: 'download', action: function (li, inst) { notify('Downloaded', inst.settings.context); } },
+                ]
+            });
+
+
             // collectionView.$("ul.table-view").mobiscroll().listview({
             //     stages: [{
             //         percent: -20,
@@ -146,6 +157,7 @@ Application.CollectionView.extend({
             //     collectionView.initOnce = false;
             //     collection.trigger('finished:render');
             // }
+            //collection.trigger('finished:render');
             return false;
         },
 

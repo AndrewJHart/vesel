@@ -4,27 +4,28 @@ new(Backbone.Router.extend({
     indexView: null,
     detailView: null,
 
-    // initialize: function(options) {
-    //     console.log('routers/home#initialize triggered');
+    initialize: function(options) {
+        console.log('routers/home#initialize triggered');
 
-    //     // get alerts collection on init since it persists
-    //     this.alerts = Application.Collection['alerts'] = new Application.Collections["home/alerts"]();
+        // get alerts collection on init since it persists
+        //this.alerts = Application.Collection['alerts'] = new Application.Collections["home/alerts"]();
         
 
-    //     return this;
-    // },
+        return this;  // chaining
+    },
 
     //-----------------
     // route handlers
 
     index: function(params) {
-        this.alerts = Application.Collection['alerts'] = new Application.Collections["home/alerts"]();
-        
+        if (!this.alerts && !Application.Collection['alerts'])
+            this.alerts = Application.Collection['alerts'] = new Application.Collections["home/alerts"]();
+
         // if (!this.indexView) {
         this.indexView = new Application.Views["home/index"]({
             el: '#home',
             className: 'page is-visible',
-            collection: Application.Collection['alerts']
+            collection: this.alerts
         });
         // }
 
@@ -80,6 +81,7 @@ new(Backbone.Router.extend({
     //------------------
     // helper methods
     animHelper: function(callback) {
+        console.log('animHelper triggered for view transitions!');
         // do stuff 
         console.log('Old View:');
         console.debug(oldView);
@@ -96,12 +98,12 @@ new(Backbone.Router.extend({
             _.delay(function() {
 
                 // slide out the current detail view
-                $(oldView.el).removeClass().addClass(oldView.transitionOut + ' animated')
+                $(oldView.el).addClass(oldView.transitionOut + ' animated')
                     .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',
                         function() {
                             // append();
 
-                            $(this).removeClass('is-visible ' + oldView.transitionOut + ' animated');
+                            $(this).removeClass(oldView.transitionOut + ' animated');
 
                             //append();
                         });

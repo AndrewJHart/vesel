@@ -13,27 +13,28 @@ new(Backbone.Router.extend({
     indexView: null,
     detailView: null,
 
-    // initialize: function(options) {
-    //     console.log('routers/home#initialize triggered');
+    initialize: function(options) {
+        console.log('routers/home#initialize triggered');
 
-    //     // get alerts collection on init since it persists
-    //     this.alerts = Application.Collection['alerts'] = new Application.Collections["home/alerts"]();
+        // get alerts collection on init since it persists
+        //this.alerts = Application.Collection['alerts'] = new Application.Collections["home/alerts"]();
         
 
-    //     return this;
-    // },
+        return this;  // chaining
+    },
 
     //-----------------
     // route handlers
 
     index: function(params) {
-        this.alerts = Application.Collection['alerts'] = new Application.Collections["home/alerts"]();
-        
+        if (!this.alerts && !Application.Collection['alerts'])
+            this.alerts = Application.Collection['alerts'] = new Application.Collections["home/alerts"]();
+
         // if (!this.indexView) {
         this.indexView = new Application.Views["home/index"]({
             el: '#home',
             className: 'page is-visible',
-            collection: Application.Collection['alerts']
+            collection: this.alerts
         });
         // }
 
@@ -89,6 +90,7 @@ new(Backbone.Router.extend({
     //------------------
     // helper methods
     animHelper: function(callback) {
+        console.log('animHelper triggered for view transitions!');
         // do stuff 
         console.log('Old View:');
         console.debug(oldView);
@@ -105,12 +107,12 @@ new(Backbone.Router.extend({
             _.delay(function() {
 
                 // slide out the current detail view
-                $(oldView.el).removeClass().addClass(oldView.transitionOut + ' animated')
+                $(oldView.el).addClass(oldView.transitionOut + ' animated')
                     .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',
                         function() {
                             // append();
 
-                            $(this).removeClass('is-visible ' + oldView.transitionOut + ' animated');
+                            $(this).removeClass(oldView.transitionOut + ' animated');
 
                             //append();
                         });
@@ -137,7 +139,7 @@ new(Backbone.Router.extend({
 
 }));
 ;;
-Handlebars.templates['home/index-empty'] = Handlebars.compile('<h1>Home Region view home/index is empty..</h1>');Handlebars.templates['home/index-item'] = Handlebars.compile('<li id=\"{{id}}\" class=\"table-view-cell media\">\n  <a href=\"#{{id}}\" class=\"navigate-right\">\n    <img class=\"media-object pull-left\" src=\"http://placehold.it/42x42\">\n    <div class=\"media-body\">\n      {{category.name}}\n      <p>{{subject}}</p>\n    </div>\n  </a>\n</li>');Handlebars.templates['home/index'] = Handlebars.compile('<div id=\"home\" class=\"page\">\n{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\" type=\"home-header\"}}\n  <a class=\"icon icon-gear pull-right\"></a>\n  <h1 class=\"title\">Vesel Framework</h1>\n{{/view}}\n\n<div class=\"content\" data-transition-in=\"{{transitionIn}}\" data-transition-out=\"{{transitionOut}}\">\n\t{{#collection item-view=\"AlertsItemView\" tag=\"ul\" class=\"table-view\" }}\n\t\t{{! Content from the list item (index-item) template auto-inserted here :) }}\n\t{{/collection}}\n</div>\n\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\" type=\"home-footer\"}}\n\t<a class=\"tab-item active\" href=\"#\">\n\t\t<span class=\"icon icon-home\"></span>\n\t\t<span class=\"tab-label\">Home</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#2\">\n\t\t<span class=\"icon icon-person\"></span>\n\t\t<span class=\"tab-label\">Profile</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#3\">\n\t\t<span class=\"icon icon-gear\"></span>\n\t\t<span class=\"tab-label\">Settings</span>\n\t</a>\n{{/view}}\n</div>\n\n<div id=\"detail\" class=\"page\" style=\"display:none\"></div>');// main collection view for the list and list items
+Handlebars.templates['home/index-empty'] = Handlebars.compile('<h1>Home Region view home/index is empty..</h1>');Handlebars.templates['home/index-item'] = Handlebars.compile('<li id=\"{{id}}\" class=\"table-view-cell media mbsc-lv-item\">\n  <a href=\"#{{id}}\" class=\"navigate-right\">\n    <img class=\"media-object pull-left\" src=\"http://placehold.it/42x42\">\n    <div class=\"media-body\">\n      {{category.name}}\n      <p>{{subject}}</p>\n    </div>\n  </a>\n</li>');Handlebars.templates['home/index'] = Handlebars.compile('{{!-- <div id=\"home\" class=\"page\"> --}}\n{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\" type=\"home-header\"}}\n  <a class=\"icon icon-gear pull-right\"></a>\n  <h1 class=\"title\">Vesel Framework</h1>\n{{/view}}\n\n<div class=\"content\" data-transition-in=\"{{transitionIn}}\" data-transition-out=\"{{transitionOut}}\">\n\t{{#collection item-view=\"AlertsItemView\" tag=\"ul\" class=\"table-view\" }}\n\t\t{{! Content from the list item (index-item) template auto-inserted here :) }}\n\t{{/collection}}\n</div>\n\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\" type=\"home-footer\"}}\n\t<a class=\"tab-item active\" href=\"#\">\n\t\t<span class=\"icon icon-home\"></span>\n\t\t<span class=\"tab-label\">Home</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#2\">\n\t\t<span class=\"icon icon-person\"></span>\n\t\t<span class=\"tab-label\">Profile</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#3\">\n\t\t<span class=\"icon icon-gear\"></span>\n\t\t<span class=\"tab-label\">Settings</span>\n\t</a>\n{{/view}}\n{{!-- </div> --}}\n\n{{!-- <div id=\"detail\" class=\"page\"></div> --}}');// main collection view for the list and list items
 Application.CollectionView.extend({
     name: "home/index",
     transitionIn: 'fadeIn',
@@ -223,6 +225,17 @@ Application.CollectionView.extend({
         'rendered:collection': function(collectionView, collection) {
             console.debug('Event *rendered:collection* triggered!');
 
+            collectionView.$("ul.table-view").mobiscroll().listview({
+                theme: 'ios7',
+                actions: [
+                    { icon: 'link', action: function (li, inst) { notify('Linked', inst.settings.context); } },
+                    { icon: 'star3', action: function (li, inst) { notify('Rated', inst.settings.context); } },
+                    { icon: 'tag', action: function (li, inst) { notify('Tagged', inst.settings.context); } },
+                    { icon: 'download', action: function (li, inst) { notify('Downloaded', inst.settings.context); } },
+                ]
+            });
+
+
             // collectionView.$("ul.table-view").mobiscroll().listview({
             //     stages: [{
             //         percent: -20,
@@ -285,6 +298,7 @@ Application.CollectionView.extend({
             //     collectionView.initOnce = false;
             //     collection.trigger('finished:render');
             // }
+            //collection.trigger('finished:render');
             return false;
         },
 
