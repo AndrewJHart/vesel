@@ -47,7 +47,7 @@ var AnimView = window.AnimView = Thorax.View.extend({
 
         var transitionIn = function() {
 
-            view.$el.addClass(view.animateIn + ' animated');
+            view.$el.show().addClass(view.animateIn + ' animated');
             view.$el.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd animationend', function() {
 
                 view.$el.removeClass(view.animateIn + ' animated');
@@ -72,7 +72,7 @@ var AnimView = window.AnimView = Thorax.View.extend({
         view.$el.addClass(view.animateOut + ' animated');
         view.$el.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd animationend', function() {
 
-            view.$el.removeClass(view.animateOut + ' animated');
+            view.$el.removeClass(view.animateOut + ' animated').hide();
 
             if (_.isFunction(callback)) {
                 callback(); // hard to track bug! He's binding to transitionend each time transitionOut called 
@@ -85,9 +85,8 @@ var AnimView = window.AnimView = Thorax.View.extend({
     }
 });
 
-// mixin the layout view to get some properties from it
-//_.extend(AnimView.prototype, Thorax.LayoutView.prototype);
 
+// define the base Application "root" view class
 var RootView = AnimView.extend({
 
     el: 'body',
@@ -121,7 +120,7 @@ var RootView = AnimView.extend({
 });
 
 
-// create our application
+// create our application root view instance
 var Application = window.Application = new RootView({
     name: 'root',
     el: 'body'

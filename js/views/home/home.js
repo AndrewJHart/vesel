@@ -2,7 +2,16 @@ Application.AnimView.extend({
     name: "home/home",
     animateIn: 'fadeIn',
     animateOut: 'iosFadeLeft',
-    view: new Application.Views["home/list"](),
+    collectionView: null,
+
+    initialize: function() {
+        this.collectionView = new Application.Views["home/list"]({
+            collection: this.collection
+        });
+
+        return this;
+
+    },
 
     onRender: function() {
         console.log('!HomePageView#onRender() triggered');
