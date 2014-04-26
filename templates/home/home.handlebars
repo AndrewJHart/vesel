@@ -1,12 +1,11 @@
+{{!-- Home View -- represents all the views that are needed to --}}
+{{!-- form the home "page" or "pane" (which has transitions) --}}
 {{#view "home/header" tag="header" className="bar bar-nav" type="home-header"}}
   <a class="icon icon-gear pull-right"></a>
   <h1 class="title">Vesel Framework</h1>
 {{/view}}
 
-<div class="content" data-transition-in="{{transitionIn}}" data-transition-out="{{transitionOut}}">
-	{{#collection tag="ul" class="table-view" }}
-		{{! Content from the list item (index-item) template auto-inserted here :) }}
-</div>
+{{view "home/list" tag="div" className="content"}}
 
 {{#view "home/footer" tag="nav" className="bar bar-tab" type="home-footer"}}
 	<a class="tab-item active" href="#">

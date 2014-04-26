@@ -9,73 +9,29 @@ new(Backbone.Router.extend({
 
         // get alerts collection on init since it persists
         //this.alerts = Application.Collection['alerts'] = new Application.Collections["home/alerts"]();
-        
 
-        return this;  // chaining
+
+        return this; // chaining
     },
 
     //-----------------
     // route handlers
 
     index: function(params) {
-        if (!this.alerts && !Application.Collection['alerts'])
+        if (!this.alerts)
             this.alerts = Application.Collection['alerts'] = new Application.Collections["home/alerts"]();
 
-        // if (!this.indexView) {
-        this.indexView = new Application.Views["home/index"]({
-            el: '#home',
-            className: 'page is-visible',
-            collection: this.alerts
-        });
-        // }
+        // only instantiate on the initial run
+        if (!this.indexView) {
 
-        // retain the main collection list view in memory
-        Application.retain(this.indexView);
-        //this.indexView.retain(Application);
+            this.indexView = new Application.Views["home/home"]({
+                el: '#home',
+                className: 'home page',
+                collection: this.alerts
+            });
+        }
 
-        // This is where we will do our transition work with callbacks
-        Application.setView(this.indexView);
-    },
-
-    detail: function(params) {
-        var self = this;
-
-        console.log('params sent to detail action from router are ' + params);
-
-        var model = Application.Collection['alerts'].get(params);
-        console.log('model properties from collection are:');
-        console.debug(model);
-
-        var view = new Application.Views["detail/index"]({
-            el: '#detail',
-            visible: false,
-            model: model
-        });
-        //view.appendTo('body'); // apend the view to the body or page2 now?
-
-
-        // swap views
-        Application.setView(view, {
-            transition: function(newView, oldView, append, remove, complete) {
-                append();
-
-                self.animHelper(function() {
-                    complete();
-                });
-            }
-        }); // closing setView(...)
-
-        // ****
-        // Create a single function that performs animation operations
-        // passed to it via params and then triggers callback so thorax
-        // can append/remove/complete() the cycle
-        // ****
-
-        // append();
-        // yourAnimation(function() {
-        //     remove();
-        //     complete();
-        // });
+        Application.goto(this.indexView);
     },
 
     //------------------

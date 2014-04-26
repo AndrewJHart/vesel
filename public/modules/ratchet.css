@@ -244,7 +244,7 @@ th {
  * Andrew Hart - MSCNS Web Team Bravo; Follow @andruwhart
  */
 
-body > div, section {
+body {
   position: fixed;
   top: 0;
   right: 0;

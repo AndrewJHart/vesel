@@ -49,8 +49,7 @@
         },
         "home": {
             "routes": {
-                "": "index",
-                ":id": "detail"
+                "": "index"
             },
             "scripts": [
                 "js/routers/home.js",
@@ -59,7 +58,9 @@
                 "js/views/home/footer.js",
                 "js/views/home/settings.js",
                 "js/collections/home/alerts.js",
-                "js/models/home/alert.js"
+                "js/models/home/alert.js",
+                "js/views/home/home.js",
+                "js/views/home/list.js"
             ],
             "styles": [
                 "stylesheets/home.css"
@@ -67,6 +68,7 @@
         },
         "detail": {
             "routes": {
+                ":id": "index"
             },
             "scripts": [
                 "js/routers/detail.js",
@@ -95,9 +97,9 @@
             "empty",
             "loading",
             "url"
-        ]//,
-        //"js/init.js": [
-            // "templates/layout.handlebars"
-        //]
+        ],
+        "js/init.js": [
+            "templates/root.handlebars"
+        ]
     }
 }

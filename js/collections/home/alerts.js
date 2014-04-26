@@ -1,17 +1,17 @@
 Application.Collection.extend({
-  name: "home/alerts",
+    name: "home/alerts",
 
-  url: "https://headsuphuntington.herokuapp.com/api/app/v1/alerts/",
-  urlRoot: "https://headsuphuntington.herokuapp.com/api/app/v1/alerts/",
+    url: "https://headsuphuntington.herokuapp.com/api/app/v1/alerts/",
+    urlRoot: 'https://headsuphuntington.herokuapp.com/api/app/v1/alerts/',
 
-  initialize: function() {
-  	console.debug("Alerts Collection initialize triggered.");
+    initialize: function() {
+        console.log("Alerts Collection initialize triggered.");
 
-  	// refactored to prevent duplicate fetching
-  	//this.fetch({ wait: true });
+        // refactored to prevent duplicate fetching
+        //this.fetch({ wait: true });
 
-  	return this;
-  }
+        return this;
+    }
 });
 
 // Instances of this collection can be created by calling:

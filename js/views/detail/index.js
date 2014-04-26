@@ -1,8 +1,8 @@
-Application.View.extend({
+Application.AnimView.extend({
     name: "detail/index",
-    transitionIn: "iosSlideInRight",
-    transitionOut: "slideOutRight",
-    visible: false,
+    className: 'detail',
+    animateIn: "iosSlideInRight",
+    animateOut: "slideOutRight",
 
     initialize: function() {
         console.debug('DetailRegion#index view (detail/index) initialization triggered!. Route worked');
@@ -16,29 +16,7 @@ Application.View.extend({
         console.log('What about context? :)');
         console.log(this.context());
 
-        if (this.visible) {
-            this.$el.addClass('is-visible');
-            console.log('Detail layout visible on initialize()');
-        } else {
-            this.$el.removeClass('is-visible');
-            console.log('Detail Layout hidden on initialize()');
-        }
-
         return this;
-    },
-
-    isVisible: function(state) {
-        if (state) {
-            console.debug('DetailLayout#index-view.isVisible triggered. state = ' + state);
-
-            this.visible = state;
-
-            return this.$el.css({
-                'display': state
-            });
-        }
-
-        return this.visible;
     }
 });
 

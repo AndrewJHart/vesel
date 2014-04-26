@@ -5,15 +5,15 @@
     <a href="" class="icon icon-gear pull-right"></a>
   	<h1 class="title">Details</h1>
 {{/view}}
-<div class="content" data-transition-in="{{transitionIn}}" data-transition-out="{{transitionOut}}">
+<div class="content">
 	<div class="content-padded">
-	  <h4>{{title}}</h4>
+	  <h4>{{subject}}</h4>
 
 	  <h6>{{#visible}} Visible: {{id}} {{/visible}}</h6>
 	  <p>Item {{id}} has a visible status of {{visible}}</p>
-	  <p>{{description}}</p>
+	  <p>{{information}}</p>
 	  <br>
-	  <small>{{extra}}</small>
+	  <small>{{category}}</small>
 	</div>
 </div>
 {{#view "detail/footer" tag="nav" className="bar bar-tab" type="detail-footer"}}

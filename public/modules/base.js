@@ -18965,10 +18965,9 @@ Thorax.CollectionView = Thorax.View.extend({
         }, this);
       }
       this.trigger('rendered:collection', this, this.collection);
-    } 
-    // else {
-    //   handleChangeFromNotEmptyToEmpty.call(this);
-    // }
+    } else {
+      handleChangeFromNotEmptyToEmpty.call(this);
+    }
   },
   emptyClass: 'empty',
   renderEmpty: function() {
@@ -20757,27 +20756,134 @@ if (module.exports.loader && module.exports.loader.map && window.Backbone) {
 
 ;;
 /* lumbar module map */
-module.exports.moduleMap({"base":{"css":{"href":"base.css"},"js":"base.js"},"modules":{"detail":{"css":{"href":"detail.css"},"js":"detail.js"},"home":{"css":{"href":"home.css"},"js":"home.js"}},"routes":{"":"home",":id":"home"}});
-// Create the Application object, Application.setView() will
+module.exports.moduleMap({"base":{"css":{"href":"base.css"},"js":"base.js"},"modules":{"detail":{"css":{"href":"detail.css"},"js":"detail.js"},"home":{"css":{"href":"home.css"},"js":"home.js"}},"routes":{"":"home",":id":"detail"}});
+Handlebars.templates['root'] = Handlebars.compile('{{! This template is used by the Application object created\n    created in init.js, calling Application.setView() will\n    place a view where layout-element is called below. }}\n\n\n\n  {{! \n  Using embedded layout from master layout-view we can render all dynamic\n  content within the proper div very easily! :) :) this is fun.  \n  }}\n\t{{!-- {{layout-element tag=\"div\" id=\"page-wrap\"}} --}}\n\n\t{{!-- <div id=\"page2\" style=\"display:none\"></div> --}}\n\n\t<aside id=\"settings\"></aside> \n\n\t<div id=\"home\"></div> \n\n\t<div id=\"detail\"></div>');// Create the Application object, Application.setView() will
 // place a view inside the {{layout-element}} in
 // templates/application.handlebars
-var AnimView = Thorax.View.extend({
+var AnimView = window.AnimView = Thorax.View.extend({
+
+    template: null,
+
     initialize: function() {
         console.debug('AnimView base class initialize triggered');
 
         return this;
+    },
+
+    // base render class that checks whether the the view is to be a 'page' 
+    // aka meant for transitions; This is somewhat of an anti-pattern in that 
+    // each view inheriting from this will have to trigger this render method 
+    // with a 'super' call. A better remedy is to provide a check for a method
+    // like onRender() and trigger it with correct context so that views which
+    // inherit from this can provide an onRender() method for any additional 
+    // rendering logic specific to that view. 
+    render: function(options) {
+
+        // as part of refactor, show the current instance of the view using render
+        console.debug('Render triggered for the ' + this.name + ' View with cid: ' + this.cid);
+
+        options = options || {};
+
+        if (options.page === true) {
+            this.$el.addClass('page');
+        }
+
+        // From comment above, refactoring to use onRender() instead of override
+        if (_.isFunction(this.onRender)) {
+            // trigger whatever current/caller view's onRender() method
+            this.onRender();
+        }
+
+        // call the parent render since we're overriding it in thorax
+        Thorax.View.prototype.render.apply(this, arguments);
+
+        return this;
+    },
+
+    transitionIn: function(callback) {
+
+        var view = this;
+
+        var transitionIn = function() {
+
+            view.$el.addClass(view.animateIn + ' animated');
+            view.$el.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd animationend', function() {
+
+                view.$el.removeClass(view.animateIn + ' animated');
+
+                if (_.isFunction(callback)) {
+                    callback();
+                    console.log('Callback triggered on transitionend for TransitionIn method');
+                }
+            });
+        };
+
+        // setting the page class' css to position: fixed; obviates the need
+        // for this and still allows transitions to work perfectly since pos
+        // is absolute during animation 
+        _.delay(transitionIn, 0);
+    },
+
+    transitionOut: function(callback) {
+
+        var view = this;
+
+        view.$el.addClass(view.animateOut + ' animated');
+        view.$el.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd animationend', function() {
+
+            view.$el.removeClass(view.animateOut + ' animated');
+
+            if (_.isFunction(callback)) {
+                callback(); // hard to track bug! He's binding to transitionend each time transitionOut called 
+                // resulting in the callback being triggered callback * num of times transitionOut
+                // has executed
+                console.log('Callback triggered on transitionend for TransitionOut method');
+            }
+        });
+
     }
 });
 
 // mixin the layout view to get some properties from it
-_.extend(AnimView.prototype, Thorax.LayoutView.prototype);
+//_.extend(AnimView.prototype, Thorax.LayoutView.prototype);
+
+var RootView = AnimView.extend({
+
+    el: 'body',
+    template: null,
+
+    goto: function(view) {
+
+        // cache the current view and the new view
+        var previous = this.currentPage || null;
+        var next = view;
+
+        if (previous) {
+            previous.transitionOut(function() {
+                // only remove the old view if its not the Home view
+                if (previous.$el.data('view-name') == 'home/home') {
+                    console.log('*******Previous view is Home; not removing for it should persist');
+                } else {
+                    // otherwise cleanup all other views since we dont want them to persist
+                    previous.remove();
+                }
+            });
+        }
+
+        next.render({
+            page: true
+        }); // render the next view
+        this.$el.append(next.$el); // append the next view to the body (the el for this root view)
+        next.transitionIn();
+        this.currentPage = next;
+    }
+});
 
 
 // create our application
-var Application = window.Application = new Thorax.LayoutView({
+var Application = window.Application = new RootView({
     name: 'root',
-
-    template: Handlebars.compile('<div id="home" class="page"></div> <div id="detail" class="page"></div>')
+    el: 'body'
 });
 
 // Alias the special hashes for naming consistency
@@ -20830,6 +20936,10 @@ Application.View = Thorax.View.extend({
 });
 
 Application.CollectionView = Thorax.CollectionView.extend({
+
+});
+
+Application.AnimView = window.AnimView.extend({
 
 });
 ;;

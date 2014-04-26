@@ -18,67 +18,38 @@ Application.CollectionView.extend({
                 collection = options.target.collection;
             } else {
                 alert('error');
-                return;
+                return false;
             }
 
             // create the nice listview stuffs
             collectionView.$("ul.table-view").mobiscroll().listview({
-                stages: [{
-                    percent: -20,
-                    color: 'red',
-                    icon: 'remove',
-                    text: 'Remove',
-                    action: function(li, inst, index) {
-                        // get the model id  (params) from DOM
-                        var model = null,
-                            domModel = null,
-                            params = $(li).attr('id');
-
-                        console.log('***TESTING $.model vs selector of id..(long way)');
-
-                        domModel = collectionView.$(li).model();
-
-                        // (for readability) see model come
-                        model = collection.get(params);
-
-                        if (model === domModel) {
-                            // log it
-                            console.debug('*MODELS ARE THE SAME! NEAT!');
-                        } else {
-                            console.debug("*MODELS ARE NOT THE SAME?");
-                            console.log(model);
-                            console.log(domModel);
-                        }
-
-                        // prior to remove
-                        console.log('Removing li ' + li + ' with model id ' + params);
-
-                        // see list item go
-                        //inst.remove(li);
-
-                        // see model go
-                        collection.remove(model); // should trigger re-render
-
-                        // see spot log
-                        console.debug('Removed model: ' + model.toJSON() + ' from collection');
-
-                        return false;
+                theme: 'ios7',
+                actions: [{
+                    icon: 'link',
+                    action: function(li, inst) {
+                        notify('Linked', inst.settings.context);
                     }
                 }, {
-                    percent: 20,
-                    color: 'green',
-                    icon: 'tag',
-                    text: 'Tag',
-                    action: function(li, inst, index) {
-                        console.debug('Tagged that Motherfucker!');
-
-                        return false;
+                    icon: 'star3',
+                    action: function(li, inst) {
+                        notify('Rated', inst.settings.context);
                     }
-                }],
-                theme: 'ios7'
+                }, {
+                    icon: 'tag',
+                    action: function(li, inst) {
+                        notify('Tagged', inst.settings.context);
+                    }
+                }, {
+                    icon: 'download',
+                    action: function(li, inst) {
+                        notify('Downloaded', inst.settings.context);
+                    }
+                }, ]
             });
 
-            collection.trigger("finished:render");
+            collectionView.ensureRendered();
+
+            return false;
         },
 
         'rendered:collection': function(collectionView, collection) {
@@ -86,12 +57,27 @@ Application.CollectionView.extend({
 
             collectionView.$("ul.table-view").mobiscroll().listview({
                 theme: 'ios7',
-                actions: [
-                    { icon: 'link', action: function (li, inst) { notify('Linked', inst.settings.context); } },
-                    { icon: 'star3', action: function (li, inst) { notify('Rated', inst.settings.context); } },
-                    { icon: 'tag', action: function (li, inst) { notify('Tagged', inst.settings.context); } },
-                    { icon: 'download', action: function (li, inst) { notify('Downloaded', inst.settings.context); } },
-                ]
+                actions: [{
+                    icon: 'link',
+                    action: function(li, inst) {
+                        notify('Linked', inst.settings.context);
+                    }
+                }, {
+                    icon: 'star3',
+                    action: function(li, inst) {
+                        notify('Rated', inst.settings.context);
+                    }
+                }, {
+                    icon: 'tag',
+                    action: function(li, inst) {
+                        notify('Tagged', inst.settings.context);
+                    }
+                }, {
+                    icon: 'download',
+                    action: function(li, inst) {
+                        notify('Downloaded', inst.settings.context);
+                    }
+                }, ]
             });
 
 
@@ -163,19 +149,16 @@ Application.CollectionView.extend({
 
         // nested collection listeners
         collection: {
-            'change': function() {
-                console.debug('CollectionView::collection::change triggered');
-            },
-            'remove': function() {
-                console.debug('CollecitonView::collection::remove Triggered');
-
-                // this refers to the view :) :)  very handy..
-                this.render();
-            },
             'finished:render': function() {
                 console.debug('***Finished Rendering event triggered successfully');
 
                 this.render();
+            },
+            'rendered': function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+                console.debug('**CollectionView::collection::rendered event triggered');
+                return false;
             }
         }
     }
