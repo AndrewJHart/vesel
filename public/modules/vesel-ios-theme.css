@@ -15,8 +15,8 @@
   }
 
   100% { 
-    -webkit-transform: translateX(-25%); 
-            transform: translateX(-25%);
+    -webkit-transform: translateX(-250px); 
+            transform: translateX(-250px);
     opacity: 0.9; 
   }
 }
@@ -29,9 +29,8 @@
   }
   
   100% { 
-    -webkit-transform: translateX(-150px); 
-            transform: translateX(-150px);
-    background-color: 000;
+    -webkit-transform: translateX(-250px); 
+            transform: translateX(-250px);
     opacity: 0.9; 
   }
 }
@@ -39,8 +38,8 @@
 .iosFadeLeft {
   -webkit-animation-name: iosFadeLeft;
           animation-name: iosFadeLeft;
-  -webkit-animation-duration: .4s;
-          animation-duration: .4s;
+  -webkit-animation-duration: .5s;
+          animation-duration: .5s;
   -webkit-animation-timing-function: cubic-bezier(.1, .7, .1, 1);
           animation-timing-function: cubic-bezier(.1, .7, .1, 1);
 }
@@ -90,7 +89,7 @@
 
 .contentMask {
 	width: 100%;
-	position: absolute;
+	position: fixed;
 	top: 0;
 	bottom: 0;
 	background-color: rgb(255, 255, 255);
@@ -100,7 +99,7 @@
 
 
 .page {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
@@ -112,4 +111,12 @@
   /* scrolling */
   overflow-y: scroll; /* has to be scroll */
   -webkit-overflow-scrolling: touch;
+}
+.page.right {
+  -webkit-transform: translate3d(100%, 0, 0);
+          transform: translate3d(100%, 0, 0);
+}
+.page.left {
+  -webkit-transform: translate3d(-100%, 0, 0);
+          transform: translate3d(-100%, 0, 0);
 }

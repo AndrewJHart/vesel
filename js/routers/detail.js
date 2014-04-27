@@ -12,10 +12,12 @@ new(Backbone.Router.extend({
         console.debug(model);
 
         var view = new Application.Views["detail/index"]({
-            el: '#detail',
+            className: 'detail right',
             model: model
         });
 
-        Application.goto(view);
+        Application.goto(view, {
+            remove: 'right'
+        });
     }
 }));

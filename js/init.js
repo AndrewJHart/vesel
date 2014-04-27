@@ -41,13 +41,17 @@ var AnimView = window.AnimView = Thorax.View.extend({
         return this;
     },
 
-    transitionIn: function(callback) {
+    transitionIn: function(options, callback) {
+        var view = this,
+            remove = '',
+            add = '';
 
-        var view = this;
+        if (options.remove)
+            remove = options.remove;
 
         var transitionIn = function() {
 
-            view.$el.show().addClass(view.animateIn + ' animated');
+            view.$el.removeClass(remove).show().addClass(view.animateIn + ' animated');
             view.$el.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd animationend', function() {
 
                 view.$el.removeClass(view.animateIn + ' animated');
@@ -65,7 +69,7 @@ var AnimView = window.AnimView = Thorax.View.extend({
         _.delay(transitionIn, 0);
     },
 
-    transitionOut: function(callback) {
+    transitionOut: function(options, callback) {
 
         var view = this;
 
@@ -92,14 +96,15 @@ var RootView = AnimView.extend({
     el: 'body',
     template: null,
 
-    goto: function(view) {
+    goto: function(view, options) {
+        var options = options || {};
 
         // cache the current view and the new view
         var previous = this.currentPage || null;
         var next = view;
 
         if (previous) {
-            previous.transitionOut(function() {
+            previous.transitionOut(options, function() {
                 // only remove the old view if its not the Home view
                 if (previous.$el.data('view-name') == 'home/home') {
                     console.log('*******Previous view is Home; not removing for it should persist');
@@ -114,7 +119,7 @@ var RootView = AnimView.extend({
             page: true
         }); // render the next view
         this.$el.append(next.$el); // append the next view to the body (the el for this root view)
-        next.transitionIn();
+        next.transitionIn(options);
         this.currentPage = next;
     }
 });
