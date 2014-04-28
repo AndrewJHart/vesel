@@ -124,10 +124,32 @@ Add the method `maplist` to it:
     }));
 ```
 
-You can see that the syntax for generate `generate:view:moduleName/viewName' equates to `folder/filename`. Each folder becomes it own module during a build, allowing for separation of concerns and 
+You can see that the syntax `generate:view:moduleName/viewName` equates to `folder/filename`. Each folder becomes it own module during a build, allowing for separation of concerns and 
 doing cool things like using multiple `Backbone.Router`'s to control different routing by modules. 
 
 ----
+
+If you want the view to animate you must add 2 properties onto the view definition or module. 
+
+Open `js/views/home/map.js` and change it to look like this: 
+
+```javascript
+
+  Application.View.extend({
+    name: "home/map",
+    
+    // add class names we need
+    className: 'map left',
+
+    // add the animate in and out classes
+    animateIn: 'fadeIn',
+    animateOut: 'fadeOut'
+});
+
+// Instances of this view can be created by calling:
+// new Application.Views["home/map"]()
+
+```
 
 Create an instance of your new `map` view that was defined in `js/views/home/map.js`
 
@@ -142,7 +164,7 @@ or with properties passed to the view like so:
       foo: 'bar'
   });`
 
-  > The `Application` object serves as our root view and has its element `el` attached directly to the **body** of the document. It is an instance of `RootView` which is meant to display one page at at time - with each page containing as many views as needed e.g. header, content, footer in the home page view. 
+  > The `Application` object serves as our root view and has its element `el` attached directly to the **body** of the document. It is an instance of `RootView` which is meant to display one page at at time - with each page containing as many views as needed e.g. header, content, footer in the home page view. (This is similar to the Thorax.LayoutView except cooler)
 
 
 Back to our router, add this code to create the map view.
@@ -163,6 +185,13 @@ Back to our router, add this code to create the map view.
     }
 
 ```
+
+Add some markup to your handlebars template in `templates/home/map.handlebars` -- whatever you want for now.
+
+Thats it. Navigate to that route and it will animate your view in and load whatever you have in your handlebars `template`.
+
+
+Everything else below is documentation on the Thorax seed and info regarding helpers, etc..
 
 
 
