@@ -1,25 +1,29 @@
-Thorax Seed
-===========
+Vesel Framework
+===============
 
-The [Thorax Seed](https://github.com/walmartlabs/thorax-seed) contains a blank [Thorax](http://thoraxjs.org/) + [Lumbar](http://walmartlabs.github.com/lumbar) project that you can download and clone to start building your app.
+[Vesel](https://github.com/AndrewJHart/vesel) is work in progress framework for building Single
+Page Applications that are designed for mobile devices with transitions and animations baked into
+the core (see AnimView). 
 
-**To report issues or submit pull requests on Thorax itself visit the [core library repository](https://github.com/walmartlabs/thorax).**
+Vesel is currently a part of a project and a work-in-progress framework. Internally this is the base javascript project for the Heads Up webapp, but once its complete plans are to open source this to make everyones lives easier. Vesel is currently a combination of [Thorax](http://thoraxjs.org/) + [Lumbar](http://walmartlabs.github.com/lumbar).
 
-From Zero to Todos
+
+From Zero to Hero
 ------------------
-The **[Thorax intro screencast](https://vimeo.com/60230630)** demonstrates how to build a simple todo list in a few minutes. It also shows the optional [Thorax Inspector Chrome Extension](https://chrome.google.com/webstore/detail/thorax-inspector/poioalbefcopgeaeaadelomciijaondk?hl=en-US). To start from scratch and build your own you'll need [git](http://git-scm.com/) and [Node](http://nodejs.org) installed on your system. You'll then need to download or clone this repository:
 
-    git clone git://github.com/walmartlabs/thorax-seed.git
+    git clone git://github.com/AndrewJHart/vesel
 
 Once your clone is complete, change directories into your cloned seed and run:
 
     npm install
 
-This may take a minute. Note that all of the dependencies are specific to making it easier to build, run and test your app. Once your app is written it can be deployed in any environment. Once `npm install` is finished you can start your app:
+This may take a minute. Note that all of the dependencies are specific to making it easier to build, run and test your app. Once your app is written it can be deployed in any environment. Once `npm install` is finished you can start your app: 
+
+  > Note: There is an issue with the npm registry live-reload package so if you run into issues try installing thorax-inspector separately `npm install thorax-inspector` and then run `npm start` or `grunt` -- This does **not** effect scaffolding :)
 
     npm start
 
-Your project is ready to run and a browser window will be opened with the running app. You'll see that nothing at all is there since it's a blank project.
+A new window will open in your default browser with some stuff.
 
 File Structure
 --------------
@@ -51,19 +55,94 @@ Once you've got that installed you can run any of the following commands:
 - `grunt generate:router:moduleName`
 - `grunt generate:stylesheet:moduleName`
 
-To generate your first view run:
+To generate your first view we can run the generate command to simplify the process. Since we 
+dont have a map view yet on this repo, you can run this command to create the map "list" view for home:
 
-    grunt generate:view:todos/index
+    grunt generate:view:home/map
 
 In addition to modifying `lumbar.json` a number of files will be created:
 
-- `js/views/todos/index.js`
-- `templates/todos/index.handlebars`
+- `js/views/home/map.js`
+- `templates/home/map.handlebars`
 
-It will also initialize a `todos` module since it doesn't exist yet. This will in turn create:
+Your view will be defined in the `/views/home/map.js` file and its template will be availbale in the 
+`templates/home/map.handlebars` file. 
 
-- `js/routers/todos.js`
-- `stylesheets/todos.css`
+
+Routes and Animating Views
+--------------------------
+
+Running the generator creates the module you pass to it, e.g. the map view, but it does not define the route or the router method to trigger your new map view. We need to **add a route to tell our app to open the map view**.
+
+Open the `lumbar.json` file on the root path and look at the modules. Since we added the map view to a module named `home`, lumbar will create a `key:value` pair in the JSON config with a keyname of `"home"` (look near or around **line 50** for the key). It should look something like this: 
+
+```json
+
+  "home": {
+      "routes": {
+          "": "index",
+          "settings": "settings"
+      },
+      "scripts": [
+          "js/routers/home.js",
+          "js/views/home/header.js",
+          "js/views/home/footer.js",
+          "js/views/home/settings.js",
+          "js/collections/home/alerts.js",
+          "js/models/home/alert.js",
+          "js/views/home/home.js",
+          "js/views/home/list.js"
+      ],
+      "styles": [
+          "stylesheets/home.css"
+      ]
+  },
+
+```
+
+Add an extra route, something like so: 
+
+```json
+
+  "home": {
+      "routes": {
+        "": "index",
+        "settings": "settings",
+        "map/list": "mapList"
+      }
+  }
+
+```
+
+Now any link that navigates to a url like `http://localhost:8000/#map/list` will trigger the new route. 
+
+Now lets make the route do something when get its triggered by adding a handler in `js/routers/home.js`
+Add the method `maplist` to it:
+
+```javascript
+
+    // home module router
+    new (Backbone.Router.extend({
+      routes: module.routes,
+      index: function() {
+        // snipped code for index view
+      },
+
+      settings: function(params) {
+        // snipped code for settings view
+      },
+
+      // new handler for main map list view route
+      mapList: function(params) {
+        // we will create our new view here
+      }
+
+    }));
+```
+
+You can see that the syntax for generate `generate:view:moduleName/viewName' equates to `folder/filename`. Each folder becomes it own module during a build, allowing for separation of concerns and 
+doing cool things like using multiple `Backbone.Router`'s to control different routing by modules. 
+
 
 Modules and lumbar.json
 -----------------------
