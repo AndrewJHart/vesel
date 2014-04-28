@@ -83,24 +83,12 @@ Open the `lumbar.json` file on the root path and look at the modules. Since we a
           "": "index",
           "settings": "settings"
       },
-      "scripts": [
-          "js/routers/home.js",
-          "js/views/home/header.js",
-          "js/views/home/footer.js",
-          "js/views/home/settings.js",
-          "js/collections/home/alerts.js",
-          "js/models/home/alert.js",
-          "js/views/home/home.js",
-          "js/views/home/list.js"
-      ],
-      "styles": [
-          "stylesheets/home.css"
-      ]
-  },
+      // rest snipped for brevity
+  }
 
 ```
 
-Add an extra route, something like so: 
+Add an extra route to `"routes"` key, something like so: 
 
 ```json
 
