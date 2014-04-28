@@ -6,45 +6,20 @@ Application.CollectionView.extend({
 
     events: {
         'ready': function(options) {
-            var collectionView,
-                collection;
+            var collection = null,
+                collectionView = null;
 
-            console.debug('**Logging options for ready event on collectionView');
-            console.log(options);
+            console.log('******************** Nested CollectionView home/list event ready was triggered!');
 
             // check that options are legit
             if (options.target) {
+                console.debug('**Logging options for ready event on collectionView');
+                console.log(options);
                 collectionView = options.target;
-                collection = options.target.collection;
+
+                if (options.target.collection)
+                    collection = options.target.collection;
             }
-
-            // create the nice listview stuffs
-            // collectionView.$el.mobiscroll().listview({
-            //     theme: 'ios7',
-            //     actions: [{
-            //         icon: 'link',
-            //         action: function(li, inst) {
-            //             notify('Linked', inst.settings.context);
-            //         }
-            //     }, {
-            //         icon: 'star3',
-            //         action: function(li, inst) {
-            //             notify('Rated', inst.settings.context);
-            //         }
-            //     }, {
-            //         icon: 'tag',
-            //         action: function(li, inst) {
-            //             notify('Tagged', inst.settings.context);
-            //         }
-            //     }, {
-            //         icon: 'download',
-            //         action: function(li, inst) {
-            //             notify('Downloaded', inst.settings.context);
-            //         }
-            //     }, ]
-            // });
-
-            //collectionView.ensureRendered();
 
             return false;
         },
@@ -52,11 +27,9 @@ Application.CollectionView.extend({
         'rendered:collection': function(collectionView, collection) {
             console.debug('Event *rendered:collection* triggered!');
 
-            // try delaying this?
+            // refactoring this may work without the delay call...
             _.delay(function() {
-                //if (!window.initOnce) {
-                //  window.initOnce = true;
-
+                // initialize the mobiscroll listview plugin
                 collectionView.$('ul').mobiscroll().listview({
                     theme: 'ios7',
                     swipe: 'right',
@@ -84,7 +57,6 @@ Application.CollectionView.extend({
                         }, ]
                     }
                 });
-                // }
             }, 0);
 
             return false;
@@ -92,8 +64,8 @@ Application.CollectionView.extend({
 
         // nested collection listeners
         collection: {
-            'render': function() {
-                console.debug('***Finished Rendering event triggered successfully');
+            'vesel:rendered': function() {
+                console.log('Special vesel:rendered event triggered on the alerts collection');
 
                 this.ensureRendered();
             },

@@ -20,6 +20,8 @@ new(Backbone.Router.extend({
             });
         }
 
-        Application.goto(this.indexView);
+        Application.goto(this.indexView, {
+            page: true
+        });
     }
 }));

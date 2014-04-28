@@ -9,14 +9,20 @@ Application.AnimView.extend({
             collection: this.collection
         });
 
-        return this;
-
+        return this; // allow chaining
     },
 
-    onRender: function() {
-        console.log('!HomePageView#onRender() triggered');
+    // Perfect for a unit test that the home view should have onRender()
+    beforeRender: function() {
+        console.debug('!Home page-view AnimView::beforeRender() triggered');
 
-        return this;
+        return this; // allow chaining
+    },
+
+    afterRender: function() {
+        console.debug('!Home page-view AnimView::afterRendered() triggered');
+
+        return this; // allow chaining
     }
 });
 
