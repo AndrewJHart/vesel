@@ -69,8 +69,8 @@ Your view will be defined in the `/views/home/map.js` file and its template will
 `templates/home/map.handlebars` file. 
 
 
-Routes and Animating Views
---------------------------
+Routes and Animating Views with Vesel
+-------------------------------------
 
 Running the generator creates the module you pass to it, e.g. the map view, but it does not define the route or the router method to trigger your new map view. We need to **add a route to tell our app to open the map view**.
 
@@ -82,8 +82,7 @@ Open the `lumbar.json` file on the root path and look at the modules. Since we a
       "routes": {
           "": "index",
           "settings": "settings"
-      },
-      // rest snipped for brevity
+      }
   }
 
 ```
@@ -102,7 +101,7 @@ Add an extra route to `"routes"` key, something like so:
 
 ```
 
-Now any link that navigates to a url like `http://localhost:8000/#map/list` will trigger the new route. 
+When a link that navigates to a url like `http://localhost:8000/#map/list` will trigger a match and the new route will dispatch the `mapList` method. 
 
 Now lets make the route do something when get its triggered by adding a handler in `js/routers/home.js`
 Add the method `maplist` to it:
@@ -116,9 +115,6 @@ Add the method `maplist` to it:
         // snipped code for index view
       },
 
-      settings: function(params) {
-        // snipped code for settings view
-      },
 
       // new handler for main map list view route
       mapList: function(params) {
@@ -130,6 +126,44 @@ Add the method `maplist` to it:
 
 You can see that the syntax for generate `generate:view:moduleName/viewName' equates to `folder/filename`. Each folder becomes it own module during a build, allowing for separation of concerns and 
 doing cool things like using multiple `Backbone.Router`'s to control different routing by modules. 
+
+----
+
+Create an instance of your new `map` view that was defined in `js/views/home/map.js`
+
+You can access all objects by their name through the **root** view object named Application. Thus, we can create the new view like this: 
+
+  `new Application.Views["home/map"]();`
+
+or with properties passed to the view like so:
+
+  `new Application.Views["home/map"]({
+      className: 'map list ...',
+      foo: 'bar'
+  });`
+
+  > The `Application` object serves as our root view and has its element `el` attached directly to the **body** of the document. It is an instance of `RootView` which is meant to display one page at at time - with each page containing as many views as needed e.g. header, content, footer in the home page view. 
+
+
+Back to our router, add this code to create the map view.
+
+```javascript
+
+    mapList: function(params) {
+      
+      // create the map view
+      var view = new Application.Views["home/map"]({
+        className: 'map left'
+      });
+
+      // tell our root view to animate to it by calling goto and passing page: "true"
+      Application.goto(view, {
+        page: true
+      });
+    }
+
+```
+
 
 
 Modules and lumbar.json
