@@ -1,6 +1,9 @@
 Application.View.extend({
     name: "home/settings",
     type: null,
+    className: 'settings left',
+    animateIn: 'fadeIn',
+    animateOut: 'fadeOut',
 
     initialize: function() {
         console.log('HomeRegion#settings view init triggered!');

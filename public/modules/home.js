@@ -6,7 +6,7 @@ vesel['home'] = (function() {
 
   /* router : home */
 module.name = "home";
-module.routes = {"":"index"};
+module.routes = {"":"index","settings":"settings"};
 new(Backbone.Router.extend({
     routes: module.routes,
     alerts: null,
@@ -16,12 +16,13 @@ new(Backbone.Router.extend({
     // route handlers
 
     index: function(params) {
+        // only instantiate the alerts collection once
         if (!this.alerts)
             this.alerts = Application.Collection['alerts'] = new Application.Collections["home/alerts"]();
 
         // only instantiate on the initial run
         if (!this.indexView) {
-
+            // create an instance of the home page-view (AnimView)
             this.indexView = new Application.Views["home/home"]({
                 el: '#home',
                 className: 'home page',
@@ -29,8 +30,28 @@ new(Backbone.Router.extend({
             });
         }
 
+        // Tell the root view to render the view and render it as a page w/ animations
         Application.goto(this.indexView, {
             page: true
+        });
+    },
+
+    settings: function(params) {
+
+        console.debug('*****SETTINGS ROUTE TRIGGERED');
+        
+        var settingsView = new Application.Views["home/settings"]({
+            className: 'settings left'
+        });
+
+        Application.goto(settingsView, {
+            page: true,
+            toggleIn: 'left'
+        });
+
+        Application.goto(pageView, {
+            page: true, // this is its own page/pane so tell app to animate it
+            toggleIn: 'right' // remove the class right before animating
         });
     }
 }));
@@ -68,6 +89,9 @@ Application.View.extend({
 Handlebars.templates['home/settings'] = Handlebars.compile('<ul class=\"table-view\">\n  <li class=\"table-view-cell\">\n    Item 1\n    <div class=\"toggle\">\n      <div class=\"toggle-handle\"></div>\n    </div>\n  </li>\n  <li class=\"table-view-cell\">\n    Item 2\n    <div class=\"toggle active\">\n      <div class=\"toggle-handle\"></div>\n    </div>\n  </li>\n  <li class=\"table-view-cell table-view-divider\">Categories</li>\n  <li class=\"table-view-cell\">\n    Item 3\n    <div class=\"toggle\">\n      <div class=\"toggle-handle\"></div>\n    </div>\n  </li>\n</ul>');Application.View.extend({
     name: "home/settings",
     type: null,
+    className: 'settings left',
+    animateIn: 'fadeIn',
+    animateOut: 'fadeOut',
 
     initialize: function() {
         console.log('HomeRegion#settings view init triggered!');
@@ -105,7 +129,7 @@ Application.Model.extend({
 // Instances of this model can be created by calling:
 // new Application.Models["home/alert"]()
 ;;
-Handlebars.templates['home/home'] = Handlebars.compile('{{!-- Home View -- represents all the views that are needed to --}}\n{{!-- form the home \"page\" or \"pane\" (which has transitions) --}}\n{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\" type=\"home-header\"}}\n  <a class=\"icon icon-gear pull-right\"></a>\n  <h1 class=\"title\">Vesel Framework</h1>\n{{/view}}\n\n{{view collectionView}}\n\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\" type=\"home-footer\"}}\n\t<a class=\"tab-item active\" href=\"#\">\n\t\t<span class=\"icon icon-home\"></span>\n\t\t<span class=\"tab-label\">Home</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#2\">\n\t\t<span class=\"icon icon-person\"></span>\n\t\t<span class=\"tab-label\">Profile</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#3\">\n\t\t<span class=\"icon icon-gear\"></span>\n\t\t<span class=\"tab-label\">Settings</span>\n\t</a>\n{{/view}}');Application.AnimView.extend({
+Handlebars.templates['home/home'] = Handlebars.compile('{{!-- Home View -- represents all the views that are needed to --}}\n{{!-- form the home \"page\" or \"pane\" (which has transitions) --}}\n{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\" type=\"home-header\"}}\n  <a href=\"#settings\" class=\"icon icon-gear pull-right\"></a>\n  <h1 class=\"title\">Vesel Framework</h1>\n{{/view}}\n\n{{view collectionView}}\n\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\" type=\"home-footer\"}}\n\t<a class=\"tab-item active\" href=\"#\">\n\t\t<span class=\"icon icon-home\"></span>\n\t\t<span class=\"tab-label\">Home</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#2\">\n\t\t<span class=\"icon icon-person\"></span>\n\t\t<span class=\"tab-label\">Profile</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#3\">\n\t\t<span class=\"icon icon-gear\"></span>\n\t\t<span class=\"tab-label\">Settings</span>\n\t</a>\n{{/view}}');Application.AnimView.extend({
     name: "home/home",
     animateIn: 'fadeIn',
     animateOut: 'iosFadeLeft',
