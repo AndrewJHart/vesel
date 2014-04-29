@@ -31,22 +31,16 @@ var AnimView = window.AnimView = Thorax.View.extend({
         // NOTE: safe option is using a closure and triggering render() as 
         // NOTE: a callback too the``` beforeRender method..
 
+
         // BeforeRender Hook for users (devs) to handle special cases like jQuery
         // plugin instantiation, etc.. before the view & template are rendered
         if (_.isFunction(this.beforeRender)) {
             // trigger whatever current/caller view's beforeRender() method
             this.beforeRender();
-            console.debug('*!*!*! Thorax.View rendering taking over!*!* for view ' + this.name);
-            Thorax.View.prototype.render.apply(this, arguments);
-
-            // this.beforeRender(function(ctx, arguments) {
-            //     console.debug('*!*!*! Thorax.View rendering taking over!*!* for view '+ctx.name);
-            //     Thorax.View.prototype.render.apply(ctx, arguments);
-            // }(this, arguments));
-        } else {
-            // call the parent render since we're overriding it in thorax
-            Thorax.View.prototype.render.apply(this, arguments);
         }
+        // call the parent render since we're overriding it in thorax
+        console.debug('*!*!*! Thorax.View rendering taking over!*!* for view ' + this.name);
+        Thorax.View.prototype.render.apply(this, arguments);
 
         // Trigger any additional or special rendering a user may require
         if (_.isFunction(this.afterRender)) {
@@ -136,8 +130,11 @@ var RootView = AnimView.extend({
                      */
 
                     // only remove the old view if its not the Home view
-                    if (previous.$el.data('view-name') == 'home/home') {
-                        console.log('*******Previous view is Home; not removing for it should persist');
+                    if (previous.$el.data('view-name') == 'home/home' ||
+                        previous.$el.attr('data-view-persist') == 'true') {
+
+                        // this view does not get removed
+                        console.debug('*Previous view ' + previous.name + ' has data-view-persist="true" and will not be removed from the DOM');
                     } else {
                         // allow user to cleanup actions pre-removal w/ this hook
                         if (_.isFunction(previous.beforeRemove)) {

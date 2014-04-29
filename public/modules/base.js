@@ -20783,8 +20783,8 @@ if (module.exports.loader && module.exports.loader.map && window.Backbone) {
 
 ;;
 /* lumbar module map */
-module.exports.moduleMap({"base":{"css":{"href":"base.css"},"js":"base.js"},"modules":{"detail":{"css":{"href":"detail.css"},"js":"detail.js"},"home":{"css":{"href":"home.css"},"js":"home.js"}},"routes":{"":"home",":id":"detail","settings":"home"}});
-Handlebars.templates['root'] = Handlebars.compile('{{! This template is used by the Application object created\n    created in init.js, calling Application.setView() will\n    place a view where layout-element is called below. }}\n\n\n\n  {{! \n  Using embedded layout from master layout-view we can render all dynamic\n  content within the proper div very easily! :) :) this is fun.  \n  }}\n\t{{!-- {{layout-element tag=\"div\" id=\"page-wrap\"}} --}}\n\n\t{{!-- <div id=\"page2\" style=\"display:none\"></div> --}}\n\n\t<aside id=\"settings\"></aside> \n\n\t<div id=\"home\"></div>');// Create the Application object, Application.setView() will
+module.exports.moduleMap({"base":{"css":{"href":"base.css"},"js":"base.js"},"modules":{"detail":{"css":{"href":"detail.css"},"js":"detail.js"},"home":{"css":{"href":"home.css"},"js":"home.js"}},"routes":{"":"home","detail/:id":"detail","settings":"home"}});
+Handlebars.templates['root'] = Handlebars.compile('{{! This template is used by the Application object created\n    created in init.js, calling Application.setView() will\n    place a view where layout-element is called below. }}\n\n\n\n  {{! \n  Using embedded layout from master layout-view we can render all dynamic\n  content within the proper div very easily! :) :) this is fun.  \n  }}\n\t{{!-- {{layout-element tag=\"div\" id=\"page-wrap\"}} --}}\n\n\t{{!-- <div id=\"page2\" style=\"display:none\"></div> --}}\n\n\t{{!-- <aside id=\"settings\"></aside>  --}}\n\n\t<div id=\"home\"></div>');// Create the Application object, Application.setView() will
 // place a view inside the {{layout-element}} in
 // templates/application.handlebars
 var AnimView = window.AnimView = Thorax.View.extend({
@@ -20817,22 +20817,16 @@ var AnimView = window.AnimView = Thorax.View.extend({
         // NOTE: safe option is using a closure and triggering render() as 
         // NOTE: a callback too the``` beforeRender method..
 
+
         // BeforeRender Hook for users (devs) to handle special cases like jQuery
         // plugin instantiation, etc.. before the view & template are rendered
         if (_.isFunction(this.beforeRender)) {
             // trigger whatever current/caller view's beforeRender() method
             this.beforeRender();
-            console.debug('*!*!*! Thorax.View rendering taking over!*!* for view ' + this.name);
-            Thorax.View.prototype.render.apply(this, arguments);
-
-            // this.beforeRender(function(ctx, arguments) {
-            //     console.debug('*!*!*! Thorax.View rendering taking over!*!* for view '+ctx.name);
-            //     Thorax.View.prototype.render.apply(ctx, arguments);
-            // }(this, arguments));
-        } else {
-            // call the parent render since we're overriding it in thorax
-            Thorax.View.prototype.render.apply(this, arguments);
         }
+        // call the parent render since we're overriding it in thorax
+        console.debug('*!*!*! Thorax.View rendering taking over!*!* for view ' + this.name);
+        Thorax.View.prototype.render.apply(this, arguments);
 
         // Trigger any additional or special rendering a user may require
         if (_.isFunction(this.afterRender)) {
@@ -20922,8 +20916,11 @@ var RootView = AnimView.extend({
                      */
 
                     // only remove the old view if its not the Home view
-                    if (previous.$el.data('view-name') == 'home/home') {
-                        console.log('*******Previous view is Home; not removing for it should persist');
+                    if (previous.$el.data('view-name') == 'home/home' ||
+                        previous.$el.attr('data-view-persist') == 'true') {
+
+                        // this view does not get removed
+                        console.debug('*Previous view ' + previous.name + ' has data-view-persist="true" and will not be removed from the DOM');
                     } else {
                         // allow user to cleanup actions pre-removal w/ this hook
                         if (_.isFunction(previous.beforeRemove)) {

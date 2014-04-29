@@ -29,15 +29,16 @@ new(Backbone.Router.extend({
 
     settings: function(params) {
 
-        console.debug('*****SETTINGS ROUTE TRIGGERED');
-        
+        // create settings view
         var settingsView = new Application.Views["home/settings"]({
-            className: 'settings left'
+            //el: 'aside#settings', // stick this to the aside element in the DOM
+            className: 'settings page right'
         });
 
+        // show the settings view
         Application.goto(settingsView, {
             page: true,
-            toggleIn: 'left'
+            toggleIn: 'right'
         });
     }
 }));

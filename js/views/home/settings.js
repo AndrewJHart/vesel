@@ -1,12 +1,22 @@
-Application.View.extend({
+Application.AnimView.extend({
     name: "home/settings",
-    type: null,
-    className: 'settings left',
-    animateIn: 'fadeIn',
-    animateOut: 'fadeOut',
+
+    // add classes    
+    className: 'settings',
+
+    // add animations
+    animateIn: "iosSlideInRight",
+    animateOut: "slideOutRight",
+
+    // data-attributes
+    attributes: {
+        'data-view-persist': 'true'
+    },
 
     initialize: function() {
         console.log('HomeRegion#settings view init triggered!');
+
+        this.$el.attr('data-view-persist', 'true');
 
         return this;
     }

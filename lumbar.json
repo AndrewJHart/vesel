@@ -68,7 +68,7 @@
         },
         "detail": {
             "routes": {
-                ":id": "index"
+                "detail/:id": "index"
             },
             "scripts": [
                 "js/routers/detail.js",
