@@ -53,30 +53,14 @@ new(Backbone.Router.extend({
 }));
 ;;
 Application.View.extend({
-    name: "home/header",
-    type: null,
-
-    initialize: function() {
-        console.log('HomeRegion#header view init triggered!');
-        console.log('Type of partial is: ' + this.type);
-
-        return this;
-    }
+    name: "home/header"
 });
 
 // Instances of this view can be created by calling:
 // new Application.Views["home/header"]()
 ;;
 Application.View.extend({
-    name: "home/footer",
-    type: null,
-
-    initialize: function() {
-        console.log('HomeRegion#header view init triggered!');
-        console.log('Type of partial is: ' + this.type);
-
-        return this;
-    }
+    name: "home/footer"
 });
 
 // Instances of this view can be created by calling:
@@ -135,7 +119,7 @@ Application.Model.extend({
 // Instances of this model can be created by calling:
 // new Application.Models["home/alert"]()
 ;;
-Handlebars.templates['home/home'] = Handlebars.compile('{{!-- Home View -- represents all the views that are needed to --}}\n{{!-- form the home \"page\" or \"pane\" (which has transitions) --}}\n{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\" type=\"home-header\"}}\n  {{#link \"settings\" expand-tokens=true class=\"icon icon-gear pull-right\"}}{{/link}}\n  {{!-- <a href=\"#settings\" class=\"icon icon-gear pull-right\"></a> --}}\n  <h1 class=\"title\">Vesel Framework</h1>\n{{/view}}\n\n{{view collectionView}}\n\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\" type=\"home-footer\"}}\n\t<a class=\"tab-item active\" href=\"#\">\n\t\t<span class=\"icon icon-home\"></span>\n\t\t<span class=\"tab-label\">Home</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#2\">\n\t\t<span class=\"icon icon-person\"></span>\n\t\t<span class=\"tab-label\">Profile</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#3\">\n\t\t<span class=\"icon icon-gear\"></span>\n\t\t<span class=\"tab-label\">Settings</span>\n\t</a>\n{{/view}}');Application.AnimView.extend({
+Handlebars.templates['home/home'] = Handlebars.compile('{{!-- Home View -- represents all the views that are needed to --}}\n{{!-- form the home \"page\" or \"pane\" (which has transitions) --}}\n{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\"}}\n  {{#link \"settings\" expand-tokens=true class=\"icon icon-gear pull-right\"}}{{/link}}\n  {{!-- <a href=\"#settings\" class=\"icon icon-gear pull-right\"></a> --}}\n  <h1 class=\"title\">Vesel Framework</h1>\n{{/view}}\n\n{{view collectionView}}\n\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\"}}\n\t<a class=\"tab-item active\" href=\"#\">\n\t\t<span class=\"icon icon-home\"></span>\n\t\t<span class=\"tab-label\">Home</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#2\">\n\t\t<span class=\"icon icon-person\"></span>\n\t\t<span class=\"tab-label\">Profile</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#3\">\n\t\t<span class=\"icon icon-gear\"></span>\n\t\t<span class=\"tab-label\">Settings</span>\n\t</a>\n{{/view}}');Application.AnimView.extend({
     name: "home/home",
     animateIn: 'fadeIn',
     animateOut: 'iosFadeLeft',

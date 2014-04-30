@@ -1,0 +1,22 @@
+/*
+ * Override the styles to match iOS 7 theme and make them work both 
+ * This can be done with styles added to whatever preferred stylesheet
+ * for the new UI. I'm using this because Lumbar allows stylesheet 
+ * loading based on the module that is called, so these css overrides
+ * will ONLY EVER BE APPLIED when a "home" page-view or sub-view is open
+ */
+
+/* Add extra padding to last element in the ul list to fix the last item */
+.content > .table-view:last-child {
+	margin-bottom: 60px;
+}
+
+/* adjust the list item to match ratchet & mobiscroll styling together for ios7  */
+.mbsc-lv-ios7 .mbsc-lv-item {
+	padding: 0.938em 65px 0.938em 15px;
+}
+
+.settings {
+	width: 80% !important;
+	max-width: 80%;
+}

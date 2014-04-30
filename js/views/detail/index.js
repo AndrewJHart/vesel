@@ -5,10 +5,7 @@ Application.AnimView.extend({
     animateOut: "slideOutRight",
 
     initialize: function() {
-        console.debug('DetailRegion#index view (detail/index) initialization triggered!. Route worked');
-
-        console.log('Do we have a model?');
-        console.log(this.model);
+        console.log('Detail page-view (detail/index) initialization triggered.');
 
         this.description = "Lorem Ipsum for detail-view " + this.cid;
         this.extra = "Simply extra context data :)";
@@ -24,7 +21,16 @@ Application.AnimView.extend({
 // new Application.Views["detail/index"]()
 
 
-// This should be nested or not even a view -- 
+//------------------------------
+// Standard Thorax.View view's
+//
+// used for nesting sub-views into an AnimView (or page-view)
+// note: you can nest a view without creating a line of javascript 
+//       by using the handlebars {{#view}}..content..{{/view}} helper
+//
+
+// a div mask for shadow on left side of a div for animating... this
+// should not need its own view and will be deprecated soon. 
 Application.View.extend({
     name: "detail/mask",
 

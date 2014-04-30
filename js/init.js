@@ -1,6 +1,6 @@
-// Create the Application object, Application.setView() will
-// place a view inside the {{layout-element}} in
-// templates/application.handlebars
+// The main Animating view base class/object definition. 
+// All Views that require animation should extend AnimView in their
+// object definition. 
 var AnimView = window.AnimView = Thorax.View.extend({
 
     template: null,
@@ -11,7 +11,7 @@ var AnimView = window.AnimView = Thorax.View.extend({
     render: function(options) {
 
         // as part of refactor, show the current instance of the view using render
-        console.debug('AnimView::Render triggered for the ' + this.name + ' View with cid: ' + this.cid);
+        console.log('AnimView::Render triggered for the ' + this.name + ' View with cid: ' + this.cid);
 
         options = options || {};
 
@@ -65,7 +65,7 @@ var AnimView = window.AnimView = Thorax.View.extend({
 
                 if (_.isFunction(callback)) {
                     callback();
-                    console.log('Callback triggered on transitionend for TransitionIn method');
+                    console.debug('Callback triggered on event transitionend for TransitionIn');
                 }
             });
         };
@@ -89,7 +89,7 @@ var AnimView = window.AnimView = Thorax.View.extend({
                 callback(); // hard to track bug! He's binding to transitionend each time transitionOut called 
                 // resulting in the callback being triggered callback * num of times transitionOut
                 // has executed
-                console.log('Callback triggered on transitionend for TransitionOut method');
+                console.debug('Callback triggered on event transitionend for TransitionOut');
             }
         });
 
@@ -97,7 +97,9 @@ var AnimView = window.AnimView = Thorax.View.extend({
 });
 
 
-// define the base Application "root" view class
+// Create the Application object and root View, Application.goto(view) will
+// pass a view to the Root view to be animated or just added to the page..
+// Here we are defining the base Application "root" view class from AnimView
 var RootView = AnimView.extend({
 
     el: 'body',
@@ -113,7 +115,15 @@ var RootView = AnimView.extend({
         remove = _.bind(function() {
             if (previous) {
                 previous.$el && previous.$el.remove();
+
+                // event broadcast -- useless the way thorax has done this.
+                // todo: deprecate and refactor by extending Bacbkone.events
+                //       and trigger namespaced view events like 
+                //       "From:Root:deactivated" or something clean.
                 triggerLifecycleEvent.call(previous, 'deactivated', options);
+
+                // use inherited method to trigger thorax helper for cleaning
+                // up and removing any nested or child views
                 this._removeChild(previous);
             }
         }, this);
@@ -124,10 +134,6 @@ var RootView = AnimView.extend({
             // check for a previous view before trying anything
             if (previous) {
                 previous.transitionOut(options, function() {
-                    /* todo: 
-                     *  refactor this to not remove *any* view that has a
-                     *  data-view-persist=true property :)
-                     */
 
                     // only remove the old view if its not the Home view
                     if (previous.$el.data('view-name') == 'home/home' ||
@@ -143,7 +149,6 @@ var RootView = AnimView.extend({
 
                         // remove the previous view (copied from LayoutView)
                         remove();
-                        //previous.remove();
 
                         // allow user to trigger actions post-removal w/ this hook
                         if (_.isFunction(previous.afterRemove)) {
@@ -169,16 +174,18 @@ var RootView = AnimView.extend({
             // check for a previous view before acting
             if (previous) {
                 if (previous.$el.data('view-persist') == 'true') {
-                    console.log('*****Pfevious view has data-view-persist=true so its not being removed from the Dom');
+
+                    // just for debug output, will remove 
+                    console.log('*Previous view has data-view-persist=true so its not being removed from the DOM');
                 } else {
+
                     // allow user to cleanup actions pre-removal w/ this hook
                     if (_.isFunction(previous.beforeRemove)) {
                         previous.beforeRemove();
                     }
 
-                    // remove the previous view
+                    // remove the previous view, its children, & publish event
                     remove();
-                    //previous.remove();
 
                     // allow user to trigger actions post-removal w/ this hook
                     if (_.isFunction(previous.afterRemove)) {
@@ -203,7 +210,9 @@ var RootView = AnimView.extend({
     // --------------------------
     // internal methods (private)
 
-}); // end base "class" definition of the root view
+});
+// end base "class" definition of the root view
+
 
 // -------------------- TODO ----------------------------------
 // todo: refactor this or track down whether it is even needed
@@ -232,7 +241,10 @@ function triggerLifecycleEvent(eventName, options) {
     });
 }
 
+
+//--------------------------------------------
 // create the application root view instance
+// 
 var Application = window.Application = new RootView({
     name: 'root', // will use template with name root.handlebars
     el: 'body' // force view attach directly to body vs appending div to it

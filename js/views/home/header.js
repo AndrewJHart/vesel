@@ -1,13 +1,5 @@
 Application.View.extend({
-    name: "home/header",
-    type: null,
-
-    initialize: function() {
-        console.log('HomeRegion#header view init triggered!');
-        console.log('Type of partial is: ' + this.type);
-
-        return this;
-    }
+    name: "home/header"
 });
 
 // Instances of this view can be created by calling:

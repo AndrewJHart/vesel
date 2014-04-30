@@ -1,6 +1,6 @@
 {{!-- Home View -- represents all the views that are needed to --}}
 {{!-- form the home "page" or "pane" (which has transitions) --}}
-{{#view "home/header" tag="header" className="bar bar-nav" type="home-header"}}
+{{#view "home/header" tag="header" className="bar bar-nav"}}
   {{#link "settings" expand-tokens=true class="icon icon-gear pull-right"}}{{/link}}
   {{!-- <a href="#settings" class="icon icon-gear pull-right"></a> --}}
   <h1 class="title">Vesel Framework</h1>
@@ -8,7 +8,7 @@
 
 {{view collectionView}}
 
-{{#view "home/footer" tag="nav" className="bar bar-tab" type="home-footer"}}
+{{#view "home/footer" tag="nav" className="bar bar-tab"}}
 	<a class="tab-item active" href="#">
 		<span class="icon icon-home"></span>
 		<span class="tab-label">Home</span>
