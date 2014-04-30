@@ -9,14 +9,17 @@ Application.AnimView.extend({
     animateOut: "slideOutRight",
 
     // data-attributes
-    attributes: {
-        'data-view-persist': 'true'
-    },
+    // attributes: {
+    //     'data-view-persist': 'false'
+    // },
 
     initialize: function() {
         console.log('HomeRegion#settings view init triggered!');
 
-        this.$el.attr('data-view-persist', 'true');
+        // todo: bug: if `el` then declaritve properties for
+        // attributes and classNames fail on first run
+        //this.$el.addClass('right');
+        //this.$el.attr('data-view-persist', 'false');
 
         return this;
     }

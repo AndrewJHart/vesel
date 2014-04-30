@@ -2,6 +2,7 @@ new(Backbone.Router.extend({
     routes: module.routes,
     alerts: null,
     indexView: null,
+    settingsView: null,
 
     //-----------------
     // route handlers
@@ -29,14 +30,16 @@ new(Backbone.Router.extend({
 
     settings: function(params) {
 
+        //if (!this.settingsView) {
         // create settings view
-        var settingsView = new Application.Views["home/settings"]({
-            //el: 'aside#settings', // stick this to the aside element in the DOM
-            className: 'settings page right'
+        this.settingsView = new Application.Views["home/settings"]({
+            //el: '#settings' // stick this to the aside element in the DOM
+            className: 'settings right'
         });
+        //}
 
         // show the settings view
-        Application.goto(settingsView, {
+        Application.goto(this.settingsView, {
             page: true,
             toggleIn: 'right'
         });

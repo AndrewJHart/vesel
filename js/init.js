@@ -85,6 +85,7 @@ var AnimView = window.AnimView = Thorax.View.extend({
 
             view.$el.removeClass(view.animateOut + ' animated').hide();
 
+
             if (_.isFunction(callback)) {
                 callback(); // hard to track bug! He's binding to transitionend each time transitionOut called 
                 // resulting in the callback being triggered callback * num of times transitionOut
