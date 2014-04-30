@@ -32,16 +32,16 @@ new(Backbone.Router.extend({
 
         //if (!this.settingsView) {
         // create settings view
-        this.settingsView = new Application.Views["home/settings"]({
-            //el: '#settings' // stick this to the aside element in the DOM
-            className: 'settings right'
+        var settingsView = new Application.Views["home/settings"]({
+            el: '#settings', // stick this to the aside element in the DOM
+            className: 'effeckt-off-screen-nav'
         });
         //}
 
         // show the settings view
-        Application.goto(this.settingsView, {
-            page: true,
-            toggleIn: 'right'
+        Application.goto(settingsView, {
+            page: false,
+            aside: true
         });
     }
 }));

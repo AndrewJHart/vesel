@@ -129,6 +129,24 @@ var RootView = AnimView.extend({
             }
         }, this);
 
+        if (options.aside === true) {
+            // do a little work for effeckt right now
+
+            // use the animate in to add classes
+            next.render({
+                page: false
+            });
+
+            this.$el.append(next.$el);
+
+            next.$el.toggleClass(next.animateAside);
+
+            // assign the new view as the current view for next execution of goto
+            this.currentPage = next;
+
+            return;
+        }
+
         // if this is a page then animate it
         if (options.page === true) {
 
@@ -174,7 +192,8 @@ var RootView = AnimView.extend({
 
             // check for a previous view before acting
             if (previous) {
-                if (previous.$el.data('view-persist') == 'true') {
+                if (previous.$el.data('view-name') == 'home/home' || 
+                    previous.$el.data('view-persist') == 'true') {
 
                     // just for debug output, will remove 
                     console.log('*Previous view has data-view-persist=true so its not being removed from the DOM');

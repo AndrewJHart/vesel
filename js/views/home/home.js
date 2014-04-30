@@ -9,6 +9,9 @@ Application.AnimView.extend({
             collection: this.collection
         });
 
+        this.$el.attr("data-effeckt-page", "home");
+        this.$el.attr('data-view-persist', 'true');
+
         return this; // allow chaining
     },
 
@@ -16,6 +19,8 @@ Application.AnimView.extend({
     beforeRender: function() {
         console.debug('!Home page-view AnimView::beforeRender() triggered');
 
+        this.$el.addClass("effeckt-page-active");
+        
         return this; // allow chaining
     },
 

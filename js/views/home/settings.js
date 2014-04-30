@@ -1,12 +1,10 @@
 Application.AnimView.extend({
     name: "home/settings",
 
-    // add classes    
-    className: 'settings',
-
     // add animations
-    animateIn: "iosSlideInRight",
-    animateOut: "slideOutRight",
+    animateAside: "effeckt-off-screen-nav-left-push effeckt-show",
+    animateIn: "",
+    animateOut: "",
 
     // data-attributes
     // attributes: {
@@ -20,6 +18,8 @@ Application.AnimView.extend({
         // attributes and classNames fail on first run
         //this.$el.addClass('right');
         //this.$el.attr('data-view-persist', 'false');
+
+        //this.$el.addClass("effeckt-off-screen-nav-left-push effeckt-show");
 
         return this;
     }

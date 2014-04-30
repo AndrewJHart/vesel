@@ -41,16 +41,16 @@ new(Backbone.Router.extend({
 
         //if (!this.settingsView) {
         // create settings view
-        this.settingsView = new Application.Views["home/settings"]({
-            //el: '#settings' // stick this to the aside element in the DOM
-            className: 'settings right'
+        var settingsView = new Application.Views["home/settings"]({
+            el: '#settings', // stick this to the aside element in the DOM
+            className: 'effeckt-off-screen-nav'
         });
         //}
 
         // show the settings view
-        Application.goto(this.settingsView, {
-            page: true,
-            toggleIn: 'right'
+        Application.goto(settingsView, {
+            page: false,
+            aside: true
         });
     }
 }));
@@ -72,12 +72,10 @@ Application.View.extend({
 Handlebars.templates['home/settings'] = Handlebars.compile('{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\" type=\"home-header\"}}\n  {{#link \"\" expand-tokens=true class=\"icon icon-left-nav pull-left\"}}{{/link}}\n  <h1 class=\"title\">Settings</h1>\n{{/view}}\n<ul class=\"table-view\">\n  <li class=\"table-view-cell\">\n    Item 1\n    <div class=\"toggle\">\n      <div class=\"toggle-handle\"></div>\n    </div>\n  </li>\n  <li class=\"table-view-cell\">\n    Item 2\n    <div class=\"toggle active\">\n      <div class=\"toggle-handle\"></div>\n    </div>\n  </li>\n  <li class=\"table-view-cell table-view-divider\">Categories</li>\n  <li class=\"table-view-cell\">\n    Item 3\n    <div class=\"toggle\">\n      <div class=\"toggle-handle\"></div>\n    </div>\n  </li>\n</ul>\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\" type=\"home-footer\"}}\n  <a class=\"tab-item active\" href=\"#\">\n    <span class=\"icon icon-home\"></span>\n    <span class=\"tab-label\">Home</span>\n  </a>\n  <a class=\"tab-item\" href=\"#2\">\n    <span class=\"icon icon-person\"></span>\n    <span class=\"tab-label\">Profile</span>\n  </a>\n  <a class=\"tab-item\" href=\"#3\">\n    <span class=\"icon icon-gear\"></span>\n    <span class=\"tab-label\">Settings</span>\n  </a>\n{{/view}}');Application.AnimView.extend({
     name: "home/settings",
 
-    // add classes    
-    className: 'settings',
-
     // add animations
-    animateIn: "iosSlideInRight",
-    animateOut: "slideOutRight",
+    animateAside: "effeckt-off-screen-nav-left-push effeckt-show",
+    animateIn: "",
+    animateOut: "",
 
     // data-attributes
     // attributes: {
@@ -91,6 +89,8 @@ Handlebars.templates['home/settings'] = Handlebars.compile('{{#view \"home/heade
         // attributes and classNames fail on first run
         //this.$el.addClass('right');
         //this.$el.attr('data-view-persist', 'false');
+
+        //this.$el.addClass("effeckt-off-screen-nav-left-push effeckt-show");
 
         return this;
     }
@@ -136,6 +136,9 @@ Handlebars.templates['home/home'] = Handlebars.compile('{{!-- Home View -- repre
             collection: this.collection
         });
 
+        this.$el.attr("data-effeckt-page", "home");
+        this.$el.attr('data-view-persist', 'true');
+
         return this; // allow chaining
     },
 
@@ -143,6 +146,8 @@ Handlebars.templates['home/home'] = Handlebars.compile('{{!-- Home View -- repre
     beforeRender: function() {
         console.debug('!Home page-view AnimView::beforeRender() triggered');
 
+        this.$el.addClass("effeckt-page-active");
+        
         return this; // allow chaining
     },
 
