@@ -68,9 +68,8 @@ var AnimView = window.AnimView = Thorax.View.extend({
 
                 // add class for current animation and then "effeckt-show" 
                 view.$el.addClass(view.animateIn);
-                view.$el.on('webkitAnimationEnd transitionend', function() {
+                view.$el.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd animationend transitionend', function() {
                     // unbind the event for now -- this is not very useful but stays for testing
-                    view.$el.off('webkitAnimationEnd transitionend');
                     view.$el.addClass("effeckt-show");
 
                     if (_.isFunction(callback)) {
@@ -105,39 +104,65 @@ var AnimView = window.AnimView = Thorax.View.extend({
         var view = this,
             toggle = options.toggleOut || '';
 
-        // check if this is an aside animation (Home is going out 1st time)
-        if (options.aside === true || options.homeAside === true) {
-            console.log('--------------------------');
-            console.debug('transitionOut called with aside or asideHome = True');
+        var transitionOut = function() {
 
-            // add class effeckt-page-active 
-            view.$el.addClass('effeckt-page-active');
-            view.$el.on('webkitAnimationEnd transitionend', function() {
-                // unbind the event for now -- this is not very useful but stays for testing
-                view.$el.off('webkitAnimationEnd transitionend');
+            // check if this is an aside animation (Home is going out 1st time)
+            if (options.aside === true) {
 
-                if (_.isFunction(callback)) {
-                    callback();
-                    console.log('--------------------------');
-                    console.debug('callback fired for transitionOut for view ' + view.getViewName());
+                console.log('--------------------------');
+                console.debug('transitionOut called with aside for view ' + view.getViewName());
+
+                if (view.getViewName() == 'home') {
+                    console.debug('!!!----- Transition Out aside=true with the Home View!');
+                    // add class effeckt-page-active 
+                    //view.$el.addClass('effeckt-page-active animated');
+                    view.$el.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd animationend transitionend', function() {
+                        // unbind the event for now -- this is not very useful but stays for testing
+                        view.$el.removeClass('animated');
+
+                        if (_.isFunction(callback)) {
+                            callback();
+                            console.debug('callback fired for transitionOut for view ' + view.getViewName());
+                            console.log('--------------------------');
+                        }
+                    });
                 }
-            });
-        } else {
-            // otherwise operate standard transitions        
-            view.$el.toggleClass(toggle).addClass(view.animateOut + ' animated');
-            view.$el.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd animationend', function() {
 
-                view.$el.removeClass(view.animateOut + ' animated').hide();
+                if (view.getViewName() == 'settings') {
+                    console.debug('!!!----- Transition Out aside=true with the Settings View!');
 
+                    view.$el.removeClass(view.animateOut).addClass('animated');
+                    view.$el.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd animationend transitionend', function() {
+                        // unbind the event for now -- this is not very useful but stays for testing
+                        view.$el.removeClass('animated');
 
-                if (_.isFunction(callback)) {
-                    callback(); // hard to track bug! He's binding to transitionend each time transitionOut called 
-                    // resulting in the callback being triggered callback * num of times transitionOut
-                    // has executed
-                    console.debug('Callback triggered on event transitionend for TransitionOut');
+                        if (_.isFunction(callback)) {
+                            callback();
+                            console.debug('callback fired for transitionOut for view ' + view.getViewName());
+                            console.log('--------------------------');
+                        }
+                    });
                 }
-            });
-        }
+            } else {
+                // otherwise operate standard transitions        
+                view.$el.toggleClass(toggle).addClass(view.animateOut + ' animated');
+                view.$el.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd animationend', function() {
+
+                    view.$el.removeClass(view.animateOut + ' animated').hide();
+
+
+                    if (_.isFunction(callback)) {
+                        callback(); // hard to track bug! He's binding to transitionend each time transitionOut called 
+                        // resulting in the callback being triggered callback * num of times transitionOut
+                        // has executed
+                        console.debug('Callback triggered on event transitionend for TransitionOut');
+                        console.debug('---------------------------');
+                    }
+                });
+            }
+        };
+
+        _.delay(transitionOut, 0);
     },
 
     // ----------------------------
@@ -179,16 +204,16 @@ var AnimView = window.AnimView = Thorax.View.extend({
         // trigger the event
         this.trigger(eventName, options);
 
-        console.log('triggerLifecycleEvent::Who am I and who are my children?');
-        console.log('I am: ');
-        console.debug(this.name || this);
-        console.log('and my children are:');
-        console.debug(this.children);
-        console.log('and the event im sharing is');
-        console.debug(eventName);
+        // console.log('triggerLifecycleEvent::Who am I and who are my children?');
+        // console.log('I am: ');
+        // console.debug(this.name || this);
+        // console.log('and my children are:');
+        // console.debug(this.children);
+        // console.log('and the event im sharing is');
+        // console.debug(eventName);
 
         _.each(this.children, function(child) {
-            console.debug(child);
+            // console.debug(child);
             child.trigger(eventName, options);
         });
     }
@@ -269,7 +294,7 @@ var RootView = AnimView.extend({
             });
 
             // append the settings view to the DOM
-            this.$el.append(next.$el);
+            this.$el.prepend(next.$el);
 
             // animate the settings aside
             next.transitionIn(options);

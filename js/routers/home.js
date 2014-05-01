@@ -15,7 +15,7 @@ new(Backbone.Router.extend({
         // only instantiate on the initial run
         if (!this.indexView) {
             // create an instance of the home page-view (AnimView)
-            this.indexView = new Application.Views["home/home"]({
+            this.indexView = Application.View["homeIndex"] = new Application.Views["home/home"]({
                 el: '#home',
                 className: 'home page',
                 collection: this.alerts
