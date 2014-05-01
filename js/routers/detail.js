@@ -12,7 +12,7 @@ new(Backbone.Router.extend({
             pageView = null;
 
         // log the route params passed to us
-        console.debug('params sent to the Detail Controller/Router are ' + params);
+        console.log("detail/index route received :id " + params);
 
         // use params to get model from our collection
         model = Application.Collection['alerts'].get(params);

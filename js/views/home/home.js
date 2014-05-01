@@ -1,7 +1,7 @@
 Application.AnimView.extend({
     name: "home/home",
-    animateIn: 'fadeIn',
-    animateOut: 'iosFadeLeft',
+    animateIn: "fadeIn",
+    animateOut: "iosFadeLeft",
     collectionView: null,
 
     initialize: function() {
@@ -10,22 +10,17 @@ Application.AnimView.extend({
         });
 
         this.$el.attr("data-effeckt-page", "home");
-        this.$el.attr('data-view-persist', 'true');
+        this.$el.attr("data-view-persist", "true");
 
         return this; // allow chaining
     },
 
     // Perfect for a unit test that the home view should have onRender()
     beforeRender: function() {
-        console.debug('!Home page-view AnimView::beforeRender() triggered');
+        console.log(this.name + "#beforeRender()");
 
+        // add 
         this.$el.addClass("effeckt-page-active");
-        
-        return this; // allow chaining
-    },
-
-    afterRender: function() {
-        console.debug('!Home page-view AnimView::afterRendered() triggered');
 
         return this; // allow chaining
     }

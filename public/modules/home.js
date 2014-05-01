@@ -73,9 +73,8 @@ Handlebars.templates['home/settings'] = Handlebars.compile('{{#view \"home/heade
     name: "home/settings",
 
     // add animations
-    animateAside: "effeckt-off-screen-nav-left-push effeckt-show",
-    animateIn: "",
-    animateOut: "",
+    animateIn: "effeckt-off-screen-nav-left-push",
+    animateOut: "effeckt-off-screen-nav-left-push",
 
     // data-attributes
     // attributes: {
@@ -85,12 +84,10 @@ Handlebars.templates['home/settings'] = Handlebars.compile('{{#view \"home/heade
     initialize: function() {
         console.log('HomeRegion#settings view init triggered!');
 
-        // todo: bug: if `el` then declaritve properties for
-        // attributes and classNames fail on first run
-        //this.$el.addClass('right');
-        //this.$el.attr('data-view-persist', 'false');
-
-        //this.$el.addClass("effeckt-off-screen-nav-left-push effeckt-show");
+        // todo: bug: if `el` is specified then declaritve properties
+        // i.e. attributes and/or classNames, aren't applied on first run
+        this.$el.addClass('effeckt-off-screen-nav');
+        this.$el.attr('data-view-persist', 'true');
 
         return this;
     }
@@ -106,7 +103,7 @@ Application.Collection.extend({
     urlRoot: 'https://headsuphuntington.herokuapp.com/api/app/v1/alerts/',
 
     initialize: function() {
-        console.log("Alerts Collection initialize triggered.");
+        console.log("Alerts Collection#initialize");
 
         // refactored to prevent duplicate fetching
         //this.fetch({ wait: true });
@@ -127,8 +124,8 @@ Application.Model.extend({
 ;;
 Handlebars.templates['home/home'] = Handlebars.compile('{{!-- Home View -- represents all the views that are needed to --}}\n{{!-- form the home \"page\" or \"pane\" (which has transitions) --}}\n{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\"}}\n  {{#link \"settings\" expand-tokens=true class=\"icon icon-gear pull-right\"}}{{/link}}\n  {{!-- <a href=\"#settings\" class=\"icon icon-gear pull-right\"></a> --}}\n  <h1 class=\"title\">Vesel Framework</h1>\n{{/view}}\n\n{{view collectionView}}\n\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\"}}\n\t<a class=\"tab-item active\" href=\"#\">\n\t\t<span class=\"icon icon-home\"></span>\n\t\t<span class=\"tab-label\">Home</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#2\">\n\t\t<span class=\"icon icon-person\"></span>\n\t\t<span class=\"tab-label\">Profile</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#3\">\n\t\t<span class=\"icon icon-gear\"></span>\n\t\t<span class=\"tab-label\">Settings</span>\n\t</a>\n{{/view}}');Application.AnimView.extend({
     name: "home/home",
-    animateIn: 'fadeIn',
-    animateOut: 'iosFadeLeft',
+    animateIn: "fadeIn",
+    animateOut: "iosFadeLeft",
     collectionView: null,
 
     initialize: function() {
@@ -137,22 +134,17 @@ Handlebars.templates['home/home'] = Handlebars.compile('{{!-- Home View -- repre
         });
 
         this.$el.attr("data-effeckt-page", "home");
-        this.$el.attr('data-view-persist', 'true');
+        this.$el.attr("data-view-persist", "true");
 
         return this; // allow chaining
     },
 
     // Perfect for a unit test that the home view should have onRender()
     beforeRender: function() {
-        console.debug('!Home page-view AnimView::beforeRender() triggered');
+        console.log(this.name + "#beforeRender()");
 
+        // add 
         this.$el.addClass("effeckt-page-active");
-        
-        return this; // allow chaining
-    },
-
-    afterRender: function() {
-        console.debug('!Home page-view AnimView::afterRendered() triggered');
 
         return this; // allow chaining
     }
@@ -163,10 +155,14 @@ Handlebars.templates['home/home'] = Handlebars.compile('{{!-- Home View -- repre
 ;;
 Handlebars.templates['home/list-empty'] = Handlebars.compile('<h1>Home Page home/home\'s subview home/list has an empty collection..</h1>');Handlebars.templates['home/list-item'] = Handlebars.compile('<li id=\"{{id}}\" class=\"table-view-cell media\">\n  <a href=\"#detail/{{id}}\" class=\"navigate-right\">\n    <img class=\"media-object pull-left\" src=\"http://placehold.it/42x42\">\n    <div class=\"media-body\">\n      {{category.name}}\n      <p>{{subject}}</p>\n    </div>\n  </a>\n</li>');Handlebars.templates['home/list'] = Handlebars.compile('{{collection tag=\"ul\" class=\"table-view\"}}');Application.CollectionView.extend({
     name: "home/list",
-    initOnce: true,
+
+    // this view holds ref to our 'Alerts' collection from server
     collection: Application.Collection["alerts"],
+
+    // view represents the content area of its parent, the Home page-view
     className: 'content',
 
+    // declaritive events for the view + nested declaritive events for collection
     events: {
         'ready': function(options) {
             var collection = null,
@@ -188,7 +184,7 @@ Handlebars.templates['home/list-empty'] = Handlebars.compile('<h1>Home Page home
         },
 
         'rendered:collection': function(collectionView, collection) {
-            console.debug('Event *rendered:collection* triggered!');
+            console.debug('Event "rendered:collection"');
 
             // refactoring this may work without the delay call...
             _.delay(function() {
@@ -232,10 +228,11 @@ Handlebars.templates['home/list-empty'] = Handlebars.compile('<h1>Home Page home
 
                 this.ensureRendered();
             },
-            'rendered': function(event) {
-                console.debug('CollectionView@collection:rendered event triggered!');
-                console.debug('**CollectionView::collection::rendered event triggered');
-                return false;
+            'change': function() {
+                console.log('CollectionView.collection received a change event!');
+
+                // trigger a re-render just for testing -- this is wasteful in production
+                this.render();
             }
         }
     }

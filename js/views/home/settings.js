@@ -2,9 +2,8 @@ Application.AnimView.extend({
     name: "home/settings",
 
     // add animations
-    animateAside: "effeckt-off-screen-nav-left-push effeckt-show",
-    animateIn: "",
-    animateOut: "",
+    animateIn: "effeckt-off-screen-nav-left-push",
+    animateOut: "effeckt-off-screen-nav-left-push",
 
     // data-attributes
     // attributes: {
@@ -14,12 +13,10 @@ Application.AnimView.extend({
     initialize: function() {
         console.log('HomeRegion#settings view init triggered!');
 
-        // todo: bug: if `el` then declaritve properties for
-        // attributes and classNames fail on first run
-        //this.$el.addClass('right');
-        //this.$el.attr('data-view-persist', 'false');
-
-        //this.$el.addClass("effeckt-off-screen-nav-left-push effeckt-show");
+        // todo: bug: if `el` is specified then declaritve properties
+        // i.e. attributes and/or classNames, aren't applied on first run
+        this.$el.addClass('effeckt-off-screen-nav');
+        this.$el.attr('data-view-persist', 'true');
 
         return this;
     }

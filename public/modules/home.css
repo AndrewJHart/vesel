@@ -28,7 +28,7 @@
 }*/
 
 
-#settings, .effeckt-off-screen-nav {
+.effeckt-off-screen-nav {
   position: fixed;
   z-index: 1000;
   top: 0;
@@ -80,7 +80,7 @@
   position: relative;
 }
 
-#settings, .effeckt-off-screen-nav-close {
+.effeckt-off-screen-nav-close {
   position: absolute;
   right: 0;
   top: 0.65rem;

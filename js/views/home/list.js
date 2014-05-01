@@ -1,9 +1,13 @@
 Application.CollectionView.extend({
     name: "home/list",
-    initOnce: true,
+
+    // this view holds ref to our 'Alerts' collection from server
     collection: Application.Collection["alerts"],
+
+    // view represents the content area of its parent, the Home page-view
     className: 'content',
 
+    // declaritive events for the view + nested declaritive events for collection
     events: {
         'ready': function(options) {
             var collection = null,
@@ -25,7 +29,7 @@ Application.CollectionView.extend({
         },
 
         'rendered:collection': function(collectionView, collection) {
-            console.debug('Event *rendered:collection* triggered!');
+            console.debug('Event "rendered:collection"');
 
             // refactoring this may work without the delay call...
             _.delay(function() {
@@ -69,10 +73,11 @@ Application.CollectionView.extend({
 
                 this.ensureRendered();
             },
-            'rendered': function(event) {
-                console.debug('CollectionView@collection:rendered event triggered!');
-                console.debug('**CollectionView::collection::rendered event triggered');
-                return false;
+            'change': function() {
+                console.log('CollectionView.collection received a change event!');
+
+                // trigger a re-render just for testing -- this is wasteful in production
+                this.render();
             }
         }
     }

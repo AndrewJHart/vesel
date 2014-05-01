@@ -1,17 +1,22 @@
 Application.AnimView.extend({
     name: "detail/index",
+
+    // classes for this view
     className: 'detail',
+
+    // animation properties
     animateIn: "iosSlideInRight",
     animateOut: "slideOutRight",
 
+    // init for detail view
     initialize: function() {
-        console.log('Detail page-view (detail/index) initialization triggered.');
+        console.log(this.name + '#initialize');
 
         this.description = "Lorem Ipsum for detail-view " + this.cid;
         this.extra = "Simply extra context data :)";
 
-        console.log('What about context? :)');
-        console.log(this.context());
+        // console.log('What about context for handlebars template? :)');
+        // console.log(this.context());
 
         return this;
     }
@@ -32,13 +37,7 @@ Application.AnimView.extend({
 // a div mask for shadow on left side of a div for animating... this
 // should not need its own view and will be deprecated soon. 
 Application.View.extend({
-    name: "detail/mask",
-
-    initialize: function() {
-        console.debug("** ContentMask View loaded");
-
-        return this;
-    }
+    name: "detail/mask"
 });
 
 
@@ -47,8 +46,8 @@ Application.View.extend({
     type: null,
 
     initialize: function() {
-        console.log('DetailView#header view init triggered!');
-        console.log('Type of partial is: ' + this.type);
+        // console.log('DetailView#header view init triggered!');
+        // console.log('Type of partial is: ' + this.type);
 
         return this;
     }
@@ -60,8 +59,8 @@ Application.View.extend({
     type: null,
 
     initialize: function() {
-        console.log('DetailView#footer view init triggered!');
-        console.log('Type of partial is: ' + this.type);
+        // console.log('DetailView#footer view init triggered!');
+        // console.log('Type of partial is: ' + this.type);
 
         return this;
     }

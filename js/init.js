@@ -11,10 +11,12 @@ var AnimView = window.AnimView = Thorax.View.extend({
     render: function(options) {
 
         // as part of refactor, show the current instance of the view using render
-        console.log('AnimView::Render triggered for the ' + this.name + ' View with cid: ' + this.cid);
+        console.log("Rendering " + this.getViewName() + " ID " + this.cid + " - render inherited from base class(AnimView)");
 
+        // get existing options or init empty object
         options = options || {};
 
+        // is this a "page-view" view?
         if (options.page === true) {
             this.$el.addClass('page');
         }
@@ -39,7 +41,7 @@ var AnimView = window.AnimView = Thorax.View.extend({
             this.beforeRender();
         }
         // call the parent render since we're overriding it in thorax
-        console.debug('*!*!*! Thorax.View rendering taking over!*!* for view ' + this.name);
+        // console.debug('*!*!*! Thorax.View rendering taking over!*!* for view ' + this.name);
         Thorax.View.prototype.render.apply(this, arguments);
 
         // Trigger any additional or special rendering a user may require
@@ -58,16 +60,39 @@ var AnimView = window.AnimView = Thorax.View.extend({
 
         var transitionIn = function() {
 
-            view.$el.toggleClass(toggle).show().addClass(view.animateIn + ' animated');
-            view.$el.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd animationend', function() {
+            if (options.aside === true) {
 
-                view.$el.removeClass(view.animateIn + ' animated');
+                // first lets show the aside 
+                console.log('--------------------------');
+                console.debug('transitionIn called for aside view ' + view.getViewName());
 
-                if (_.isFunction(callback)) {
-                    callback();
-                    console.debug('Callback triggered on event transitionend for TransitionIn');
-                }
-            });
+                // add class for current animation and then "effeckt-show" 
+                view.$el.addClass(view.animateIn);
+                view.$el.on('webkitAnimationEnd transitionend', function() {
+                    // unbind the event for now -- this is not very useful but stays for testing
+                    view.$el.off('webkitAnimationEnd transitionend');
+                    view.$el.addClass("effeckt-show");
+
+                    if (_.isFunction(callback)) {
+                        callback();
+                        console.log('--------------------------');
+                        console.debug('callback fired for transitionIn for view ' + view.getViewName());
+                    }
+                });
+            } else {
+
+                view.$el.toggleClass(toggle).show().addClass(view.animateIn + ' animated');
+                view.$el.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd animationend', function() {
+
+                    view.$el.removeClass(view.animateIn + ' animated');
+
+                    if (_.isFunction(callback)) {
+                        callback();
+                        console.debug('Callback triggered on event transitionend for TransitionIn');
+                    }
+                });
+            }
+
         };
 
         // setting the page class' css to position: fixed; obviates the need
@@ -80,20 +105,92 @@ var AnimView = window.AnimView = Thorax.View.extend({
         var view = this,
             toggle = options.toggleOut || '';
 
-        view.$el.toggleClass(toggle).addClass(view.animateOut + ' animated');
-        view.$el.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd animationend', function() {
+        // check if this is an aside animation (Home is going out 1st time)
+        if (options.aside === true || options.homeAside === true) {
+            console.log('--------------------------');
+            console.debug('transitionOut called with aside or asideHome = True');
 
-            view.$el.removeClass(view.animateOut + ' animated').hide();
+            // add class effeckt-page-active 
+            view.$el.addClass('effeckt-page-active');
+            view.$el.on('webkitAnimationEnd transitionend', function() {
+                // unbind the event for now -- this is not very useful but stays for testing
+                view.$el.off('webkitAnimationEnd transitionend');
+
+                if (_.isFunction(callback)) {
+                    callback();
+                    console.log('--------------------------');
+                    console.debug('callback fired for transitionOut for view ' + view.getViewName());
+                }
+            });
+        } else {
+            // otherwise operate standard transitions        
+            view.$el.toggleClass(toggle).addClass(view.animateOut + ' animated');
+            view.$el.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd animationend', function() {
+
+                view.$el.removeClass(view.animateOut + ' animated').hide();
 
 
-            if (_.isFunction(callback)) {
-                callback(); // hard to track bug! He's binding to transitionend each time transitionOut called 
-                // resulting in the callback being triggered callback * num of times transitionOut
-                // has executed
-                console.debug('Callback triggered on event transitionend for TransitionOut');
-            }
+                if (_.isFunction(callback)) {
+                    callback(); // hard to track bug! He's binding to transitionend each time transitionOut called 
+                    // resulting in the callback being triggered callback * num of times transitionOut
+                    // has executed
+                    console.debug('Callback triggered on event transitionend for TransitionOut');
+                }
+            });
+        }
+    },
+
+    // ----------------------------
+    // view helpers for subclasses
+
+    // get *just* the view's filename without path & extension
+    getViewName: function() {
+        // split the default moduleName/module format and
+        // pop the last value off of the newly created array
+        return this.name.split('/').pop();
+    },
+
+    // get *just* the moduleName aka: the "path" w/o the filename
+    getModuleName: function() {
+        // same as above but use shift() to get 1st value from array
+        return this.name.split('/').shift();
+    },
+
+    // get current view's filename with extension
+    getFileName: function() {
+        return this.name.split('/').pop() + '.js';
+    },
+
+    // get current view's full path w/ filename & extension
+    getFullPath: function() {
+        return "/js/views/" + this.name + ".js";
+    },
+
+    // ----------------------------
+    // internal management methods 
+
+    // Broadcast events and trigger events on the current
+    // view and all of its children -- can be used to manage
+    // events for the duration of the RootView for extra managment
+    triggerLifecycleEvent: function(eventName, options) {
+        options = options || {};
+        options.target = this;
+
+        // trigger the event
+        this.trigger(eventName, options);
+
+        console.log('triggerLifecycleEvent::Who am I and who are my children?');
+        console.log('I am: ');
+        console.debug(this.name || this);
+        console.log('and my children are:');
+        console.debug(this.children);
+        console.log('and the event im sharing is');
+        console.debug(eventName);
+
+        _.each(this.children, function(child) {
+            console.debug(child);
+            child.trigger(eventName, options);
         });
-
     }
 });
 
@@ -113,15 +210,19 @@ var RootView = AnimView.extend({
 
         // internal remove function to a) ensure we adhere to thorax 
         // structure b) clean-up child views c) undelegate events, etc..
-        remove = _.bind(function() {
+        var remove = _.bind(function() {
             if (previous) {
+                console.debug('RootView.goto.remove() was triggered w/ context view');
+                console.debug(this.name + " is removing: " + previous.name);
+
                 previous.$el && previous.$el.remove();
 
                 // event broadcast -- useless the way thorax has done this.
                 // todo: deprecate and refactor by extending Bacbkone.events
                 //       and trigger namespaced view events like 
                 //       "From:Root:deactivated" or something clean.
-                triggerLifecycleEvent.call(previous, 'deactivated', options);
+                //triggerLifecycleEvent.call(previous, 'deactivated', options);
+                previous.triggerLifecycleEvent('deactivated', options);
 
                 // use inherited method to trigger thorax helper for cleaning
                 // up and removing any nested or child views
@@ -129,37 +230,63 @@ var RootView = AnimView.extend({
             }
         }, this);
 
-        if (options.aside === true) {
-            // do a little work for effeckt right now
 
-            // use the animate in to add classes
+        // Special option for aside toggling 
+        if (options.aside === true) {
+            // This exists to prevent the home view from 
+            // performing its standard transitionOut event
+
+            // add extra option to pass to transitionOut for home
+            options.homeAside = true;
+
+            // do a little work for effeckt right now
+            previous.transitionOut(options, function() {
+                // only remove the old view if its not the Home view
+                if (previous.getViewName() == 'home' ||
+                    previous.$el.data('view-persist') == 'true') {
+
+                    // this view does not get removed
+                    console.debug('Previous view ' + previous.getViewName() + ' must exist for aside toggle!');
+                } else {
+                    // allow user to cleanup actions pre-removal w/ this hook
+                    if (_.isFunction(previous.beforeRemove)) {
+                        previous.beforeRemove();
+                    }
+
+                    // remove the previous view (copied from LayoutView)
+                    remove();
+
+                    // allow user to trigger actions post-removal w/ this hook
+                    if (_.isFunction(previous.afterRemove)) {
+                        previous.afterRemove();
+                    }
+                }
+            });
+
+            // render the settings view as a non-page for now
             next.render({
                 page: false
             });
 
+            // append the settings view to the DOM
             this.$el.append(next.$el);
 
-            next.$el.toggleClass(next.animateAside);
+            // animate the settings aside
+            next.transitionIn(options);
 
-            // assign the new view as the current view for next execution of goto
-            this.currentPage = next;
-
-            return;
-        }
-
-        // if this is a page then animate it
-        if (options.page === true) {
+        } else if (options.page === true && !options.aside) {
+            // Standard transitions from view to view happen here
 
             // check for a previous view before trying anything
             if (previous) {
                 previous.transitionOut(options, function() {
 
                     // only remove the old view if its not the Home view
-                    if (previous.$el.data('view-name') == 'home/home' ||
-                        previous.$el.attr('data-view-persist') == 'true') {
+                    if (previous.getViewName() == 'home' ||
+                        previous.$el.data('view-persist') == 'true') {
 
                         // this view does not get removed
-                        console.debug('*Previous view ' + previous.name + ' has data-view-persist="true" and will not be removed from the DOM');
+                        console.debug("Previous view " + previous.getViewName() + "'s data-view-persist is true - not removing!");
                     } else {
                         // allow user to cleanup actions pre-removal w/ this hook
                         if (_.isFunction(previous.beforeRemove)) {
@@ -192,7 +319,7 @@ var RootView = AnimView.extend({
 
             // check for a previous view before acting
             if (previous) {
-                if (previous.$el.data('view-name') == 'home/home' || 
+                if (previous.$el.data('view-name') == 'home/home' ||
                     previous.$el.data('view-persist') == 'true') {
 
                     // just for debug output, will remove 
@@ -225,7 +352,7 @@ var RootView = AnimView.extend({
 
         // assign the new view as the current view for next execution of goto
         this.currentPage = next;
-    },
+    }
 
     // --------------------------
     // internal methods (private)
@@ -233,33 +360,6 @@ var RootView = AnimView.extend({
 });
 // end base "class" definition of the root view
 
-
-// -------------------- TODO ----------------------------------
-// todo: refactor this or track down whether it is even needed
-// 
-// only called by the core LayoutView and defined outside of the
-// layoutView object itself, this seems to broadcast events to 
-// all of the children associated with the current view instance..
-// update: this = the layout view instance -- so this is broadcasting
-//          the events to currentView and/or oldView
-function triggerLifecycleEvent(eventName, options) {
-    options = options || {};
-    options.target = this;
-    this.trigger(eventName, options);
-
-    console.log('triggerLifecycleEvent::Who am I and who are my children?');
-    console.log('I am: ');
-    console.debug(this.name || this);
-    console.log('and my children are:');
-    console.debug(this.children);
-    console.log('and the event im sharing is');
-    console.debug(eventName);
-
-    _.each(this.children, function(child) {
-        console.debug(child);
-        child.trigger(eventName, options);
-    });
-}
 
 
 //--------------------------------------------

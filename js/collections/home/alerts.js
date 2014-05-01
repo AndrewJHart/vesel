@@ -5,7 +5,7 @@ Application.Collection.extend({
     urlRoot: 'https://headsuphuntington.herokuapp.com/api/app/v1/alerts/',
 
     initialize: function() {
-        console.log("Alerts Collection initialize triggered.");
+        console.log("Alerts Collection#initialize");
 
         // refactored to prevent duplicate fetching
         //this.fetch({ wait: true });
