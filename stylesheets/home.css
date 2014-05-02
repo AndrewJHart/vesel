@@ -14,7 +14,8 @@ header.bar {
 }
 
 .bar {
-  background-color: rgba(220, 240, 255, 0.92);
+  /*background-color: rgba(220, 240, 255, 0.92);*/
+  background-color: rgba(247, 247, 247, .92);
 }
 
 /* Fix z-index for map list view incoming animation */
