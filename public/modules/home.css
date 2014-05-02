@@ -7,16 +7,7 @@
  */
 
 /* fooling around with taller header bar and tabs */
-header.bar {
-  border-bottom: 0;
-  -webkit-box-shadow:none;
-  box-shadow: none;
-}
 
-.bar {
-  /*background-color: rgba(220, 240, 255, 0.92);*/
-  background-color: rgba(247, 247, 247, .92);
-}
 
 /* Fix z-index for map list view incoming animation */
 .maplist {
@@ -32,6 +23,7 @@ a.overlay {
   width: 0;
   height: 0;
   color: #000;
+  overflow: hidden;
 }
 
 a.overlay.mask {
@@ -46,6 +38,22 @@ a.overlay.mask {
   visibility: visible;
 }
 
+/* ratchet overrides -- temporary */
+.content {
+  overflow-y: scroll !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+/* remove the tap highlight grey color for list item > a elements */
+.table-view-cell > a:not(.btn):active {  
+  background-color: #fff;
+}
+
+.bar {
+  /*background-color: rgba(220, 240, 255, 0.92);*/
+  background-color: rgba(247, 247, 247, .92);
+}
+
 /* Add extra padding to last element in the ul list to fix the last item */
 .content > .table-view:last-child {
 	margin-bottom: 60px;
@@ -56,17 +64,15 @@ a.overlay.mask {
 	padding: 0.938em 65px 0.938em 15px;
 }
 
-/* Adjust the bar-nav to stay contained within its page div so we dont lose our 
- * ability to click on an icon button in the header if another page is partially
- * on screen at the same time. 
+/*
+ * Overrides for effeckt css 
  */
-.bar-nav {
-  overflow: hidden;
-}
-
 
 [data-effeckt-page] {
   position: fixed;
+
+  /* scrolling */
+  /*overflow-y: scroll;  has to be scroll */
 }
 
 
