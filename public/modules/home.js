@@ -6,12 +6,12 @@ vesel['home'] = (function() {
 
   /* router : home */
 module.name = "home";
-module.routes = {"":"index","settings":"settings"};
+module.routes = {"":"index","map":"maplist"};
 new(Backbone.Router.extend({
     routes: module.routes,
     alerts: null,
     indexView: null,
-    settingsView: null,
+    mapView: null,
 
     //-----------------
     // route handlers
@@ -37,20 +37,19 @@ new(Backbone.Router.extend({
         });
     },
 
-    settings: function(params) {
+    maplist: function(params) {
 
         //if (!this.settingsView) {
         // create settings view
-        var settingsView = new Application.Views["home/settings"]({
-            el: '#settings', // stick this to the aside element in the DOM
-            className: 'effeckt-off-screen-nav'
+        var mapView = new Application.Views["home/maplist"]({
+            className: 'maplist left'
         });
         //}
 
         // show the settings view
-        Application.goto(settingsView, {
-            page: false,
-            aside: true
+        Application.goto(mapView, {
+            page: true,
+            toggleIn: 'left'
         });
     }
 }));
@@ -191,7 +190,7 @@ Application.Model.extend({
 // Instances of this model can be created by calling:
 // new Application.Models["home/alert"]()
 ;;
-Handlebars.templates['home/home'] = Handlebars.compile('{{!-- Home View -- represents all the views that are needed to --}}\n{{!-- form the home \"page\" or \"pane\" (which has transitions) --}}\n\n<a href=\"#\" class=\"overlay\"></a>\n\n{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\"}}\n  {{!-- {{#link \"settings\" expand-tokens=true class=\"icon icon-gear pull-right\"}}{{/link}} --}}\n  <a href=\"#\" class=\"icon icon-gear pull-left toggle-settings\"></a>\n  <h1 class=\"title\">Vesel Framework</h1>\n{{/view}}\n\n{{view collectionView}}\n\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\"}}\n\t<a class=\"tab-item active\" href=\"#\">\n\t\t<span class=\"icon icon-home\"></span>\n\t\t<span class=\"tab-label\">Home</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#2\">\n\t\t<span class=\"icon icon-person\"></span>\n\t\t<span class=\"tab-label\">Profile</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#3\">\n\t\t<span class=\"icon icon-gear\"></span>\n\t\t<span class=\"tab-label\">Settings</span>\n\t</a>\n{{/view}}');Application.AnimView.extend({
+Handlebars.templates['home/home'] = Handlebars.compile('{{!-- Home View -- represents all the views that are needed to --}}\n{{!-- form the home \"page\" or \"pane\" (which has transitions) --}}\n\n<a href=\"#\" class=\"overlay\"></a>\n\n{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\"}}\n  {{!-- {{#link \"settings\" expand-tokens=true class=\"icon icon-gear pull-right\"}}{{/link}} --}}\n  <a href=\"#\" class=\"icon icon-gear pull-left toggle-settings\"></a>\n  <h1 class=\"title\">Vesel Framework</h1>\n{{/view}}\n\n<div class=\"bar bar-standard bar-header-secondary\">\n\t<div class=\"segmented-control\">\n\t\t{{#link \"\" expand-tokens=true class=\"control-item active\"}}List View{{/link}}\n\t\t{{#link \"map\" expand-tokens=true class=\"control-item\"}}Map View{{/link}}\n\t\t{{!-- <a class=\"control-item active\">List View</a> --}}\n  \t{{!-- <a class=\"control-item\">Map View</a> --}}\n  </div>\n</div>\n\n{{view collectionView}}\n\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\"}}\n\t<a class=\"tab-item active\" href=\"#\">\n\t\t<span class=\"icon icon-home\"></span>\n\t\t<span class=\"tab-label\">Home</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#2\">\n\t\t<span class=\"icon icon-person\"></span>\n\t\t<span class=\"tab-label\">Profile</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#3\">\n\t\t<span class=\"icon icon-gear\"></span>\n\t\t<span class=\"tab-label\">Settings</span>\n\t</a>\n{{/view}}');Application.AnimView.extend({
     name: "home/home",
     animateIn: "fadeIn",
     animateOut: "iosFadeLeft",
@@ -323,6 +322,16 @@ Handlebars.templates['home/list-empty'] = Handlebars.compile('<h1>Home Page home
 
 // Instances of this view can be created by calling:
 // new Application.Views["home/list"]()
+;;
+Handlebars.templates['home/maplist'] = Handlebars.compile('{{!-- <header class=\"bar bar-nav\">\n  <h1 class=\"title\">Map List</h1>\n</header> --}}\n\n<a href=\"#\" class=\"overlay\"></a>\n\n{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\"}}\n  {{!-- {{#link \"settings\" expand-tokens=true class=\"icon icon-gear pull-right\"}}{{/link}} --}}\n  <a href=\"#\" class=\"icon icon-gear pull-left toggle-settings\"></a>\n  <h1 class=\"title\">Vesel Framework</h1>\n{{/view}}\n\n<div class=\"bar bar-standard bar-header-secondary\">\n  <div class=\"segmented-control\">\n    {{#link \"\" expand-tokens=true class=\"control-item\"}}List View{{/link}}\n    {{#link \"map\" expand-tokens=true class=\"control-item active\"}}Map View{{/link}}\n  </div>\n</div>\n\n<div class=\"content\">\n  <ul class=\"table-view\">\n    <li class=\"table-view-cell\">\n      Item 1\n      <div class=\"toggle\">\n        <div class=\"toggle-handle\"></div>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      Item 2\n      <div class=\"toggle active\">\n        <div class=\"toggle-handle\"></div>\n      </div>\n    </li>\n    <li class=\"table-view-cell table-view-divider\">Categories</li>\n    <li class=\"table-view-cell\">\n      Item 3\n      <div class=\"toggle\">\n        <div class=\"toggle-handle\"></div>\n      </div>\n    </li>\n  </ul>\n</div>\n\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\"}}\n  <a class=\"tab-item active\" href=\"#\">\n    <span class=\"icon icon-home\"></span>\n    <span class=\"tab-label\">Home</span>\n  </a>\n  <a class=\"tab-item\" href=\"#2\">\n    <span class=\"icon icon-person\"></span>\n    <span class=\"tab-label\">Profile</span>\n  </a>\n  <a class=\"tab-item\" href=\"#3\">\n    <span class=\"icon icon-gear\"></span>\n    <span class=\"tab-label\">Settings</span>\n  </a>\n{{/view}}');Application.AnimView.extend({
+    name: "home/maplist",
+
+    animateIn: 'bounceInDown',
+    animateOut: 'slideOutUp'
+});
+
+// Instances of this view can be created by calling:
+// new Application.Views["home/maplist"]()
 ;;
 
 

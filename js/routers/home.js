@@ -2,7 +2,7 @@ new(Backbone.Router.extend({
     routes: module.routes,
     alerts: null,
     indexView: null,
-    settingsView: null,
+    mapView: null,
 
     //-----------------
     // route handlers
@@ -28,20 +28,19 @@ new(Backbone.Router.extend({
         });
     },
 
-    settings: function(params) {
+    maplist: function(params) {
 
         //if (!this.settingsView) {
         // create settings view
-        var settingsView = new Application.Views["home/settings"]({
-            el: '#settings', // stick this to the aside element in the DOM
-            className: 'effeckt-off-screen-nav'
+        var mapView = new Application.Views["home/maplist"]({
+            className: 'maplist left'
         });
         //}
 
         // show the settings view
-        Application.goto(settingsView, {
-            page: false,
-            aside: true
+        Application.goto(mapView, {
+            page: true,
+            toggleIn: 'left'
         });
     }
 }));

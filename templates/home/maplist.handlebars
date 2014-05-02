@@ -1,0 +1,57 @@
+{{!-- <header class="bar bar-nav">
+  <h1 class="title">Map List</h1>
+</header> --}}
+
+<a href="#" class="overlay"></a>
+
+{{#view "home/header" tag="header" className="bar bar-nav"}}
+  {{!-- {{#link "settings" expand-tokens=true class="icon icon-gear pull-right"}}{{/link}} --}}
+  <a href="#" class="icon icon-gear pull-left toggle-settings"></a>
+  <h1 class="title">Vesel Framework</h1>
+{{/view}}
+
+<div class="bar bar-standard bar-header-secondary">
+  <div class="segmented-control">
+    {{#link "" expand-tokens=true class="control-item"}}List View{{/link}}
+    {{#link "map" expand-tokens=true class="control-item active"}}Map View{{/link}}
+  </div>
+</div>
+
+<div class="content">
+  <ul class="table-view">
+    <li class="table-view-cell">
+      Item 1
+      <div class="toggle">
+        <div class="toggle-handle"></div>
+      </div>
+    </li>
+    <li class="table-view-cell">
+      Item 2
+      <div class="toggle active">
+        <div class="toggle-handle"></div>
+      </div>
+    </li>
+    <li class="table-view-cell table-view-divider">Categories</li>
+    <li class="table-view-cell">
+      Item 3
+      <div class="toggle">
+        <div class="toggle-handle"></div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+{{#view "home/footer" tag="nav" className="bar bar-tab"}}
+  <a class="tab-item active" href="#">
+    <span class="icon icon-home"></span>
+    <span class="tab-label">Home</span>
+  </a>
+  <a class="tab-item" href="#2">
+    <span class="icon icon-person"></span>
+    <span class="tab-label">Profile</span>
+  </a>
+  <a class="tab-item" href="#3">
+    <span class="icon icon-gear"></span>
+    <span class="tab-label">Settings</span>
+  </a>
+{{/view}}

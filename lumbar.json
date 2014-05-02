@@ -46,7 +46,7 @@
         "home": {
             "routes": {
                 "": "index",
-                "settings": "settings"
+                "map": "maplist"
             },
             "scripts": [
                 "js/routers/home.js",
@@ -56,7 +56,8 @@
                 "js/collections/home/alerts.js",
                 "js/models/home/alert.js",
                 "js/views/home/home.js",
-                "js/views/home/list.js"
+                "js/views/home/list.js",
+                "js/views/home/maplist.js"
             ],
             "styles": [
                 "stylesheets/home.css"

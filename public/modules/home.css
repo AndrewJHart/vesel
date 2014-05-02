@@ -6,6 +6,11 @@
  * will ONLY EVER BE APPLIED when a "home" page-view or sub-view is open
  */
 
+/* Fix z-index for map list view incoming animation */
+.maplist {
+  z-index: 11;
+}
+
 
 /* Overlay div styling for home-view when its inactive */
 a.overlay {

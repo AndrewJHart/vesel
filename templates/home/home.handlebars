@@ -9,6 +9,15 @@
   <h1 class="title">Vesel Framework</h1>
 {{/view}}
 
+<div class="bar bar-standard bar-header-secondary">
+	<div class="segmented-control">
+		{{#link "" expand-tokens=true class="control-item active"}}List View{{/link}}
+		{{#link "map" expand-tokens=true class="control-item"}}Map View{{/link}}
+		{{!-- <a class="control-item active">List View</a> --}}
+  	{{!-- <a class="control-item">Map View</a> --}}
+  </div>
+</div>
+
 {{view collectionView}}
 
 {{#view "home/footer" tag="nav" className="bar bar-tab"}}
