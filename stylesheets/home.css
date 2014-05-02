@@ -6,6 +6,17 @@
  * will ONLY EVER BE APPLIED when a "home" page-view or sub-view is open
  */
 
+/* fooling around with taller header bar and tabs */
+header.bar {
+  border-bottom: 0;
+  -webkit-box-shadow:none;
+  box-shadow: none;
+}
+
+.bar {
+  background-color: rgba(220, 240, 255, 0.92);
+}
+
 /* Fix z-index for map list view incoming animation */
 .maplist {
   z-index: 11;
