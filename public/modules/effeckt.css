@@ -4013,13 +4013,13 @@ offset | guillotine-reverse | half-slide | sqkwoosh | tunnel>"
 }
 
 .effeckt-off-screen-nav-left-push {
-  -webkit-transform: translateX(-12rem);
-  -ms-transform: translateX(-12rem);
-  -o-transform: translateX(-12rem);
-  transform: translateX(-12rem);
-  -webkit-transition: 500ms;
-  -o-transition: 500ms;
-  transition: 500ms;
+  -webkit-transform: translateX(-80%);
+  -ms-transform: translateX(-80%);
+  -o-transform: translateX(-80%);
+  transform: translateX(-80%);
+  -webkit-transition: 200ms;
+  -o-transition: 200ms;
+  transition: 200ms;
 }
 
 .effeckt-off-screen-nav-left-push.effeckt-show {
@@ -4030,16 +4030,16 @@ offset | guillotine-reverse | half-slide | sqkwoosh | tunnel>"
 }
 
 .effeckt-off-screen-nav-left-push.effeckt-show ~ [data-effeckt-page].effeckt-page-active {
-  -webkit-transform: translateX(12rem);
-  -ms-transform: translateX(12rem);
-  -o-transform: translateX(12rem);
-  transform: translateX(12rem);
+  -webkit-transform: translateX(80%);
+  -ms-transform: translateX(80%);
+  -o-transform: translateX(80%);
+  transform: translateX(80%);
 }
 
 .effeckt-off-screen-nav-left-push ~ [data-effeckt-page].effeckt-page-active {
-  -webkit-transition: 500ms;
-  -o-transition: 500ms;
-  transition: 500ms;
+  -webkit-transition: 250ms;
+  -o-transition: 250ms;
+  transition: 250ms;
   -webkit-transform: translateX(0);
   -ms-transform: translateX(0);
   -o-transform: translateX(0);

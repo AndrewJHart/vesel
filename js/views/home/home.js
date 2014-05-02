@@ -4,6 +4,10 @@ Application.AnimView.extend({
     animateOut: "iosFadeLeft",
     collectionView: null,
 
+    events: {
+        'click a.overlay.mask': 'hideSettings'
+    },
+
     initialize: function() {
         this.collectionView = new Application.Views["home/list"]({
             collection: this.collection
@@ -23,6 +27,16 @@ Application.AnimView.extend({
         this.$el.addClass("effeckt-page-active");
 
         return this; // allow chaining
+    },
+
+    hideSettings: function(event) {
+
+        // get the header view by accessing the nested element
+        // with header tag and getting its data-view-cid
+        // then grab that view from this.children array of objects
+        var headerView = this.children[this.$('header.bar').data("view-cid")];
+
+        headerView.toggleSettings(event);
     }
 });
 

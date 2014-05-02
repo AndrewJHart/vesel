@@ -6,6 +6,29 @@
  * will ONLY EVER BE APPLIED when a "home" page-view or sub-view is open
  */
 
+
+/* Overlay div styling for home-view when its inactive */
+a.overlay {
+  visibility: hidden;
+  z-index: 0;
+  display: none;
+  width: 0;
+  height: 0;
+  color: #000;
+}
+
+a.overlay.mask {
+  display: block;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: #000;
+  z-index: 2000;
+  opacity: 0.4;
+  visibility: visible;
+}
+
 /* Add extra padding to last element in the ul list to fix the last item */
 .content > .table-view:last-child {
 	margin-bottom: 60px;
@@ -16,16 +39,18 @@
 	padding: 0.938em 65px 0.938em 15px;
 }
 
-/*.settings {
-	position: fixed;
-	width: 80% !important;
-	max-width: 80%;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	left: auto;
-	height: 100%;
-}*/
+/* Adjust the bar-nav to stay contained within its page div so we dont lose our 
+ * ability to click on an icon button in the header if another page is partially
+ * on screen at the same time. 
+ */
+.bar-nav {
+  overflow: hidden;
+}
+
+
+[data-effeckt-page] {
+  position: fixed;
+}
 
 
 .effeckt-off-screen-nav {
@@ -37,7 +62,7 @@
   overflow-y: auto;
   background: #333333;
   visibility: hidden;
-  width: 12rem;
+  width: 80%;
 }
 
 .effeckt-off-screen-nav ul {

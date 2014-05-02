@@ -18565,37 +18565,16 @@ var AnimView = window.AnimView = Thorax.View.extend({
 
         var transitionIn = function() {
 
-            if (options.aside === true) {
+            view.$el.toggleClass(toggle).show().addClass(view.animateIn + ' animated');
+            view.$el.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd animationend', function() {
 
-                // first lets show the aside 
-                console.log('--------------------------');
-                console.debug('transitionIn called for aside view ' + view.getViewName());
+                view.$el.removeClass(view.animateIn + ' animated');
 
-                // add class for current animation and then "effeckt-show" 
-                view.$el.addClass(view.animateIn);
-                view.$el.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd animationend transitionend', function() {
-                    // unbind the event for now -- this is not very useful but stays for testing
-                    view.$el.addClass("effeckt-show");
-
-                    if (_.isFunction(callback)) {
-                        callback();
-                        console.log('--------------------------');
-                        console.debug('callback fired for transitionIn for view ' + view.getViewName());
-                    }
-                });
-            } else {
-
-                view.$el.toggleClass(toggle).show().addClass(view.animateIn + ' animated');
-                view.$el.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd animationend', function() {
-
-                    view.$el.removeClass(view.animateIn + ' animated');
-
-                    if (_.isFunction(callback)) {
-                        callback();
-                        console.debug('Callback triggered on event transitionend for TransitionIn');
-                    }
-                });
-            }
+                if (_.isFunction(callback)) {
+                    callback();
+                    console.debug('Callback triggered on event transitionend for TransitionIn');
+                }
+            });
 
         };
 
@@ -18609,65 +18588,23 @@ var AnimView = window.AnimView = Thorax.View.extend({
         var view = this,
             toggle = options.toggleOut || '';
 
-        var transitionOut = function() {
+        // otherwise operate standard transitions        
+        view.$el.toggleClass(toggle).addClass(view.animateOut + ' animated');
+        view.$el.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd animationend', function() {
 
-            // check if this is an aside animation (Home is going out 1st time)
-            if (options.aside === true) {
-
-                console.log('--------------------------');
-                console.debug('transitionOut called with aside for view ' + view.getViewName());
-
-                if (view.getViewName() == 'home') {
-                    console.debug('!!!----- Transition Out aside=true with the Home View!');
-                    // add class effeckt-page-active 
-                    //view.$el.addClass('effeckt-page-active animated');
-                    view.$el.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd animationend transitionend', function() {
-                        // unbind the event for now -- this is not very useful but stays for testing
-                        view.$el.removeClass('animated');
-
-                        if (_.isFunction(callback)) {
-                            callback();
-                            console.debug('callback fired for transitionOut for view ' + view.getViewName());
-                            console.log('--------------------------');
-                        }
-                    });
-                }
-
-                if (view.getViewName() == 'settings') {
-                    console.debug('!!!----- Transition Out aside=true with the Settings View!');
-
-                    view.$el.removeClass(view.animateOut).addClass('animated');
-                    view.$el.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd animationend transitionend', function() {
-                        // unbind the event for now -- this is not very useful but stays for testing
-                        view.$el.removeClass('animated');
-
-                        if (_.isFunction(callback)) {
-                            callback();
-                            console.debug('callback fired for transitionOut for view ' + view.getViewName());
-                            console.log('--------------------------');
-                        }
-                    });
-                }
-            } else {
-                // otherwise operate standard transitions        
-                view.$el.toggleClass(toggle).addClass(view.animateOut + ' animated');
-                view.$el.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd animationend', function() {
-
-                    view.$el.removeClass(view.animateOut + ' animated').hide();
+            view.$el.removeClass(view.animateOut + ' animated').hide();
 
 
-                    if (_.isFunction(callback)) {
-                        callback(); // hard to track bug! He's binding to transitionend each time transitionOut called 
-                        // resulting in the callback being triggered callback * num of times transitionOut
-                        // has executed
-                        console.debug('Callback triggered on event transitionend for TransitionOut');
-                        console.debug('---------------------------');
-                    }
-                });
+            if (_.isFunction(callback)) {
+                callback(); // hard to track bug! He's binding to transitionend each time transitionOut called 
+                // resulting in the callback being triggered callback * num of times transitionOut
+                // has executed
+                console.debug('Callback triggered on event transitionend for TransitionOut');
+                console.debug('---------------------------');
             }
-        };
+        });
 
-        _.delay(transitionOut, 0);
+        //_.delay(transitionOut, 0);
     },
 
     // ----------------------------
@@ -18761,50 +18698,7 @@ var RootView = AnimView.extend({
         }, this);
 
 
-        // Special option for aside toggling 
-        if (options.aside === true) {
-            // This exists to prevent the home view from 
-            // performing its standard transitionOut event
-
-            // add extra option to pass to transitionOut for home
-            options.homeAside = true;
-
-            // do a little work for effeckt right now
-            previous.transitionOut(options, function() {
-                // only remove the old view if its not the Home view
-                if (previous.getViewName() == 'home' ||
-                    previous.$el.data('view-persist') == 'true') {
-
-                    // this view does not get removed
-                    console.debug('Previous view ' + previous.getViewName() + ' must exist for aside toggle!');
-                } else {
-                    // allow user to cleanup actions pre-removal w/ this hook
-                    if (_.isFunction(previous.beforeRemove)) {
-                        previous.beforeRemove();
-                    }
-
-                    // remove the previous view (copied from LayoutView)
-                    remove();
-
-                    // allow user to trigger actions post-removal w/ this hook
-                    if (_.isFunction(previous.afterRemove)) {
-                        previous.afterRemove();
-                    }
-                }
-            });
-
-            // render the settings view as a non-page for now
-            next.render({
-                page: false
-            });
-
-            // append the settings view to the DOM
-            this.$el.prepend(next.$el);
-
-            // animate the settings aside
-            next.transitionIn(options);
-
-        } else if (options.page === true && !options.aside) {
+        if (options.page === true) {
             // Standard transitions from view to view happen here
 
             // check for a previous view before trying anything

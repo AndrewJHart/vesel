@@ -56,7 +56,51 @@ new(Backbone.Router.extend({
 }));
 ;;
 Application.View.extend({
-    name: "home/header"
+    name: "home/header",
+    settingsView: null,
+    settingsState: null,
+
+    events: {
+        'click .toggle-settings': 'toggleSettings'
+    },
+
+    initialize: function() {
+        this.settingsState = true;
+
+        // create and prep the settings view
+        if (!this.settingsView) {
+
+            this.settingsView = Application.View["settings"] = new Application.Views["home/settings"]({
+                el: '#settings', // stick this to the aside element in the DOM
+                className: 'effeckt-off-screen-nav'
+            });
+
+            this.settingsView.render();
+
+            Application.$el.prepend(this.settingsView.$el);
+        }
+
+        return this;
+    },
+
+    toggleSettings: function(event) {
+        console.log('Toggled Settings - settingsState is ' + this.settingsState);
+        console.log(event.target);
+
+        // animate the settings view in
+        this.settingsView.toggle(this.settingsState);
+
+        // change the state
+        this.settingsState = !this.settingsState;
+
+        _.delay(function() {
+
+            // activate the overlay mask on parent view (home)
+            this.parent.$('a.overlay').toggleClass('mask');
+        }, 200);
+
+        return true;
+    }
 });
 
 // Instances of this view can be created by calling:
@@ -69,17 +113,12 @@ Application.View.extend({
 // Instances of this view can be created by calling:
 // new Application.Views["home/footer"]()
 ;;
-Handlebars.templates['home/settings'] = Handlebars.compile('{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\" type=\"home-header\"}}\n  {{#link \"\" expand-tokens=true class=\"icon icon-left-nav pull-left\"}}{{/link}}\n  <h1 class=\"title\">Settings</h1>\n{{/view}}\n<ul class=\"table-view\">\n  <li class=\"table-view-cell\">\n    Item 1\n    <div class=\"toggle\">\n      <div class=\"toggle-handle\"></div>\n    </div>\n  </li>\n  <li class=\"table-view-cell\">\n    Item 2\n    <div class=\"toggle active\">\n      <div class=\"toggle-handle\"></div>\n    </div>\n  </li>\n  <li class=\"table-view-cell table-view-divider\">Categories</li>\n  <li class=\"table-view-cell\">\n    Item 3\n    <div class=\"toggle\">\n      <div class=\"toggle-handle\"></div>\n    </div>\n  </li>\n</ul>\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\" type=\"home-footer\"}}\n  <a class=\"tab-item active\" href=\"#\">\n    <span class=\"icon icon-home\"></span>\n    <span class=\"tab-label\">Home</span>\n  </a>\n  <a class=\"tab-item\" href=\"#2\">\n    <span class=\"icon icon-person\"></span>\n    <span class=\"tab-label\">Profile</span>\n  </a>\n  <a class=\"tab-item\" href=\"#3\">\n    <span class=\"icon icon-gear\"></span>\n    <span class=\"tab-label\">Settings</span>\n  </a>\n{{/view}}');Application.AnimView.extend({
+Handlebars.templates['home/settings'] = Handlebars.compile('{{!-- {{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\" type=\"home-header\"}}\n  {{#link \"\" expand-tokens=true class=\"icon icon-left-nav pull-left\"}}{{/link}}\n  <h1 class=\"title\">Settings</h1>\n{{/view}} --}}\n\n<header class=\"bar bar-nav\">\n  <h1 class=\"title\">Settings</h1>\n</header>\n\n<div class=\"content\">\n  <ul class=\"table-view\">\n    <li class=\"table-view-cell\">\n      Item 1\n      <div class=\"toggle\">\n        <div class=\"toggle-handle\"></div>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      Item 2\n      <div class=\"toggle active\">\n        <div class=\"toggle-handle\"></div>\n      </div>\n    </li>\n    <li class=\"table-view-cell table-view-divider\">Categories</li>\n    <li class=\"table-view-cell\">\n      Item 3\n      <div class=\"toggle\">\n        <div class=\"toggle-handle\"></div>\n      </div>\n    </li>\n  </ul>\n</div>\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\" type=\"home-footer\"}}\n  <a class=\"tab-item active\" href=\"#\">\n    <span class=\"icon icon-help\"></span>\n    <span class=\"tab-label\">Help</span>\n  </a>\n  <a class=\"tab-item\" href=\"#2\">\n    <span class=\"icon icon-person\"></span>\n    <span class=\"tab-label\">Profile</span>\n  </a>\n{{/view}}');Application.AnimView.extend({
     name: "home/settings",
 
     // add animations
-    animateIn: "effeckt-off-screen-nav-left-push",
-    animateOut: "effeckt-off-screen-nav-left-push",
-
-    // data-attributes
-    // attributes: {
-    //     'data-view-persist': 'false'
-    // },
+    animateIn: "effeckt-off-screen-nav-left-push ",
+    animateOut: "effeckt-off-screen-nav-left-push ",
 
     initialize: function() {
         console.log('HomeRegion#settings view init triggered!');
@@ -88,6 +127,36 @@ Handlebars.templates['home/settings'] = Handlebars.compile('{{#view \"home/heade
         // i.e. attributes and/or classNames, aren't applied on first run
         this.$el.addClass('effeckt-off-screen-nav');
         this.$el.attr('data-view-persist', 'true');
+
+        return this;
+    },
+
+    toggle: function(settingsState) {
+        var self = this;
+
+        if (settingsState) {
+            console.log('settingsState = true, settings view animating...');
+
+            this.$el.addClass(this.animateIn);
+
+            this.$el.on('webkitAnimationEnd transitionend', function() {
+
+                self.$el.off('webkitAnimationEnd transitionend');
+                // show the aside panel
+                self.$el.addClass("effeckt-show");
+            });
+        } else {
+
+            this.$el.removeClass("effeckt-show");
+
+            this.$el.on('webkitAnimationEnd transitionend', function() {
+
+                self.$el.off('webkitAnimationEnd transitionend');
+
+                // remove the class
+                self.$el.removeClass(self.animateOut);
+            });
+        }
 
         return this;
     }
@@ -122,11 +191,15 @@ Application.Model.extend({
 // Instances of this model can be created by calling:
 // new Application.Models["home/alert"]()
 ;;
-Handlebars.templates['home/home'] = Handlebars.compile('{{!-- Home View -- represents all the views that are needed to --}}\n{{!-- form the home \"page\" or \"pane\" (which has transitions) --}}\n{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\"}}\n  {{#link \"settings\" expand-tokens=true class=\"icon icon-gear pull-right\"}}{{/link}}\n  {{!-- <a href=\"#settings\" class=\"icon icon-gear pull-right\"></a> --}}\n  <h1 class=\"title\">Vesel Framework</h1>\n{{/view}}\n\n{{view collectionView}}\n\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\"}}\n\t<a class=\"tab-item active\" href=\"#\">\n\t\t<span class=\"icon icon-home\"></span>\n\t\t<span class=\"tab-label\">Home</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#2\">\n\t\t<span class=\"icon icon-person\"></span>\n\t\t<span class=\"tab-label\">Profile</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#3\">\n\t\t<span class=\"icon icon-gear\"></span>\n\t\t<span class=\"tab-label\">Settings</span>\n\t</a>\n{{/view}}');Application.AnimView.extend({
+Handlebars.templates['home/home'] = Handlebars.compile('{{!-- Home View -- represents all the views that are needed to --}}\n{{!-- form the home \"page\" or \"pane\" (which has transitions) --}}\n\n<a href=\"#\" class=\"overlay\"></a>\n\n{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\"}}\n  {{!-- {{#link \"settings\" expand-tokens=true class=\"icon icon-gear pull-right\"}}{{/link}} --}}\n  <a href=\"#\" class=\"icon icon-gear pull-left toggle-settings\"></a>\n  <h1 class=\"title\">Vesel Framework</h1>\n{{/view}}\n\n{{view collectionView}}\n\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\"}}\n\t<a class=\"tab-item active\" href=\"#\">\n\t\t<span class=\"icon icon-home\"></span>\n\t\t<span class=\"tab-label\">Home</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#2\">\n\t\t<span class=\"icon icon-person\"></span>\n\t\t<span class=\"tab-label\">Profile</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#3\">\n\t\t<span class=\"icon icon-gear\"></span>\n\t\t<span class=\"tab-label\">Settings</span>\n\t</a>\n{{/view}}');Application.AnimView.extend({
     name: "home/home",
     animateIn: "fadeIn",
     animateOut: "iosFadeLeft",
     collectionView: null,
+
+    events: {
+        'click a.overlay.mask': 'hideSettings'
+    },
 
     initialize: function() {
         this.collectionView = new Application.Views["home/list"]({
@@ -147,6 +220,16 @@ Handlebars.templates['home/home'] = Handlebars.compile('{{!-- Home View -- repre
         this.$el.addClass("effeckt-page-active");
 
         return this; // allow chaining
+    },
+
+    hideSettings: function(event) {
+
+        // get the header view by accessing the nested element
+        // with header tag and getting its data-view-cid
+        // then grab that view from this.children array of objects
+        var headerView = this.children[this.$('header.bar').data("view-cid")];
+
+        headerView.toggleSettings(event);
     }
 });
 
