@@ -33,7 +33,8 @@ new(Backbone.Router.extend({
         //if (!this.settingsView) {
         // create settings view
         var mapView = new Application.Views["home/maplist"]({
-            className: 'maplist left'
+            className: 'maplist left',
+            collection: this.alerts
         });
         //}
 

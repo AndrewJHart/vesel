@@ -42,7 +42,8 @@ new(Backbone.Router.extend({
         //if (!this.settingsView) {
         // create settings view
         var mapView = new Application.Views["home/maplist"]({
-            className: 'maplist left'
+            className: 'maplist left',
+            collection: this.alerts
         });
         //}
 
@@ -112,7 +113,7 @@ Application.View.extend({
 // Instances of this view can be created by calling:
 // new Application.Views["home/footer"]()
 ;;
-Handlebars.templates['home/settings'] = Handlebars.compile('{{!-- {{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\" type=\"home-header\"}}\n  {{#link \"\" expand-tokens=true class=\"icon icon-left-nav pull-left\"}}{{/link}}\n  <h1 class=\"title\">Settings</h1>\n{{/view}} --}}\n\n<header class=\"bar bar-nav\">\n  <h1 class=\"title\">Settings</h1>\n</header>\n\n<div class=\"content\">\n  <ul class=\"table-view\">\n    <li class=\"table-view-cell\">\n      Item 1\n      <div class=\"toggle\">\n        <div class=\"toggle-handle\"></div>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      Item 2\n      <div class=\"toggle active\">\n        <div class=\"toggle-handle\"></div>\n      </div>\n    </li>\n    <li class=\"table-view-cell table-view-divider\">Categories</li>\n    <li class=\"table-view-cell\">\n      Item 3\n      <div class=\"toggle\">\n        <div class=\"toggle-handle\"></div>\n      </div>\n    </li>\n  </ul>\n</div>\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\" type=\"home-footer\"}}\n  <a class=\"tab-item active\" href=\"#\">\n    <span class=\"icon icon-help\"></span>\n    <span class=\"tab-label\">Help</span>\n  </a>\n  <a class=\"tab-item\" href=\"#2\">\n    <span class=\"icon icon-person\"></span>\n    <span class=\"tab-label\">Profile</span>\n  </a>\n{{/view}}');Application.AnimView.extend({
+Handlebars.templates['home/settings'] = Handlebars.compile('{{!-- {{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\" type=\"home-header\"}}\n  {{#link \"\" expand-tokens=true class=\"icon icon-left-nav pull-left\"}}{{/link}}\n  <h1 class=\"title\">Settings</h1>\n{{/view}} --}}\n\n<header class=\"bar bar-nav\">\n  <h1 class=\"title\">Settings</h1>\n</header>\n\n<div class=\"content\">\n  <ul class=\"table-view\">\n    <li class=\"table-view-cell\">\n      Item 1\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\"></input>\n      </div>\n    </li>\n    <li class=\"table-view-cell table-view-divider\">Categories</li>\n    <li class=\"table-view-cell\">\n      Police\n      <div class=\"toggle active\">\n        <input type=\"checkbox\" class=\"toggle-handle\"></input>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      Fire\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\"></input>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      Traffic\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\"></input>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      School\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\"></input>\n      </div>\n    </li>\n  </ul>\n</div>\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\" type=\"home-footer\"}}\n  <a class=\"tab-item active\" href=\"#\">\n    <span class=\"icon icon-help\"></span>\n    <span class=\"tab-label\">Help</span>\n  </a>\n  <a class=\"tab-item\" href=\"#2\">\n    <span class=\"icon icon-person\"></span>\n    <span class=\"tab-label\">Profile</span>\n  </a>\n{{/view}}');Application.AnimView.extend({
     name: "home/settings",
 
     // add animations
@@ -197,10 +198,24 @@ Handlebars.templates['home/home'] = Handlebars.compile('{{!-- Home View -- repre
     collectionView: null,
 
     events: {
-        'click a.overlay.mask': 'hideSettings'
+        'click a.overlay.mask': function(event) {
+
+            // get reference to the nested header view using its data-view-cid
+            var headerView = this.children[this.$("header").data("view-cid")];
+
+            // call the "home/header" view method to trigger aside reveal
+            // forward the event data on to the header view too.
+            headerView.toggleSettings(event);
+
+            return false;
+        }
     },
 
     initialize: function() {
+        // instantiate the CollectionView to create the nested list
+        // & list-item views with the Alerts collection/resource data
+        // as the list-item template context. The Emmet equivalent for
+        // this structure would be something like:  ul>li*(alerts.length)
         this.collectionView = new Application.Views["home/list"]({
             collection: this.collection
         });
@@ -323,11 +338,42 @@ Handlebars.templates['home/list-empty'] = Handlebars.compile('<h1>Home Page home
 // Instances of this view can be created by calling:
 // new Application.Views["home/list"]()
 ;;
-Handlebars.templates['home/maplist'] = Handlebars.compile('{{!-- <header class=\"bar bar-nav\">\n  <h1 class=\"title\">Map List</h1>\n</header> --}}\n\n<a href=\"#\" class=\"overlay\"></a>\n\n{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\"}}\n  {{!-- {{#link \"settings\" expand-tokens=true class=\"icon icon-gear pull-right\"}}{{/link}} --}}\n  <a href=\"#\" class=\"icon icon-gear pull-left toggle-settings\"></a>\n  <h1 class=\"title\">Vesel Framework</h1>\n{{/view}}\n\n<div class=\"bar bar-standard bar-header-secondary\">\n  <div class=\"segmented-control\">\n    {{#link \"\" expand-tokens=true class=\"control-item\"}}List View{{/link}}\n    {{#link \"map\" expand-tokens=true class=\"control-item active\"}}Map View{{/link}}\n  </div>\n</div>\n\n<div class=\"content\">\n  <ul class=\"table-view\">\n    <li class=\"table-view-cell\">\n      Item 1\n      <div class=\"toggle\">\n        <div class=\"toggle-handle\"></div>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      Item 2\n      <div class=\"toggle active\">\n        <div class=\"toggle-handle\"></div>\n      </div>\n    </li>\n    <li class=\"table-view-cell table-view-divider\">Categories</li>\n    <li class=\"table-view-cell\">\n      Item 3\n      <div class=\"toggle\">\n        <div class=\"toggle-handle\"></div>\n      </div>\n    </li>\n  </ul>\n</div>\n\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\"}}\n  <a class=\"tab-item active\" href=\"#\">\n    <span class=\"icon icon-home\"></span>\n    <span class=\"tab-label\">Home</span>\n  </a>\n  <a class=\"tab-item\" href=\"#2\">\n    <span class=\"icon icon-person\"></span>\n    <span class=\"tab-label\">Profile</span>\n  </a>\n  <a class=\"tab-item\" href=\"#3\">\n    <span class=\"icon icon-gear\"></span>\n    <span class=\"tab-label\">Settings</span>\n  </a>\n{{/view}}');Application.AnimView.extend({
+Handlebars.templates['home/maplist'] = Handlebars.compile('{{!-- <header class=\"bar bar-nav\">\n  <h1 class=\"title\">Map List</h1>\n</header> --}}\n\n<a href=\"#\" class=\"overlay\"></a>\n\n{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\"}}\n  {{!-- {{#link \"settings\" expand-tokens=true class=\"icon icon-gear pull-right\"}}{{/link}} --}}\n  <a href=\"#\" class=\"icon icon-gear pull-left toggle-settings\"></a>\n  <h1 class=\"title\">Vesel Framework</h1>\n{{/view}}\n\n<div class=\"bar bar-standard bar-header-secondary\">\n  <div class=\"segmented-control\">\n    {{#link \"\" expand-tokens=true class=\"control-item\"}}List View{{/link}}\n    {{#link \"map\" expand-tokens=true class=\"control-item active\"}}Map View{{/link}}\n  </div>\n</div>\n\n<div id=\"mapmain\" class=\"map\">\n</div>\n\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\"}}\n  <a class=\"tab-item active\" href=\"#\">\n    <span class=\"icon icon-home\"></span>\n    <span class=\"tab-label\">Home</span>\n  </a>\n  <a class=\"tab-item\" href=\"#2\">\n    <span class=\"icon icon-person\"></span>\n    <span class=\"tab-label\">Profile</span>\n  </a>\n  <a class=\"tab-item\" href=\"#3\">\n    <span class=\"icon icon-gear\"></span>\n    <span class=\"tab-label\">Settings</span>\n  </a>\n{{/view}}');Application.AnimView.extend({
     name: "home/maplist",
 
     animateIn: 'bounceInDown',
-    animateOut: 'slideOutUp'
+    animateOut: 'slideOutUp',
+
+    afterRender: function() {
+
+        setTimeout(function() {
+            // return function() {
+            var featureLayer, mapboxTiles, mapview;
+
+            mapboxTiles = L.tileLayer('https://{s}.tiles.mapbox.com/v3/mscnswv.hl37jh6m/{z}/{x}/{y}.png', {
+                attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">Terms &amp; Im fucking awesome</a>'
+            });
+
+            mapview = new L.map('mapmain', {
+                doubleClickZoom: false
+            }).addLayer(mapboxTiles).setView([38.412, -82.428], 14).on('dblclick', function(e) {
+                console.log('this is some bs charles');
+                return mapview.setView(e.latlng, mapview.getZoom() + 1);
+            });
+
+            featureLayer = L.mapbox.featureLayer().
+            loadURL('http://127.0.0.1:8005/api/app/v1/alert_locations/').
+            addTo(mapview).on('ready', function() {
+                featureLayer.eachLayer(function(l) {
+                    return mapview.panTo(l.getLatLng());
+                });
+                // setTimeout(function() {
+                //     return featureLayer.loadURL('http://127.0.0.1:8005/api/app/v1/alert_locations/');
+                // }, 2000);
+            });
+            // };
+        }, 400);
+    }
 });
 
 // Instances of this view can be created by calling:
