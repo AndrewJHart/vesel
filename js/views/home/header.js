@@ -38,7 +38,7 @@ Application.View.extend({
 
         _.delay(function() {
 
-            // activate the overlay mask on parent view (home)
+            // activate the overlay mask on parent view aka: home or maplist
             this.parent.$('a.overlay').toggleClass('mask');
         }, 200);
 

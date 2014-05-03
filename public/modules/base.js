@@ -18503,7 +18503,7 @@ if (module.exports.loader && module.exports.loader.map && window.Backbone) {
 ;;
 /* lumbar module map */
 module.exports.moduleMap({"base":{"css":{"href":"base.css"},"js":"base.js"},"modules":{"detail":{"css":{"href":"detail.css"},"js":"detail.js"},"home":{"css":{"href":"home.css"},"js":"home.js"}},"routes":{"":"home","detail/:id":"detail","map":"home"}});
-Handlebars.templates['root'] = Handlebars.compile('{{! This template is used by the Application object created\n    created in init.js, calling Application.setView() will\n    place a view where layout-element is called below. }}\n\n\n\n  {{! \n  Using embedded layout from master layout-view we can render all dynamic\n  content within the proper div very easily! :) :) this is fun.  \n  }}\n\t{{!-- {{layout-element tag=\"div\" id=\"page-wrap\"}} --}}\n\n\t{{!-- <div id=\"page2\" style=\"display:none\"></div> --}}\n\n\t<aside id=\"settings\"></aside> \n\n\t<div id=\"home\"></div>');// The main Animating view base class/object definition. 
+Handlebars.templates['root'] = Handlebars.compile('{{! This template is used by the Application object created\n    created in init.js, calling Application.setView() will\n    place a view where layout-element is called below. }}\n\n\n\n  {{! \n  Using embedded layout from master layout-view we can render all dynamic\n  content within the proper div very easily! :) :) this is fun.  \n  }}\n\t{{!-- {{layout-element tag=\"div\" id=\"page-wrap\"}} --}}\n\n\t{{!-- <div id=\"page2\" style=\"display:none\"></div> --}}\n\n\t<aside id=\"settings\"></aside> \n\n\t<div id=\"home\"></div>\n\n  <div id=\"map\"></div>');// The main Animating view base class/object definition. 
 // All Views that require animation should extend AnimView in their
 // object definition. 
 var AnimView = window.AnimView = Thorax.View.extend({
@@ -18707,10 +18707,21 @@ var RootView = AnimView.extend({
 
                     // only remove the old view if its not the Home view
                     if (previous.getViewName() == 'home' ||
-                        previous.$el.data('view-persist') == 'true') {
+                        previous.$el.data('view-persist') == true ||
+                        previous.$el.attr('data-view-persist' == true)) {
 
                         // this view does not get removed
                         console.debug("Previous view " + previous.getViewName() + "'s data-view-persist is true - not removing!");
+
+                        // although this view is not removed, provide a hook for 
+                        // a user to perform cleanup, remove classes, etc.. before
+                        // the next view is animated in. E.g. This hook is great for
+                        // removing the effeckt-page-active class from home-vew before
+                        // the map-view is rendered so that settings toggle works w/ map
+                        // view too. :) :) 
+                        if (_.isFunction(previous.beforeNextViewLoads)) {
+                            previous.beforeNextViewLoads();
+                        }
                     } else {
                         // allow user to cleanup actions pre-removal w/ this hook
                         if (_.isFunction(previous.beforeRemove)) {

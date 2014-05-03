@@ -202,10 +202,21 @@ var RootView = AnimView.extend({
 
                     // only remove the old view if its not the Home view
                     if (previous.getViewName() == 'home' ||
-                        previous.$el.data('view-persist') == 'true') {
+                        previous.$el.data('view-persist') == true ||
+                        previous.$el.attr('data-view-persist' == true)) {
 
                         // this view does not get removed
                         console.debug("Previous view " + previous.getViewName() + "'s data-view-persist is true - not removing!");
+
+                        // although this view is not removed, provide a hook for 
+                        // a user to perform cleanup, remove classes, etc.. before
+                        // the next view is animated in. E.g. This hook is great for
+                        // removing the effeckt-page-active class from home-vew before
+                        // the map-view is rendered so that settings toggle works w/ map
+                        // view too. :) :) 
+                        if (_.isFunction(previous.beforeNextViewLoads)) {
+                            previous.beforeNextViewLoads();
+                        }
                     } else {
                         // allow user to cleanup actions pre-removal w/ this hook
                         if (_.isFunction(previous.beforeRemove)) {

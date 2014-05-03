@@ -15,7 +15,7 @@ new(Backbone.Router.extend({
         // only instantiate on the initial run
         if (!this.indexView) {
             // create an instance of the home page-view (AnimView)
-            this.indexView = Application.View["homeIndex"] = new Application.Views["home/home"]({
+            this.indexView = Application.View["homeView"] = new Application.Views["home/home"]({
                 el: '#home',
                 className: 'home page',
                 collection: this.alerts
@@ -30,18 +30,22 @@ new(Backbone.Router.extend({
 
     maplist: function(params) {
 
-        //if (!this.settingsView) {
-        // create settings view
-        var mapView = new Application.Views["home/maplist"]({
-            className: 'maplist left',
-            collection: this.alerts
-        });
-        //}
+        if (!this.mapView) {
+            // create map view
+            this.mapView = Application.View["mapView"] = new Application.Views["home/maplist"]({
+                el: '#map',
+                className: 'maplist' // left'
+                // -- can use a new collection for locations 
+                // or make the call directly w/ leaflet
+                //collection: this.alerts
+            });
+        }
 
         // show the settings view
-        Application.goto(mapView, {
-            page: true,
-            toggleIn: 'left'
+        Application.goto(this.mapView, {
+            page: true
+            //,
+            //toggleIn: 'left'
         });
     }
 }));

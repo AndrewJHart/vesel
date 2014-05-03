@@ -1,5 +1,6 @@
 Application.AnimView.extend({
     name: "home/home",
+
     animateIn: "fadeIn",
     animateOut: "iosFadeLeft",
     collectionView: null,
@@ -35,22 +36,22 @@ Application.AnimView.extend({
 
     // Perfect for a unit test that the home view should have onRender()
     beforeRender: function() {
-        console.log(this.name + "#beforeRender()");
+        console.log(this.getViewName() + "#beforeRender()");
 
-        // add 
+        // add this as the active page for effeckt.css
         this.$el.addClass("effeckt-page-active");
 
         return this; // allow chaining
     },
 
-    hideSettings: function(event) {
+    // this view persists but we still need a hook when new route & view come in
+    beforeNextViewLoads: function() {
+        console.log(this.getViewName() + "#beforeNextViewLoads() helper called");
 
-        // get the header view by accessing the nested element
-        // with header tag and getting its data-view-cid
-        // then grab that view from this.children array of objects
-        var headerView = this.children[this.$('header.bar').data("view-cid")];
+        // this is no longer the active page
+        this.$el.removeClass("effeckt-page-active");
 
-        headerView.toggleSettings(event);
+        return this;
     }
 });
 

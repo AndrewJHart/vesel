@@ -24,7 +24,7 @@ new(Backbone.Router.extend({
         // only instantiate on the initial run
         if (!this.indexView) {
             // create an instance of the home page-view (AnimView)
-            this.indexView = Application.View["homeIndex"] = new Application.Views["home/home"]({
+            this.indexView = Application.View["homeView"] = new Application.Views["home/home"]({
                 el: '#home',
                 className: 'home page',
                 collection: this.alerts
@@ -39,18 +39,22 @@ new(Backbone.Router.extend({
 
     maplist: function(params) {
 
-        //if (!this.settingsView) {
-        // create settings view
-        var mapView = new Application.Views["home/maplist"]({
-            className: 'maplist left',
-            collection: this.alerts
-        });
-        //}
+        if (!this.mapView) {
+            // create map view
+            this.mapView = Application.View["mapView"] = new Application.Views["home/maplist"]({
+                el: '#map',
+                className: 'maplist' // left'
+                // -- can use a new collection for locations 
+                // or make the call directly w/ leaflet
+                //collection: this.alerts
+            });
+        }
 
         // show the settings view
-        Application.goto(mapView, {
-            page: true,
-            toggleIn: 'left'
+        Application.goto(this.mapView, {
+            page: true
+            //,
+            //toggleIn: 'left'
         });
     }
 }));
@@ -95,7 +99,7 @@ Application.View.extend({
 
         _.delay(function() {
 
-            // activate the overlay mask on parent view (home)
+            // activate the overlay mask on parent view aka: home or maplist
             this.parent.$('a.overlay').toggleClass('mask');
         }, 200);
 
@@ -191,8 +195,9 @@ Application.Model.extend({
 // Instances of this model can be created by calling:
 // new Application.Models["home/alert"]()
 ;;
-Handlebars.templates['home/home'] = Handlebars.compile('{{!-- Home View -- represents all the views that are needed to --}}\n{{!-- form the home \"page\" or \"pane\" (which has transitions) --}}\n\n<a href=\"#\" class=\"overlay\"></a>\n\n{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\"}}\n    {{!-- {{#link \"settings\" expand-tokens=true class=\"icon icon-gear pull-right\"}}{{/link}} --}}\n    <a href=\"#\" class=\"icon icon-gear pull-left toggle-settings\"></a>\n    <h1 class=\"title\">Vesel Framework</h1>\t\n{{/view}}\n\n<div class=\"bar bar-standard bar-header-secondary\">\n\t<div class=\"segmented-control\">\n\t\t{{#link \"\" expand-tokens=true class=\"control-item active\"}}List View{{/link}}\n\t\t{{#link \"map\" expand-tokens=true class=\"control-item\"}}Map View{{/link}}\n  \t</div>\n</div>\n\n{{view collectionView}}\n\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\"}}\n\t<a class=\"tab-item active\" href=\"#\">\n\t\t<span class=\"icon icon-home\"></span>\n\t\t<span class=\"tab-label\">Home</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#2\">\n\t\t<span class=\"icon icon-person\"></span>\n\t\t<span class=\"tab-label\">Profile</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#3\">\n\t\t<span class=\"icon icon-gear\"></span>\n\t\t<span class=\"tab-label\">Settings</span>\n\t</a>\n{{/view}}');Application.AnimView.extend({
+Handlebars.templates['home/home'] = Handlebars.compile('{{!-- Home View -- represents all the views that are needed to --}}\n{{!-- form the home \"page\" or \"pane\" (which has transitions) --}}\n\n<a class=\"overlay\"></a>\n\n{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\"}}\n    {{!-- {{#link \"settings\" expand-tokens=true class=\"icon icon-gear pull-right\"}}{{/link}} --}}\n    <a class=\"icon icon-gear pull-left toggle-settings\"></a>\n    <h1 class=\"title\">Vesel Framework</h1>\t\n{{/view}}\n\n<div class=\"bar bar-standard bar-header-secondary\">\n\t<div class=\"segmented-control\">\n\t\t{{#link \"\" expand-tokens=true class=\"control-item active\"}}List View{{/link}}\n\t\t{{#link \"map\" expand-tokens=true class=\"control-item\"}}Map View{{/link}}\n  \t</div>\n</div>\n\n{{view collectionView}}\n\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\"}}\n\t<a class=\"tab-item active\" href=\"#\">\n\t\t<span class=\"icon icon-home\"></span>\n\t\t<span class=\"tab-label\">Home</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#2\">\n\t\t<span class=\"icon icon-person\"></span>\n\t\t<span class=\"tab-label\">Profile</span>\n\t</a>\n\t<a class=\"tab-item\" href=\"#3\">\n\t\t<span class=\"icon icon-gear\"></span>\n\t\t<span class=\"tab-label\">Settings</span>\n\t</a>\n{{/view}}');Application.AnimView.extend({
     name: "home/home",
+
     animateIn: "fadeIn",
     animateOut: "iosFadeLeft",
     collectionView: null,
@@ -228,22 +233,22 @@ Handlebars.templates['home/home'] = Handlebars.compile('{{!-- Home View -- repre
 
     // Perfect for a unit test that the home view should have onRender()
     beforeRender: function() {
-        console.log(this.name + "#beforeRender()");
+        console.log(this.getViewName() + "#beforeRender()");
 
-        // add 
+        // add this as the active page for effeckt.css
         this.$el.addClass("effeckt-page-active");
 
         return this; // allow chaining
     },
 
-    hideSettings: function(event) {
+    // this view persists but we still need a hook when new route & view come in
+    beforeNextViewLoads: function() {
+        console.log(this.getViewName() + "#beforeNextViewLoads() helper called");
 
-        // get the header view by accessing the nested element
-        // with header tag and getting its data-view-cid
-        // then grab that view from this.children array of objects
-        var headerView = this.children[this.$('header.bar').data("view-cid")];
+        // this is no longer the active page
+        this.$el.removeClass("effeckt-page-active");
 
-        headerView.toggleSettings(event);
+        return this;
     }
 });
 
@@ -338,26 +343,65 @@ Handlebars.templates['home/list-empty'] = Handlebars.compile('<h1>Home Page home
 // Instances of this view can be created by calling:
 // new Application.Views["home/list"]()
 ;;
-Handlebars.templates['home/maplist'] = Handlebars.compile('{{!-- <header class=\"bar bar-nav\">\n  <h1 class=\"title\">Map List</h1>\n</header> --}}\n\n<a href=\"#\" class=\"overlay\"></a>\n\n{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\"}}\n  {{!-- {{#link \"settings\" expand-tokens=true class=\"icon icon-gear pull-right\"}}{{/link}} --}}\n  <a href=\"#\" class=\"icon icon-gear pull-left toggle-settings\"></a>\n  <h1 class=\"title\">Vesel Framework</h1>\n{{/view}}\n\n<div class=\"bar bar-standard bar-header-secondary\">\n  <div class=\"segmented-control\">\n    {{#link \"\" expand-tokens=true class=\"control-item\"}}List View{{/link}}\n    {{#link \"map\" expand-tokens=true class=\"control-item active\"}}Map View{{/link}}\n  </div>\n</div>\n\n<div id=\"mapmain\" class=\"map\">\n</div>\n\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\"}}\n  <a class=\"tab-item active\" href=\"#\">\n    <span class=\"icon icon-home\"></span>\n    <span class=\"tab-label\">Home</span>\n  </a>\n  <a class=\"tab-item\" href=\"#2\">\n    <span class=\"icon icon-person\"></span>\n    <span class=\"tab-label\">Profile</span>\n  </a>\n  <a class=\"tab-item\" href=\"#3\">\n    <span class=\"icon icon-gear\"></span>\n    <span class=\"tab-label\">Settings</span>\n  </a>\n{{/view}}');Application.AnimView.extend({
+Handlebars.templates['home/maplist'] = Handlebars.compile('{{!-- <header class=\"bar bar-nav\">\n  <h1 class=\"title\">Map List</h1>\n</header> --}}\n\n<a class=\"overlay\"></a>\n\n{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\"}}\n  <a class=\"icon icon-gear pull-left toggle-settings\"></a>\n  <h1 class=\"title\">Vesel Framework</h1>\n{{/view}}\n\n<div class=\"bar bar-standard bar-header-secondary\">\n  <div class=\"segmented-control\">\n    {{#link \"\" expand-tokens=true class=\"control-item\"}}List View{{/link}}\n    {{#link \"map\" expand-tokens=true class=\"control-item active\"}}Map View{{/link}}\n  </div>\n</div>\n\n<div id=\"mapmain\" class=\"map\">\n</div>\n\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\"}}\n  <a class=\"tab-item active\" href=\"#\">\n    <span class=\"icon icon-home\"></span>\n    <span class=\"tab-label\">Home</span>\n  </a>\n  <a class=\"tab-item\" href=\"#2\">\n    <span class=\"icon icon-person\"></span>\n    <span class=\"tab-label\">Profile</span>\n  </a>\n  <a class=\"tab-item\" href=\"#3\">\n    <span class=\"icon icon-gear\"></span>\n    <span class=\"tab-label\">Settings</span>\n  </a>\n{{/view}}');Application.AnimView.extend({
     name: "home/maplist",
 
     animateIn: 'bounceInDown',
     animateOut: 'slideOutUp',
 
+    events: {
+        'click a.overlay.mask': function(event) {
+
+            // get reference to the nested header view using its data-view-cid
+            var headerView = this.children[this.$("header").data("view-cid")];
+
+            // call the "home/header" view method to trigger aside reveal
+            // forward the event data on to the header view too.
+            headerView.toggleSettings(event);
+
+            return false;
+        }
+    },
+
+    initialize: function() {
+
+        // map list view can have settings aside toggle so 
+        // we need to apply data-effeckt-page = true attribute
+        this.$el.attr("data-effeckt-page", "home");
+        this.$el.attr("data-view-persist", "true");
+
+        return this;
+    },
+
+    // Perfect for a unit test that the home view should have onRender()
+    beforeRender: function() {
+        console.log(this.getViewName() + "#beforeRender()");
+
+        // add this as the active page for effeckt.css
+        this.$el.addClass("effeckt-page-active");
+
+        return this; // allow chaining
+    },
+
     afterRender: function() {
 
-        setTimeout(function() {
-            // return function() {
-            var featureLayer, mapboxTiles, mapview;
+        // trigger the leaflet plugin code. Note use of _.delay
+        // It is used only to circumvent a known DOM issue, thus the
+        // *timing* can be 0ms & works fine. 
+        _.delay(function() {
+
+            var featureLayer,
+                mapboxTiles,
+                mapview;
 
             mapboxTiles = L.tileLayer('https://{s}.tiles.mapbox.com/v3/mscnswv.hl37jh6m/{z}/{x}/{y}.png', {
-                attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">Terms &amp; Im fucking awesome</a>'
+                attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">Powered by MSCNS</a>'
             });
 
             mapview = new L.map('mapmain', {
                 doubleClickZoom: false
             }).addLayer(mapboxTiles).setView([38.412, -82.428], 14).on('dblclick', function(e) {
-                console.log('this is some bs charles');
+                console.log('Double Click event triggered.. returning expected results for now.');
                 return mapview.setView(e.latlng, mapview.getZoom() + 1);
             });
 
@@ -367,12 +411,8 @@ Handlebars.templates['home/maplist'] = Handlebars.compile('{{!-- <header class=\
                 featureLayer.eachLayer(function(l) {
                     return mapview.panTo(l.getLatLng());
                 });
-                // setTimeout(function() {
-                //     return featureLayer.loadURL('http://127.0.0.1:8005/api/app/v1/alert_locations/');
-                // }, 2000);
             });
-            // };
-        }, 400);
+        }, 0);
     }
 });
 
