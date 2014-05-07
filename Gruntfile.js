@@ -15,7 +15,14 @@ module.exports = function(grunt) {
                 options: {
                     hostname: hostname,
                     base: publicDir,
-                    port: port
+                    port: port,
+                    livereload: true
+                    // middleware: function(connect) {
+                    //     return [
+                    //         require('connect-livereload')()
+                    //         //mountFolder(connect, publicDir)
+                    //     ];
+                    // }
                 }
             }
         },
@@ -50,6 +57,32 @@ module.exports = function(grunt) {
                     templates: "./templates"
                 }
             }
+        },
+
+        // live reload
+        reload: {
+            port: 35729,
+            proxy: {
+                host: hostname,
+                port: port // should match server.port config
+            }
+        },
+
+        watch: {
+            options: {
+                livereload: false,
+            },
+            all: {
+                files: [
+                    './js/**/**/*.js',
+                    './public/**/*.*',
+                    './templates/home/*.handlebars',
+                    './templates/detail/*.handlebars'
+                ],
+                tasks: [
+                    'reload'
+                ]
+            },
         }
     });
 
@@ -62,6 +95,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('thorax-inspector');
     grunt.loadNpmTasks('lumbar');
     grunt.loadNpmTasks('grunt-contrib-connect');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-reload');
+
+    grunt.registerTask('dev', ['connect:server', 'reload', 'watch']);
 
     grunt.registerTask('default', [
         'ensure-installed',

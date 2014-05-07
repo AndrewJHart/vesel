@@ -34,13 +34,6 @@ Application.AnimView.extend({
 //       by using the handlebars {{#view}}..content..{{/view}} helper
 //
 
-// a div mask for shadow on left side of a div for animating... this
-// should not need its own view and will be deprecated soon. 
-Application.View.extend({
-    name: "detail/mask"
-});
-
-
 Application.View.extend({
     name: "detail/header",
     type: null,

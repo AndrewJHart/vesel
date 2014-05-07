@@ -5,6 +5,31 @@ Application.AnimView.extend({
     animateIn: "effeckt-off-screen-nav-left-push ",
     animateOut: "effeckt-off-screen-nav-left-push ",
 
+    model: new Thorax.Model({
+        category: "Police",
+        enabled: false
+    }),
+
+    events: {
+        'change div.toggle > input[type="checkbox"]': function(event) {
+            event.preventDefault();
+
+            console.log("toggle was changed. Target:");
+            console.log(event.target);
+
+            // try to get the model
+            this.$(event.target).model().set({
+                enabled: event.target.checked
+            }, {
+                silent: true
+            });
+
+            console.log(this.$(event.target).model());
+
+            return false;
+        }
+    },
+
     initialize: function() {
         console.log('HomeRegion#settings view init triggered!');
 
@@ -12,6 +37,8 @@ Application.AnimView.extend({
         // i.e. attributes and/or classNames, aren't applied on first run
         this.$el.addClass('effeckt-off-screen-nav');
         this.$el.attr('data-view-persist', 'true');
+
+        this.model.url = "http://localhost:8005/api/v1/app/device_settings/";
 
         return this;
     },

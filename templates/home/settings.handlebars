@@ -18,33 +18,33 @@
     <li class="table-view-cell table-view-divider">Categories</li>
     <li class="table-view-cell">
       Police
-      <div class="toggle active">
-        <input type="checkbox" class="toggle-handle"></input>
+      <div class="toggle">
+       <input type="checkbox" {{#enabled}}checked{{/enabled}} class="toggle-handle">
       </div>
     </li>
     <li class="table-view-cell">
       Fire
       <div class="toggle">
-        <input type="checkbox" class="toggle-handle"></input>
+        <input type="checkbox" class="toggle-handle" {{#model.enabled}}checked{{/model.enabled}}>
       </div>
     </li>
     <li class="table-view-cell">
       Traffic
       <div class="toggle">
-        <input type="checkbox" class="toggle-handle"></input>
+        <input type="checkbox" class="toggle-handle" {{#enabled}}checked{{/enabled}}>
       </div>
     </li>
     <li class="table-view-cell">
       School
       <div class="toggle">
-        <input type="checkbox" class="toggle-handle"></input>
+        <input type="checkbox" class="toggle-handle" {{#enabled}}checked{{/enabled}}>
       </div>
     </li>
   </ul>
 </div>
 {{#view "home/footer" tag="nav" className="bar bar-tab" type="home-footer"}}
   <a class="tab-item active" href="#">
-    <span class="icon icon-help"></span>
+    <span class="icon icon-info"></span>
     <span class="tab-label">Help</span>
   </a>
   <a class="tab-item" href="#2">

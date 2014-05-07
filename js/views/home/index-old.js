@@ -3,7 +3,6 @@ Application.CollectionView.extend({
     name: "home/index",
     transitionIn: 'fadeIn',
     transitionOut: 'iosFadeLeft',
-    initOnce: true,
 
     events: {
         'ready': function(options) {
@@ -152,7 +151,7 @@ Application.CollectionView.extend({
             'finished:render': function() {
                 console.debug('***Finished Rendering event triggered successfully');
 
-                this.render();
+                this.ensureRendered(); // ensures rendered at least once
             },
             'rendered': function(event) {
                 event.preventDefault();

@@ -7,7 +7,9 @@ new(Backbone.Router.extend({
     //-----------------
     // route handlers
 
+    // default route, triggered on / or /#
     index: function(params) {
+
         // only instantiate the alerts collection once
         if (!this.alerts)
             this.alerts = Application.Collection['alerts'] = new Application.Collections["home/alerts"]();
@@ -28,13 +30,15 @@ new(Backbone.Router.extend({
         });
     },
 
+    // triggered when route matches /#map
     maplist: function(params) {
 
+        // only create the map view if it hasnt been created yet
         if (!this.mapView) {
             // create map view
             this.mapView = Application.View["mapView"] = new Application.Views["home/maplist"]({
                 el: '#map',
-                className: 'maplist' // left'
+                className: 'maplist'
                 // -- can use a new collection for locations 
                 // or make the call directly w/ leaflet
                 //collection: this.alerts
@@ -44,8 +48,6 @@ new(Backbone.Router.extend({
         // show the settings view
         Application.goto(this.mapView, {
             page: true
-            //,
-            //toggleIn: 'left'
         });
     }
 }));

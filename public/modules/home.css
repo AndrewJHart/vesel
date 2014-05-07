@@ -17,7 +17,7 @@
 #mapmain.map {
   position: absolute;
   top: 88px;
-  bottom: 45px;
+  bottom: 0;
   left: 0;
   right: 0;
   width: 100%;

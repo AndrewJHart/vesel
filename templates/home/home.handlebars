@@ -5,7 +5,7 @@
 
 {{#view "home/header" tag="header" className="bar bar-nav"}}
     {{!-- {{#link "settings" expand-tokens=true class="icon icon-gear pull-right"}}{{/link}} --}}
-    <a class="icon icon-gear pull-left toggle-settings"></a>
+    <a class="icon icon-bars pull-left toggle-settings"></a>
     <h1 class="title">Vesel Framework</h1>	
 {{/view}}
 
@@ -19,16 +19,16 @@
 {{view collectionView}}
 
 {{#view "home/footer" tag="nav" className="bar bar-tab"}}
-	<a class="tab-item active" href="#">
+	<a class="tab-item">
 		<span class="icon icon-home"></span>
 		<span class="tab-label">Home</span>
 	</a>
-	<a class="tab-item" href="#2">
+	{{#link "profile" expand-tokens=true class="tab-item"}}
 		<span class="icon icon-person"></span>
 		<span class="tab-label">Profile</span>
-	</a>
-	<a class="tab-item" href="#3">
-		<span class="icon icon-gear"></span>
-		<span class="tab-label">Settings</span>
-	</a>
+	{{/link}}
+	{{#link "about" expand-tokens=true class="tab-item"}}
+		<span class="icon icon-info"></span>
+		<span class="tab-label">About</span>
+	{{/link}}
 {{/view}}
