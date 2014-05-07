@@ -53,9 +53,9 @@ module.exports = function(grunt) {
             }
         },
 
-        /**
-         * Sass
-         */
+        //
+        // Dev and Dist SASS tasks. Compiles and minifies current sass ui frameworks
+        //
         sass: {
             dev: {
                 options: {
@@ -75,9 +75,9 @@ module.exports = function(grunt) {
             }
         },
 
-        /**
-         * Watch
-         */
+        //
+        // Watch sass directory for changes 
+        //
         watch: {
             sass: {
                 files: '../stylesheets/scss/app.scss',
@@ -105,7 +105,8 @@ module.exports = function(grunt) {
         'sass:dev',
         'connect:server',
         'open-browser',
-        'watch',
         'lumbar:watch'
+        //'watch:sass'
+
     ]);
 };
