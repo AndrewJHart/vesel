@@ -61,7 +61,7 @@ module.exports = function(grunt) {
 
         // live reload
         reload: {
-            port: 35729,
+            port: 6001,
             proxy: {
                 host: hostname,
                 port: port // should match server.port config
@@ -70,7 +70,7 @@ module.exports = function(grunt) {
 
         watch: {
             options: {
-                livereload: false,
+                livereload: true,
             },
             all: {
                 files: [
@@ -98,7 +98,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-reload');
 
-    grunt.registerTask('dev', ['connect:server', 'reload', 'watch']);
+    grunt.registerTask('dev', ['connect:server', 'watch']);
 
     grunt.registerTask('default', [
         'ensure-installed',
