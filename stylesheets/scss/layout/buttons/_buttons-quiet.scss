@@ -1,0 +1,75 @@
+.button--quiet {
+  background: transparent;
+  border: 1px solid transparent;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+
+.topcoat-button--quiet {
+  background: transparent;
+  border: 1px solid transparent;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  background: transparent;
+  color: #1284ff;
+  border: none;
+}
+
+.topcoat-button--quiet:disabled {
+  border: none;
+}
+
+.topcoat-button--quiet:active {
+  color: #c6c8c8;
+  color: #78b9ff;
+  text-shadow: 0 1px none;
+  background-color: #1284ff;
+  background-color: transparent;
+  border: 1px solid #1284ff;
+  border: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+
+
+.topcoat-button--large,
+.topcoat-button--large--quiet {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 36px;
+  padding: 4px 20px;
+  display: block;
+  width: 100%;
+}
+
+.topcoat-button--large:active {
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+
+.topcoat-button--large--quiet {
+  background: transparent;
+  border: 1px solid transparent;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  color: #1284ff;
+}
+
+.topcoat-button--large--quiet:active {
+  color: #78b9ff;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+
+.topcoat-button--large--quiet:focus {
+  outline: 0;
+}

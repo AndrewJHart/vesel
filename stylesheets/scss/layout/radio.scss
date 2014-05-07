@@ -1,0 +1,126 @@
+.radio-button,
+.topcoat-radio-button__checkmark {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  cursor: default;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.radio-button__label,
+.topcoat-radio-button {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  cursor: default;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.radio-button:before,
+.radio-button:after,
+.topcoat-radio-button__checkmark:before,
+.topcoat-radio-button__checkmark:after {
+  content: '';
+  position: absolute;
+  -webkit-border-radius: 100%;
+  border-radius: 100%;
+}
+
+.radio-button:after,
+.topcoat-radio-button__checkmark:after {
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.radio-button:before,
+.topcoat-radio-button__checkmark:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+
+.radio-button--disabled,
+input[type="radio"]:disabled + .topcoat-radio-button__checkmark {
+  opacity: 0.3;
+  cursor: default;
+  pointer-events: none;
+}
+
+input[type="radio"] {
+  height: 24px;
+  width: 24px;
+  margin-top: 0;
+  margin-right: -24px;
+  margin-bottom: -24px;
+  margin-left: 0;
+}
+
+input[type="radio"]:active {
+  outline: 0;
+}
+
+input[type="radio"]:checked + .topcoat-radio-button__checkmark:after {
+  opacity: 1;
+}
+
+.topcoat-radio-button {
+  color: #c6c8c8;
+  color: #1f1f21;
+  line-height: 24px;
+  text-align: left;
+  margin: 10px 0;
+}
+
+.topcoat-radio-button__checkmark:before {
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  -webkit-border-radius: 16px;
+  border-radius: 16px;
+  left: 0;
+}
+
+.topcoat-radio-button__checkmark {
+  position: relative;
+  width: 24px;
+  height: 24px;
+}
+
+.topcoat-radio-button__checkmark:after {
+  top: 5px;
+  left: 4px;
+  opacity: 0;
+  width: 12px;
+  height: 6px;
+  background: transparent;
+  border: 3px solid #1284ff;
+  border-width: 3px;
+  border-top: none;
+  border-right: none;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}

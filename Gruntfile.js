@@ -9,6 +9,7 @@ module.exports = function(grunt) {
     grunt.file.mkdir(jsDir);
 
     grunt.initConfig({
+
         // create a static webserver
         connect: {
             server: {
@@ -50,6 +51,38 @@ module.exports = function(grunt) {
                     templates: "./templates"
                 }
             }
+        },
+
+        /**
+         * Sass
+         */
+        sass: {
+            dev: {
+                options: {
+                    style: 'expanded'
+                },
+                files: {
+                    './public/modules/app.min.css': './stylesheets/scss/app.scss'
+                }
+            },
+            dist: {
+                options: {
+                    style: 'compressed'
+                },
+            files: {
+                    './public/modules/app.min.css': './stylesheets/scss/app.scss'
+                }
+            }
+        },
+
+        /**
+         * Watch
+         */
+        watch: {
+            sass: {
+                files: '../stylesheets/scss/app.scss',
+                tasks: ['sass:dev']
+            }
         }
     });
 
@@ -62,13 +95,17 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('thorax-inspector');
     grunt.loadNpmTasks('lumbar');
     grunt.loadNpmTasks('grunt-contrib-connect');
+    grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('default', [
         'ensure-installed',
         'thorax:inspector',
         'lumbar:init',
+        'sass:dev',
         'connect:server',
         'open-browser',
+        'watch',
         'lumbar:watch'
     ]);
 };

@@ -1,0 +1,177 @@
+.touch-focus {
+  -webkit-overflow-scrolling: touch;
+}
+
+.hide {
+  display: none;
+  visibility: hidden;
+}
+
+.list {
+  position: fixed;
+  top: 2.75rem;
+  right: 0;
+  left: 0;
+  bottom: 2.75em;
+}
+
+.ionicon {
+	font-size: 26px;
+	color: $white !important;
+}
+
+
+
+
+.huh_navigation {
+	background-color: $dark-blue;
+}
+
+
+.topcoat-navigation-bar__title {
+	color: $white;
+}
+
+
+
+//  Make sure button takes up full width and height of defined section 
+.topcoat-button--quiet {
+	height: auto;
+	width: 100%;
+}
+
+
+//  Main site view - list item styles
+
+.cat {
+	display: inline-block;
+	margin: 10px 0 0 0;
+}
+
+
+.li-cat__container {
+	text-align: center;
+	z-index: 100 !important;
+}
+
+.topcoat-grid__row {
+	line-height: 2em;
+}
+
+.li-cat__title {
+	// margin:	0 0 5px 0;
+}
+
+.li-summary {
+	position: absolute;
+	line-height: 1em;
+	font-size: 1em;
+	margin: 10px;
+	top: 0;
+}
+
+.li-date__container {
+	position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.li-date {
+    font-size: .75em;
+    padding-left: 10px;
+}
+
+
+//  Detail View Specific Styles
+
+
+/*
+	Not 100% sure why I still find ID's in CSS. There are few exceptions, but always use classes. 
+	Every time you use an ID you just created more CSS because we cannot reuse this. 
+*/
+
+#detailview {
+ height: 100%;
+}
+
+
+.detail-summary {
+	position: absolute;
+	font-size: 1.25em;
+	padding: 5px;
+	// vertical-align: middle;
+}
+
+
+.detail-date__container {
+	background-color: rgba(0,0,0,0.1);
+
+}
+
+.detail-date {
+	font-size: .75em;
+	padding: 10px;
+}
+
+.detail-information {
+	padding: 20px;
+	line-height: 2em;
+}
+
+#map-canvas {
+	height: 150px;
+}
+
+.map-holder {
+	text-align: center;
+	vertical-align: middle;
+	background-color: #999999;
+	height: 100%;
+}
+
+
+
+
+
+// li.topcoat-list__item > * {
+// 	display: inline-block;
+// }
+
+
+
+
+
+
+//  Background colors specific to each alert category
+
+.Traffic__bg {
+	background-color: $light-blue;
+	color: $white;
+}
+
+.Health__bg {
+	background-color: $white;
+}
+
+.Fire__bg {
+	background-color: $red;
+}
+
+.School__bg {
+	background-color: $dark-blue;
+	color: $white;
+}
+
+.Utilities__bg {
+	background-color: $green;
+}
+
+.Other__bg {
+	background-color: $red;
+}
+
+.Police__bg {
+	background-color: $dark-blue;
+	color: $white;
+}

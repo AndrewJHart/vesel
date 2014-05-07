@@ -1,0 +1,498 @@
+.topcoat-grid,
+.topcoat-grid__column--1,
+.topcoat-grid__column--2,
+.topcoat-grid__column--3,
+.topcoat-grid__column--4,
+.topcoat-grid__column--5,
+.topcoat-grid__column--6,
+.topcoat-grid__column--7,
+.topcoat-grid__column--8,
+.topcoat-grid__column--9,
+.topcoat-grid__column--10,
+.topcoat-grid__column--11,
+.topcoat-grid__column--12,
+.topcoat-grid__offset--1,
+.topcoat-grid__offset--2,
+.topcoat-grid__offset--3,
+.topcoat-grid__offset--4,
+.topcoat-grid__offset--5,
+.topcoat-grid__offset--6,
+.topcoat-grid__offset--7,
+.topcoat-grid__offset--8,
+.topcoat-grid__offset--9,
+.topcoat-grid__offset--10,
+.topcoat-grid__offset--11,
+.topcoat-grid__column--auto {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.topcoat-grid__row {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-left: -1rem;
+  margin-right: -1rem;
+}
+
+.topcoat-grid__column--1 {
+  -webkit-flex-basis: 8.333333333333334%;
+  -ms-flex: 0 1 8.333333333333334%;
+  flex-basis: 8.333333333333334%;
+}
+
+.topcoat-grid__column--2 {
+  -webkit-flex-basis: 16.666666666666668%;
+  -ms-flex: 0 1 16.666666666666668%;
+  flex-basis: 16.666666666666668%;
+}
+
+.topcoat-grid__column--3 {
+  -webkit-flex-basis: 25%;
+  -ms-flex: 0 1 25%;
+  flex-basis: 25%;
+}
+
+.topcoat-grid__column--4 {
+  -webkit-flex-basis: 33.333333333333336%;
+  -ms-flex: 0 1 33.333333333333336%;
+  flex-basis: 33.333333333333336%;
+}
+
+.topcoat-grid__column--5 {
+  -webkit-flex-basis: 41.66666666666667%;
+  -ms-flex: 0 1 41.66666666666667%;
+  flex-basis: 41.66666666666667%;
+}
+
+.topcoat-grid__column--6 {
+  -webkit-flex-basis: 50%;
+  -ms-flex: 0 1 50%;
+  flex-basis: 50%;
+}
+
+.topcoat-grid__column--7 {
+  -webkit-flex-basis: 58.333333333333336%;
+  -ms-flex: 0 1 58.333333333333336%;
+  flex-basis: 58.333333333333336%;
+}
+
+.topcoat-grid__column--8 {
+  -webkit-flex-basis: 66.66666666666667%;
+  -ms-flex: 0 1 66.66666666666667%;
+  flex-basis: 66.66666666666667%;
+}
+
+.topcoat-grid__column--9 {
+  -webkit-flex-basis: 75%;
+  -ms-flex: 0 1 75%;
+  flex-basis: 75%;
+}
+
+.topcoat-grid__column--10 {
+  -webkit-flex-basis: 83.33333333333334%;
+  -ms-flex: 0 1 83.33333333333334%;
+  flex-basis: 83.33333333333334%;
+}
+
+.topcoat-grid__column--11 {
+  -webkit-flex-basis: 91.66666666666667%;
+  -ms-flex: 0 1 91.66666666666667%;
+  flex-basis: 91.66666666666667%;
+}
+
+.topcoat-grid__column--12 {
+  -webkit-flex-basis: 100%;
+  -ms-flex: 0 1 100%;
+  flex-basis: 100%;
+}
+
+.topcoat-grid__offset--1 {
+  margin-left: 8.333333333333334%;
+}
+
+.topcoat-grid__offset--2 {
+  margin-left: 16.666666666666668%;
+}
+
+.topcoat-grid__offset--3 {
+  margin-left: 25%;
+}
+
+.topcoat-grid__offset--4 {
+  margin-left: 33.333333333333336%;
+}
+
+.topcoat-grid__offset--5 {
+  margin-left: 41.66666666666667%;
+}
+
+.topcoat-grid__offset--6 {
+  margin-left: 50%;
+}
+
+.topcoat-grid__offset--7 {
+  margin-left: 58.333333333333336%;
+}
+
+.topcoat-grid__offset--8 {
+  margin-left: 66.66666666666667%;
+}
+
+.topcoat-grid__offset--9 {
+  margin-left: 75%;
+}
+
+.topcoat-grid__offset--10 {
+  margin-left: 83.33333333333334%;
+}
+
+.topcoat-grid__offset--11 {
+  margin-left: 91.66666666666667%;
+}
+
+.topcoat-grid__column--auto {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 1 0;
+  -moz-box-flex: 1;
+  -ms-flex: 1 1 0;
+  flex: 1 1 0;
+}
+
+
+/**
+ * Grid
+ * --------------------------------------------------
+ * Using flexbox for the grid, inspired by Philip Walton:
+ * http://philipwalton.github.io/solved-by-flexbox/demos/grids/
+ * By default each .col within a .row will evenly take up
+ * available width, and the height of each .col with take
+ * up the height of the tallest .col in the same .row.
+ */
+
+.row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.row + .row {
+  margin-top: -5px;
+  padding-top: 0;
+}
+
+.col {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -moz-box-flex: 1;
+  -moz-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  display: block;
+  width: 100%;
+}
+
+/* Vertically Align Columns */
+
+/* .row-* vertically aligns every .col in the .row */
+
+.row-top {
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  -webkit-align-items: flex-start;
+  -moz-align-items: flex-start;
+  -moz-box-align: start;
+  align-items: flex-start;
+}
+
+.row-bottom {
+  -webkit-box-align: end;
+  -ms-flex-align: end;
+  -webkit-align-items: flex-end;
+  -moz-align-items: flex-end;
+  -moz-box-align: end;
+  align-items: flex-end;
+}
+
+.row-center {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -moz-box-align: center;
+  align-items: center;
+}
+
+/* .col-* vertically aligns an individual .col */
+
+.col-top {
+  -webkit-align-self: flex-start;
+  -moz-align-self: flex-start;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
+}
+
+.col-bottom {
+  -webkit-align-self: flex-end;
+  -moz-align-self: flex-end;
+  -ms-flex-item-align: end;
+  align-self: flex-end;
+}
+
+.col-center {
+  -webkit-align-self: center;
+  -moz-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+}
+
+/* Column Offsets */
+
+.col-offset-10 {
+  margin-left: 10%;
+}
+
+.col-offset-20 {
+  margin-left: 20%;
+}
+
+.col-offset-25 {
+  margin-left: 25%;
+}
+
+.col-offset-33,
+.col-offset-34 {
+  margin-left: 33.3333%;
+}
+
+.col-offset-50 {
+  margin-left: 50%;
+}
+
+.col-offset-66,
+.col-offset-67 {
+  margin-left: 66.6666%;
+}
+
+.col-offset-75 {
+  margin-left: 75%;
+}
+
+.col-offset-80 {
+  margin-left: 80%;
+}
+
+.col-offset-90 {
+  margin-left: 90%;
+}
+
+/* Explicit Column Percent Sizes */
+
+/* By default each grid column will evenly distribute */
+
+/* across the grid. However, you can specify individual */
+
+/* columns to take up a certain size of the available area */
+
+.col-10 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 10%;
+  -moz-box-flex: 0;
+  -moz-flex: 0 0 10%;
+  -ms-flex: 0 0 10%;
+  flex: 0 0 10%;
+  max-width: 10%;
+}
+
+.col-20 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 20%;
+  -moz-box-flex: 0;
+  -moz-flex: 0 0 20%;
+  -ms-flex: 0 0 20%;
+  flex: 0 0 20%;
+  max-width: 20%;
+}
+
+.col-25 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 25%;
+  -moz-box-flex: 0;
+  -moz-flex: 0 0 25%;
+  -ms-flex: 0 0 25%;
+  flex: 0 0 25%;
+  max-width: 25%;
+}
+
+.col-33,
+.col-34 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 33.3333%;
+  -moz-box-flex: 0;
+  -moz-flex: 0 0 33.3333%;
+  -ms-flex: 0 0 33.3333%;
+  flex: 0 0 33.3333%;
+  max-width: 33.3333%;
+}
+
+.col-50 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 50%;
+  -moz-box-flex: 0;
+  -moz-flex: 0 0 50%;
+  -ms-flex: 0 0 50%;
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+.col-66,
+.col-67 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 66.6666%;
+  -moz-box-flex: 0;
+  -moz-flex: 0 0 66.6666%;
+  -ms-flex: 0 0 66.6666%;
+  flex: 0 0 66.6666%;
+  max-width: 66.6666%;
+}
+
+.col-75 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 75%;
+  -moz-box-flex: 0;
+  -moz-flex: 0 0 75%;
+  -ms-flex: 0 0 75%;
+  flex: 0 0 75%;
+  max-width: 75%;
+}
+
+.col-80 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 80%;
+  -moz-box-flex: 0;
+  -moz-flex: 0 0 80%;
+  -ms-flex: 0 0 80%;
+  flex: 0 0 80%;
+  max-width: 80%;
+}
+
+.col-90 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 90%;
+  -moz-box-flex: 0;
+  -moz-flex: 0 0 90%;
+  -ms-flex: 0 0 90%;
+  flex: 0 0 90%;
+  max-width: 90%;
+}
+
+.row--fit > .col {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -moz-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.row--100 > .col {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 100%;
+  -moz-box-flex: 0;
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+}
+
+.navigator-toolbar {
+  display: none;
+}
+
+.navigator {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.navigator-container {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: start;
+  -moz-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: flex-start;
+  -ms-flex-line-pack: start;
+  align-content: flex-start;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+  -moz-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.navigator-toolbar {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+  -moz-box-flex: 0;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+}
+
+.navigator-content {
+  -webkit-box-ordinal-group: 1;
+  -moz-box-ordinal-group: 1;
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  -webkit-align-self: auto;
+  -ms-flex-item-align: auto;
+  align-self: auto;
+  overflow: hidden;
+}
+
+.topcoat-navigation-bar {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.right-section-icon {
+  height: 100%;
+  display: block !important;
+}
+
+.left-section {
+  height: 100%;
+}

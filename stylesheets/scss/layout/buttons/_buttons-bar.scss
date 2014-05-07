@@ -1,0 +1,134 @@
+.button-bar,
+.topcoat-button-bar,
+.topcoat-tab-bar {
+  display: table;
+  table-layout: fixed;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+}
+
+.button-bar__item,
+.topcoat-button-bar__item,
+.topcoat-tab-bar__item {
+  display: table-cell;
+  width: auto;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+
+.button-bar__item > input,
+.topcoat-button-bar__item > input,
+.topcoat-tab-bar__item > input {
+  position: absolute;
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  opacity: 0.001;
+  z-index: 1;
+  vertical-align: top;
+  outline: none;
+}
+
+.button-bar__button {
+  -webkit-border-radius: inherit;
+  border-radius: inherit;
+}
+
+.button-bar__itemdisabled {
+  opacity: 0.3;
+  cursor: default;
+  pointer-events: none;
+}
+
+.topcoat-button-bar {
+  margin: 0;
+  border: 0px solid #1284ff;
+}
+
+.topcoat-button-bar__item {
+  border-top: 1px solid #1284ff;
+  border-bottom: 1px solid #ffffff;
+}
+
+.topcoat-button-bar > .topcoat-button-bar__item:first-child {
+  -webkit-border-top-left-radius: 4px;
+  border-top-left-radius: 4px;
+  -webkit-border-bottom-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.topcoat-button-bar > .topcoat-button-bar__item:last-child {
+  -webkit-border-top-right-radius: 4px;
+  border-top-right-radius: 4px;
+  -webkit-border-bottom-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.topcoat-button-bar__item:first-child > .topcoat-button-bar__button {
+  border-left: 1px solid #1284ff;
+  border-right: none;
+  border-right: 1px solid #1284ff;
+}
+
+.topcoat-button-bar__item:last-child > .topcoat-button-bar__button {
+  border-left: none;
+  border-right: 1px solid #1284ff;
+}
+
+.topcoat-button-bar__button {
+  -webkit-border-radius: inherit;
+  border-radius: inherit;
+  background-color: transparent;
+  color: #1284ff;
+  border: 0px solid #1284ff;
+  border-right: 1px solid #1284ff;
+  font-weight: 400;
+  padding: 0 8px;
+  height: 27px;
+  line-height: 27px;
+  font-size: 13px;
+  width: 100%;
+  -webkit-transition: background-color 0.2s linear, color 0.2s linear;
+  -moz-transition: background-color 0.2s linear, color 0.2s linear;
+  -o-transition: background-color 0.2s linear, color 0.2s linear;
+  transition: background-color 0.2s linear, color 0.2s linear;
+}
+
+.topcoat-button-bar__button:active,
+:checked + .topcoat-button-bar__button {
+  background-color: #b5d9ff;
+  color: #1284ff;
+  border: 0px solid #1284ff;
+  border-right: 1px solid #1284ff;
+  border-right: 1px solid #1284ff;
+  padding: 0 8px;
+  height: 27px;
+  line-height: 27px;
+  font-size: 13px;
+  width: 100%;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+
+.topcoat-button-bar__item.active > .topcoat-button-bar__button {
+  background-color: #1284ff;
+  color: #fff;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+
+.topcoat-button-bar__button:hover {
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+
+.topcoat-button-bar__button:focus {
+  outline: 0;
+}

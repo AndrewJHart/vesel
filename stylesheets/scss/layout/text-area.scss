@@ -1,0 +1,65 @@
+.textarea,
+.topcoat-textarea,
+.topcoat-textarea--transparent {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+  vertical-align: top;
+  resize: none;
+  outline: none;
+}
+
+.textarea:disabled,
+.topcoat-textarea:disabled,
+.topcoat-textarea--transparent:disabled {
+  opacity: 0.3;
+  cursor: default;
+  pointer-events: none;
+}
+
+.topcoat-textarea,
+.topcoat-textarea--transparent {
+  padding: 5px 5px 5px 5px;
+  font-size: 15px;
+  font-weight: 400;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  color: #1f1f21;
+  letter-spacing: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -webkit-appearance: none;
+}
+
+.topcoat-textarea:disabled::-webkit-input-placeholder,
+.topcoat-textarea--transparent:disabled::-webkit-input-placeholder {
+  color: #1f1f21;
+}
+
+.topcoat-textarea:disabled::-moz-placeholder,
+.topcoat-textarea--transparent:disabled::-moz-placeholder {
+  color: #1f1f21;
+}
+
+.topcoat-textarea:disabled:-ms-input-placeholder,
+.topcoat-textarea--transparent:disabled:-ms-input-placeholder {
+  color: #1f1f21;
+}
+
+.topcoat-textarea--transparent {
+  border: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  padding-left: 0;
+  padding-right: 0;
+}

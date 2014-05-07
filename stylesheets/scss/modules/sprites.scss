@@ -1,0 +1,143 @@
+@-webkit-viewport { width: device-width; }
+@viewport { width: device-width; }
+.health, .Health {
+    background: url('../../img/sprites.png') no-repeat -7px -12px;
+    width: 35px;
+    height: 32px;
+}
+.fire, .Fire {
+    background: url('../../img/sprites.png') no-repeat -9px -56px;
+    width: 31px;
+    height: 38px;
+}
+.school, .School  {
+    background: url('../../img/sprites.png') no-repeat -6px -115px;
+    width: 41px;
+    height: 24px;
+}
+.traffic, .Traffic {
+    background: url('../../img/sprites.png') no-repeat -66px -11px;
+    width: 16px;
+    height: 32px;
+}
+.utilities, .Utilities {
+    background: url('../../img/sprites.png') no-repeat -58px -58px;
+    width: 35px;
+    height: 36px;
+}
+.other, .Other {
+    background: url('../../img/sprites.png') no-repeat -58px -107px;
+    width: 37px;
+    height: 35px;
+}
+.police, .Police {
+    background: url('../../img/sprites.png') no-repeat -110px -8px;
+    width: 32px;
+    height: 37px;
+}
+.tower {
+    background: url('../../img/sprites.png') no-repeat -100px -50px;
+    width: 20px;
+    height: 20px;
+}
+.set-utilities {
+    background: url('../../img/sprites.png') no-repeat -130px -50px;
+    width: 20px;
+    height: 20px;
+}
+.set-police {
+    background: url('../../img/sprites.png') no-repeat -160px -50px;
+    width: 20px;
+    height: 20px;
+}
+.set-fire {
+    background: url('../../img/sprites.png') no-repeat -100px -80px;
+    width: 20px;
+    height: 20px;
+}
+.set-settings {
+    background: url('../../img/sprites.png') no-repeat -130px -80px;
+    width: 20px;
+    height: 20px;
+}
+.set-health {
+    background: url('../../img/sprites.png') no-repeat -160px -78px;
+    width: 20px;
+    height: 20px;
+}
+.set-other {
+    background: url('../../img/sprites.png') no-repeat -100px -110px;
+    width: 20px;
+    height: 20px;
+}
+.set-traffic {
+    background: url('../../img/sprites.png') no-repeat -130px -111px;
+    width: 20px;
+    height: 20px;
+}
+.set-school {
+    background: url('../../img/sprites.png') no-repeat -160px -111px;
+    width: 20px;
+    height: 20px;
+}
+.coh {
+    background: url('../../img/sprites.png') no-repeat -145px -147px;
+    width: 30px;
+    height: 30px;
+}
+.hpd {
+    background: url('../../img/sprites.png') no-repeat -106px -147px;
+    width: 28px;
+    height: 30px;
+}
+.share {
+    background: url('../../img/sprites.png') no-repeat -71px -152px;
+    width: 17px;
+    height: 25px;
+}
+.menu {
+    background: url('../../img/sprites.png') no-repeat -34px -152px;
+    width: 30px;
+    height: 25px;
+}
+.button-prev {
+    background: url('../../img/sprites.png') no-repeat -8px -152px;
+    width: 15px;
+    height: 25px;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), 
+only screen and (min-device-pixel-ratio: 2) {  
+    .health,
+    .Health,
+    .fire,
+    .Fire,
+    .school,
+    .School,
+    .traffic,
+    .Traffic,
+    .utilities,
+    .Utilities,
+    .other,
+    .Other,
+    .police,
+    .Police,
+    .tower,
+    .set-utilities,
+    .set-police,
+    .set-fire,
+    .set-settings,
+    .set-health,
+    .set-other,
+    .set-traffic,
+    .set-school,
+    .coh,
+    .hpd,
+    .share,
+    .menu,
+    .button-prev {
+        /* Reference the @2x Sprite */
+        background-image: url('../../img/sprites@x2.png');
+        /* Translate the @2x sprite's dimensions back to 1x */
+        background-size: 200px 200px; 
+    }
+}

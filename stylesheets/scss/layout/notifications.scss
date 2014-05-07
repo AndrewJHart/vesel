@@ -1,0 +1,41 @@
+.notification,
+.topcoat-notification {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+  cursor: default;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.topcoat-notification {
+  padding: 0 4px;
+  width: auto;
+  height: 19px;
+  -webkit-border-radius: 19px;
+  border-radius: 19px;
+  background-color: #dc5236;
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  min-width: 19px;
+  line-height: 19px;
+  font-weight: 400;
+}

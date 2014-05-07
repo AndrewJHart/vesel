@@ -1,0 +1,75 @@
+.topcoat-icon-button,
+.topcoat-icon-button--quiet {
+  padding: 4px 10px;
+  letter-spacing: 0;
+  color: #1284ff;
+  text-shadow: 0 1px none;
+  vertical-align: baseline;
+  background-color: transparent;
+  background-color: transparent;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: 1px solid #1284ff;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  border-radius: 3px;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.topcoat-icon-button:active {
+  background-color: #b5d9ff;
+}
+
+.topcoat-icon-button:disabled,
+.topcoat-icon-button--quiet:disabled {
+  opacity: 0.3;
+  cursor: default;
+  pointer-events: none;
+}
+
+.topcoat-icon-button:focus,
+.topcoat-icon-button--quiet:focus {
+  outline: 0;
+}
+
+.topcoat-icon-button--quiet {
+  background: transparent;
+  border: 1px solid transparent;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  background-color: transparent;
+  border: none;
+  color: #1284ff;
+}
+
+.topcoat-icon-button--quiet:active {
+  color: #c6c8c8;
+  color: #78b9ff;
+  text-shadow: 0 1px none;
+  background-color: #1284ff;
+  background-color: transparent;
+  border: 1px solid #1284ff;
+  border: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  box-shadow: none;
+}
+
+.topcoat-icon,
+.topcoat-icon--large {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  overflow: var-overflow;
+  width: 19.44px;
+  height: 19.44px;
+  vertical-align: middle;
+  top: 0;
+}
+
+.topcoat-icon--large {
+  width: 20.571428556px;
+  height: 20.571428556px;
+  top: 0px;
+}

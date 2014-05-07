@@ -1,0 +1,123 @@
+.list,
+.topcoat-list {
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+  cursor: default;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.list__header,
+.topcoat-list__header {
+  margin: 0;
+}
+
+.list__container,
+.topcoat-list__container {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.list__item,
+.topcoat-list__item {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  list-style: none;
+}
+
+.topcoat-list {
+  border-top: 1px solid #ffffff;
+  border-bottom: 1px solid #ffffff;
+  background-color: #f0eff4;
+}
+
+.topcoat-list--noborder {
+  border-top: none;
+  border-bottom: none;
+}
+
+.topcoat-list__header {
+  padding: 0 0 0 10px;
+  font-size: 15px;
+  font-weight: 500;
+  background-color: #f0eff4;
+  color: #1f1f21;
+  text-shadow: none;
+  border-top: none;
+  border-bottom: none;
+  min-height: 24px;
+  line-height: 24px;
+}
+
+.topcoat-list__container {
+  border-top: none;
+  color: #c6c8c8;
+  padding: 0;
+  background-color: #fff;
+}
+
+.topcoat-list__item {
+  padding: 0 0 0 10px;
+  margin: 0 0 0 0;
+  border-top: none;
+  border-bottom: 1px solid #ddd;
+  color: #1f1f21;
+  background-color: #fff;
+  min-height: 44px;
+  position: relative;
+}
+
+.topcoat-list__item__line-height {
+  line-height: 44px;
+}
+
+.topcoat-list__item_active:active {
+  background-color: #d9d9d9;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+
+.topcoat-list__item--tappable {
+  -webkit-transition: background-color 0.2s linear;
+  -moz-transition: background-color 0.2s linear;
+  -o-transition: background-color 0.2s linear;
+  transition: background-color 0.2s linear;
+}
+
+.topcoat-list__item--tappable:active {
+  background-color: #d9d9d9;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+
+.topcoat-list__item:first-child {
+  padding-left: 10px;
+  margin: 0;
+  border-top: none;
+  border-bottom: none;
+}
+
+.topcoat-list__item:last-child {
+  padding-left: 10px;
+  margin: 0;
+  border-top: none;
+  border-bottom: none;
+}
+
+.topcoat-list__item:nth-child(2) {
+  border-top: 1px solid #ddd;
+}

@@ -1,0 +1,38 @@
+.topcoat-button--cta,
+.topcoat-button--large--cta {
+  border: none;
+  background-color: #4cda64;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  color: #fff;
+  font-weight: var-font-weight--cta;
+  text-shadow: none;
+}
+
+.topcoat-button--cta:active,
+color var-color--cta--down,
+.topcoat-button--large--cta:active {
+  background-color: #76e389;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+
+.topcoat-button--large--cta {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 36px;
+  padding: 4px 20px;
+  width: 100%;
+  display: block;
+}
+
+.topcoat-button--large--cta:active {
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  transition: none;
+}
