@@ -15,11 +15,14 @@
 }
 
 #mapmain.map {
-  position: relative;
-  top: 90px;
+  position: absolute;
+  top: 88px;
+  bottom: 45px;
+  left: 0;
+  right: 0;
   width: 100%;
-  height: 500px;
-  max-height: 500px;
+  height: 80%;
+  min-height: 350px;
 }
 
 /* Overlay div styling for home-view when its inactive */

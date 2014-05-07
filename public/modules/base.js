@@ -18707,8 +18707,7 @@ var RootView = AnimView.extend({
 
                     // only remove the old view if its not the Home view
                     if (previous.getViewName() == 'home' ||
-                        previous.$el.data('view-persist') == true ||
-                        previous.$el.attr('data-view-persist' == true)) {
+                        previous.$el.data('view-persist') == true) {
 
                         // this view does not get removed
                         console.debug("Previous view " + previous.getViewName() + "'s data-view-persist is true - not removing!");

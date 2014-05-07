@@ -349,6 +349,11 @@ Handlebars.templates['home/maplist'] = Handlebars.compile('{{!-- <header class=\
     animateIn: 'bounceInDown',
     animateOut: 'slideOutUp',
 
+    map: null,
+    tiles: null,
+    primaryLayer: null,
+    secondLayer: null,
+
     events: {
         'click a.overlay.mask': function(event) {
 
@@ -370,6 +375,10 @@ Handlebars.templates['home/maplist'] = Handlebars.compile('{{!-- <header class=\
         this.$el.attr("data-effeckt-page", "home");
         this.$el.attr("data-view-persist", "true");
 
+        // Continue map creation here - whatever amount can be done here
+        // and then the rest in afterRender. Try to prevent duplicate 
+        // tiles requests
+
         return this;
     },
 
@@ -385,34 +394,44 @@ Handlebars.templates['home/maplist'] = Handlebars.compile('{{!-- <header class=\
 
     afterRender: function() {
 
-        // trigger the leaflet plugin code. Note use of _.delay
+        console.log(this.getViewName() + "#afterRender()");
+
+        // trigger the leaflet plugin code. Note could use _.delay
         // It is used only to circumvent a known DOM issue, thus the
-        // *timing* can be 0ms & works fine. 
-        _.delay(function() {
+        // *timing* can be 0ms & works fine or no delay at all since afterRender.
 
-            var featureLayer,
-                mapboxTiles,
-                mapview;
+        var featureLayer,
+            mapboxTiles,
+            mapview;
 
-            mapboxTiles = L.tileLayer('https://{s}.tiles.mapbox.com/v3/mscnswv.hl37jh6m/{z}/{x}/{y}.png', {
-                attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">Powered by MSCNS</a>'
+        mapboxTiles = L.tileLayer('https://{s}.tiles.mapbox.com/v3/mscnswv.hl37jh6m/{z}/{x}/{y}.png', {
+            attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">Powered by MSCNS</a>'
+        });
+
+        mapview = new L.map('mapmain', {
+            doubleClickZoom: false
+        }).addLayer(mapboxTiles).setView([38.412, -82.428], 14).on('dblclick', function(e) {
+            console.log('Double Click event triggered.. returning expected results for now.');
+            return mapview.setView(e.latlng, mapview.getZoom() + 1);
+        });
+
+        featureLayer = L.mapbox.featureLayer().
+        loadURL('http://192.168.1.5:8005/api/app/v1/alert_locations/').
+        addTo(mapview).on('ready', function() {
+            featureLayer.eachLayer(function(l) {
+                return mapview.panTo(l.getLatLng());
             });
+        });
+    },
 
-            mapview = new L.map('mapmain', {
-                doubleClickZoom: false
-            }).addLayer(mapboxTiles).setView([38.412, -82.428], 14).on('dblclick', function(e) {
-                console.log('Double Click event triggered.. returning expected results for now.');
-                return mapview.setView(e.latlng, mapview.getZoom() + 1);
-            });
+    // this view persists but we still need a hook when new route & view come in
+    beforeNextViewLoads: function() {
+        console.log(this.getViewName() + "#beforeNextViewLoads() helper called");
 
-            featureLayer = L.mapbox.featureLayer().
-            loadURL('http://127.0.0.1:8005/api/app/v1/alert_locations/').
-            addTo(mapview).on('ready', function() {
-                featureLayer.eachLayer(function(l) {
-                    return mapview.panTo(l.getLatLng());
-                });
-            });
-        }, 0);
+        // this is no longer the active page
+        this.$el.removeClass("effeckt-page-active");
+
+        return this;
     }
 });
 
