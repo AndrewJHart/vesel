@@ -38,9 +38,6 @@
                 "js/model.js",
                 "js/collection.js",
                 "js/view.js"
-            ],
-            "styles": [
-                "stylesheets/base.css"
             ]
         },
         "home": {
@@ -58,9 +55,6 @@
                 "js/views/home/home.js",
                 "js/views/home/list.js",
                 "js/views/home/maplist.js"
-            ],
-            "styles": [
-                "stylesheets/home.css"
             ]
         },
         "detail": {
@@ -70,9 +64,6 @@
             "scripts": [
                 "js/routers/detail.js",
                 "js/views/detail/index.js"
-            ],
-            "styles": [
-                "stylesheets/detail.css"
             ]
         }
     },
