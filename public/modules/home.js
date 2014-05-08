@@ -469,6 +469,9 @@ Handlebars.templates['home/maplist'] = Handlebars.compile('<a class=\"overlay\">
                 return mapview.panTo(l.getLatLng());
             });
         });
+
+        // locator
+        L.control.locate().addTo(mapview);
     },
 
     // this view persists but we still need a hook when new route & view come in

@@ -77,6 +77,9 @@ Application.AnimView.extend({
                 return mapview.panTo(l.getLatLng());
             });
         });
+
+        // locator
+        L.control.locate().addTo(mapview);
     },
 
     // this view persists but we still need a hook when new route & view come in
