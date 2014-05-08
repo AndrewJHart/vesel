@@ -1,4 +1,4 @@
-<li id="{{id}}" class="table-view-cell media">
+{{!-- <li id="{{id}}" class="table-view-cell media">
   <a href="#detail/{{id}}" class="navigate-right">
     <img class="media-object pull-left" src="http://placehold.it/42x42">
     <div class="media-body">
@@ -6,4 +6,24 @@
       <p>{{subject}}</p>
     </div>
   </a>
+</li>
+ --}}
+
+
+<li id="{{id}}" class="">
+	<a href="#detail/{{id}}" class="navigate-right"></a>
+	<div class="topcoat-grid__row">
+		<div class="col-25 col-center {{category.name}}__bg ">
+			<div class="li-cat__container">
+				<span class="{{category.name}} cat"></span>
+				<h2 class="li-cat__title">{{category.name}}</h2>
+			</div>
+		</div>
+		<div class="col-75">
+			<p class="li-summary"> {{ subject }}</p>
+			<div class="li-date__container">
+				{{!-- <p class="li-date">Posted:{{prettyDate modified_at}}</p> --}}
+			</div>
+		</div>
+	</div>
 </li>

@@ -32,7 +32,7 @@ module.exports = function(grunt) {
             // running task such as "watch", set
             // background: true
             watch: {
-                background: false,
+                background: true,
                 watch: lumbarFile,
                 output: jsDir
             }
@@ -79,10 +79,18 @@ module.exports = function(grunt) {
         // Watch sass directory for changes 
         //
         watch: {
+            options: {
+                livereload: true
+            },
             sass: {
-                files: '../stylesheets/scss/app.scss',
+                files: [
+                    './stylesheets/scss/app.scss',
+                    './public/**/*.*',
+                    './js/**/**/*.*'
+                ],
                 tasks: ['sass:dev']
             }
+            // tasks: ['sass:dev']
         }
     });
 
@@ -106,7 +114,33 @@ module.exports = function(grunt) {
         'connect:server',
         'open-browser',
         'lumbar:watch'
-        //'watch:sass'
+    ]);
 
+    grunt.registerTask ('dev', [
+        'ensure-installed',
+        'thorax:inspector',
+        'lumbar:init',
+        'sass:dev',
+        'connect:server',
+        'open-browser',
+        'lumbar:watch',
+        'watch'
     ]);
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
