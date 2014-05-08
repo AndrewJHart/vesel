@@ -4,7 +4,7 @@ Application.View.extend({
     settingsState: null,
 
     events: {
-        'click .toggle-settings': 'toggleSettings'
+        'click a[data-toggle="aside"]': 'toggleSettings'
     },
 
     initialize: function() {
