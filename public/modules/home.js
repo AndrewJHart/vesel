@@ -21,16 +21,18 @@ new(Backbone.Router.extend({
 
         // only instantiate the alerts collection once
         if (!this.alerts)
-            this.alerts = Application.Collection['alerts'] = new Application.Collections["home/alerts"]();
+            this.alerts = Application.Collection['alerts'] =
+                new Application.Collections["home/alerts"]();
 
         // only instantiate on the initial run
         if (!this.indexView) {
             // create an instance of the home page-view (AnimView)
-            this.indexView = Application.View["homeView"] = new Application.Views["home/home"]({
-                el: '#home',
-                className: 'home page',
-                collection: this.alerts
-            });
+            this.indexView = Application.View["homeView"] =
+                new Application.Views["home/home"]({
+                    el: '#home',
+                    className: 'home page',
+                    collection: this.alerts
+                });
         }
 
         // Tell the root view to render the view and render it as a page w/ animations
@@ -119,7 +121,7 @@ Application.View.extend({
 // Instances of this view can be created by calling:
 // new Application.Views["home/footer"]()
 ;;
-Handlebars.templates['home/settings'] = Handlebars.compile('{{!-- {{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\" type=\"home-header\"}}\n  {{#link \"\" expand-tokens=true class=\"icon icon-left-nav pull-left\"}}{{/link}}\n  <h1 class=\"title\">Settings</h1>\n{{/view}} --}}\n\n<header class=\"bar bar-nav\">\n  <h1 class=\"title\">Settings</h1>\n</header>\n\n<div class=\"content\">\n  <ul class=\"table-view\">\n    <li class=\"table-view-cell\">\n      Item 1\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\"></input>\n      </div>\n    </li>\n    <li class=\"table-view-cell table-view-divider\">Categories</li>\n    <li class=\"table-view-cell\">\n      Police\n      <div class=\"toggle\">\n       <input type=\"checkbox\" {{#enabled}}checked{{/enabled}} class=\"toggle-handle\">\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      Fire\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\" {{#model.enabled}}checked{{/model.enabled}}>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      Traffic\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\" {{#enabled}}checked{{/enabled}}>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      School\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\" {{#enabled}}checked{{/enabled}}>\n      </div>\n    </li>\n  </ul>\n</div>\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\" type=\"home-footer\"}}\n  <a class=\"tab-item active\" href=\"#\">\n    <span class=\"icon icon-info\"></span>\n    <span class=\"tab-label\">Help</span>\n  </a>\n  <a class=\"tab-item\" href=\"#2\">\n    <span class=\"icon icon-person\"></span>\n    <span class=\"tab-label\">Profile</span>\n  </a>\n{{/view}}');Application.AnimView.extend({
+Handlebars.templates['home/settings'] = Handlebars.compile('{{!-- {{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\" type=\"home-header\"}}\n  {{#link \"\" expand-tokens=true class=\"icon icon-left-nav pull-left\"}}{{/link}}\n  <h1 class=\"title\">Settings</h1>\n{{/view}} --}}\n\n<header class=\"bar bar-nav\">\n  <h1 class=\"title\">Settings</h1>\n</header>\n\n<div class=\"content\">\n  <ul class=\"table-view\">\n    <li class=\"table-view-cell\">\n      Item 1\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\"></input>\n      </div>\n    </li>\n    <li class=\"table-view-cell table-view-divider\">Categories</li>\n    <li class=\"table-view-cell\">\n      Police\n      <div class=\"toggle\">\n       <input type=\"checkbox\" {{#enabled}}checked{{/enabled}} class=\"toggle-handle\">\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      Fire\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\" {{#enabled}}checked{{/enabled}}>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      Traffic\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\" {{#enabled}}checked{{/enabled}}>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      School\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\" {{#enabled}}checked{{/enabled}}>\n      </div>\n    </li>\n  </ul>\n</div>\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\" type=\"home-footer\"}}\n  <a class=\"tab-item active\" href=\"#\">\n    <span class=\"icon icon-info\"></span>\n    <span class=\"tab-label\">Help</span>\n  </a>\n  <a class=\"tab-item\" href=\"#2\">\n    <span class=\"icon icon-person\"></span>\n    <span class=\"tab-label\">Profile</span>\n  </a>\n{{/view}}');Application.AnimView.extend({
     name: "home/settings",
 
     // add animations
@@ -207,8 +209,24 @@ Application.Collection.extend({
     initialize: function() {
         console.log("Alerts Collection#initialize");
 
-        // todo: connect with backSocket.js for pusher websockets support
-        //	 then think about making it open source for others as backbone plugin
+        // mixin websockets object
+        _.extend(this, BackSocket.prototype);
+
+        // instantiate backSocket for websockets on this collection
+        if (_.isFunction(this.live)) {
+            this.live({
+                key: '3fb8e3f49e89f2640bc9',
+                channel: 'huh',
+                channelSuffix: 'channel',
+                messageSuffix: 'message',
+                autoListen: true,
+                logEvents: true,
+                logStats: true,
+                filters: {
+                    status: 'C'
+                }
+            });
+        }
 
         return this;
     }

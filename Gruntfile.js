@@ -15,14 +15,7 @@ module.exports = function(grunt) {
                 options: {
                     hostname: hostname,
                     base: publicDir,
-                    port: port,
-                    livereload: true
-                    // middleware: function(connect) {
-                    //     return [
-                    //         require('connect-livereload')()
-                    //         //mountFolder(connect, publicDir)
-                    //     ];
-                    // }
+                    port: port
                 }
             }
         },
@@ -80,7 +73,7 @@ module.exports = function(grunt) {
                     './templates/detail/*.handlebars'
                 ],
                 tasks: [
-                    'reload'
+                    'reload' // place additional tasks here for precompile sass, etc.. - Drew
                 ]
             },
         }
@@ -98,8 +91,18 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-reload');
 
-    grunt.registerTask('dev', ['ensure-installed', 'thorax:inspector', 'lumbar:init', 'connect:server', 'open-browser', 'lumbar:watch', 'watch']);
+    // run grunt dev  for everything plus live-reload
+    grunt.registerTask('dev', [
+        'ensure-installed',
+        'thorax:inspector',
+        'lumbar:init',
+        'connect:server',
+        'open-browser',
+        'lumbar:watch',
+        'watch'
+    ]);
 
+    // run grunt or grunt default for standard build w/o livereload
     grunt.registerTask('default', [
         'ensure-installed',
         'thorax:inspector',
