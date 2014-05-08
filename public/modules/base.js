@@ -18603,8 +18603,6 @@ var AnimView = window.AnimView = Thorax.View.extend({
                 console.debug('---------------------------');
             }
         });
-
-        //_.delay(transitionOut, 0);
     },
 
     // ----------------------------
@@ -18754,10 +18752,14 @@ var RootView = AnimView.extend({
             // check for a previous view before acting
             if (previous) {
                 if (previous.$el.data('view-name') == 'home/home' ||
-                    previous.$el.data('view-persist') == 'true') {
+                    previous.$el.data('view-persist') == true) {
 
-                    // just for debug output, will remove 
-                    console.log('*Previous view has data-view-persist=true so its not being removed from the DOM');
+                    // even though no anim, persisting views still need callback
+                    // before they are "closed" or removed from screen
+                    if (_.isFunction(previous.beforeNextViewLoads)) {
+                        previous.beforeNextViewLoads();
+                    }
+
                 } else {
 
                     // allow user to cleanup actions pre-removal w/ this hook

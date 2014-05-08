@@ -38,7 +38,7 @@ module.exports = function(grunt) {
             // running task such as "watch", set
             // background: true
             watch: {
-                background: false,
+                background: true,
                 watch: lumbarFile,
                 output: jsDir
             }
@@ -98,7 +98,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-reload');
 
-    grunt.registerTask('dev', ['connect:server', 'watch']);
+    grunt.registerTask('dev', ['ensure-installed', 'thorax:inspector', 'lumbar:init', 'connect:server', 'open-browser', 'lumbar:watch', 'watch']);
 
     grunt.registerTask('default', [
         'ensure-installed',

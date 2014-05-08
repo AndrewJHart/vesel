@@ -467,6 +467,20 @@ Handlebars.templates['home/maplist'] = Handlebars.compile('<a class=\"overlay\">
 // Instances of this view can be created by calling:
 // new Application.Views["home/maplist"]()
 ;;
+Application.Collection.extend({
+  name: "home/settings"
+});
+
+// Instances of this collection can be created by calling:
+// new Application.Collections["home/settings"]()
+;;
+Application.Model.extend({
+  name: "home/setting"
+});
+
+// Instances of this model can be created by calling:
+// new Application.Models["home/setting"]()
+;;
 
 
   if (vesel['home'] !== module.exports) {
