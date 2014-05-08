@@ -3,12 +3,33 @@
 
 <a class="overlay"></a>
 
-{{#view "home/header" tag="header" className="bar bar-nav"}}
+{{#view "home/header" tag="header" className="topcoat-navigation-bar topcoat-grid__row huh_navigation middle"}}
     {{!-- {{#link "settings" expand-tokens=true class="icon icon-gear pull-right"}}{{/link}} --}}
-    <a class="icon icon-bars pull-left toggle-settings"></a>
-    <h1 class="title">Vesel Framework</h1>	
+    <div class="topcoat-navigation-bar__item topcoat-grid__column--2">
+        <a href="#" class="topcoat-button--quiet button-prev hide">
+          <span class="ion-ios7-arrow-left ionicon"></span>
+        </a>
+      </div>
+      <div class="topcoat-navigation-bar__item topcoat-grid__column--auto center">
+          <h1 class="topcoat-navigation-bar__title">Heads Up Huntington</h1>
+      </div>
+      <div class="topcoat-navigation-bar__item  topcoat-grid__column--2">
+        <a class="topcoat-button--quiet button settings toggle-settings">
+          <span class="ion-ios7-gear ionicon"></span>
+        </a>
+      </div>
+  	</div>
+{{!--     <a class="icon icon-bars pull-left "></a>
+    <h1 class="title">Vesel Framework</h1>	 --}}
 {{/view}}
-
+{{!-- <div class="topcoat-button-bar full">
+   <div class="topcoat-button-bar__item">
+     <button class="topcoat-button-bar__button full">One</button>
+   </div>
+   <div class="topcoat-button-bar__item">
+     <button class="topcoat-button-bar__button full">Three</button>
+   </div>
+</div> --}}
 <div class="bar bar-standard bar-header-secondary">
 	<div class="segmented-control">
 		{{#link "" expand-tokens=true class="control-item active"}}List View{{/link}}
@@ -18,17 +39,23 @@
 
 {{view collectionView}}
 
-{{#view "home/footer" tag="nav" className="bar bar-tab"}}
-	<a class="tab-item active" href="#">
-		<span class="icon icon-home"></span>
-		<span class="tab-label">Home</span>
-	</a>
-	<a class="tab-item" href="#2">
-		<span class="icon icon-person"></span>
-		<span class="tab-label">Profile</span>
-	</a>
-	<a class="tab-item" href="#3">
-		<span class="icon icon-gear"></span>
-		<span class="tab-label">Settings</span>
-	</a>
+{{#view "home/footer" tag="nav" className="footer huh_navigation topcoat-tab-bar full"}}
+     <label class="topcoat-tab-bar__item topcoat-navigation-bar__line-height">
+       <input type="radio" name="topcoat">
+       <button class="topcoat-tab-bar__button full">
+         <span class="ion-home ionicon middle"></span>
+       </button>
+     </label>
+     <label class="topcoat-tab-bar__item topcoat-navigation-bar__line-height">
+       <input type="radio" name="topcoat">
+       <button class="topcoat-tab-bar__button full">
+         <span class="ion-map ionicon middle"></span>
+       </button>
+     </label>
+      <label class="topcoat-tab-bar__item topcoat-navigation-bar__line-height">
+       <input type="radio" name="topcoat">
+       <button class="topcoat-tab-bar__button full">
+         <span class="ion-ios7-information-outline ionicon middle"></span>
+       </button>
+     </label>
 {{/view}}

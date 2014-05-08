@@ -6555,7 +6555,6 @@ input,
   position: absolute;
   bottom: 0;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .li-date {
@@ -6602,8 +6601,8 @@ input,
   height: 100%;
 }
 
-.mbsc-lv-multi-ic-right {
-  margin-left: 100% !important;
+.leaflet-control-attribution .leaflet-control {
+  display: none;
 }
 
 .Traffic__bg {
@@ -6635,6 +6634,10 @@ input,
 .Police__bg {
   background-color: #4f5d73;
   color: white;
+}
+
+.mbsc-lv-item {
+  padding: 0 !important;
 }
 
 /*

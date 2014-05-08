@@ -74,7 +74,7 @@
 	position: absolute;
     bottom: 0;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.1);
+    // background-color: rgba(0, 0, 0, 0.1);
 }
 
 .li-date {
@@ -141,9 +141,18 @@
 
 
 
-.mbsc-lv-multi-ic-right {
-margin-left: 100% !important;
+// .mbsc-lv-multi-ic-right {
+// margin-left: 100% !important;
+// }
+
+
+
+.leaflet-control-attribution .leaflet-control {
+	display: none;
 }
+
+
+
 
 //  Background colors specific to each alert category
 
@@ -177,3 +186,12 @@ margin-left: 100% !important;
 	background-color: $dark-blue;
 	color: $white;
 }
+
+
+.mbsc-lv-item {
+	padding: 0 !important;
+}
+
+
+
+
