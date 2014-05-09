@@ -4,6 +4,7 @@
 var AnimView = window.AnimView = Thorax.View.extend({
 
     template: null,
+    wasRendered: false,
 
     // base render class that checks whether the the view is to be a 'page' 
     // aka meant for transitions; This does some setup work by applying the
@@ -43,6 +44,29 @@ var AnimView = window.AnimView = Thorax.View.extend({
         // call the parent render since we're overriding it in thorax
         // console.debug('*!*!*! Thorax.View rendering taking over!*!* for view ' + this.name);
         Thorax.View.prototype.render.apply(this, arguments);
+
+        // Trigger any additional or special rendering a user may require
+        if (_.isFunction(this.afterRender)) {
+            // trigger whatever current/caller view's onRender() method
+            this.afterRender();
+        }
+
+        if (!this.wasRendered)
+            this.wasRendered = true;
+
+        return this;
+    },
+
+    conservativeRender: function() {
+        // BeforeRender Hook for users (devs) to handle special cases like jQuery
+        // plugin instantiation, etc.. before the view & template are rendered
+        if (_.isFunction(this.beforeRender)) {
+            // trigger whatever current/caller view's beforeRender() method
+            this.beforeRender();
+        }
+        // call the parent render since we're overriding it in thorax
+        // console.debug('*!*!*! Thorax.View rendering taking over!*!* for view ' + this.name);
+        // Thorax.View.prototype.render.apply(this, arguments);
 
         // Trigger any additional or special rendering a user may require
         if (_.isFunction(this.afterRender)) {
@@ -102,6 +126,16 @@ var AnimView = window.AnimView = Thorax.View.extend({
 
     // ----------------------------
     // view helpers for subclasses
+
+    // Getter method for seeing if this view has been rendered once
+    // check if this view has been rendered before 
+    // views that persist don't need to be re-appended to the DOM
+    // and earlier version of goto doesnt remove a view if data-view-persist
+    // but it still always appends the view to the DOM. I dont know if this
+    // is triggering re-rendering or not so only one way to find out
+    hasRendered: function() {
+        return this.wasRendered;
+    },
 
     // get *just* the view's filename without path & extension
     getViewName: function() {
@@ -231,13 +265,30 @@ var RootView = AnimView.extend({
                 });
             }
 
-            // render the new view as a page
-            next.render({
-                page: true
-            });
 
-            // append new view to the body (the el for this root view)
-            this.$el.append(next.$el);
+            // if the new view has not already been rendered before
+            // then render it and append it the dom. Otherwise we 
+            // performing 2 wasteful ops here: rendering again.. but 
+            // more importantly: appending an existing view to an 
+            // existing DOM that has the same view...
+            // This works because persistent views still exist so 
+            // hasRendered will return the same value, whereas non-persistant
+            // views, like detail, were removed and hasRendered will be true.
+            if (!next.hasRendered()) {
+
+                // render the new view as a page
+                next.render({
+                    page: true
+                });
+
+                // append new view to the body (the el for this root view)
+                this.$el.append(next.$el);
+            } else {
+
+                // persistent view has been rendered once so we call 
+                // conservative render to trigger hooks only  
+                next.conservativeRender();
+            }
 
             // animate the new view 
             next.transitionIn(options);

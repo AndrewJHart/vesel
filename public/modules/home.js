@@ -65,7 +65,6 @@ new(Backbone.Router.extend({
 ;;
 Application.View.extend({
     name: "home/header",
-    settingsView: null,
     settingsState: null,
 
     events: {
@@ -75,17 +74,29 @@ Application.View.extend({
     initialize: function() {
         this.settingsState = true;
 
-        // create and prep the settings view
-        if (!this.settingsView) {
+        // create and prep the settings view 
+        // Note: I'm using Application.View instead of this.settings to check
+        // if the settings view has ever been created for good reason: 
+        // There can be multiple *instances* of the header-view class and each
+        // would create a new settings view (only once per instance but still..)
+        // because that instance's var this.settings would be null.. 
+        // -----
+        // This prevents a click to open settings from list view AND the map
+        // view from creating and overwriting more than one single instance of
+        // the settings view. 
+        // Better Performance, less memory, no confusion with the collection/models
+        //
+        if (!Application.View["settings"]) {
 
-            this.settingsView = Application.View["settings"] = new Application.Views["home/settings"]({
+            Application.View["settings"] = new Application.Views["home/settings"]({
                 el: '#settings', // stick this to the aside element in the DOM
                 className: 'effeckt-off-screen-nav'
             });
 
-            this.settingsView.render();
+            Application.View["settings"].render();
 
-            Application.$el.prepend(this.settingsView.$el);
+            // notice the frameworks prepend call to keep aside at top of markup
+            Application.$el.prepend(Application.View["settings"].$el);
         }
 
         return this;
@@ -96,7 +107,7 @@ Application.View.extend({
         console.log(event.target);
 
         // animate the settings view in
-        this.settingsView.toggle(this.settingsState);
+        Application.View["settings"].toggle(this.settingsState);
 
         // change the state
         this.settingsState = !this.settingsState;
@@ -422,9 +433,34 @@ Handlebars.templates['home/maplist'] = Handlebars.compile('<a class=\"overlay\">
         this.$el.attr("data-effeckt-page", "home");
         this.$el.attr("data-view-persist", "true");
 
-        // Continue map creation here - whatever amount can be done here
-        // and then the rest in afterRender. Try to prevent duplicate 
-        // tiles requests
+        // Create what parts of the map we can here, like parts that dont
+        // depend on the the view rendered and appended to the DOM yet
+        // ----
+        // Then using instance variables we can ensure the map is only 
+        // ever instantiated one time. Note: This did cause a bug because
+        // even persisted views were still being rendered and re-appended
+        // to the dom each time. This bug also affected the maplist as 
+        // the re-rendering each time goofed with the singular instantiation
+        // of the map.. the positive It seems like there were no issues with 
+        // zombie events due to a delegate events call, but this almost
+        // makes the purpose of persisting views moot. Current patch was
+        // to add 2 extra methods in base AnimView called hasRendered() 
+        // and conservativeRender(). Now the root Application view goto()
+        // method checks if the new view hasRendered(): if not, then it
+        // renders it and appends to the DOM or its rightful el placeholder.
+        // if it hasRendered() true then it simply calls conservativeRender()
+        // which triggers ONLY the beforeRender() and afterRender() calls 
+        // elminating all further render calls AND no more re-appending 
+        // an existing view back to the same el in the DOM again... 
+        // ----
+        // Huge Win: DOM ops = Expensive and its pointless to re-render
+        // a persistant view unless a colleciton/model triggers a change
+        // event and that will still work correctly.. :)  
+
+        // tile layer
+        this.tiles = L.tileLayer('https://{s}.tiles.mapbox.com/v3/mscnswv.hl37jh6m/{z}/{x}/{y}.png', {
+            attribution: '<a href="http://www.mscns.com" target="_blank">Powered by MSCNS</a>'
+        });
 
         return this;
     },
@@ -443,35 +479,36 @@ Handlebars.templates['home/maplist'] = Handlebars.compile('<a class=\"overlay\">
 
         console.log(this.getViewName() + "#afterRender()");
 
+        var self = this;
+
         // trigger the leaflet plugin code. Note could use _.delay
         // It is used only to circumvent a known DOM issue, thus the
         // *timing* can be 0ms & works fine or no delay at all since afterRender.
 
-        var featureLayer,
-            mapboxTiles,
-            mapview;
+        if (!this.map) {
+            // only create the map once
+            this.map = new L.map('mapmain', {
+                zoomControl: false, // prevent zoom control from being added (instead of removing it later)
+                locateControl: true
+            }).addLayer(this.tiles).setView([38.412, -82.428], 13);
 
-        mapboxTiles = L.tileLayer('https://{s}.tiles.mapbox.com/v3/mscnswv.hl37jh6m/{z}/{x}/{y}.png', {
-            attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">Powered by MSCNS</a>'
-        });
-
-        mapview = new L.map('mapmain', {
-            doubleClickZoom: false
-        }).addLayer(mapboxTiles).setView([38.412, -82.428], 14).on('dblclick', function(e) {
-            console.log('Double Click event triggered.. returning expected results for now.');
-            return mapview.setView(e.latlng, mapview.getZoom() + 1);
-        });
-
-        featureLayer = L.mapbox.featureLayer().
-        loadURL('http://192.168.1.5:8005/api/app/v1/alert_locations/').
-        addTo(mapview).on('ready', function() {
-            featureLayer.eachLayer(function(l) {
-                return mapview.panTo(l.getLatLng());
+            this.primaryLayer = L.mapbox.featureLayer().
+            loadURL('http://192.168.1.5:8005/api/app/v1/alert_locations/').
+            addTo(this.map).on('ready', function() {
+                self.primaryLayer.eachLayer(function(l) {
+                    return self.map.panTo(l.getLatLng());
+                });
             });
-        });
+        } else {
+            this.map.on('ready', function() {
+                self.primaryLayer.eachLayer(function(levent) {
+                    return self.map.panTo(levent.getLatLng());
+                });
+            });
+        }
 
         // locator
-        L.control.locate().addTo(mapview);
+        //L.control.locate().addTo(this.map);
     },
 
     // this view persists but we still need a hook when new route & view come in
@@ -480,6 +517,12 @@ Handlebars.templates['home/maplist'] = Handlebars.compile('<a class=\"overlay\">
 
         // this is no longer the active page
         this.$el.removeClass("effeckt-page-active");
+
+        // unbind the .on ready handler -- its not an obvious glitch and I 
+        // am not seeing a bug yet but typically using .on should use .off
+        // especially since we can preserve the map by using instance vars
+        // and the new AnimView.conservativeRender() method. 
+        this.map.off('ready');
 
         return this;
     }

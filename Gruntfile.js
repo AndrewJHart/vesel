@@ -52,7 +52,7 @@ module.exports = function(grunt) {
             }
         },
 
-        // live reload
+        // live reload alternative
         reload: {
             port: 6001,
             proxy: {
@@ -67,13 +67,11 @@ module.exports = function(grunt) {
             },
             all: {
                 files: [
-                    './js/**/**/*.js',
+                    // grunt watch only needs to monitor public folder
+                    // since lubmar watches rest and compiles them to public
+                    // otherwise we get multiple reloads lol
                     './public/**/*.*',
-                    './templates/home/*.handlebars',
-                    './templates/detail/*.handlebars'
-                ],
-                tasks: [
-                    'reload' // place additional tasks here for precompile sass, etc.. - Drew
+                    './templates/**/*.handlebars'
                 ]
             },
         }

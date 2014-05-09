@@ -1,6 +1,5 @@
 Application.View.extend({
     name: "home/header",
-    settingsView: null,
     settingsState: null,
 
     events: {
@@ -10,17 +9,29 @@ Application.View.extend({
     initialize: function() {
         this.settingsState = true;
 
-        // create and prep the settings view
-        if (!this.settingsView) {
+        // create and prep the settings view 
+        // Note: I'm using Application.View instead of this.settings to check
+        // if the settings view has ever been created for good reason: 
+        // There can be multiple *instances* of the header-view class and each
+        // would create a new settings view (only once per instance but still..)
+        // because that instance's var this.settings would be null.. 
+        // -----
+        // This prevents a click to open settings from list view AND the map
+        // view from creating and overwriting more than one single instance of
+        // the settings view. 
+        // Better Performance, less memory, no confusion with the collection/models
+        //
+        if (!Application.View["settings"]) {
 
-            this.settingsView = Application.View["settings"] = new Application.Views["home/settings"]({
+            Application.View["settings"] = new Application.Views["home/settings"]({
                 el: '#settings', // stick this to the aside element in the DOM
                 className: 'effeckt-off-screen-nav'
             });
 
-            this.settingsView.render();
+            Application.View["settings"].render();
 
-            Application.$el.prepend(this.settingsView.$el);
+            // notice the frameworks prepend call to keep aside at top of markup
+            Application.$el.prepend(Application.View["settings"].$el);
         }
 
         return this;
@@ -31,7 +42,7 @@ Application.View.extend({
         console.log(event.target);
 
         // animate the settings view in
-        this.settingsView.toggle(this.settingsState);
+        Application.View["settings"].toggle(this.settingsState);
 
         // change the state
         this.settingsState = !this.settingsState;
