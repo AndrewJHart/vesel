@@ -103,9 +103,6 @@ Application.AnimView.extend({
                 });
             });
         }
-
-        // locator
-        //L.control.locate().addTo(this.map);
     },
 
     // this view persists but we still need a hook when new route & view come in

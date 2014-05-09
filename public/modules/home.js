@@ -506,9 +506,6 @@ Handlebars.templates['home/maplist'] = Handlebars.compile('<a class=\"overlay\">
                 });
             });
         }
-
-        // locator
-        //L.control.locate().addTo(this.map);
     },
 
     // this view persists but we still need a hook when new route & view come in
