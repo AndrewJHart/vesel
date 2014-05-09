@@ -8,8 +8,8 @@
 }
 
 .list {
-  position: fixed;
-  top: 2.75rem;
+  position: absolute;
+  top: 5.75rem;
   right: 0;
   left: 0;
   bottom: 2.75em;
@@ -19,8 +19,6 @@
 	font-size: 26px;
 	color: $white !important;
 }
-
-
 
 
 .huh_navigation {
@@ -74,7 +72,7 @@
 	position: absolute;
     bottom: 0;
     width: 100%;
-    // background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .li-date {

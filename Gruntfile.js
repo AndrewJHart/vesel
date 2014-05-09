@@ -84,13 +84,12 @@ module.exports = function(grunt) {
             },
             sass: {
                 files: [
-                    './stylesheets/scss/app.scss',
+                    './stylesheets/**/**/**/*.*',
                     './public/**/*.*',
                     './js/**/**/*.*'
                 ],
                 tasks: ['sass:dev']
             }
-            // tasks: ['sass:dev']
         }
     });
 

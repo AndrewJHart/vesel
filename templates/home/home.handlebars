@@ -22,20 +22,24 @@
 {{!--     <a class="icon icon-bars pull-left "></a>
     <h1 class="title">Vesel Framework</h1>	 --}}
 {{/view}}
-{{!-- <div class="topcoat-button-bar full">
+<div class="topcoat-button-bar full-width">
    <div class="topcoat-button-bar__item">
-     <button class="topcoat-button-bar__button full">One</button>
+     <button class="topcoat-button-bar__button full-width">   
+        {{#link "" expand-tokens=true class="control-item active"}}List View{{/link}}
+     </button>
    </div>
    <div class="topcoat-button-bar__item">
-     <button class="topcoat-button-bar__button full">Three</button>
+     <button class="topcoat-button-bar__button full-width">
+        {{#link "map" expand-tokens=true class="control-item"}}Map View{{/link}}
+     </button>
    </div>
-</div> --}}
-<div class="bar bar-standard bar-header-secondary">
+</div>
+{{!-- <div class="bar bar-standard bar-header-secondary">
 	<div class="segmented-control">
 		{{#link "" expand-tokens=true class="control-item active"}}List View{{/link}}
 		{{#link "map" expand-tokens=true class="control-item"}}Map View{{/link}}
   	</div>
-</div>
+</div> --}}
 
 {{view collectionView}}
 
