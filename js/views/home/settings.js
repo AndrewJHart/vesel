@@ -56,6 +56,15 @@ Application.AnimView.extend({
                 self.$el.off('webkitAnimationEnd transitionend');
                 // show the aside panel
                 self.$el.addClass("effeckt-show");
+
+                // force a DOM redraw for webkit browsers see SO here:
+                // http://stackoverflow.com/questions/3485365/how-can-i-force-webkit-to-redraw-repaint-to-propagate-style-changes
+                self.el.style.display = 'none';
+
+                _.delay(function() {
+
+                    self.el.style.display = 'block';
+                }, 0);
             });
         } else {
 
@@ -72,6 +81,7 @@ Application.AnimView.extend({
 
         return this;
     }
+
 });
 
 // Instances of this view can be created by calling:
