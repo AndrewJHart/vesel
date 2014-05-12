@@ -56,8 +56,10 @@ Application.AnimView.extend({
 
         // tile layer
         this.tiles = L.tileLayer('https://{s}.tiles.mapbox.com/v3/mscnswv.hl37jh6m/{z}/{x}/{y}.png', {
-            attribution: '<a href="http://www.mscns.com" target="_blank">Powered by MSCNS</a>'
+            attribution: '<a href="http://www.mscns.com" target="_blank">Powered by MSCNS</a>',
+            detectRetina: true
         });
+        console.log(this.tiles);
 
         return this;
     },
@@ -78,24 +80,57 @@ Application.AnimView.extend({
 
         var self = this;
 
+        // // not assigned to var to prevent re-creation of the method each time
+        // // this belongs to afterRender.clip() not global
+        // clip = _.bind(function() {
+
+        //     // special method for getting swipe area
+        //     var nw = map.containerPointToLayerPoint([0, 0]),
+        //         se = map.containerPointToLayerPoint(map.getSize()),
+        //         clipX = nw.x + (se.x - nw.x) * range.value;
+
+        //     overlay.getContainer().style.clip = 'rect(' + [nw.y, clipX, se.y, nw.x].join('px,') + 'px)';
+
+        // }, this);
+
         // trigger the leaflet plugin code. Note could use _.delay
         // It is used only to circumvent a known DOM issue, thus the
         // *timing* can be 0ms & works fine or no delay at all since afterRender.
 
         if (!this.map) {
+
+            var layers = L.control.layers({
+                'Satellite': this.tiles,
+                'Streets': L.tileLayer('https://{s}.tiles.mapbox.com/v3/examples.map-20v6611k/{z}/{x}/{y}.png', {
+                    detectRetina: true
+                })
+            }); //.addTo(this.map);
+
             // only create the map once
             this.map = new L.map('mapmain', {
                 zoomControl: false, // prevent zoom control from being added (instead of removing it later)
                 locateControl: true
-            }).addLayer(this.tiles).setView([38.412, -82.428], 13);
+            }).addLayer(this.tiles);
+            //.setView([38.412, -82.428], 13);
 
-            this.primaryLayer = L.mapbox.featureLayer().
-            loadURL('http://192.168.1.5:8005/api/app/v1/alert_locations/').
-            addTo(this.map).on('ready', function() {
-                self.primaryLayer.eachLayer(function(l) {
-                    return self.map.panTo(l.getLatLng());
+            // this.map = new L.mapbox.map('mapmain', /*'mscnswv.hl37jh6m',*/ {
+            //     zoomControl: false,
+            //     locateControl: true
+            // }).setView([38.412, -82.428], 13);
+
+            // get our primary layer with geoJSON
+            this.primaryLayer = L.mapbox.featureLayer()
+                .loadURL('http://192.168.1.5:8005/api/app/v1/alert_locations/')
+                .addTo(this.map)
+                .on('ready', function() {
+                    self.primaryLayer.eachLayer(function(l) {
+                        return self.map.panTo(l.getLatLng());
+                    });
                 });
-            });
+
+            layers.addTo(self.map);
+            this.map.setView([38.412, -82.428], 13);
+
         } else {
             this.map.on('ready', function() {
                 self.primaryLayer.eachLayer(function(levent) {
@@ -103,6 +138,33 @@ Application.AnimView.extend({
                 });
             });
         }
+    },
+
+    // map helpers
+    layerSwipe: function(overlay) {
+        var self = this,
+            range = this.$('#range');
+
+        function clip() {
+            console.log('layerSwiper#clip() triggered');
+
+            // special method for getting swipe area
+            var nw = self.map.containerPointToLayerPoint([38.412, -82.428]),
+                se = self.map.containerPointToLayerPoint(self.map.getSize()),
+                clipX = nw.x + (se.x - nw.x) * range.value;
+
+            overlay.getContainer().style.clip = 'rect(' + [nw.y, clipX, se.y, nw.x].join('px,') + 'px)';
+
+        }
+
+        // interesting way to bind an event
+        range['oninput' in range ? 'oninput' : 'onchange'] = clip;
+
+        this.map.on('move', clip);
+
+        this.map.setView([38.412, -82.428], 13);
+
+        return this;
     },
 
     // this view persists but we still need a hook when new route & view come in

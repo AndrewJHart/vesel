@@ -25,7 +25,8 @@ Application.View.extend({
 
             Application.View["settings"] = new Application.Views["home/settings"]({
                 el: '#settings', // stick this to the aside element in the DOM
-                className: 'effeckt-off-screen-nav'
+                className: 'effeckt-off-screen-nav',
+                model: new Application.Model["settings"]()
             });
 
             Application.View["settings"].render();

@@ -90,7 +90,8 @@ Application.View.extend({
 
             Application.View["settings"] = new Application.Views["home/settings"]({
                 el: '#settings', // stick this to the aside element in the DOM
-                className: 'effeckt-off-screen-nav'
+                className: 'effeckt-off-screen-nav',
+                model: new Application.Model["settings"]()
             });
 
             Application.View["settings"].render();
@@ -132,17 +133,17 @@ Application.View.extend({
 // Instances of this view can be created by calling:
 // new Application.Views["home/footer"]()
 ;;
-Handlebars.templates['home/settings'] = Handlebars.compile('{{!-- {{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\" type=\"home-header\"}}\n  {{#link \"\" expand-tokens=true class=\"icon icon-left-nav pull-left\"}}{{/link}}\n  <h1 class=\"title\">Settings</h1>\n{{/view}} --}}\n\n<header class=\"bar bar-nav\">\n  <h1 class=\"title\">Settings</h1>\n</header>\n\n<div class=\"content\">\n  <ul class=\"table-view\">\n    <li class=\"table-view-cell\">\n      Item 1\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\"></input>\n      </div>\n    </li>\n    <li class=\"table-view-cell table-view-divider\">Categories</li>\n    <li class=\"table-view-cell\">\n      Police\n      <div class=\"toggle\">\n       <input type=\"checkbox\" {{#enabled}}checked{{/enabled}} class=\"toggle-handle\">\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      Fire\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\" {{#enabled}}checked{{/enabled}}>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      Traffic\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\" {{#enabled}}checked{{/enabled}}>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      School\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\" {{#enabled}}checked{{/enabled}}>\n      </div>\n    </li>\n  </ul>\n</div>\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\" type=\"home-footer\"}}\n  <a class=\"tab-item active\" href=\"#\">\n    <span class=\"icon icon-info\"></span>\n    <span class=\"tab-label\">Help</span>\n  </a>\n  <a class=\"tab-item\" href=\"#2\">\n    <span class=\"icon icon-person\"></span>\n    <span class=\"tab-label\">Profile</span>\n  </a>\n{{/view}}');Application.AnimView.extend({
+Handlebars.templates['home/settings'] = Handlebars.compile('<header class=\"bar bar-nav\">\n  <h1 class=\"title\">Settings</h1>\n</header>\n\n<div class=\"content\">\n  <ul class=\"table-view\">\n    <li class=\"table-view-cell\">\n      Item 1\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\"></input>\n      </div>\n    </li>\n    <li class=\"table-view-cell table-view-divider\">Categories</li>\n    <li class=\"table-view-cell\">\n      Police\n      <div class=\"toggle\">\n       <input type=\"checkbox\" {{#enabled}}checked{{/enabled}} class=\"toggle-handle\">\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      Fire\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\" {{#enabled}}checked{{/enabled}}>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      Traffic\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\" {{#enabled}}checked{{/enabled}}>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      School\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\" {{#enabled}}checked{{/enabled}}>\n      </div>\n    </li>\n  </ul>\n</div>\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\" type=\"home-footer\"}}\n  <a class=\"tab-item active\" href=\"#\">\n    <span class=\"icon icon-info\"></span>\n    <span class=\"tab-label\">Help</span>\n  </a>\n  <a class=\"tab-item\" href=\"#2\">\n    <span class=\"icon icon-person\"></span>\n    <span class=\"tab-label\">Profile</span>\n  </a>\n{{/view}}');Application.AnimView.extend({
     name: "home/settings",
 
     // add animations
     animateIn: "effeckt-off-screen-nav-left-push ",
     animateOut: "effeckt-off-screen-nav-left-push ",
 
-    model: new Thorax.Model({
-        category: "Police",
-        enabled: false
-    }),
+    // model: new Thorax.Model({
+    //     category: "Police",
+    //     enabled: false
+    // }),
 
     events: {
         'change div.toggle > input[type="checkbox"]': function(event) {
@@ -153,7 +154,7 @@ Handlebars.templates['home/settings'] = Handlebars.compile('{{!-- {{#view \"home
 
             // try to get the model
             this.$(event.target).model().set({
-                enabled: event.target.checked
+                "metadata.0.is_enabled": event.target.checked
             }, {
                 silent: true
             });
@@ -172,7 +173,8 @@ Handlebars.templates['home/settings'] = Handlebars.compile('{{!-- {{#view \"home
         this.$el.addClass('effeckt-off-screen-nav');
         this.$el.attr('data-view-persist', 'true');
 
-        this.model.url = "http://localhost:8005/api/v1/app/device_settings/";
+        //this.model.url = "http://localhost:8005/api/v1/app/device_settings/";
+        this.model.fetch();
 
         return this;
     },
@@ -411,7 +413,7 @@ Handlebars.templates['home/list-empty'] = Handlebars.compile('<h1>Home Page home
 // Instances of this view can be created by calling:
 // new Application.Views["home/list"]()
 ;;
-Handlebars.templates['home/maplist'] = Handlebars.compile('<a class=\"overlay\"></a>\n\n{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\"}}\n  <a class=\"icon icon-bars pull-left\" data-toggle=\"aside\"></a>\n  <h1 class=\"title\">Vesel Framework</h1>\n{{/view}}\n\n<div class=\"bar bar-standard bar-header-secondary\">\n  <div class=\"segmented-control\">\n    {{#link \"\" expand-tokens=true class=\"control-item\"}}List View{{/link}}\n    {{#link \"map\" expand-tokens=true class=\"control-item active\"}}Map View{{/link}}\n  </div>\n</div>\n\n<div id=\"mapmain\" class=\"map\">\n</div>\n\n{{!-- {{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\"}}\n  <a class=\"tab-item active\" href=\"#\">\n    <span class=\"icon icon-home\"></span>\n    <span class=\"tab-label\">Home</span>\n  </a>\n  <a class=\"tab-item\" href=\"#2\">\n    <span class=\"icon icon-person\"></span>\n    <span class=\"tab-label\">Profile</span>\n  </a>\n  <a class=\"tab-item\" href=\"#3\">\n    <span class=\"icon icon-gear\"></span>\n    <span class=\"tab-label\">Settings</span>\n  </a>\n{{/view}} --}}');Application.AnimView.extend({
+Handlebars.templates['home/maplist'] = Handlebars.compile('<a class=\"overlay\"></a>\n\n{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\"}}\n  <a class=\"icon icon-bars pull-left\" data-toggle=\"aside\"></a>\n  <h1 class=\"title\">Vesel Framework</h1>\n{{/view}}\n\n<div class=\"bar bar-standard bar-header-secondary\">\n  <div class=\"segmented-control\">\n    {{#link \"\" expand-tokens=true class=\"control-item\"}}List View{{/link}}\n    {{#link \"map\" expand-tokens=true class=\"control-item active\"}}Map View{{/link}}\n  </div>\n</div>\n\n<div id=\"mapmain\" class=\"map\">\n</div>\n{{!-- <input id=\"range\" type=\"range\" min=\"0\" max=\"1.0\" step=\"any\" style=\"width: 100%; position: absolute\" /> --}}\n\n{{!-- {{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\"}}\n  <a class=\"tab-item active\" href=\"#\">\n    <span class=\"icon icon-home\"></span>\n    <span class=\"tab-label\">Home</span>\n  </a>\n  <a class=\"tab-item\" href=\"#2\">\n    <span class=\"icon icon-person\"></span>\n    <span class=\"tab-label\">Profile</span>\n  </a>\n  <a class=\"tab-item\" href=\"#3\">\n    <span class=\"icon icon-gear\"></span>\n    <span class=\"tab-label\">Settings</span>\n  </a>\n{{/view}} --}}');Application.AnimView.extend({
     name: "home/maplist",
 
     animateIn: 'bounceInDown',
@@ -469,8 +471,10 @@ Handlebars.templates['home/maplist'] = Handlebars.compile('<a class=\"overlay\">
 
         // tile layer
         this.tiles = L.tileLayer('https://{s}.tiles.mapbox.com/v3/mscnswv.hl37jh6m/{z}/{x}/{y}.png', {
-            attribution: '<a href="http://www.mscns.com" target="_blank">Powered by MSCNS</a>'
+            attribution: '<a href="http://www.mscns.com" target="_blank">Powered by MSCNS</a>',
+            detectRetina: true
         });
+        console.log(this.tiles);
 
         return this;
     },
@@ -491,24 +495,57 @@ Handlebars.templates['home/maplist'] = Handlebars.compile('<a class=\"overlay\">
 
         var self = this;
 
+        // // not assigned to var to prevent re-creation of the method each time
+        // // this belongs to afterRender.clip() not global
+        // clip = _.bind(function() {
+
+        //     // special method for getting swipe area
+        //     var nw = map.containerPointToLayerPoint([0, 0]),
+        //         se = map.containerPointToLayerPoint(map.getSize()),
+        //         clipX = nw.x + (se.x - nw.x) * range.value;
+
+        //     overlay.getContainer().style.clip = 'rect(' + [nw.y, clipX, se.y, nw.x].join('px,') + 'px)';
+
+        // }, this);
+
         // trigger the leaflet plugin code. Note could use _.delay
         // It is used only to circumvent a known DOM issue, thus the
         // *timing* can be 0ms & works fine or no delay at all since afterRender.
 
         if (!this.map) {
+
+            var layers = L.control.layers({
+                'Satellite': this.tiles,
+                'Streets': L.tileLayer('https://{s}.tiles.mapbox.com/v3/examples.map-20v6611k/{z}/{x}/{y}.png', {
+                    detectRetina: true
+                })
+            }); //.addTo(this.map);
+
             // only create the map once
             this.map = new L.map('mapmain', {
                 zoomControl: false, // prevent zoom control from being added (instead of removing it later)
                 locateControl: true
-            }).addLayer(this.tiles).setView([38.412, -82.428], 13);
+            }).addLayer(this.tiles);
+            //.setView([38.412, -82.428], 13);
 
-            this.primaryLayer = L.mapbox.featureLayer().
-            loadURL('http://192.168.1.5:8005/api/app/v1/alert_locations/').
-            addTo(this.map).on('ready', function() {
-                self.primaryLayer.eachLayer(function(l) {
-                    return self.map.panTo(l.getLatLng());
+            // this.map = new L.mapbox.map('mapmain', /*'mscnswv.hl37jh6m',*/ {
+            //     zoomControl: false,
+            //     locateControl: true
+            // }).setView([38.412, -82.428], 13);
+
+            // get our primary layer with geoJSON
+            this.primaryLayer = L.mapbox.featureLayer()
+                .loadURL('http://192.168.1.5:8005/api/app/v1/alert_locations/')
+                .addTo(this.map)
+                .on('ready', function() {
+                    self.primaryLayer.eachLayer(function(l) {
+                        return self.map.panTo(l.getLatLng());
+                    });
                 });
-            });
+
+            layers.addTo(self.map);
+            this.map.setView([38.412, -82.428], 13);
+
         } else {
             this.map.on('ready', function() {
                 self.primaryLayer.eachLayer(function(levent) {
@@ -516,6 +553,33 @@ Handlebars.templates['home/maplist'] = Handlebars.compile('<a class=\"overlay\">
                 });
             });
         }
+    },
+
+    // map helpers
+    layerSwipe: function(overlay) {
+        var self = this,
+            range = this.$('#range');
+
+        function clip() {
+            console.log('layerSwiper#clip() triggered');
+
+            // special method for getting swipe area
+            var nw = self.map.containerPointToLayerPoint([38.412, -82.428]),
+                se = self.map.containerPointToLayerPoint(self.map.getSize()),
+                clipX = nw.x + (se.x - nw.x) * range.value;
+
+            overlay.getContainer().style.clip = 'rect(' + [nw.y, clipX, se.y, nw.x].join('px,') + 'px)';
+
+        }
+
+        // interesting way to bind an event
+        range['oninput' in range ? 'oninput' : 'onchange'] = clip;
+
+        this.map.on('move', clip);
+
+        this.map.setView([38.412, -82.428], 13);
+
+        return this;
     },
 
     // this view persists but we still need a hook when new route & view come in
@@ -539,14 +603,57 @@ Handlebars.templates['home/maplist'] = Handlebars.compile('<a class=\"overlay\">
 // new Application.Views["home/maplist"]()
 ;;
 Application.Collection.extend({
-  name: "home/settings"
+    name: "home/settings",
+
+    url: "http://localhost:8005/api/app/v1/device_settings/gcm/",
+    urlRoot: 'http://localhost:8005/api/app/v1/device_settings/gcm/'
 });
 
 // Instances of this collection can be created by calling:
 // new Application.Collections["home/settings"]()
 ;;
-Application.Model.extend({
-  name: "home/setting"
+Application.Model["settings"] = Backbone.DeepModel.extend({
+    name: "home/setting",
+
+    urlRoot: 'http://localhost:8005/api/app/v1/device_settings/gcm/',
+
+    // gets the registration id, username, and pass from the user and device
+    // then login will generate the api key
+    defaults: function() {
+        return {
+            "device": {
+                "registration_id": "bff7506932143c6e16d84b4c95e6bc29e24fd232e4106a53f0105f5f19f51234Droid18",
+                "user": {
+                    "api_key": {
+                        "key": "8b4f5e8edde8842f28dd66210e1c7800fa6b8d87"
+                    },
+                    "username": "dhart7"
+                }
+            },
+            "global_priority": 1
+        }
+    },
+
+    url: function() {
+        var device = this.get("device.registration_id"),
+            //device_registration = device.get("registration_id"),
+            user = this.get("device.user"),
+            username = this.get("device.user.username"),
+            api = this.get("device.user.api_key"),
+            key = this.get("device.user.api_key.key");
+
+        console.log('log of model url output.. device=');
+        console.log(device);
+        console.log("registration is " + device);
+        console.log("user:");
+        console.log(user);
+        console.log("username is: " + username);
+        console.log("api:");
+        console.log(api);
+        console.log("key is: " + key);
+
+        return this.urlRoot + device + "/?username=" + username + "&api_key=" + key;
+    }
 });
 
 // Instances of this model can be created by calling:

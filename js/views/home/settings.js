@@ -5,10 +5,10 @@ Application.AnimView.extend({
     animateIn: "effeckt-off-screen-nav-left-push ",
     animateOut: "effeckt-off-screen-nav-left-push ",
 
-    model: new Thorax.Model({
-        category: "Police",
-        enabled: false
-    }),
+    // model: new Thorax.Model({
+    //     category: "Police",
+    //     enabled: false
+    // }),
 
     events: {
         'change div.toggle > input[type="checkbox"]': function(event) {
@@ -19,7 +19,7 @@ Application.AnimView.extend({
 
             // try to get the model
             this.$(event.target).model().set({
-                enabled: event.target.checked
+                "metadata.0.is_enabled": event.target.checked
             }, {
                 silent: true
             });
@@ -38,7 +38,8 @@ Application.AnimView.extend({
         this.$el.addClass('effeckt-off-screen-nav');
         this.$el.attr('data-view-persist', 'true');
 
-        this.model.url = "http://localhost:8005/api/v1/app/device_settings/";
+        //this.model.url = "http://localhost:8005/api/v1/app/device_settings/";
+        this.model.fetch();
 
         return this;
     },

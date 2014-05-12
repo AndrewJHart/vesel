@@ -18665,6 +18665,22 @@ var AnimView = window.AnimView = Thorax.View.extend({
         return "/js/views/" + this.name + ".js";
     },
 
+    // hook and delegate to base remove
+    onRemove: function() {
+
+        if (_.isFunction(this.remove)) {
+            Thorax.View.prototype.remove.apply(this, arguments);
+
+            if (this.model)
+                this.model.unbind();
+
+            if (this.collection)
+                this.collection.unbind();
+
+            this.remove();
+        }
+    },
+
     // ----------------------------
     // internal management methods 
 
@@ -18709,7 +18725,7 @@ var RootView = AnimView.extend({
 
         // internal remove function to a) ensure we adhere to thorax 
         // structure b) clean-up child views c) undelegate events, etc..
-        var remove = _.bind(function() {
+        remove = _.bind(function() {
             if (previous) {
                 console.debug('RootView.goto.remove() was triggered w/ context view');
                 console.debug(this.name + " is removing: " + previous.name);
