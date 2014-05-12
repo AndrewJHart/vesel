@@ -1,11 +1,25 @@
 {{#view "detail/mask" tag="div" className="contentMask"}}
 {{/view}}
-{{#view "detail/header" tag="header" className="bar bar-nav" type="detail-header"}}
+{{#view "detail/header" tag="header" lassName="topcoat-navigation-bar topcoat-grid__row huh_navigation middle" type="detail-header"}}
   	{{#link "" expand-tokens=true class="icon icon-left-nav pull-left"}}{{/link}}
-    <a href="" class="icon icon-gear pull-right"></a>
-  	<h1 class="title">Details</h1>
+    <div class="topcoat-navigation-bar__item topcoat-grid__column--2">
+        <a href="#" class="topcoat-button--quiet button-prev hide">
+          <span class="ion-ios7-arrow-left ionicon"></span>
+        </a>
+      </div>
+      <div class="topcoat-navigation-bar__item topcoat-grid__column--auto center">
+          <h1 class="topcoat-navigation-bar__title">Heads Up Huntington</h1>
+      </div>
+      <div class="topcoat-navigation-bar__item  topcoat-grid__column--2">
+        <a class="topcoat-button--quiet button settings toggle-settings">
+          <span class="ion-ios7-gear ionicon"></span>
+        </a>
+      </div>
+    </div>
+{{!--     <a href="" class="icon icon-gear pull-right"></a>
+  	<h1 class="title">Details</h1> --}}
 {{/view}}
-<div class="content">
+{{!-- <div class="content">
 	<div class="content-padded">
 	  <h4>{{subject}}</h4>
 
@@ -15,7 +29,35 @@
 	  <br>
 	  <small>{{category.name}}</small>
 	</div>
-</div>
+</div> --}}
+
+        <div class="topcoat-grid__row {{category.name}}__bg">
+          <div class="col-25 col-center ">
+            <div class="li-cat__container">
+              <span class="{{ category.name }} cat"></span>
+              <div>
+                <h2 class="li-cat__title">{{category.name}}</h2>
+              </div>
+            </div>
+          </div>
+          <div class="col-75">
+            <p class="detail-summary">{{ subject }}</p>
+          </div>
+        </div>
+
+        <div class="full detail-date__container">
+          <p class="detail-date">Posted:{{prettyDate modified_at}}</p>
+        </div>
+
+        <div class="full">
+          <div id="map-canvas">
+            <div class="map-holder">MAP GOES HERE</div>
+          </div>
+        </div>
+
+        <div class="full topcoat-list">
+          <p class="detail-information">{{ information }}</p>
+        </div>
 {{#view "detail/footer" tag="nav" className="bar bar-tab" type="detail-footer"}}
   <a class="tab-item active" href="#">
     <span class="icon icon-home"></span>

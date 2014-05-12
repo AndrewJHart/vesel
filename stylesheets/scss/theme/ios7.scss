@@ -213,7 +213,7 @@
 .huh_navigation--blur {
 	position: absolute;
 	z-index: 2;
-  overflow: hidden;
+  	overflow: hidden;
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -222,3 +222,40 @@
 }
 
 
+
+.navigate-left:after,
+.navigate-right:after,
+.push-left:after,
+.push-right:after {
+  position: absolute;
+  top: 50%;
+  display: inline-block;
+  font-family: Ionicons;
+  font-size: inherit;
+  line-height: 1;
+  color: #bbb;
+  text-decoration: none;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+
+  -webkit-font-smoothing: antialiased;
+}
+
+
+.navigate-left:after,
+.push-left:after {
+  left: 15px;
+  content: '\f153';
+}
+
+.navigate-right:after,
+.push-right:after {
+  right: 15px;
+  content: '\f154';
+}
+
+
+// .ion-ios7-arrow-right:before {
+//   content: "\f154";
+// }
