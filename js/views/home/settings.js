@@ -69,10 +69,12 @@ Application.AnimView.extend({
                 // http://stackoverflow.com/questions/3485365/how-can-i-force-webkit-to-redraw-repaint-to-propagate-style-changes
                 self.el.style.display = 'none';
 
+                // notice that delay must at least be >= length of animation duration
+                // or the re-draw will break the animation just showing the panel w/o it
                 _.delay(function() {
 
                     self.el.style.display = 'block';
-                }, 0);
+                }, 250);
             });
         } else {
 
