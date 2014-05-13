@@ -8,7 +8,7 @@ module.exports = function(grunt) {
         'collection-view',
         'model',
         'collection',
-        'anim-view'
+        'animview'
     ].forEach(function(action) {
         grunt.registerTask('generate:' + action, function(path, moduleName) {
             if (!path) {
@@ -91,6 +91,18 @@ ThoraxGenerator.prototype.view = function(name, moduleName) {
     this.template(name);
 };
 
+ThoraxGenerator.prototype.animview = function(name, moduleName) {
+    var target = this.paths.views + '/' + name + '.' + this.language,
+        moduleName = moduleName || name.split('/').shift();
+    ensureModule.call(this, moduleName);
+    addScript.call(this, moduleName, target);
+    this.write(target, this.render('animview.handlebars', {
+        name: name,
+        className: moduleName
+    }));
+    this.template(name);
+};
+
 ThoraxGenerator.prototype['collection-view'] = function(name, moduleName) {
     var target = this.paths.views + '/' + name + '.' + this.language,
         moduleName = moduleName || name.split('/').shift();
@@ -104,17 +116,6 @@ ThoraxGenerator.prototype['collection-view'] = function(name, moduleName) {
     this.template(name + '-empty');
 };
 
-ThoraxGenerator.prototype['anim-view'] = function(name, moduleName) {
-    var target = this.paths.views + '/' + name + '.' + this.language,
-        moduleName = moduleName || name.split('/').shift();
-    ensureModule.call(this, moduleName);
-    addScript.call(this, moduleName, target);
-    this.write(target, this.render('collection-view.handlebars', {
-        name: name,
-        className: moduleName
-    }));
-    this.template(name);
-};
 
 
 ThoraxGenerator.prototype.collection = function(name, moduleName) {

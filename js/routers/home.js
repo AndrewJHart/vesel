@@ -51,5 +51,15 @@ new(Backbone.Router.extend({
         Application.goto(this.mapView, {
             page: true
         });
+    },
+
+    profile: function(params) {
+        var profileView = new Application.Views["home/profile"]({
+            model: new Application.Model["settings"]()
+        });
+
+        Application.goto(profileView, {
+            page: true // this is its own page/pane so tell app to animate it
+        });
     }
 }));

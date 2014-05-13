@@ -46,7 +46,9 @@
         "home": {
             "routes": {
                 "": "index",
-                "map": "maplist"
+                "map": "maplist",
+                "profile": "profile",
+                "about": "about"
             },
             "scripts": [
                 "js/routers/home.js",
@@ -59,7 +61,8 @@
                 "js/views/home/list.js",
                 "js/views/home/maplist.js",
                 "js/collections/home/settings.js",
-                "js/models/home/setting.js"
+                "js/models/home/setting.js",
+                "js/views/home/profile.js"
             ],
             "styles": [
                 "stylesheets/home.css"

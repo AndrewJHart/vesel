@@ -6,7 +6,7 @@ vesel['home'] = (function() {
 
   /* router : home */
 module.name = "home";
-module.routes = {"":"index","map":"maplist"};
+module.routes = {"":"index","map":"maplist","profile":"profile","about":"about"};
 new(Backbone.Router.extend({
     routes: module.routes,
     alerts: null,
@@ -59,6 +59,16 @@ new(Backbone.Router.extend({
         // show the settings view
         Application.goto(this.mapView, {
             page: true
+        });
+    },
+
+    profile: function(params) {
+        var profileView = new Application.Views["home/profile"]({
+            model: new Application.Model["settings"]()
+        });
+
+        Application.goto(profileView, {
+            page: true // this is its own page/pane so tell app to animate it
         });
     }
 }));
@@ -133,7 +143,7 @@ Application.View.extend({
 // Instances of this view can be created by calling:
 // new Application.Views["home/footer"]()
 ;;
-Handlebars.templates['home/settings'] = Handlebars.compile('<header class=\"bar bar-nav\">\n  <h1 class=\"title\">Settings</h1>\n</header>\n\n<div class=\"content\">\n  <ul class=\"table-view\">\n    <li class=\"table-view-cell\">\n      Item 1\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\"></input>\n      </div>\n    </li>\n    <li class=\"table-view-cell table-view-divider\">Categories</li>\n    <li class=\"table-view-cell\">\n      Police\n      <div class=\"toggle\">\n       <input type=\"checkbox\" {{#enabled}}checked{{/enabled}} class=\"toggle-handle\">\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      Fire\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\" {{#enabled}}checked{{/enabled}}>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      Traffic\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\" {{#enabled}}checked{{/enabled}}>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      School\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\" {{#enabled}}checked{{/enabled}}>\n      </div>\n    </li>\n  </ul>\n</div>\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\" type=\"home-footer\"}}\n  <a class=\"tab-item active\" href=\"#\">\n    <span class=\"icon icon-info\"></span>\n    <span class=\"tab-label\">Help</span>\n  </a>\n  <a class=\"tab-item\" href=\"#2\">\n    <span class=\"icon icon-person\"></span>\n    <span class=\"tab-label\">Profile</span>\n  </a>\n{{/view}}');Application.AnimView.extend({
+Handlebars.templates['home/settings'] = Handlebars.compile('<header class=\"bar bar-nav\">\n  <h1 class=\"title\">Settings</h1>\n</header>\n\n<div class=\"content\">\n  <ul class=\"table-view\">\n    <li class=\"table-view-cell\">\n      Item 1\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\"></input>\n      </div>\n    </li>\n    <li class=\"table-view-cell table-view-divider\">Categories</li>\n    <li class=\"table-view-cell\">\n      Police\n      <div class=\"toggle\">\n       <input type=\"checkbox\" class=\"toggle-handle\" data-meta-position=\"0\" {{#enabled}}checked{{/enabled}}>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      Fire\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\" data-meta-position=\"1\" {{#enabled}}checked{{/enabled}}>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      Traffic\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\" data-meta-position=\"2\" {{#enabled}}checked{{/enabled}}>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      School\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\" data-meta-position=\"3\" {{#enabled}}checked{{/enabled}}>\n      </div>\n    </li>\n  </ul>\n</div>\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\" type=\"home-footer\"}}\n  <a class=\"tab-item active\" href=\"#\">\n    <span class=\"icon icon-info\"></span>\n    <span class=\"tab-label\">Help</span>\n  </a>\n  <a class=\"tab-item\" href=\"#2\">\n    <span class=\"icon icon-person\"></span>\n    <span class=\"tab-label\">Profile</span>\n  </a>\n{{/view}}');Application.AnimView.extend({
     name: "home/settings",
 
     // add animations
@@ -147,19 +157,26 @@ Handlebars.templates['home/settings'] = Handlebars.compile('<header class=\"bar 
 
     events: {
         'change div.toggle > input[type="checkbox"]': function(event) {
+            var metadataPosition = this.$(event.target).data("meta-position"),
+                property = null,
+                model = this.$(event.target).model();
+
             event.preventDefault();
 
             console.log("toggle was changed. Target:");
             console.log(event.target);
 
-            // try to get the model
-            this.$(event.target).model().set({
-                "metadata.0.is_enabled": event.target.checked
-            }, {
-                silent: true
-            });
+            property = "metadata." + metadataPosition + ".is_enabled";
 
-            console.log(this.$(event.target).model());
+            // try to get the model
+            model.set(
+                property, event.target.checked, {
+                    silent: true
+                });
+
+            console.log(model);
+
+            model.save();
 
             return false;
         }
@@ -265,7 +282,7 @@ Application.Model.extend({
 // Instances of this model can be created by calling:
 // new Application.Models["home/alert"]()
 ;;
-Handlebars.templates['home/home'] = Handlebars.compile('{{!-- Home View -- represents all the views that are needed to --}}\n{{!-- form the home \"page\" or \"pane\" (which has transitions) --}}\n\n<a class=\"overlay\"></a>\n\n{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\"}}\n    {{!-- {{#link \"settings\" expand-tokens=true class=\"icon icon-gear pull-right\"}}{{/link}} --}}\n    <a class=\"icon icon-bars pull-left\" data-toggle=\"aside\"></a>\n    <h1 class=\"title\">Vesel Framework</h1>\t\n{{/view}}\n\n<div class=\"bar bar-standard bar-header-secondary\">\n\t<div class=\"segmented-control\">\n\t\t{{#link \"\" expand-tokens=true class=\"control-item active\"}}List View{{/link}}\n\t\t{{#link \"map\" expand-tokens=true class=\"control-item\"}}Map View{{/link}}\n  \t</div>\n</div>\n\n{{view collectionView}}\n\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\"}}\n\t<a class=\"tab-item\">\n\t\t<span class=\"icon icon-home\"></span>\n\t\t<span class=\"tab-label\">Home</span>\n\t</a>\n\t{{#link \"profile\" expand-tokens=true class=\"tab-item\"}}\n\t\t<span class=\"icon icon-person\"></span>\n\t\t<span class=\"tab-label\">Profile</span>\n\t{{/link}}\n\t{{#link \"about\" expand-tokens=true class=\"tab-item\"}}\n\t\t<span class=\"icon icon-info\"></span>\n\t\t<span class=\"tab-label\">About</span>\n\t{{/link}}\n{{/view}}');Application.AnimView.extend({
+Handlebars.templates['home/home'] = Handlebars.compile('{{!-- Home View -- represents all the views that are needed to --}}\n{{!-- form the home \"page\" or \"pane\" (which has transitions) --}}\n\n<a class=\"overlay\"></a>\n\n{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\"}}\n    {{!-- {{#link \"settings\" expand-tokens=true class=\"icon icon-gear pull-right\"}}{{/link}} --}}\n    <a class=\"icon icon-bars pull-left\" data-toggle=\"aside\"></a>\n    <h1 class=\"title\">Vesel Framework</h1>\t\n{{/view}}\n\n<div class=\"bar bar-standard bar-header-secondary\">\n\t<div class=\"segmented-control\">\n\t\t{{#link \"\" expand-tokens=true class=\"control-item active\"}}List View{{/link}}\n\t\t{{#link \"map\" expand-tokens=true class=\"control-item\"}}Map View{{/link}}\n  \t</div>\n</div>\n\n{{view collectionView}}\n\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\"}}\n\t{{#link \"profile\" expand-tokens=true class=\"tab-item\"}}\n\t\t<span class=\"icon icon-person\"></span>\n\t\t<span class=\"tab-label\">Profile</span>\n\t{{/link}}\n\t{{#link \"about\" expand-tokens=true class=\"tab-item\"}}\n\t\t<span class=\"icon icon-info\"></span>\n\t\t<span class=\"tab-label\">About</span>\n\t{{/link}}\n{{/view}}');Application.AnimView.extend({
     name: "home/home",
 
     animateIn: "fadeIn",
@@ -658,6 +675,82 @@ Application.Model["settings"] = Backbone.DeepModel.extend({
 
 // Instances of this model can be created by calling:
 // new Application.Models["home/setting"]()
+;;
+Handlebars.templates['home/profile'] = Handlebars.compile('{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\"}}\n  {{#link \"\" expand-tokens=true class=\"icon icon-left-nav pull-left\"}}{{/link}}\n  <h1 class=\"title\">User Profile</h1>\n{{/view}}\n\n<div class=\"bar bar-standard bar-header-secondary\">\n  <div class=\"segmented-control\">\n    {{#link \"\" expand-tokens=true class=\"control-item\"}}List View{{/link}}\n    {{#link \"map\" expand-tokens=true class=\"control-item\"}}Map View{{/link}}\n  </div>\n</div>\n\n<div class=\"content\">\n  <form class=\"input-group\">\n    <div class=\"input-row\">\n      <label>Device ID</label>\n      <input type=\"text\" value=\"{{device.registration_id}}\" name=\"device.registration_id\" readonly>\n    </div>\n\n    <div class=\"input-row\">\n      <label>Username</label>\n      <input type=\"text\" value=\"{{device.user.username}}\" name=\"device.user.username\">\n    </div>\n\n    <div class=\"input-row\">\n      <label>ApiKey</label>\n      <input type=\"text\" value=\"{{device.user.api_key.key}}\" name=\"device.user.api_key.key\" readonly>\n    </div>\n\n    <div class=\"input-row\">\n      <label>Global Priority</label>\n      <input type=\"text\" name=\"global_priority\" readonly>\n    </div>\n\n    <div class=\"input-row\">\n      <label>Email</label>\n      <input type=\"email\" placeholder=\"yourEmailAddy@gmail.com\">\n    </div>\n\n    <div class=\"table-view-cell\">\n      Police\n      <div class=\"toggle {{#metadata.0.is_enabled}}active{{/metadata.0.is_enabled}}\">\n         <input type=\"checkbox\" class=\"toggle-handle\" name=\"metadata.0.is_enabled\" data-meta-position=\"0\" {{#metadata.0.is_enabled}}checked{{/metadata.0.is_enabled}}>\n      </div>\n    </div>\n\n    <textarea name=\"metadata.0.extra\" placeholder=\"{{metadata.0.extra}}\" rows=\"5\"></textarea>\n\n    <button data-button-type=\"submit\" class=\"btn btn-positive btn-block\">Save Profile</button>\n  </form>\n</div>');Application.AnimView.extend({
+    name: "home/profile",
+
+    className: "profile",
+
+    // default animations
+    animateIn: 'bounceInDown',
+    animateOut: 'slideOutUp',
+
+    // declaritve events hash
+    events: {
+        'click button[data-button-type="submit"]': function(event) {
+            event.preventDefault();
+            var attrs = this.serialize();
+
+            console.log('submit form triggered!');
+            console.log(attrs);
+            //this.collection.add(attrs);
+        },
+        'change div.toggle > input[type="checkbox"]': function(event) {
+            var metadataPosition = this.$(event.target).data("meta-position"),
+                property = null,
+                model = this.$(event.target).model();
+
+            event.preventDefault();
+
+            console.log("toggle was changed. Target:");
+            console.log(event.target);
+
+            property = "metadata." + metadataPosition + ".is_enabled";
+
+            // try to get the model
+            model.set(
+                property, event.target.checked, {
+                    silent: true
+                });
+
+            console.log(model);
+
+            model.save();
+
+            return false;
+        }
+    },
+
+    initialize: function() {
+        console.log(this.getViewName() + "#initialize()");
+
+        this.model.fetch();
+
+        return this;
+    }
+});
+
+// Instances of this view can be created by calling:
+// new Application.Views["home/profile"]()
+
+// to render, append, and animate the view call:
+// Application.goto(view, { page: true });
+
+// You can place the above code in the proper router
+// inside of its definition.. something like this:
+//
+// myRouteHandler: function(params) {
+//    // create instance of our view
+//	  var view = new Application.Views["home/profile"]({
+//	      // pass options to view constructor
+//        className: 'class-for-this-view',
+//    });
+//    
+//    Application.goto(view, {
+//        // set page to true for animations
+//        page: true
+//    }); 
+// }
 ;;
 
 

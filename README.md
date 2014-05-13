@@ -47,7 +47,7 @@ The seed comes with some simple code generation tools that will automatically cr
 You can run any of the following commands to quickly create your project:
 
 - `grunt generate:view:moduleName/viewName`
-- `grunt generate:anim-view:moduleName/viewName`  (**Newly added for Vesel**)
+- `grunt generate:animview:moduleName/viewName`  (*Vesel Specific comes w/ default animations**)
 - `grunt generate:collection-view:moduleName/viewName`
 - `grunt generate:model:moduleName/modelName`
 - `grunt generate:collection:moduleName/collectionName`

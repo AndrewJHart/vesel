@@ -12,19 +12,26 @@ Application.AnimView.extend({
 
     events: {
         'change div.toggle > input[type="checkbox"]': function(event) {
+            var metadataPosition = this.$(event.target).data("meta-position"),
+                property = null,
+                model = this.$(event.target).model();
+
             event.preventDefault();
 
             console.log("toggle was changed. Target:");
             console.log(event.target);
 
-            // try to get the model
-            this.$(event.target).model().set({
-                "metadata.0.is_enabled": event.target.checked
-            }, {
-                silent: true
-            });
+            property = "metadata." + metadataPosition + ".is_enabled";
 
-            console.log(this.$(event.target).model());
+            // try to get the model
+            model.set(
+                property, event.target.checked, {
+                    silent: true
+                });
+
+            console.log(model);
+
+            model.save();
 
             return false;
         }
