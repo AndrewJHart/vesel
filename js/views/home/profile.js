@@ -15,12 +15,23 @@ Application.AnimView.extend({
 
             console.log('submit form triggered!');
             console.log(attrs);
+
             //this.collection.add(attrs);
+
+            // this.model.set(attrs, {
+            //     silent: true
+            // });
+            this.model.save();
         },
-        'change div.toggle > input[type="checkbox"]': function(event) {
+        'change input[type="checkbox"]': function(event) {
             var metadataPosition = this.$(event.target).data("meta-position"),
-                property = null,
-                model = this.$(event.target).model();
+                property = null;
+            //var model = this.$(event.target).model(),
+            // var attrs = this.serialize(event, {
+            //     silent: true,
+            //     set: true,
+            //     validate: false
+            // });
 
             event.preventDefault();
 
@@ -30,14 +41,26 @@ Application.AnimView.extend({
             property = "metadata." + metadataPosition + ".is_enabled";
 
             // try to get the model
-            model.set(
+            this.model.set(
                 property, event.target.checked, {
                     silent: true
                 });
 
-            console.log(model);
+            // since we have reactive/2-way data binding to template
+            // we should be able to take any changes and simply set them on 
+            // on this view's view-model 
+            // this.model.set(attrs, {
+            //     silent: true
+            // });
 
-            model.save();
+            // console.log(this.model);
+
+            this.model.save();
+
+            // this.model.save({}, {
+            //     wait: true,
+            //     silent: true
+            // });
 
             return false;
         }

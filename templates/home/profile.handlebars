@@ -12,6 +12,9 @@
 
 <div class="content">
   <form class="input-group">
+    <div class="table-view-cell table-view-divider">Account</div>
+    {{!-- All input elements are bound to the view's model via the `name` attribute --}}
+    {{!-- This gives us 2 way data-binding or "reactivity" with our view-model --}}
     <div class="input-row">
       <label>Device ID</label>
       <input type="text" value="{{device.registration_id}}" name="device.registration_id" readonly>
@@ -29,7 +32,7 @@
 
     <div class="input-row">
       <label>Global Priority</label>
-      <input type="text" name="global_priority" readonly>
+      <input type="text" name="global_priority">
     </div>
 
     <div class="input-row">
@@ -37,10 +40,36 @@
       <input type="email" placeholder="yourEmailAddy@gmail.com">
     </div>
 
+    <div class="table-view-cell table-view-divider">Categories</div>
     <div class="table-view-cell">
       Police
+      {{!-- use the category model's `is_enabled` prop to set the state active or not --}}
       <div class="toggle {{#metadata.0.is_enabled}}active{{/metadata.0.is_enabled}}">
          <input type="checkbox" class="toggle-handle" name="metadata.0.is_enabled" data-meta-position="0" {{#metadata.0.is_enabled}}checked{{/metadata.0.is_enabled}}>
+      </div>
+    </div>
+
+    <div class="table-view-cell">
+      Fire
+      {{!-- use the category model's `is_enabled` prop to set the state active or not --}}
+      <div class="toggle {{#metadata.1.is_enabled}}active{{/metadata.1.is_enabled}}">
+         <input type="checkbox" class="toggle-handle" name="metadata.1.is_enabled" data-meta-position="1" {{#metadata.1.is_enabled}}checked{{/metadata.1.is_enabled}}>
+      </div>
+    </div>
+
+    <div class="table-view-cell">
+      School
+      {{!-- use the category model's `is_enabled` prop to set the state active or not --}}
+      <div class="toggle {{#metadata.2.is_enabled}}active{{/metadata.2.is_enabled}}">
+         <input type="checkbox" class="toggle-handle" name="metadata.2.is_enabled" data-meta-position="2" {{#metadata.2.is_enabled}}checked{{/metadata.2.is_enabled}}>
+      </div>
+    </div>
+
+    <div class="table-view-cell">
+      Traffic
+      {{!-- use the category model's `is_enabled` prop to set the state active or not --}}
+      <div class="toggle {{#metadata.3.is_enabled}}active{{/metadata.3.is_enabled}}">
+         <input type="checkbox" class="toggle-handle" name="metadata.3.is_enabled" data-meta-position="3" {{#metadata.3.is_enabled}}checked{{/metadata.3.is_enabled}}>
       </div>
     </div>
 

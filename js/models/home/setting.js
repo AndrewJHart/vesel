@@ -28,15 +28,15 @@ Application.Model["settings"] = Backbone.DeepModel.extend({
             api = this.get("device.user.api_key"),
             key = this.get("device.user.api_key.key");
 
-        console.log('log of model url output.. device=');
-        console.log(device);
-        console.log("registration is " + device);
-        console.log("user:");
-        console.log(user);
-        console.log("username is: " + username);
-        console.log("api:");
-        console.log(api);
-        console.log("key is: " + key);
+        // console.log('log of model url output.. device=');
+        // console.log(device);
+        // console.log("registration is " + device);
+        // console.log("user:");
+        // console.log(user);
+        // console.log("username is: " + username);
+        // console.log("api:");
+        // console.log(api);
+        // console.log("key is: " + key);
 
         return this.urlRoot + device + "/?username=" + username + "&api_key=" + key;
     }

@@ -659,15 +659,15 @@ Application.Model["settings"] = Backbone.DeepModel.extend({
             api = this.get("device.user.api_key"),
             key = this.get("device.user.api_key.key");
 
-        console.log('log of model url output.. device=');
-        console.log(device);
-        console.log("registration is " + device);
-        console.log("user:");
-        console.log(user);
-        console.log("username is: " + username);
-        console.log("api:");
-        console.log(api);
-        console.log("key is: " + key);
+        // console.log('log of model url output.. device=');
+        // console.log(device);
+        // console.log("registration is " + device);
+        // console.log("user:");
+        // console.log(user);
+        // console.log("username is: " + username);
+        // console.log("api:");
+        // console.log(api);
+        // console.log("key is: " + key);
 
         return this.urlRoot + device + "/?username=" + username + "&api_key=" + key;
     }
@@ -676,7 +676,7 @@ Application.Model["settings"] = Backbone.DeepModel.extend({
 // Instances of this model can be created by calling:
 // new Application.Models["home/setting"]()
 ;;
-Handlebars.templates['home/profile'] = Handlebars.compile('{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\"}}\n  {{#link \"\" expand-tokens=true class=\"icon icon-left-nav pull-left\"}}{{/link}}\n  <h1 class=\"title\">User Profile</h1>\n{{/view}}\n\n<div class=\"bar bar-standard bar-header-secondary\">\n  <div class=\"segmented-control\">\n    {{#link \"\" expand-tokens=true class=\"control-item\"}}List View{{/link}}\n    {{#link \"map\" expand-tokens=true class=\"control-item\"}}Map View{{/link}}\n  </div>\n</div>\n\n<div class=\"content\">\n  <form class=\"input-group\">\n    <div class=\"input-row\">\n      <label>Device ID</label>\n      <input type=\"text\" value=\"{{device.registration_id}}\" name=\"device.registration_id\" readonly>\n    </div>\n\n    <div class=\"input-row\">\n      <label>Username</label>\n      <input type=\"text\" value=\"{{device.user.username}}\" name=\"device.user.username\">\n    </div>\n\n    <div class=\"input-row\">\n      <label>ApiKey</label>\n      <input type=\"text\" value=\"{{device.user.api_key.key}}\" name=\"device.user.api_key.key\" readonly>\n    </div>\n\n    <div class=\"input-row\">\n      <label>Global Priority</label>\n      <input type=\"text\" name=\"global_priority\" readonly>\n    </div>\n\n    <div class=\"input-row\">\n      <label>Email</label>\n      <input type=\"email\" placeholder=\"yourEmailAddy@gmail.com\">\n    </div>\n\n    <div class=\"table-view-cell\">\n      Police\n      <div class=\"toggle {{#metadata.0.is_enabled}}active{{/metadata.0.is_enabled}}\">\n         <input type=\"checkbox\" class=\"toggle-handle\" name=\"metadata.0.is_enabled\" data-meta-position=\"0\" {{#metadata.0.is_enabled}}checked{{/metadata.0.is_enabled}}>\n      </div>\n    </div>\n\n    <textarea name=\"metadata.0.extra\" placeholder=\"{{metadata.0.extra}}\" rows=\"5\"></textarea>\n\n    <button data-button-type=\"submit\" class=\"btn btn-positive btn-block\">Save Profile</button>\n  </form>\n</div>');Application.AnimView.extend({
+Handlebars.templates['home/profile'] = Handlebars.compile('{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\"}}\n  {{#link \"\" expand-tokens=true class=\"icon icon-left-nav pull-left\"}}{{/link}}\n  <h1 class=\"title\">User Profile</h1>\n{{/view}}\n\n<div class=\"bar bar-standard bar-header-secondary\">\n  <div class=\"segmented-control\">\n    {{#link \"\" expand-tokens=true class=\"control-item\"}}List View{{/link}}\n    {{#link \"map\" expand-tokens=true class=\"control-item\"}}Map View{{/link}}\n  </div>\n</div>\n\n<div class=\"content\">\n  <form class=\"input-group\">\n    <div class=\"table-view-cell table-view-divider\">Account</div>\n    {{!-- All input elements are bound to the view\'s model via the `name` attribute --}}\n    {{!-- This gives us 2 way data-binding or \"reactivity\" with our view-model --}}\n    <div class=\"input-row\">\n      <label>Device ID</label>\n      <input type=\"text\" value=\"{{device.registration_id}}\" name=\"device.registration_id\" readonly>\n    </div>\n\n    <div class=\"input-row\">\n      <label>Username</label>\n      <input type=\"text\" value=\"{{device.user.username}}\" name=\"device.user.username\">\n    </div>\n\n    <div class=\"input-row\">\n      <label>ApiKey</label>\n      <input type=\"text\" value=\"{{device.user.api_key.key}}\" name=\"device.user.api_key.key\" readonly>\n    </div>\n\n    <div class=\"input-row\">\n      <label>Global Priority</label>\n      <input type=\"text\" name=\"global_priority\">\n    </div>\n\n    <div class=\"input-row\">\n      <label>Email</label>\n      <input type=\"email\" placeholder=\"yourEmailAddy@gmail.com\">\n    </div>\n\n    <div class=\"table-view-cell table-view-divider\">Categories</div>\n    <div class=\"table-view-cell\">\n      Police\n      {{!-- use the category model\'s `is_enabled` prop to set the state active or not --}}\n      <div class=\"toggle {{#metadata.0.is_enabled}}active{{/metadata.0.is_enabled}}\">\n         <input type=\"checkbox\" class=\"toggle-handle\" name=\"metadata.0.is_enabled\" data-meta-position=\"0\" {{#metadata.0.is_enabled}}checked{{/metadata.0.is_enabled}}>\n      </div>\n    </div>\n\n    <div class=\"table-view-cell\">\n      Fire\n      {{!-- use the category model\'s `is_enabled` prop to set the state active or not --}}\n      <div class=\"toggle {{#metadata.1.is_enabled}}active{{/metadata.1.is_enabled}}\">\n         <input type=\"checkbox\" class=\"toggle-handle\" name=\"metadata.1.is_enabled\" data-meta-position=\"1\" {{#metadata.1.is_enabled}}checked{{/metadata.1.is_enabled}}>\n      </div>\n    </div>\n\n    <div class=\"table-view-cell\">\n      School\n      {{!-- use the category model\'s `is_enabled` prop to set the state active or not --}}\n      <div class=\"toggle {{#metadata.2.is_enabled}}active{{/metadata.2.is_enabled}}\">\n         <input type=\"checkbox\" class=\"toggle-handle\" name=\"metadata.2.is_enabled\" data-meta-position=\"2\" {{#metadata.2.is_enabled}}checked{{/metadata.2.is_enabled}}>\n      </div>\n    </div>\n\n    <div class=\"table-view-cell\">\n      Traffic\n      {{!-- use the category model\'s `is_enabled` prop to set the state active or not --}}\n      <div class=\"toggle {{#metadata.3.is_enabled}}active{{/metadata.3.is_enabled}}\">\n         <input type=\"checkbox\" class=\"toggle-handle\" name=\"metadata.3.is_enabled\" data-meta-position=\"3\" {{#metadata.3.is_enabled}}checked{{/metadata.3.is_enabled}}>\n      </div>\n    </div>\n\n    <textarea name=\"metadata.0.extra\" placeholder=\"{{metadata.0.extra}}\" rows=\"5\"></textarea>\n\n    <button data-button-type=\"submit\" class=\"btn btn-positive btn-block\">Save Profile</button>\n  </form>\n</div>');Application.AnimView.extend({
     name: "home/profile",
 
     className: "profile",
@@ -693,12 +693,23 @@ Handlebars.templates['home/profile'] = Handlebars.compile('{{#view \"home/header
 
             console.log('submit form triggered!');
             console.log(attrs);
+
             //this.collection.add(attrs);
+
+            // this.model.set(attrs, {
+            //     silent: true
+            // });
+            this.model.save();
         },
-        'change div.toggle > input[type="checkbox"]': function(event) {
+        'change input[type="checkbox"]': function(event) {
             var metadataPosition = this.$(event.target).data("meta-position"),
-                property = null,
-                model = this.$(event.target).model();
+                property = null;
+            //var model = this.$(event.target).model(),
+            // var attrs = this.serialize(event, {
+            //     silent: true,
+            //     set: true,
+            //     validate: false
+            // });
 
             event.preventDefault();
 
@@ -708,14 +719,26 @@ Handlebars.templates['home/profile'] = Handlebars.compile('{{#view \"home/header
             property = "metadata." + metadataPosition + ".is_enabled";
 
             // try to get the model
-            model.set(
+            this.model.set(
                 property, event.target.checked, {
                     silent: true
                 });
 
-            console.log(model);
+            // since we have reactive/2-way data binding to template
+            // we should be able to take any changes and simply set them on 
+            // on this view's view-model 
+            // this.model.set(attrs, {
+            //     silent: true
+            // });
 
-            model.save();
+            // console.log(this.model);
+
+            this.model.save();
+
+            // this.model.save({}, {
+            //     wait: true,
+            //     silent: true
+            // });
 
             return false;
         }
