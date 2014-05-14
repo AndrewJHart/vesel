@@ -16,24 +16,18 @@ Application.AnimView.extend({
             console.log('submit form triggered!');
             console.log(attrs);
 
-            //this.collection.add(attrs);
-
-            // this.model.set(attrs, {
-            //     silent: true
-            // });
-            this.model.save();
+            this.model.save({}, { 
+                wait: true, 
+                silent: true 
+            });
         },
         'change input[type="checkbox"]': function(event) {
-            var metadataPosition = this.$(event.target).data("meta-position"),
-                property = null;
-            //var model = this.$(event.target).model(),
-            // var attrs = this.serialize(event, {
-            //     silent: true,
-            //     set: true,
-            //     validate: false
-            // });
-
             event.preventDefault();
+            
+            var metadataPosition = this.$(event.target).data("meta-position"),
+                property = null,
+                attrs = this.serialize();
+
 
             console.log("toggle was changed. Target:");
             console.log(event.target);
@@ -41,10 +35,10 @@ Application.AnimView.extend({
             property = "metadata." + metadataPosition + ".is_enabled";
 
             // try to get the model
-            this.model.set(
-                property, event.target.checked, {
-                    silent: true
-                });
+            // this.model.set(
+            //     property, event.target.checked, {
+            //         silent: true
+            //     });
 
             // since we have reactive/2-way data binding to template
             // we should be able to take any changes and simply set them on 
@@ -53,16 +47,10 @@ Application.AnimView.extend({
             //     silent: true
             // });
 
-            // console.log(this.model);
-
-            this.model.save();
-
-            // this.model.save({}, {
-            //     wait: true,
-            //     silent: true
-            // });
-
-            return false;
+            this.model.save({}, {
+                wait: true,
+                silent: true
+            });
         }
     },
 

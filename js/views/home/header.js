@@ -1,6 +1,5 @@
 Application.View.extend({
     name: "home/header",
-    settingsState: null,
 
     events: {
         'click a[data-toggle="aside"]': 'toggleSettings'

@@ -70,6 +70,7 @@ module.exports = function(grunt) {
                     // grunt watch only needs to monitor public folder
                     // since lubmar watches rest and compiles them to public
                     // otherwise we get multiple reloads lol
+                    './js/**/**/*.js',
                     './public/**/*.*',
                     './templates/**/*.handlebars'
                 ]

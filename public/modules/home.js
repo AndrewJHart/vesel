@@ -75,7 +75,6 @@ new(Backbone.Router.extend({
 ;;
 Application.View.extend({
     name: "home/header",
-    settingsState: null,
 
     events: {
         'click a[data-toggle="aside"]': 'toggleSettings'
@@ -328,6 +327,11 @@ Application.Collection.extend({
         }
 
         return this;
+    },
+
+    comparator: function(model) {
+        console.log('comparator triggered');
+        return -model.get('id');
     }
 });
 
@@ -684,7 +688,11 @@ Application.Collection.extend({
     name: "home/settings",
 
     url: "http://localhost:8005/api/app/v1/device_settings/gcm/",
-    urlRoot: 'http://localhost:8005/api/app/v1/device_settings/gcm/'
+    urlRoot: 'http://localhost:8005/api/app/v1/device_settings/gcm/',
+
+    comparator: function(model) {
+    	return -model.get('id');
+    }
 });
 
 // Instances of this collection can be created by calling:
@@ -700,10 +708,10 @@ Application.Model["settings"] = Backbone.DeepModel.extend({
     defaults: function() {
         return {
             "device": {
-                "registration_id": "bff7506932143c6e16d84b4c95e6bc29e24fd232e4106a53f0105f5f19f51234Droid18",
+                "registration_id": "bff7506932143c6e16d84b4c95e6bc29e24fd232e4106a53f0105f5f19f51236droid18",
                 "user": {
                     "api_key": {
-                        "key": "8b4f5e8edde8842f28dd66210e1c7800fa6b8d87"
+                        "key": "cf323ff06a5c8e6fc5dec36928385661593be364"
                     },
                     "username": "dhart7"
                 }
@@ -755,24 +763,18 @@ Handlebars.templates['home/profile'] = Handlebars.compile('{{#view \"home/header
             console.log('submit form triggered!');
             console.log(attrs);
 
-            //this.collection.add(attrs);
-
-            // this.model.set(attrs, {
-            //     silent: true
-            // });
-            this.model.save();
+            this.model.save({}, { 
+                wait: true, 
+                silent: true 
+            });
         },
         'change input[type="checkbox"]': function(event) {
-            var metadataPosition = this.$(event.target).data("meta-position"),
-                property = null;
-            //var model = this.$(event.target).model(),
-            // var attrs = this.serialize(event, {
-            //     silent: true,
-            //     set: true,
-            //     validate: false
-            // });
-
             event.preventDefault();
+            
+            var metadataPosition = this.$(event.target).data("meta-position"),
+                property = null,
+                attrs = this.serialize();
+
 
             console.log("toggle was changed. Target:");
             console.log(event.target);
@@ -780,10 +782,10 @@ Handlebars.templates['home/profile'] = Handlebars.compile('{{#view \"home/header
             property = "metadata." + metadataPosition + ".is_enabled";
 
             // try to get the model
-            this.model.set(
-                property, event.target.checked, {
-                    silent: true
-                });
+            // this.model.set(
+            //     property, event.target.checked, {
+            //         silent: true
+            //     });
 
             // since we have reactive/2-way data binding to template
             // we should be able to take any changes and simply set them on 
@@ -792,16 +794,10 @@ Handlebars.templates['home/profile'] = Handlebars.compile('{{#view \"home/header
             //     silent: true
             // });
 
-            // console.log(this.model);
-
-            this.model.save();
-
-            // this.model.save({}, {
-            //     wait: true,
-            //     silent: true
-            // });
-
-            return false;
+            this.model.save({}, {
+                wait: true,
+                silent: true
+            });
         }
     },
 

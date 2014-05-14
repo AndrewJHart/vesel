@@ -8,10 +8,10 @@ Application.Model["settings"] = Backbone.DeepModel.extend({
     defaults: function() {
         return {
             "device": {
-                "registration_id": "bff7506932143c6e16d84b4c95e6bc29e24fd232e4106a53f0105f5f19f51234Droid18",
+                "registration_id": "bff7506932143c6e16d84b4c95e6bc29e24fd232e4106a53f0105f5f19f51236droid18",
                 "user": {
                     "api_key": {
-                        "key": "8b4f5e8edde8842f28dd66210e1c7800fa6b8d87"
+                        "key": "cf323ff06a5c8e6fc5dec36928385661593be364"
                     },
                     "username": "dhart7"
                 }

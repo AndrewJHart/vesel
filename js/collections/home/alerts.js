@@ -27,6 +27,11 @@ Application.Collection.extend({
         }
 
         return this;
+    },
+
+    comparator: function(model) {
+        console.log('comparator triggered');
+        return -model.get('id');
     }
 });
 
