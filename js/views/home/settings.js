@@ -5,10 +5,8 @@ Application.AnimView.extend({
     animateIn: "effeckt-off-screen-nav-left-push ",
     animateOut: "effeckt-off-screen-nav-left-push ",
 
-    // model: new Thorax.Model({
-    //     category: "Police",
-    //     enabled: false
-    // }),
+    // Single Responsibility Pattern in action 
+    settingsState: true, // todo: rename to better variable name
 
     events: {
         'change div.toggle > input[type="checkbox"]': function(event) {
@@ -24,38 +22,41 @@ Application.AnimView.extend({
             property = "metadata." + metadataPosition + ".is_enabled";
 
             // try to get the model
-            model.set(
-                property, event.target.checked, {
-                    silent: true
-                });
+            this.model.set(property, event.target.checked, {
+                silent: true
+            });
 
-            console.log(model);
+            console.log(this.model);
 
-            model.save();
-
-            return false;
+            this.model.save({}, {
+                wait: true,
+                silent: true
+            });
         }
     },
 
     initialize: function() {
-        console.log('HomeRegion#settings view init triggered!');
+        console.log(this.getViewName() + ' view init triggered!');
 
         // todo: bug: if `el` is specified then declaritve properties
         // i.e. attributes and/or classNames, aren't applied on first run
         this.$el.addClass('effeckt-off-screen-nav');
         this.$el.attr('data-view-persist', 'true');
 
-        //this.model.url = "http://localhost:8005/api/v1/app/device_settings/";
+        // get the resource from the server
         this.model.fetch();
 
         return this;
     },
 
-    toggle: function(settingsState) {
+    toggle: function() {
         var self = this;
 
-        if (settingsState) {
-            console.log('settingsState = true, settings view animating...');
+        console.log('Toggled Settings - settingsState is ' + this.settingsState);
+        console.log(event.target);
+
+        if (this.settingsState) {
+            // reveal and animate the aside view
 
             this.$el.addClass(this.animateIn);
 
@@ -77,6 +78,7 @@ Application.AnimView.extend({
                 }, 250);
             });
         } else {
+            // conceal the aside view and hide
 
             this.$el.removeClass("effeckt-show");
 
@@ -88,6 +90,9 @@ Application.AnimView.extend({
                 self.$el.removeClass(self.animateOut);
             });
         }
+
+        // set settingsState (visibility) opposite to its current value
+        this.settingsState = !this.settingsState;
 
         return this;
     }

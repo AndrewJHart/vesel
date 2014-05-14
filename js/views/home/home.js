@@ -2,7 +2,9 @@ Application.AnimView.extend({
     name: "home/home",
 
     animateIn: "fadeIn",
-    animateOut: "iosFadeLeft",
+    //animateOut: "iosFadeLeft",
+    //animateOut: "flipOutX",
+    animateOut: "bounceOutLeft",
     collectionView: null,
 
     events: {

@@ -23,6 +23,10 @@ Application.View.extend({
         //
         if (!Application.View["settings"]) {
 
+            // SRP pattern at its finest. The settings view is created & nested here
+            // but ALL FUNCTIONS that are responsible for its state are managed by
+            // the settings view itself internally e.g. toggle, settingsState
+            // The header only acts as an *event mediator* here
             Application.View["settings"] = new Application.Views["home/settings"]({
                 el: '#settings', // stick this to the aside element in the DOM
                 className: 'effeckt-off-screen-nav',
@@ -39,14 +43,8 @@ Application.View.extend({
     },
 
     toggleSettings: function(event) {
-        console.log('Toggled Settings - settingsState is ' + this.settingsState);
-        console.log(event.target);
-
         // animate the settings view in
-        Application.View["settings"].toggle(this.settingsState);
-
-        // change the state
-        this.settingsState = !this.settingsState;
+        Application.View["settings"].toggle();
 
         _.delay(function() {
 

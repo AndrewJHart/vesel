@@ -98,6 +98,10 @@ Application.View.extend({
         //
         if (!Application.View["settings"]) {
 
+            // SRP pattern at its finest. The settings view is created & nested here
+            // but ALL FUNCTIONS that are responsible for its state are managed by
+            // the settings view itself internally e.g. toggle, settingsState
+            // The header only acts as an *event mediator* here
             Application.View["settings"] = new Application.Views["home/settings"]({
                 el: '#settings', // stick this to the aside element in the DOM
                 className: 'effeckt-off-screen-nav',
@@ -114,14 +118,8 @@ Application.View.extend({
     },
 
     toggleSettings: function(event) {
-        console.log('Toggled Settings - settingsState is ' + this.settingsState);
-        console.log(event.target);
-
         // animate the settings view in
-        Application.View["settings"].toggle(this.settingsState);
-
-        // change the state
-        this.settingsState = !this.settingsState;
+        Application.View["settings"].toggle();
 
         _.delay(function() {
 
@@ -137,23 +135,75 @@ Application.View.extend({
 // new Application.Views["home/header"]()
 ;;
 Application.View.extend({
-    name: "home/footer"
+    name: "home/footer",
+
+    events: {
+        "close:settings": function(event) {
+
+            var headerView = this.parent.$('header').view();
+            // headerView = this.parent.children[this.parent.$('header').data('view-cid')],
+            // ----------
+            // NOTE: the long, unreadable call thats commented out is actually twice 
+            //       as fast as the shorter one above it that is being used. The difference
+            // 			 on my iMac is 0.05ms vs 0.14ms approx. Thus, seems like readability
+            //			 is worth the sacrifice here.
+
+
+            event.preventDefault();
+
+            // call header-view to forward event & toggle its nested aside view
+            headerView.toggleSettings(event);
+
+
+            // no need to use bind w/ _.delay b/c any args minus first 2 (func, wait) 
+            // are passed to the callback func in a wrapped setTimeout w/ func.apply
+            // tl;dr - delay creates a closure wrapping setTimeout so extra args are
+            // 				 useable within the function.
+            //------------------------------------ PERF TESTING --------------------
+            // _.delay(function(_this) {
+            //     headerViewProfile1 = null,
+            //     headerViewProfile2 = null;
+
+            //     console.debug('---------------- profile analysis ---------------');
+
+            //     console.profile('profile parent.children[this.parent.$("header").data("..")] call');
+            //     headerViewProfile1 = _this.parent.children[_this.parent.$('header').data('view-cid')];
+            //     console.profileEnd();
+
+            //     console.profile('profile this.parent.$("header").view() call');
+            //     headerViewProfile2 = _this.parent.$('header').view();
+            //     console.profileEnd();
+
+            //     console.debug('---------------- performance analysis ---------------');
+
+            //     console.time("Access short code to get header-view");
+            //     var testView2 = _this.parent.$('header').view();
+            //     console.timeEnd("Access short code to get header-view");
+
+            //     console.log('\n');
+
+            //     console.time("Access lengthy code to get header-view");
+            //     var testView = _this.parent.children[_this.parent.$('header').data('view-cid')];
+            //     console.timeEnd("Access lengthy code to get header-view");
+
+            // }, 2000, this);
+
+        }
+    }
 });
 
 // Instances of this view can be created by calling:
 // new Application.Views["home/footer"]()
 ;;
-Handlebars.templates['home/settings'] = Handlebars.compile('<header class=\"bar bar-nav\">\n  <h1 class=\"title\">Settings</h1>\n</header>\n\n<div class=\"content\">\n  <ul class=\"table-view\">\n    <li class=\"table-view-cell\">\n      Item 1\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\"></input>\n      </div>\n    </li>\n    <li class=\"table-view-cell table-view-divider\">Categories</li>\n    <li class=\"table-view-cell\">\n      Police\n      <div class=\"toggle\">\n       <input type=\"checkbox\" class=\"toggle-handle\" data-meta-position=\"0\" {{#enabled}}checked{{/enabled}}>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      Fire\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\" data-meta-position=\"1\" {{#enabled}}checked{{/enabled}}>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      Traffic\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\" data-meta-position=\"2\" {{#enabled}}checked{{/enabled}}>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      School\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\" data-meta-position=\"3\" {{#enabled}}checked{{/enabled}}>\n      </div>\n    </li>\n  </ul>\n</div>\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\" type=\"home-footer\"}}\n  <a class=\"tab-item active\" href=\"#\">\n    <span class=\"icon icon-info\"></span>\n    <span class=\"tab-label\">Help</span>\n  </a>\n  <a class=\"tab-item\" href=\"#2\">\n    <span class=\"icon icon-person\"></span>\n    <span class=\"tab-label\">Profile</span>\n  </a>\n{{/view}}');Application.AnimView.extend({
+Handlebars.templates['home/settings'] = Handlebars.compile('{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\"}}\n  <h1 class=\"title\">Settings</h1>\n{{/view}}\n\n<div class=\"content\">\n  <ul class=\"table-view\">\n    <li class=\"table-view-cell\">\n      Item 1\n      <div class=\"toggle\">\n        <input type=\"checkbox\" class=\"toggle-handle\"></input>\n      </div>\n    </li>\n    <li class=\"table-view-cell table-view-divider\">Categories</li>\n    <li class=\"table-view-cell\">\n      Police\n      <div class=\"toggle {{#metadata.0.is_enabled}}active{{/metadata.0.is_enabled}}\">\n       <input type=\"checkbox\" class=\"toggle-handle\" data-meta-position=\"0\" {{#metadata.0.is_enabled}}checked{{/metadata.0.is_enabled}}>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      Fire\n      <div class=\"toggle {{#metadata.1.is_enabled}}active{{/metadata.1.is_enabled}}\">\n        <input type=\"checkbox\" class=\"toggle-handle\" data-meta-position=\"1\" {{#metadata.1.is_enabled}}checked{{/metadata.1.is_enabled}}>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      Traffic\n      <div class=\"toggle {{#metadata.2.is_enabled}}active{{/metadata.2.is_enabled}}\">\n        <input type=\"checkbox\" class=\"toggle-handle\" data-meta-position=\"2\" {{#metadata.2.is_enabled}}checked{{/metadata.2.is_enabled}}>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      School\n      <div class=\"toggle {{#metadata.3.is_enabled}}active{{/metadata.3.is_enabled}}\">\n        <input type=\"checkbox\" class=\"toggle-handle\" data-meta-position=\"3\" {{#metadata.3.is_enabled}}checked{{/metadata.3.is_enabled}}>\n      </div>\n    </li>\n  </ul>\n</div>\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\" type=\"home-footer\"}}\n  <a class=\"tab-item active\" href=\"#\">\n    <span class=\"icon icon-info\"></span>\n    <span class=\"tab-label\">Help</span>\n  </a>\n  {{#link \"profile\" trigger=\"close:settings\" data-toggle=\"aside\" class=\"tab-item\"}}\n    <span class=\"icon icon-person\"></span>\n    <span class=\"tab-label\">Profile</span>\n  {{/link}}\n{{/view}}');Application.AnimView.extend({
     name: "home/settings",
 
     // add animations
     animateIn: "effeckt-off-screen-nav-left-push ",
     animateOut: "effeckt-off-screen-nav-left-push ",
 
-    // model: new Thorax.Model({
-    //     category: "Police",
-    //     enabled: false
-    // }),
+    // Single Responsibility Pattern in action 
+    settingsState: true, // todo: rename to better variable name
 
     events: {
         'change div.toggle > input[type="checkbox"]': function(event) {
@@ -169,38 +219,41 @@ Handlebars.templates['home/settings'] = Handlebars.compile('<header class=\"bar 
             property = "metadata." + metadataPosition + ".is_enabled";
 
             // try to get the model
-            model.set(
-                property, event.target.checked, {
-                    silent: true
-                });
+            this.model.set(property, event.target.checked, {
+                silent: true
+            });
 
-            console.log(model);
+            console.log(this.model);
 
-            model.save();
-
-            return false;
+            this.model.save({}, {
+                wait: true,
+                silent: true
+            });
         }
     },
 
     initialize: function() {
-        console.log('HomeRegion#settings view init triggered!');
+        console.log(this.getViewName() + ' view init triggered!');
 
         // todo: bug: if `el` is specified then declaritve properties
         // i.e. attributes and/or classNames, aren't applied on first run
         this.$el.addClass('effeckt-off-screen-nav');
         this.$el.attr('data-view-persist', 'true');
 
-        //this.model.url = "http://localhost:8005/api/v1/app/device_settings/";
+        // get the resource from the server
         this.model.fetch();
 
         return this;
     },
 
-    toggle: function(settingsState) {
+    toggle: function() {
         var self = this;
 
-        if (settingsState) {
-            console.log('settingsState = true, settings view animating...');
+        console.log('Toggled Settings - settingsState is ' + this.settingsState);
+        console.log(event.target);
+
+        if (this.settingsState) {
+            // reveal and animate the aside view
 
             this.$el.addClass(this.animateIn);
 
@@ -222,6 +275,7 @@ Handlebars.templates['home/settings'] = Handlebars.compile('<header class=\"bar 
                 }, 250);
             });
         } else {
+            // conceal the aside view and hide
 
             this.$el.removeClass("effeckt-show");
 
@@ -233,6 +287,9 @@ Handlebars.templates['home/settings'] = Handlebars.compile('<header class=\"bar 
                 self.$el.removeClass(self.animateOut);
             });
         }
+
+        // set settingsState (visibility) opposite to its current value
+        this.settingsState = !this.settingsState;
 
         return this;
     }
@@ -288,7 +345,9 @@ Handlebars.templates['home/home'] = Handlebars.compile('{{!-- Home View -- repre
     name: "home/home",
 
     animateIn: "fadeIn",
-    animateOut: "iosFadeLeft",
+    //animateOut: "iosFadeLeft",
+    //animateOut: "flipOutX",
+    animateOut: "bounceOutLeft",
     collectionView: null,
 
     events: {
@@ -344,7 +403,7 @@ Handlebars.templates['home/home'] = Handlebars.compile('{{!-- Home View -- repre
 // Instances of this view can be created by calling:
 // new Application.Views["home/home"]()
 ;;
-Handlebars.templates['home/list-empty'] = Handlebars.compile('<h1>Home Page home/home\'s subview home/list has an empty collection..</h1>');Handlebars.templates['home/list-item'] = Handlebars.compile('<li id=\"{{id}}\" class=\"table-view-cell media\">\n  <a href=\"#detail/{{id}}\" class=\"navigate-right\">\n    <img class=\"media-object pull-left\" src=\"http://placehold.it/42x42\">\n    <div class=\"media-body\">\n      {{category.name}}\n      <p>{{subject}}</p>\n    </div>\n  </a>\n</li>');Handlebars.templates['home/list'] = Handlebars.compile('{{collection tag=\"ul\" class=\"table-view\"}}');Application.CollectionView.extend({
+Handlebars.templates['home/list-empty'] = Handlebars.compile('<h1>Home Page home/home\'s subview home/list has an empty collection..</h1>');Handlebars.templates['home/list-item'] = Handlebars.compile('<li id=\"{{id}}\" class=\"table-view-cell media\">\n\t{{!-- We can replace <a> w/ {{#link}} if expand-tokens=true (to nest {{id}}) --}}\n  {{#link \"detail/{{id}}\" expand-tokens=true class=\"navigate-right\"}}\n    <img class=\"media-object pull-left\" src=\"http://placehold.it/42x42\">\n    <div class=\"media-body\">\n      {{category.name}}\n      <p>{{subject}}</p>\n    </div>\n  {{/link}}\n</li>');Handlebars.templates['home/list'] = Handlebars.compile('{{collection tag=\"ul\" class=\"table-view\"}}');Application.CollectionView.extend({
     name: "home/list",
 
     // this view holds ref to our 'Alerts' collection from server
@@ -684,8 +743,8 @@ Handlebars.templates['home/profile'] = Handlebars.compile('{{#view \"home/header
     className: "profile",
 
     // default animations
-    animateIn: 'bounceInDown',
-    animateOut: 'slideOutUp',
+    animateIn: 'bounceInUp',
+    animateOut: 'slideOutDown',
 
     // declaritve events hash
     events: {

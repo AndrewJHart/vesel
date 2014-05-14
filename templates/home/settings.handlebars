@@ -1,6 +1,6 @@
-<header class="bar bar-nav">
+{{#view "home/header" tag="header" className="bar bar-nav"}}
   <h1 class="title">Settings</h1>
-</header>
+{{/view}}
 
 <div class="content">
   <ul class="table-view">
@@ -13,26 +13,26 @@
     <li class="table-view-cell table-view-divider">Categories</li>
     <li class="table-view-cell">
       Police
-      <div class="toggle">
-       <input type="checkbox" class="toggle-handle" data-meta-position="0" {{#enabled}}checked{{/enabled}}>
+      <div class="toggle {{#metadata.0.is_enabled}}active{{/metadata.0.is_enabled}}">
+       <input type="checkbox" class="toggle-handle" data-meta-position="0" {{#metadata.0.is_enabled}}checked{{/metadata.0.is_enabled}}>
       </div>
     </li>
     <li class="table-view-cell">
       Fire
-      <div class="toggle">
-        <input type="checkbox" class="toggle-handle" data-meta-position="1" {{#enabled}}checked{{/enabled}}>
+      <div class="toggle {{#metadata.1.is_enabled}}active{{/metadata.1.is_enabled}}">
+        <input type="checkbox" class="toggle-handle" data-meta-position="1" {{#metadata.1.is_enabled}}checked{{/metadata.1.is_enabled}}>
       </div>
     </li>
     <li class="table-view-cell">
       Traffic
-      <div class="toggle">
-        <input type="checkbox" class="toggle-handle" data-meta-position="2" {{#enabled}}checked{{/enabled}}>
+      <div class="toggle {{#metadata.2.is_enabled}}active{{/metadata.2.is_enabled}}">
+        <input type="checkbox" class="toggle-handle" data-meta-position="2" {{#metadata.2.is_enabled}}checked{{/metadata.2.is_enabled}}>
       </div>
     </li>
     <li class="table-view-cell">
       School
-      <div class="toggle">
-        <input type="checkbox" class="toggle-handle" data-meta-position="3" {{#enabled}}checked{{/enabled}}>
+      <div class="toggle {{#metadata.3.is_enabled}}active{{/metadata.3.is_enabled}}">
+        <input type="checkbox" class="toggle-handle" data-meta-position="3" {{#metadata.3.is_enabled}}checked{{/metadata.3.is_enabled}}>
       </div>
     </li>
   </ul>
@@ -42,8 +42,8 @@
     <span class="icon icon-info"></span>
     <span class="tab-label">Help</span>
   </a>
-  <a class="tab-item" href="#2">
+  {{#link "profile" trigger="close:settings" data-toggle="aside" class="tab-item"}}
     <span class="icon icon-person"></span>
     <span class="tab-label">Profile</span>
-  </a>
+  {{/link}}
 {{/view}}

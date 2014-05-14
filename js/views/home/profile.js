@@ -4,8 +4,8 @@ Application.AnimView.extend({
     className: "profile",
 
     // default animations
-    animateIn: 'bounceInDown',
-    animateOut: 'slideOutUp',
+    animateIn: 'bounceInUp',
+    animateOut: 'slideOutDown',
 
     // declaritve events hash
     events: {

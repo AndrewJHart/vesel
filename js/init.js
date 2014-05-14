@@ -41,6 +41,7 @@ var AnimView = window.AnimView = Thorax.View.extend({
             // trigger whatever current/caller view's beforeRender() method
             this.beforeRender();
         }
+
         // call the parent render since we're overriding it in thorax
         // console.debug('*!*!*! Thorax.View rendering taking over!*!* for view ' + this.name);
         Thorax.View.prototype.render.apply(this, arguments);
@@ -58,17 +59,14 @@ var AnimView = window.AnimView = Thorax.View.extend({
     },
 
     conservativeRender: function() {
-        // BeforeRender Hook for users (devs) to handle special cases like jQuery
-        // plugin instantiation, etc.. before the view & template are rendered
+        //  Hook before the view & template are rendered
         if (_.isFunction(this.beforeRender)) {
             // trigger whatever current/caller view's beforeRender() method
             this.beforeRender();
         }
-        // call the parent render since we're overriding it in thorax
-        // console.debug('*!*!*! Thorax.View rendering taking over!*!* for view ' + this.name);
-        // Thorax.View.prototype.render.apply(this, arguments);
 
-        // Trigger any additional or special rendering a user may require
+        // Trigger any additional post-render cases for users (devs)
+        // to handle special cases like jQuery plugin instantiation, etc..
         if (_.isFunction(this.afterRender)) {
             // trigger whatever current/caller view's onRender() method
             this.afterRender();
@@ -189,16 +187,8 @@ var AnimView = window.AnimView = Thorax.View.extend({
         // trigger the event
         this.trigger(eventName, options);
 
-        // console.log('triggerLifecycleEvent::Who am I and who are my children?');
-        // console.log('I am: ');
-        // console.debug(this.name || this);
-        // console.log('and my children are:');
-        // console.debug(this.children);
-        // console.log('and the event im sharing is');
-        // console.debug(eventName);
-
         _.each(this.children, function(child) {
-            // console.debug(child);
+            // trigger event in each child view too
             child.trigger(eventName, options);
         });
     }
@@ -309,7 +299,7 @@ var RootView = AnimView.extend({
             // animate the new view 
             next.transitionIn(options);
 
-        } else { // this view is not a page/pane so apply no animations
+        } else { // this view is not a page/pane so apply no transitions
 
             // check for a previous view before acting
             if (previous) {
@@ -341,7 +331,7 @@ var RootView = AnimView.extend({
 
             // render the new view
             next.render({
-                page: false
+                page: true // its still a "page view" just no transition hooks
             });
 
             // append new view to the body (or the el for the root view)
