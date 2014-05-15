@@ -16684,10 +16684,9 @@ Thorax.CollectionView = Thorax.View.extend({
         }, this);
       }
       this.trigger('rendered:collection', this, this.collection);
-    } 
-    // else {
-    //   handleChangeFromNotEmptyToEmpty.call(this);
-    // }
+    } else {
+      handleChangeFromNotEmptyToEmpty.call(this);
+    }
   },
   emptyClass: 'empty',
   renderEmpty: function() {

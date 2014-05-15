@@ -52,6 +52,29 @@ module.exports = function(grunt) {
             }
         },
 
+
+                //
+        // Dev and Dist SASS tasks. Compiles and minifies current sass ui frameworks
+        //
+        sass: {
+            dev: {
+                options: {
+                    style: 'expanded'
+                },
+                files: {
+                    './public/modules/app.min.css': './stylesheets/scss/app.scss'
+                }
+            },
+            dist: {
+                options: {
+                    style: 'compressed'
+                },
+            files: {
+                    './public/modules/app.min.css': './stylesheets/scss/app.scss'
+                }
+            }
+        },
+
         // live reload alternative
         reload: {
             port: 6001,
@@ -72,7 +95,8 @@ module.exports = function(grunt) {
                     // otherwise we get multiple reloads lol
                     './js/**/**/*.js',
                     './public/**/*.*',
-                    './templates/**/*.handlebars'
+                    './templates/**/*.handlebars',
+                    './stylesheets/**/**/**/*.*'
                 ]
             },
         }

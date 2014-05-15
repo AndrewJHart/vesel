@@ -28,43 +28,43 @@ Application.CollectionView.extend({
             return false;
         },
 
-        'rendered:collection': function(collectionView, collection) {
-            console.debug('Event "rendered:collection"');
+        // 'rendered:collection': function(collectionView, collection) {
+        //     console.debug('Event "rendered:collection"');
 
-            // refactoring this may work without the delay call...
-            _.delay(function() {
-                // initialize the mobiscroll listview plugin
-                collectionView.$('ul').mobiscroll().listview({
-                    theme: 'ios7',
-                    swipe: 'right',
-                    actions: {
-                        right: [{
-                            icon: 'link',
-                            action: function(li, inst) {
-                                alert('Linked', inst.settings.context);
-                            }
-                        }, {
-                            icon: 'star3',
-                            action: function(li, inst) {
-                                alert('Rated', inst.settings.context);
-                            }
-                        }, {
-                            icon: 'tag',
-                            action: function(li, inst) {
-                                alert('Tagged', inst.settings.context);
-                            }
-                        }, {
-                            icon: 'download',
-                            action: function(li, inst) {
-                                alert('Downloaded', inst.settings.context);
-                            }
-                        }, ]
-                    }
-                });
-            }, 0);
+        //     // refactoring this may work without the delay call...
+        //     _.delay(function() {
+        //         // initialize the mobiscroll listview plugin
+        //         collectionView.$('ul').mobiscroll().listview({
+        //             theme: 'ios7',
+        //             swipe: 'right',
+        //             actions: {
+        //                 right: [{
+        //                     icon: 'link',
+        //                     action: function(li, inst) {
+        //                         alert('Linked', inst.settings.context);
+        //                     }
+        //                 }, {
+        //                     icon: 'star3',
+        //                     action: function(li, inst) {
+        //                         alert('Rated', inst.settings.context);
+        //                     }
+        //                 }, {
+        //                     icon: 'tag',
+        //                     action: function(li, inst) {
+        //                         alert('Tagged', inst.settings.context);
+        //                     }
+        //                 }, {
+        //                     icon: 'download',
+        //                     action: function(li, inst) {
+        //                         alert('Downloaded', inst.settings.context);
+        //                     }
+        //                 }, ]
+        //             }
+        //         });
+        //     }, 0);
 
-            return false;
-        },
+        //     return false;
+        // },
 
         // nested collection listeners
         collection: {
