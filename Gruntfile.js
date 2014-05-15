@@ -99,6 +99,13 @@ module.exports = function(grunt) {
                     './stylesheets/**/*.*'
                 ]
             },
+
+            sass: {
+                files: [
+                    './stylesheets/**/*.*'
+                ],
+                tasks: ['sass:dev']
+            }
         }
     });
 
@@ -111,6 +118,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('thorax-inspector');
     grunt.loadNpmTasks('lumbar');
     grunt.loadNpmTasks('grunt-contrib-connect');
+    grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-reload');
 
@@ -119,6 +127,7 @@ module.exports = function(grunt) {
         'ensure-installed',
         'thorax:inspector',
         'lumbar:init',
+        'sass:dev',
         'connect:server',
         'open-browser',
         'lumbar:watch',
@@ -130,8 +139,10 @@ module.exports = function(grunt) {
         'ensure-installed',
         'thorax:inspector',
         'lumbar:init',
+        'sass:dist',
         'connect:server',
         'open-browser',
-        'lumbar:watch'
+        'lumbar:watch',
+        'watch'
     ]);
 };
