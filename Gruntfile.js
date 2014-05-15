@@ -62,7 +62,7 @@ module.exports = function(grunt) {
                     style: 'expanded'
                 },
                 files: {
-                    './public/modules/app.min.css': './stylesheets/scss/app.scss'
+                    './public/modules/app.min.css': './stylesheets/app.scss'
                 }
             },
             dist: {
@@ -70,7 +70,7 @@ module.exports = function(grunt) {
                     style: 'compressed'
                 },
             files: {
-                    './public/modules/app.min.css': './stylesheets/scss/app.scss'
+                    './public/modules/app.min.css': './stylesheets/app.scss'
                 }
             }
         },
@@ -96,7 +96,7 @@ module.exports = function(grunt) {
                     './js/**/**/*.js',
                     './public/**/*.*',
                     './templates/**/*.handlebars',
-                    './stylesheets/**/**/**/*.*'
+                    './stylesheets/**/*.*'
                 ]
             },
         }
