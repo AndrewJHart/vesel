@@ -7,6 +7,11 @@ Application.CollectionView.extend({
     // view represents the content area of its parent, the Home page-view
     className: 'content',
 
+    attributes: {id:'wrapper'},
+
+    // adding ID to outtermost container for list view to enable JS/CSS scrolling via iScroll
+    // tagName: 'wrapper',
+
     // declaritive events for the view + nested declaritive events for collection
     events: {
         'ready': function(options) {

@@ -18011,3 +18011,7 @@ a.overlay.mask {
   border: 2px solid rgba(0, 0, 0, 0.2);
   background-clip: padding-box;
 }
+
+.mbsc-lv {
+  position: absolute !important;
+}

@@ -1,18 +1,25 @@
 
 
+Zepto(document).ready(function() {
+	var listScroll;
 
+	function loaded () {
+		listScroll = new IScroll('#wrapper', {
+			bounceEasing: 'elastic', bounceTime: 1200
+		});
+	}
 
-// var myScroll;
+	document.addEventListener('touchmove', function (e) {
+		e.preventDefault();
+	}, false);
 
-// function loaded () {
-//     myScroll = new IScroll('#wrapper', { bounceEasing: 'elastic', bounceTime: 1200 });
-// }
+	console.log('iScroll render after document ready');
+  });
 
-// document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 
 
 
 window.addEventListener('load', function() {
     FastClick.attach(document.body);
-    console.log('flastClick is working! Fire Fire Fire!')
+    console.log('fastClick is firing!');
 }, true);

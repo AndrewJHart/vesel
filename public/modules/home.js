@@ -407,7 +407,7 @@ Handlebars.templates['home/home'] = Handlebars.compile('{{!-- Home View -- repre
 // Instances of this view can be created by calling:
 // new Application.Views["home/home"]()
 ;;
-Handlebars.templates['home/list-empty'] = Handlebars.compile('<h1>Home Page home/home\'s subview home/list has an empty collection..</h1>');Handlebars.templates['home/list-item'] = Handlebars.compile('<li id=\"{{id}}\" class=\"table-view-cell media\">\n\t{{!-- We can replace <a> w/ {{#link}} if expand-tokens=true (to nest {{id}}) --}}\n  {{#link \"detail/{{id}}\" expand-tokens=true class=\"navigate-right\"}}\n    <img class=\"media-object pull-left\" src=\"http://placehold.it/42x42\">\n    <div class=\"media-body\">\n      {{category.name}}\n      <p>{{subject}}</p>\n    </div>\n  {{/link}}\n</li>');Handlebars.templates['home/list'] = Handlebars.compile('{{collection tag=\"ul\" class=\"table-view\" id=\"wrapper\"}}');Application.CollectionView.extend({
+Handlebars.templates['home/list-empty'] = Handlebars.compile('<h1>Home Page home/home\'s subview home/list has an empty collection..</h1>');Handlebars.templates['home/list-item'] = Handlebars.compile('<li id=\"{{id}}\" class=\"table-view-cell media\">\n\t{{!-- We can replace <a> w/ {{#link}} if expand-tokens=true (to nest {{id}}) --}}\n  {{#link \"detail/{{id}}\" expand-tokens=true class=\"navigate-right\"}}\n    <img class=\"media-object pull-left\" src=\"http://placehold.it/42x42\">\n    <div class=\"media-body\">\n      {{category.name}}\n      <p>{{subject}}</p>\n    </div>\n  {{/link}}\n</li>');Handlebars.templates['home/list'] = Handlebars.compile('{{collection tag=\"ul\" class=\"table-view\"}}');Application.CollectionView.extend({
     name: "home/list",
 
     // this view holds ref to our 'Alerts' collection from server
@@ -415,6 +415,11 @@ Handlebars.templates['home/list-empty'] = Handlebars.compile('<h1>Home Page home
 
     // view represents the content area of its parent, the Home page-view
     className: 'content',
+
+    attributes: {id:'wrapper'},
+
+    // adding ID to outtermost container for list view to enable JS/CSS scrolling via iScroll
+    // tagName: 'wrapper',
 
     // declaritive events for the view + nested declaritive events for collection
     events: {
