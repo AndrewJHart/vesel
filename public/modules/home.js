@@ -351,7 +351,7 @@ Handlebars.templates['home/home'] = Handlebars.compile('{{!-- Home View -- repre
     animateIn: "fadeIn",
     //animateOut: "iosFadeLeft",
     //animateOut: "flipOutX",
-    animateOut: "animateOut",
+    animateOut: "bounceOutLeft",
     collectionView: null,
 
     events: {
