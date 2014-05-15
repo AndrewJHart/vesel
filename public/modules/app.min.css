@@ -18012,6 +18012,57 @@ a.overlay.mask {
   background-clip: padding-box;
 }
 
-.mbsc-lv {
-  position: absolute !important;
+a {
+  color: white;
+}
+
+.bar {
+  background-color: rgba(77, 99, 112, 0.92);
+}
+
+.bar-tab .tab-item,
+.icon,
+.tab-label,
+.title {
+  color: #ffffff;
+}
+
+.hidden {
+  display: none;
+}
+
+.set-title {
+  padding-left: 30px;
+  vertical-align: middle;
+}
+
+.Traffic__bg {
+  background-color: #76b3d3;
+  color: white;
+}
+
+.Health__bg {
+  background-color: white;
+}
+
+.Fire__bg {
+  background-color: #c65c5c;
+}
+
+.School__bg {
+  background-color: #4f5d73;
+  color: white;
+}
+
+.Utilities__bg {
+  background-color: #76c2ae;
+}
+
+.Other__bg {
+  background-color: #c65c5c;
+}
+
+.Police__bg {
+  background-color: #4f5d73;
+  color: white;
 }

@@ -60,6 +60,8 @@ Application.AnimView.extend({
 
             this.$el.addClass(this.animateIn);
 
+            // this.$el.removeClass(this.hidden);
+
             this.$el.on('webkitAnimationEnd transitionend', function() {
 
                 self.$el.off('webkitAnimationEnd transitionend');

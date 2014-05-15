@@ -1,6 +1,137 @@
 
 //  Custom styles and overides specific to the Heads Up Huntington application.
 
-.mbsc-lv {
-	position: absolute !important;
+
+
+// Color Variables
+// -------------------------------
+//
+$dark-blue:                       #4f5d73 !default;
+$light-blue:                      #76b3d3 !default;
+$red:                             #c65c5c !default;
+$yellow:                          #f4ce85 !default;
+$green:                           #76c2ae !default;
+$orange:                          #e0985e !default;
+$white:                           #ffffff !default;
+
+$transparent:                     transparent !important;
+
+
+
+// .mbsc-lv {
+// 	position: absolute !important;
+// }
+
+a {
+	color: #ffffff
 }
+
+.bar {
+	background-color: rgba(77,99,112,0.92);
+}
+
+.bar-tab .tab-item, 
+.icon, 
+.tab-label,
+.title {
+	color: #ffffff;
+}
+
+
+
+.hidden {
+	display: none;
+}
+
+
+.set-title {
+	padding-left: 30px;
+	vertical-align: middle;
+}
+
+
+
+
+//  Background colors specific to each alert category
+
+.Traffic__bg {
+	background-color: $light-blue;
+	color: $white;
+}
+
+.Health__bg {
+	background-color: $white;
+}
+
+.Fire__bg {
+	background-color: $red;
+}
+
+.School__bg {
+	background-color: $dark-blue;
+	color: $white;
+}
+
+.Utilities__bg {
+	background-color: $green;
+}
+
+.Other__bg {
+	background-color: $red;
+}
+
+.Police__bg {
+	background-color: $dark-blue;
+	color: $white;
+}
+
+
+// .mbsc-lv-item {
+// 	padding: 0 !important;
+// }
+
+
+
+
+
+
+
+
+
+// #wrapper {
+// 	position: relative;
+// 	width: 100%;
+// 	height: 100%;
+// 	overflow: hidden;
+
+// 	/* Prevent native touch events on Windows */
+// 	-ms-touch-action: none;
+
+// 	/* Prevent the callout on tap-hold and text selection */
+// 	-webkit-touch-callout: none;
+// 	-webkit-user-select: none;
+// 	-moz-user-select: none;
+// 	-ms-user-select: none;
+// 	user-select: none;
+
+// 	/* Prevent text resize on orientation change, useful for web-apps */
+// 	-webkit-text-size-adjust: none;
+// 	-moz-text-size-adjust: none;
+// 	-ms-text-size-adjust: none;
+// 	-o-text-size-adjust: none;
+// 	text-size-adjust: none;
+// }
+
+// #scroller {
+// 	position: absolute !important;
+
+// 	/* Prevent elements to be highlighted on tap */
+// 	-webkit-tap-highlight-color: rgba(0,0,0,0);
+
+// 	/* Put the scroller into the HW Compositing layer right from the start */
+// 	-webkit-transform: translateZ(0);
+// 	-moz-transform: translateZ(0);
+// 	-ms-transform: translateZ(0);
+// 	-o-transform: translateZ(0);
+// 	transform: translateZ(0);
+// }
