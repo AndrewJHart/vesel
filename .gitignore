@@ -2,3 +2,5 @@
 node_modules
 components
 bower_components
+.sass-cache
+vesel.sublime-workspace
