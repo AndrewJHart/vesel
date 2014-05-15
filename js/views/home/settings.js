@@ -2,7 +2,7 @@ Application.AnimView.extend({
     name: "home/settings",
 
     // add animations
-    animateIn: "effeckt-off-screen-nav-left-push ",
+    animateIn: "effeckt-off-screen-nav-left-push show",
     animateOut: "effeckt-off-screen-nav-left-push ",
 
     // Single Responsibility Pattern in action 
