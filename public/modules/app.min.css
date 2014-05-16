@@ -526,7 +526,7 @@ p {
 
 .table-view-cell {
   position: relative;
-  padding: 11px 65px 11px 15px;
+  padding: 11px 15px 11px 15px;
   overflow: hidden;
   border-bottom: 1px solid #dddddd;
 }
@@ -16981,7 +16981,7 @@ a.overlay.mask {
   bottom: 0;
   overflow-y: auto;
   background: #333333;
-  display: none;
+  visibility: hidden;
   width: 80%;
 }
 
@@ -17979,6 +17979,12 @@ a {
   color: white;
 }
 
+h2 {
+  font-size: 1em;
+  font-weight: 100;
+  text-align: center;
+}
+
 .bar {
   background-color: rgba(77, 99, 112, 0.92);
 }
@@ -17995,7 +18001,7 @@ a {
 }
 
 .show {
-  display: block !important;
+  display: inline-block !important;
 }
 
 .set-title {
@@ -18010,6 +18016,7 @@ a {
 
 .Health__bg {
   background-color: white;
+  color: #363636;
 }
 
 .Fire__bg {
@@ -18034,8 +18041,22 @@ a {
   color: white;
 }
 
-.table-view-cell__range {
-  min-height: 120px;
+div[class$='-l__bg'] {
+  width: 25%;
+  position: relative;
+  display: inline-block;
+}
+
+div[class$='-d__bg'] {
+  width: 100%;
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  padding: 15px;
+}
+
+div[class$='__center'] {
+  margin: 10px auto;
 }
 
 input[type="range"] {
@@ -18057,4 +18078,27 @@ input[type="range"]::-webkit-slider-thumb {
   background: #fff;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
   cursor: pointer;
+}
+
+.media-object__container {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+
+.mbsc-lv-ios7 .mbsc-lv-item {
+  padding: 0 !important;
+  margin: 0 !important;
+  max-height: 120px;
+}
+
+.media-body {
+  display: inline-block;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  /* left: 0; */
+  padding: 5px;
+  width: 55%;
 }

@@ -15,7 +15,8 @@
 // Pad each table view item and add dividers
 .table-view-cell {
   position: relative;
-  padding: 11px 65px 11px 15px;
+  padding: 11px 15px 11px 15px;
+  // padding-right reduced from 65px to 15px for HUH layout
   overflow: hidden;
   border-bottom: $border-default;
 

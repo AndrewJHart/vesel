@@ -4,14 +4,11 @@
   	<h1 class="title">Details</h1>
 {{/view}}
 <div class="content">
+	<div class="{{category.name}}__bg {{category.name}}-d__bg">
+  		<h4>{{subject}}</h4>
+		</div>
 	<div class="content-padded">
-	  <h4>{{subject}}</h4>
-
-	  <h6>{{#visible}} Visible: {{id}} {{/visible}}</h6>
-	  <p>Item {{id}} has a visible status of {{visible}}</p>
 	  <p>{{information}}</p>
-	  <br>
-	  <small>{{category.name}}</small>
 	</div>
 </div>
 {{#view "detail/footer" tag="nav" className="bar bar-tab" type="detail-footer"}}

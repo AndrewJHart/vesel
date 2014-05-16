@@ -1,9 +1,14 @@
-<li id="{{id}}" class="table-view-cell media">
-  {{#link "detail/{{id}}" expand-tokens=true class="navigate-right"}}
-    <div class="media-object pull-left {{category.name}} {{category.name}}__bg"></div>
-	<h2>{{category.name}}</h2>
-    <div class="media-body">
-      <p>{{subject}}</p>
-    </div>
-  {{/link}}
+<li id="{{id}}" class="">
+  	{{#link "detail/{{id}}" expand-tokens=true class="navigate-right media-object-cat__bg"}}
+	  	<div class="{{category.name}}__bg {{category.name}}-l__bg">
+		    <div class="media-object__container">
+			    <div class="{{category.name}} {{category.name}}__center"></div>
+				<h2>{{category.name}}</h2>
+		    </div>
+	  	</div>
+
+	    <div class="media-body">
+	      <p>{{subject}}</p>
+	    </div>
+  	{{/link}}
 </li>

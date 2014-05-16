@@ -26,10 +26,20 @@ a {
 	color: #ffffff
 }
 
+h2 {
+	font-size: 1em;
+	font-weight: 100;
+	text-align: center;
+	// padding: 5px;
+}
+
+
+//  Header and footer colors 
 .bar {
 	background-color: rgba(77,99,112,0.92);
 }
 
+// Resetting text color to white
 .bar-tab .tab-item, 
 .icon, 
 .tab-label,
@@ -45,7 +55,7 @@ a {
 
 
 .show {
-	display: block !important;
+	display: inline-block !important;
 }
 
 .set-title {
@@ -65,6 +75,7 @@ a {
 
 .Health__bg {
 	background-color: $white;
+	color: #363636;
 }
 
 .Fire__bg {
@@ -90,13 +101,34 @@ a {
 }
 
 
+div[class$='-l__bg'] {
+	width: 25%;
+	position: relative;
+	display: inline-block;
+}
+
+div[class$='-d__bg'] {
+	width: 100%;
+	position: relative;
+	display: inline-block;
+	text-align: center;
+	padding: 15px;
+}
+
+div[class$='__center'] {
+	margin: 10px auto;
+}
+
+
+
+
 
 //  Custom range slider implementation as Ratchet does not contain one by default. 
 
 
-.table-view-cell__range {
-	min-height: 120px;
-}
+// .table-view-cell__range {
+// 	min-height: 120px;
+// }
 
 
 
@@ -139,6 +171,75 @@ input[type="range"]::-webkit-slider-thumb{
 // 	text-transform: uppercase;
 // 	content: "Off";
 // }
+
+
+
+
+
+// List item custom classes and layout
+
+// li {
+// 	margin: 0px !important;
+// 	padding: 20 !important;
+// }
+
+
+// li > * {
+// 	margin: 0px !important;
+// 	padding: 20 !important;
+// }
+.media-object-cat__bg {
+	
+}
+
+.media-object__container {
+	display: inline-block;
+	position: relative;
+	// padding: 14px;
+	width: 100%;
+	height: auto;
+}
+
+.mbsc-lv-ios7 .mbsc-lv-item {
+	padding: 0 !important;
+	margin: 0 !important;
+	max-height: 120px;
+}
+
+.media-body {
+	display: inline-block;
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	/* left: 0; */
+	padding: 5px;
+	width: 55%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
