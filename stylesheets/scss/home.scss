@@ -134,7 +134,7 @@ a.overlay.mask {
 
 .effeckt-off-screen-nav {
   position: fixed;
-  z-index: 1000;
+  // z-index: 1000;
   top: 0;
   left: 0;
   bottom: 0;
@@ -196,11 +196,11 @@ a.overlay.mask {
   color: red;
 }
 
-.effeckt-off-screen-nav-rotate.effeckt-off-screen-nav-show ~ .page-wrap .off-screen-nav-cover {
-  background: -webkit-linear-gradient(left, rgba(238, 238, 238, 0), rgba(238, 238, 238, 0.9));
-  background: -o-linear-gradient(left, rgba(238, 238, 238, 0), rgba(238, 238, 238, 0.9));
-  background: linear-gradient(left, rgba(238, 238, 238, 0), rgba(238, 238, 238, 0.9));
-}
+// .effeckt-off-screen-nav-rotate.effeckt-off-screen-nav-show ~ .page-wrap .off-screen-nav-cover {
+//   background: -webkit-linear-gradient(left, rgba(238, 238, 238, 0), rgba(238, 238, 238, 0.9));
+//   background: -o-linear-gradient(left, rgba(238, 238, 238, 0), rgba(238, 238, 238, 0.9));
+//   background: linear-gradient(left, rgba(238, 238, 238, 0), rgba(238, 238, 238, 0.9));
+// }
 
 .effeckt-off-screen-nav-top-card-deck,
 .effeckt-off-screen-nav-bottom-card-deck {

@@ -18867,6 +18867,7 @@ $(function() {
     // Application may want to use the link and url helpers
     // which use hasPushstate, etc.. 
     //e.g. {{#link url="model.id" expand-tokens="true"}}click me{{/link}}
+    FastClick.attach(document.body);
 
     // order of ops here is:
     // setup history, then render, then dispatch backbone to load url

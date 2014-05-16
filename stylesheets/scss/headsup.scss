@@ -126,9 +126,9 @@ div[class$='__center'] {
 //  Custom range slider implementation as Ratchet does not contain one by default. 
 
 
-// .table-view-cell__range {
-// 	min-height: 120px;
-// }
+.table-view-cell__range {
+	padding: 30px 15px;
+}
 
 
 
@@ -173,7 +173,9 @@ input[type="range"]::-webkit-slider-thumb{
 // }
 
 
-
+// .range__container {
+// 	padding: 30px 15px;
+// }
 
 
 // List item custom classes and layout

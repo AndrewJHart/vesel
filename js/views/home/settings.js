@@ -8,6 +8,8 @@ Application.AnimView.extend({
     // Single Responsibility Pattern in action 
     settingsState: true, // todo: rename to better variable name
 
+    rangeSliderValue: 1,
+
     events: {
         'change div.toggle > input[type="checkbox"]': function(event) {
             var metadataPosition = this.$(event.target).data("meta-position"),
@@ -32,6 +34,30 @@ Application.AnimView.extend({
                 wait: true,
                 silent: true
             });
+        },
+
+        'change #range': function(event) {
+            event.preventDefault();
+
+            console.log(event.target);
+
+            var item = event.target,
+                value = (item.value - item.min)/(item.max - item.min);
+
+            item.style.backgroundImage = [
+                '-webkit-gradient(',
+                'linear, ',
+                'left top, ',
+                'right top, ',
+                'color-stop(' + value + ', #5cb85c), ',
+                'color-stop(' + value + ', #b8b7b8)',
+                ')'
+                ].join('');
+
+            console.log(value);
+            // $(item).attr('value') = value;
+            this.rangeSliderValue = value;
+            console.log(this.rangeSliderValue);
         }
     },
 
@@ -42,6 +68,7 @@ Application.AnimView.extend({
         // i.e. attributes and/or classNames, aren't applied on first run
         this.$el.addClass('effeckt-off-screen-nav');
         this.$el.attr('data-view-persist', 'true');
+        // this.$el.addClass('hidden');
 
         // get the resource from the server
         this.model.fetch();
@@ -60,7 +87,7 @@ Application.AnimView.extend({
 
             this.$el.addClass(this.animateIn);
 
-            // this.$el.removeClass(this.hidden);
+            // this.$el.removeClass('hidden');
 
             this.$el.on('webkitAnimationEnd transitionend', function() {
 
