@@ -4023,6 +4023,60 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   height: 25px;
 }
 
+.m-police {
+  background: url("../../img/sprites.png") no-repeat -8px -155px;
+  width: 37px;
+  height: 49px;
+}
+
+.m-fire {
+  background: url("../../img/sprites.png") no-repeat -58px -154px;
+  width: 36px;
+  height: 50px;
+}
+
+.m-settings {
+  background: url("../../img/sprites.png") no-repeat -104px -189px;
+  width: 37px;
+  height: 50px;
+}
+
+.m-school {
+  background: url("../../img/sprites.png") no-repeat -152px -189px;
+  width: 36px;
+  height: 50px;
+}
+
+.m-health {
+  background: url("../../img/sprites.png") no-repeat -8px -219px;
+  width: 37px;
+  height: 50px;
+}
+
+.m-traffic {
+  background: url("../../img/sprites.png") no-repeat -59px -217px;
+  width: 36px;
+  height: 50px;
+}
+
+.m-other {
+  background: url("../../img/sprites.png") no-repeat -128px -251px;
+  width: 37px;
+  height: 49px;
+}
+
+.gps-pointer {
+  background: url("../../img/sprites.png") no-repeat -15px -281px;
+  width: 19px;
+  height: 21px;
+}
+
+.map-icon {
+  background: url("../../img/sprites.png") no-repeat -65px -277px;
+  width: 27px;
+  height: 26px;
+}
+
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
   .health,
   .Health,
@@ -4051,11 +4105,20 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   .hpd,
   .share,
   .menu,
-  .button-prev {
+  .button-prev,
+  .m-police,
+  .m-fire,
+  .m-utilities,
+  .m-school,
+  .m-health,
+  .m-traffic,
+  .m-other,
+  .map-icon,
+  .gps-pointer {
     /* Reference the @2x Sprite */
     background-image: url("../../img/sprites@x2.png");
     /* Translate the @2x sprite's dimensions back to 1x */
-    background-size: 200px 200px;
+    background-size: 200px 310px;
   }
 }
 @-webkit-keyframes mbsc-lv-spin {
