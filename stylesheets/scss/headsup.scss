@@ -27,10 +27,11 @@ a {
 }
 
 h2 {
-	font-size: 1em;
+	font-size: 14px;
 	font-weight: 100;
 	text-align: center;
-	// padding: 5px;
+	text-transform: uppercase;
+	// letter-spacing: 2px;
 }
 
 
@@ -46,7 +47,6 @@ h2 {
 .title {
 	color: #ffffff;
 }
-
 
 
 .hidden {
@@ -215,9 +215,13 @@ input[type="range"]::-webkit-slider-thumb{
 	top: 0;
 	/* left: 0; */
 	padding: 5px;
-	width: 55%;
+	// width: 55%;
 }
 
+.media-body__wrap {
+	// width: 55%;
+	position: relative;
+}
 
 
 

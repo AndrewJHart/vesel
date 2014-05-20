@@ -18036,9 +18036,10 @@ a {
 }
 
 h2 {
-  font-size: 1em;
+  font-size: 14px;
   font-weight: 100;
   text-align: center;
+  text-transform: uppercase;
 }
 
 .bar {
@@ -18160,5 +18161,8 @@ input[type="range"]::-webkit-slider-thumb {
   top: 0;
   /* left: 0; */
   padding: 5px;
-  width: 55%;
+}
+
+.media-body__wrap {
+  position: relative;
 }

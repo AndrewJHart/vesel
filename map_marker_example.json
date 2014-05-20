@@ -1,0 +1,114 @@
+var geoJson = [{
+    "type": "Feature",
+    "geometry": {
+        "type": "Point",
+        "coordinates": [-75.00, 40]
+    },
+	"properties": {
+        "title": "Police",
+        "icon": {
+            "iconUrl": "public/img/mapmarkers/police.png",
+            "iconSize": [50, 50], // size of the icon
+            "iconAnchor": [25, 25], // point of the icon which will correspond to marker's location
+            "popupAnchor": [0, -25], // point from which the popup should open relative to the iconAnchor
+            "className": "m-police"
+        }
+    }
+}, {
+    "type": "Feature",
+    "geometry": {
+        "type": "Point",
+        "coordinates": [-74.00, 40]
+    },
+    "properties": {
+        "title": "Big astronaut",
+        "icon": {
+            "iconUrl": "/mapbox.js/assets/images/astronaut2.png",
+            "iconSize": [100, 100],
+            "iconAnchor": [50, 50],
+            "popupAnchor": [0, -55],
+            "className": "dot"
+        }
+    }
+}];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"properties": {
+        "title": "Police",
+        "icon": {
+            "iconUrl": "public/img/mapmarkers/police.png",
+            "iconSize": [50, 50], // size of the icon
+            "iconAnchor": [25, 25], // point of the icon which will correspond to marker's location
+            "popupAnchor": [0, -25], // point from which the popup should open relative to the iconAnchor
+            "className": "m-police"
+        }
+
+
+
+"properties": {
+        "title": "Small astronaut",
+        "icon": {
+            "iconUrl": "public/img/mapmarkers/fire.png",
+            "iconSize": [50, 50], // size of the icon
+            "iconAnchor": [25, 25], // point of the icon which will correspond to marker's location
+            "popupAnchor": [0, -25], // point from which the popup should open relative to the iconAnchor
+            "className": "dot"
+        }
+
+"properties": {
+        "title": "Small astronaut",
+        "icon": {
+            "iconUrl": "public/img/mapmarkers/health.png",
+            "iconSize": [50, 50], // size of the icon
+            "iconAnchor": [25, 25], // point of the icon which will correspond to marker's location
+            "popupAnchor": [0, -25], // point from which the popup should open relative to the iconAnchor
+            "className": "dot"
+        }
+
+"properties": {
+        "title": "Small astronaut",
+        "icon": {
+            "iconUrl": "public/img/mapmarkers/utilities.png",
+            "iconSize": [50, 50], // size of the icon
+            "iconAnchor": [25, 25], // point of the icon which will correspond to marker's location
+            "popupAnchor": [0, -25], // point from which the popup should open relative to the iconAnchor
+            "className": "dot"
+        }
+
+"properties": {
+        "title": "Small astronaut",
+        "icon": {
+            "iconUrl": "public/img/mapmarkers/police.png",
+            "iconSize": [50, 50], // size of the icon
+            "iconAnchor": [25, 25], // point of the icon which will correspond to marker's location
+            "popupAnchor": [0, -25], // point from which the popup should open relative to the iconAnchor
+            "className": "dot"
+        }
+
+"properties": {
+        "title": "Small astronaut",
+        "icon": {
+            "iconUrl": "/mapbox.js/assets/images/astronaut1.png",
+            "iconSize": [50, 50], // size of the icon
+            "iconAnchor": [25, 25], // point of the icon which will correspond to marker's location
+            "popupAnchor": [0, -25], // point from which the popup should open relative to the iconAnchor
+            "className": "dot"
+        }
