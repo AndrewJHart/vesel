@@ -27,7 +27,7 @@ a {
 }
 
 h2 {
-	font-size: 14px;
+	font-size: 12px;
 	font-weight: 100;
 	text-align: center;
 	text-transform: uppercase;
@@ -197,7 +197,6 @@ input[type="range"]::-webkit-slider-thumb{
 .media-object__container {
 	display: inline-block;
 	position: relative;
-	// padding: 14px;
 	width: 100%;
 	height: auto;
 }
@@ -213,24 +212,31 @@ input[type="range"]::-webkit-slider-thumb{
 	overflow: hidden;
 	position: absolute;
 	top: 0;
-	/* left: 0; */
 	padding: 5px;
-	// width: 55%;
+	width: 100%;
 }
 
 .media-body__wrap {
-	// width: 55%;
+	width: 65%;
 	position: relative;
+}
+
+.media-object__postdate {
+	color: #333;
+	font-size: 10px;
+	position: absolute;
+	bottom: 0;
+	left: 28%;
+	width: 100%;
 }
 
 
 
 
 
-
-
-
-
+.content > .table-view:last-child {
+	margin-bottom: 0 !important;
+}
 
 
 
