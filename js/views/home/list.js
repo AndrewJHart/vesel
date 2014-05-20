@@ -42,26 +42,17 @@ Application.CollectionView.extend({
                 collectionView.$('ul').mobiscroll().listview({
                     theme: 'ios7',
                     swipe: 'right',
+                    percent: '40',
                     actions: {
                         right: [{
-                            icon: 'link',
+                            icon: 'map',
                             action: function(li, inst) {
-                                alert('Linked', inst.settings.context);
+                                alert('Maps', inst.settings.context);
                             }
                         }, {
-                            icon: 'star3',
+                            icon: 'share',
                             action: function(li, inst) {
-                                alert('Rated', inst.settings.context);
-                            }
-                        }, {
-                            icon: 'tag',
-                            action: function(li, inst) {
-                                alert('Tagged', inst.settings.context);
-                            }
-                        }, {
-                            icon: 'download',
-                            action: function(li, inst) {
-                                alert('Downloaded', inst.settings.context);
+                                alert('Share on Facebook or Twitter', inst.settings.context);
                             }
                         }, ]
                     }
