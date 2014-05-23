@@ -355,7 +355,7 @@ p {
   padding-right: 10px;
   padding-left: 10px;
   background-color: white;
-  border-bottom: 1px solid #dddddd;
+  border-bottom: none;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
@@ -17014,11 +17014,6 @@ a.overlay.mask {
   background-color: #fff;
 }
 
-.bar {
-  /*background-color: rgba(220, 240, 255, 0.92);*/
-  background-color: rgba(247, 247, 247, 0.92);
-}
-
 /* Add extra padding to last element in the ul list to fix the last item */
 .content > .table-view:last-child {
   margin-bottom: 60px;
@@ -18046,6 +18041,10 @@ h2 {
   background-color: rgba(77, 99, 112, 0.92);
 }
 
+.bar-border {
+  border: none;
+}
+
 .bar-tab .tab-item,
 .icon,
 .tab-label,
@@ -18078,6 +18077,7 @@ h2 {
 
 .Fire__bg {
   background-color: #c65c5c;
+  color: white;
 }
 
 .School__bg {
@@ -18087,10 +18087,12 @@ h2 {
 
 .Utilities__bg {
   background-color: #76c2ae;
+  color: white;
 }
 
 .Other__bg {
   background-color: #c65c5c;
+  color: white;
 }
 
 .Police__bg {
@@ -18110,6 +18112,8 @@ div[class$='-d__bg'] {
   display: inline-block;
   text-align: center;
   padding: 15px;
+  height: auto;
+  min-height: 80px;
 }
 
 div[class$='__center'] {
@@ -18175,6 +18179,20 @@ input[type="range"]::-webkit-slider-thumb {
   bottom: 0;
   left: 28%;
   width: 100%;
+}
+
+.detail-cat__icon {
+  width: 25%;
+  position: absolute;
+}
+.detail-cat__icon span {
+  display: block;
+}
+
+.detail-cat__subject {
+  width: 75%;
+  position: absolute;
+  right: 0;
 }
 
 .content > .table-view:last-child {

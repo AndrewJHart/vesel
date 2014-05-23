@@ -42,7 +42,6 @@ Application.CollectionView.extend({
                 collectionView.$('ul').mobiscroll().listview({
                     theme: 'ios7',
                     swipe: 'right',
-                    percent: '40',
                     actions: {
                         right: [{
                             icon: 'map',

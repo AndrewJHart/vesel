@@ -11,7 +11,7 @@
   padding-right: $bar-side-spacing;
   padding-left: $bar-side-spacing;
   background-color: $chrome-color;
-  border-bottom: $border-default;
+  border-bottom: none;
   -webkit-backface-visibility: hidden; // Make sure the bar is visible when a modal animates in.
           backface-visibility: hidden;
 }

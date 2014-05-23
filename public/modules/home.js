@@ -480,7 +480,6 @@ Handlebars.templates['home/list-empty'] = Handlebars.compile('<h1>Home Page home
                 collectionView.$('ul').mobiscroll().listview({
                     theme: 'ios7',
                     swipe: 'right',
-                    percent: '40',
                     actions: {
                         right: [{
                             icon: 'map',

@@ -19,7 +19,7 @@ $transparent:                     transparent !important;
 
 
 // .mbsc-lv {
-// 	position: absolute !important;
+// position: absolute !important;
 // }
 
 a {
@@ -38,6 +38,10 @@ h2 {
 //  Header and footer colors 
 .bar {
 	background-color: rgba(77,99,112,0.92);
+}
+
+.bar-border {
+	border: none;
 }
 
 // Resetting text color to white
@@ -80,6 +84,7 @@ h2 {
 
 .Fire__bg {
 	background-color: $red;
+	color: $white;
 }
 
 .School__bg {
@@ -89,10 +94,12 @@ h2 {
 
 .Utilities__bg {
 	background-color: $green;
+	color: $white;
 }
 
 .Other__bg {
 	background-color: $red;
+	color: $white;
 }
 
 .Police__bg {
@@ -113,6 +120,8 @@ div[class$='-d__bg'] {
 	display: inline-block;
 	text-align: center;
 	padding: 15px;
+	height: auto;
+	min-height: 80px;
 }
 
 div[class$='__center'] {
@@ -234,8 +243,23 @@ input[type="range"]::-webkit-slider-thumb{
 
 
 
-.content > .table-view:last-child {
-	margin-bottom: 0 !important;
+.detail-cat__icon {
+	width: 25%;
+	// display: block;
+	position: absolute;
+	& span {
+		display: block;
+	}
+}
+
+
+
+
+
+.detail-cat__subject {
+	width: 75%;
+	position: absolute;
+	right: 0;
 }
 
 
@@ -248,54 +272,6 @@ input[type="range"]::-webkit-slider-thumb{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// #wrapper {
-// 	position: relative;
-// 	width: 100%;
-// 	height: 100%;
-// 	overflow: hidden;
-
-// 	/* Prevent native touch events on Windows */
-// 	-ms-touch-action: none;
-
-// 	/* Prevent the callout on tap-hold and text selection */
-// 	-webkit-touch-callout: none;
-// 	-webkit-user-select: none;
-// 	-moz-user-select: none;
-// 	-ms-user-select: none;
-// 	user-select: none;
-
-// 	/* Prevent text resize on orientation change, useful for web-apps */
-// 	-webkit-text-size-adjust: none;
-// 	-moz-text-size-adjust: none;
-// 	-ms-text-size-adjust: none;
-// 	-o-text-size-adjust: none;
-// 	text-size-adjust: none;
-// }
-
-// #scroller {
-// 	position: absolute !important;
-
-// 	/* Prevent elements to be highlighted on tap */
-// 	-webkit-tap-highlight-color: rgba(0,0,0,0);
-
-// 	/* Put the scroller into the HW Compositing layer right from the start */
-// 	-webkit-transform: translateZ(0);
-// 	-moz-transform: translateZ(0);
-// 	-ms-transform: translateZ(0);
-// 	-o-transform: translateZ(0);
-// 	transform: translateZ(0);
-// }
+.content > .table-view:last-child {
+	margin-bottom: 0 !important;
+}
