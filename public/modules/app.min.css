@@ -18198,7 +18198,7 @@ input[type="range"]::-webkit-slider-thumb {
 .detail-cat__subject h4 {
   font-size: 16px;
   line-height: 20px;
-  padding-left: 5px;
+  padding-left: 20px;
 }
 
 .content > .table-view:last-child {
