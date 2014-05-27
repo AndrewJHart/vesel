@@ -18226,3 +18226,9 @@ div[class$='__center'] {
 select[multiple], select[size] {
   height: auto;
 }
+
+.map-detail {
+  max-height: 80px;
+  width: 100%;
+  height: 80px;
+}

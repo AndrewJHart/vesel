@@ -56,7 +56,6 @@ Application.AnimView.extend({
 
         // tile layer
         this.tiles = L.tileLayer('https://{s}.tiles.mapbox.com/v3/mscnswv.hl37jh6m/{z}/{x}/{y}.png', {
-            attribution: '<a href="http://www.mscns.com" target="_blank">Powered by MSCNS</a>',
             detectRetina: true
         });
         console.log(this.tiles);
