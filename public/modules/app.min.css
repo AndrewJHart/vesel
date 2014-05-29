@@ -4331,13 +4331,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     transform: scale(1, 1);
   }
 }
-@font-face {
-  font-family: 'icomoon';
-  src: url("listview_icomoon.eot?t3ehj8");
-  src: url("listview_icomoon.eot?#iefixt3ehj8") format("embedded-opentype"), url("listview_icomoon.ttf?t3ehj8") format("truetype"), url("listview_icomoon.woff?t3ehj8") format("woff"), url("listview_icomoon.svg?t3ehj8#icomoon") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
 .mbsc-lv-fill-item, .mbsc-lv-handle-c, .mbsc-lv-ic, .mbsc-lv-ic-text, .mbsc-lv-item {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -4500,7 +4493,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   top: 0;
   text-align: center;
   text-shadow: none;
-  font-family: 'icomoon';
+  font-family: 'Ionicons';
   speak: none;
   font-size: 1em;
   font-style: normal;

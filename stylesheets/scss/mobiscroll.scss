@@ -229,9 +229,9 @@
     }
 }
 
-@font-face {
-    font-family:'icomoon';src:url('listview_icomoon.eot?t3ehj8');src:url('listview_icomoon.eot?#iefixt3ehj8') format('embedded-opentype'),url('listview_icomoon.ttf?t3ehj8') format('truetype'),url('listview_icomoon.woff?t3ehj8') format('woff'),url('listview_icomoon.svg?t3ehj8#icomoon') format('svg');font-weight:normal;font-style:normal;
-}
+// @font-face {
+//     font-family:'Ionicons';src:url('listview_Ionicons.eot?t3ehj8');src:url('listview_Ionicons.eot?#iefixt3ehj8') format('embedded-opentype'),url('listview_Ionicons.ttf?t3ehj8') format('truetype'),url('listview_Ionicons.woff?t3ehj8') format('woff'),url('listview_Ionicons.svg?t3ehj8#Ionicons') format('svg');font-weight:normal;font-style:normal;
+// }
 
 .mbsc-lv-fill-item,.mbsc-lv-handle-c,.mbsc-lv-ic,.mbsc-lv-ic-text,.mbsc-lv-item {
     -webkit-backface-visibility: hidden;
@@ -395,7 +395,7 @@
     top: 0;
     text-align: center;
     text-shadow: none;
-    font-family: 'icomoon';
+    font-family: 'Ionicons';
     speak: none;
     font-size: 1em;
     font-style: normal;
@@ -1626,7 +1626,7 @@
 //     content: "\fb43";
 // }
 
-// .mbsc-lv-ic-IcoMoon:before {
+// .mbsc-lv-ic-Ionicons:before {
 //     content: "\fb44";
 // }
 
