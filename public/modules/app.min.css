@@ -238,12 +238,12 @@ body {
 }
 
 a {
-  color: #428bca;
+  color: white;
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
 }
 a:active {
-  color: #3071a9;
+  color: #e6e6e6;
 }
 
 .content {
@@ -424,7 +424,7 @@ p {
   vertical-align: middle;
 }
 .bar-tab .tab-item.active, .bar-tab .tab-item:active {
-  color: #428bca;
+  color: white;
 }
 .bar-tab .tab-item .icon {
   top: 3px;
@@ -458,11 +458,11 @@ p {
   padding: 0;
   font-size: 16px;
   line-height: 44px;
-  color: #428bca;
+  color: white;
   border: 0;
 }
 .bar .btn-link:active, .bar .btn-link.active {
-  color: #3071a9;
+  color: #e6e6e6;
 }
 
 .bar .btn-block {
@@ -750,18 +750,18 @@ select {
 }
 
 .segmented-control-primary {
-  border-color: #428bca;
+  border-color: white;
 }
 .segmented-control-primary .control-item {
-  color: #428bca;
+  color: white;
   border-color: inherit;
 }
 .segmented-control-primary .control-item:active {
-  background-color: #cde1f1;
+  background-color: white;
 }
 .segmented-control-primary .control-item.active {
   color: #fff;
-  background-color: #428bca;
+  background-color: white;
 }
 
 .segmented-control-positive {
@@ -4114,7 +4114,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   .m-traffic,
   .m-other,
   .map-icon,
-  .gps-pointer {
+  .gps-pointer,
+  .leaflet-touch .leaflet-control-locate a {
     /* Reference the @2x Sprite */
     background-image: url("../../img/sprites@x2.png");
     /* Translate the @2x sprite's dimensions back to 1x */
@@ -18352,7 +18353,9 @@ a.overlay.mask {
 }
 
 .leaflet-touch .leaflet-control-locate a {
-  background-image: url(images/locate_touch.png);
+  background: url("../../img/sprites.png") no-repeat -15px -281px;
+  width: 19px;
+  height: 21px;
 }
 
 .leaflet-control-locate.requesting a {
@@ -18573,7 +18576,7 @@ div[class$='__center'] {
   border-right: 5px solid transparent;
   border-left: 5px solid transparent;
   color: #999;
-  content: "";
+  content: "\f2cc";
   pointer-events: none;
 }
 
@@ -18585,4 +18588,15 @@ select[multiple], select[size] {
   max-height: 80px;
   width: 100%;
   height: 80px;
+}
+
+.bar-nav ~ .content {
+  padding: 44px 0 60px 0 !important;
+}
+
+a {
+  color: #ffffff;
+}
+a:active {
+  color: #ffffff !important;
 }

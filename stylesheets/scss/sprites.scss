@@ -206,7 +206,8 @@ only screen and (min-device-pixel-ratio: 2) {
     .m-traffic,
     .m-other,
     .map-icon,
-    .gps-pointer  {
+    .gps-pointer,
+    .leaflet-touch .leaflet-control-locate a {
         /* Reference the @2x Sprite */
         background-image: url('../../img/sprites@x2.png');
         /* Translate the @2x sprite's dimensions back to 1x */

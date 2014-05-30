@@ -13,7 +13,7 @@
 // Colors
 //
 // Main theme colors
-$primary-color:  #007aff !global;
+$primary-color:  #ffffff !global;
 $chrome-color:   rgba(247,247,247,.98) !global;
 
 // Action colors
@@ -37,7 +37,7 @@ a {
   color: $primary-color;
 
   &:active {
-    color: darken($primary-color, 10%);
+    color: $primary-color;
   }
 }
 

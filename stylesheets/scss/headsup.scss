@@ -38,7 +38,6 @@ h2 {
 	font-weight: 100;
 	text-align: center;
 	text-transform: uppercase;
-	// letter-spacing: 2px;
 }
 
 
@@ -270,7 +269,7 @@ div[class$='__center'] {
     border-right: 5px solid rgba(0, 0, 0, 0);
     border-left: 5px solid rgba(0, 0, 0, 0);
     color: #999;
-    content: "";
+    content: "\f2cc";
     pointer-events: none;
   }
 }
@@ -293,10 +292,19 @@ select {
 
 
 
+.bar-nav ~ .content {
+padding: 44px 0 60px 0 !important;
+}
 
 
 
+a {
+  color: #ffffff;
 
+  &:active {
+    color: #ffffff !important;
+  }
+}
 
 
 
