@@ -12,10 +12,16 @@
         <h4>{{subject}}</h4>
     </div>
 	</div>
-  <div id="mapmain" class="map map-detail"></div>
-	<div class="content-padded">
-	  <p>{{information}}</p>
-	</div>
+  <ul class="table-view">
+    <li class="table-view-cell">
+        <div id="mapmain" class="map map-detail"></div>
+    </li>
+    <li class="table-view-cell">
+      <div class="content-padded">
+        <p>{{information}}</p>
+      </div>
+    </li>
+  </ul>
 </div>
 {{#view "detail/footer" tag="nav" className="bar bar-tab" type="detail-footer"}}
   <a class="tab-item active toggle-share">
