@@ -152,6 +152,14 @@
     height: 49px;
 }
 
+.leaflet-touch .leaflet-control-locate a {
+    // background-image: url(images/locate_touch.png);
+    background: url('../../img/sprites.png') no-repeat -15px -281px;
+    width: 19px;
+    height: 21px;
+}
+
+
 .gps-pointer {
     background: url('../../img/sprites.png') no-repeat -15px -281px;
     width: 19px;
@@ -207,7 +215,8 @@ only screen and (min-device-pixel-ratio: 2) {
     .m-other,
     .map-icon,
     .gps-pointer,
-    .leaflet-touch .leaflet-control-locate a {
+    .leaflet-touch,
+    .leaflet-control-locate a {
         /* Reference the @2x Sprite */
         background-image: url('../../img/sprites@x2.png');
         /* Translate the @2x sprite's dimensions back to 1x */
