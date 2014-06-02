@@ -40,21 +40,13 @@ Application.CollectionView.extend({
             _.delay(function() {
                 // initialize the mobiscroll listview plugin
                 collectionView.$('ul').mobiscroll().listview({
-                    theme: 'ios7',
-                    swipe: 'right',
-                    actions: {
-                        right: [{
-                            icon: 'map',
-                            action: function(li, inst) {
-                                alert('Maps', inst.settings.context);
-                            }
-                        }, {
-                            icon: 'share',
-                            action: function(li, inst) {
-                                alert('Share on Facebook or Twitter', inst.settings.context);
-                            }
-                        }, ]
-                    }
+                	theme: 'ios7',
+                	swipe: 'left',
+					stages: [ { 
+                        percent: -50, 
+						icon: 'share',
+						confirm: true
+                    }]
                 });
             }, 0);
 

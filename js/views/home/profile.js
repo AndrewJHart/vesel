@@ -7,57 +7,8 @@ Application.AnimView.extend({
     animateIn: 'bounceInUp',
     animateOut: 'slideOutDown',
 
-    // declaritve events hash
-    events: {
-        'click button[data-button-type="submit"]': function(event) {
-            event.preventDefault();
-            var attrs = this.serialize();
-
-            console.log('submit form triggered!');
-            console.log(attrs);
-
-            this.model.save({}, { 
-                wait: true, 
-                silent: true 
-            });
-        },
-        'change input[type="checkbox"]': function(event) {
-            event.preventDefault();
-            
-            var metadataPosition = this.$(event.target).data("meta-position"),
-                property = null,
-                attrs = this.serialize();
-
-
-            console.log("toggle was changed. Target:");
-            console.log(event.target);
-
-            property = "metadata." + metadataPosition + ".is_enabled";
-
-            // try to get the model
-            // this.model.set(
-            //     property, event.target.checked, {
-            //         silent: true
-            //     });
-
-            // since we have reactive/2-way data binding to template
-            // we should be able to take any changes and simply set them on 
-            // on this view's view-model 
-            // this.model.set(attrs, {
-            //     silent: true
-            // });
-
-            this.model.save({}, {
-                wait: true,
-                silent: true
-            });
-        }
-    },
-
     initialize: function() {
         console.log(this.getViewName() + "#initialize()");
-
-        this.model.fetch();
 
         return this;
     }

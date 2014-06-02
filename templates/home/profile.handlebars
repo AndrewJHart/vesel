@@ -10,71 +10,12 @@
   </div>
 </div>
 
-<div class="content">
-  <form class="input-group">
-    <div class="table-view-cell table-view-divider">Account</div>
-    {{!-- All input elements are bound to the view's model via the `name` attribute --}}
-    {{!-- This gives us 2 way data-binding or "reactivity" with our view-model --}}
-    <div class="input-row">
-      <label>Device ID</label>
-      <input type="text" value="{{device.registration_id}}" name="device.registration_id" readonly>
-    </div>
+<article class="content">
+	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed aliquam tortor. Morbi in erat condimentum, hendrerit turpis quis, consequat purus. Phasellus rutrum rutrum orci, sit amet cursus ligula condimentum a. Pellentesque sit amet dolor posuere, aliquam tortor nec, fringilla mi. Vivamus in viverra felis, quis lacinia velit. Pellentesque vehicula vitae orci non cursus. Proin et tristique dui. Duis ut lacinia quam, eget tincidunt ligula. Quisque sit amet sagittis lacus. Nam posuere odio non magna bibendum, vitae elementum lacus volutpat. Aenean id magna mauris. Ut in vulputate risus. Aliquam accumsan varius nibh, ac dignissim nibh tempus ut. Proin eget placerat urna, id feugiat augue.</p>
 
-    <div class="input-row">
-      <label>Username</label>
-      <input type="text" value="{{device.user.username}}" name="device.user.username">
-    </div>
+	<p>Praesent pulvinar vehicula purus, in tempus mi condimentum mollis. Mauris laoreet lectus est, posuere dapibus quam aliquam vel. Ut in pharetra urna. Mauris consectetur nunc lectus. Fusce tempus facilisis dui id pharetra. Praesent sollicitudin libero ornare, gravida diam id, cursus urna. Vestibulum sagittis aliquet aliquet. Nullam gravida lacus mattis, placerat dui in, vehicula odio. Aliquam iaculis egestas augue, non rutrum ligula ornare ut. Sed in felis vel risus dignissim blandit ac ac mauris. Phasellus nec fringilla mi. Aliquam lacinia fermentum nisl id venenatis. Sed feugiat porta nisl quis bibendum. Phasellus posuere condimentum lacus a bibendum. Praesent id turpis sem. Curabitur laoreet, nibh nec lacinia malesuada, augue magna eleifend lacus, eu ultricies nunc felis vel massa.</p>
 
-    <div class="input-row">
-      <label>ApiKey</label>
-      <input type="text" value="{{device.user.api_key.key}}" name="device.user.api_key.key" readonly>
-    </div>
+	<p>Suspendisse ut velit sed massa varius venenatis ac ac felis. Nunc mattis sem sit amet aliquet consequat. Ut gravida ante tellus, a venenatis purus tristique at. Nunc viverra, nisi sit amet dictum condimentum, nibh ante interdum urna, eu ultrices tellus odio sed magna. Curabitur ut aliquet lorem, in facilisis nunc. Pellentesque ac congue lacus. Quisque quis dignissim ante. Vestibulum consequat augue nec risus luctus, et tincidunt mi consequat. Vestibulum tempor dolor id nunc rhoncus lacinia. Curabitur erat ipsum, ultrices nec faucibus ac, tempus congue nisl. Etiam sollicitudin ut enim at gravida.</p>
 
-    <div class="input-row">
-      <label>Global Priority</label>
-      <input type="text" name="global_priority">
-    </div>
-
-    <div class="input-row">
-      <label>Email</label>
-      <input type="email" placeholder="yourEmailAddy@gmail.com">
-    </div>
-
-    <div class="table-view-cell table-view-divider">Categories</div>
-    <div class="table-view-cell">
-      Police
-      {{!-- use the category model's `is_enabled` prop to set the state active or not --}}
-      <div class="toggle {{#metadata.0.is_enabled}}active{{/metadata.0.is_enabled}}">
-         <input type="checkbox" class="toggle-handle" name="metadata.0.is_enabled" data-meta-position="0" {{#metadata.0.is_enabled}}checked{{/metadata.0.is_enabled}}>
-      </div>
-    </div>
-
-    <div class="table-view-cell">
-      Fire
-      {{!-- use the category model's `is_enabled` prop to set the state active or not --}}
-      <div class="toggle {{#metadata.1.is_enabled}}active{{/metadata.1.is_enabled}}">
-         <input type="checkbox" class="toggle-handle" name="metadata.1.is_enabled" data-meta-position="1" {{#metadata.1.is_enabled}}checked{{/metadata.1.is_enabled}}>
-      </div>
-    </div>
-
-    <div class="table-view-cell">
-      School
-      {{!-- use the category model's `is_enabled` prop to set the state active or not --}}
-      <div class="toggle {{#metadata.2.is_enabled}}active{{/metadata.2.is_enabled}}">
-         <input type="checkbox" class="toggle-handle" name="metadata.2.is_enabled" data-meta-position="2" {{#metadata.2.is_enabled}}checked{{/metadata.2.is_enabled}}>
-      </div>
-    </div>
-
-    <div class="table-view-cell">
-      Traffic
-      {{!-- use the category model's `is_enabled` prop to set the state active or not --}}
-      <div class="toggle {{#metadata.3.is_enabled}}active{{/metadata.3.is_enabled}}">
-         <input type="checkbox" class="toggle-handle" name="metadata.3.is_enabled" data-meta-position="3" {{#metadata.3.is_enabled}}checked{{/metadata.3.is_enabled}}>
-      </div>
-    </div>
-
-    <textarea name="metadata.0.extra" placeholder="{{metadata.0.extra}}" rows="5"></textarea>
-
-    <button data-button-type="submit" class="btn btn-positive btn-block">Save Profile</button>
-  </form>
-</div>
+	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean pretium mollis eleifend. Sed ultrices interdum ligula, non fringilla elit. Aliquam erat volutpat. Aenean tincidunt odio eget velit congue, at lacinia urna dignissim. Fusce tristique erat eget tortor gravida, id suscipit arcu aliquet. Donec ligula libero, vehicula ac nunc a, vulputate euismod neque.</p>
+</article>

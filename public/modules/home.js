@@ -194,7 +194,7 @@ Application.View.extend({
 // Instances of this view can be created by calling:
 // new Application.Views["home/footer"]()
 ;;
-Handlebars.templates['home/settings'] = Handlebars.compile('{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\"}}\n  <h1 class=\"title\">Settings</h1>\n{{/view}}\n\n<div class=\"content s-content\">\n  <ul class=\"table-view\">\n  <li class=\"table-view-cell table-view-divider\">Adjust your alert priorities here: </li>\n    <li class=\"table-view-cell\">\n      <select name=\"\" id=\"\" class=\"item-select\">\n        <option value=\"#\">Level 1: </option>\n        <option value=\"#\">Level 2: </option>\n        <option value=\"#\">Level 3: </option>\n        <option value=\"#\">Level 4: </option>\n        <option value=\"#\">Level 5: </option>\n      </select>\n    </li>\n    <li class=\"table-view-cell table-view-divider\">Categories</li>\n    <li class=\"table-view-cell\">\n      <div class=\"set-police\"><span class=\"set-title\">Police</span></div>\n      <div class=\"toggle {{#metadata.0.is_enabled}}active{{/metadata.0.is_enabled}}\">\n       <input type=\"checkbox\" class=\"toggle-handle\" data-meta-position=\"0\" {{#metadata.0.is_enabled}}checked{{/metadata.0.is_enabled}}>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      <div class=\"set-fire\"><span class=\"set-title\">Fire</span></div>\n      <div class=\"toggle {{#metadata.1.is_enabled}}active{{/metadata.1.is_enabled}}\">\n        <input type=\"checkbox\" class=\"toggle-handle\" data-meta-position=\"1\" {{#metadata.1.is_enabled}}checked{{/metadata.1.is_enabled}}>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      <div class=\"set-traffic\"><span class=\"set-title\">Traffic</span></div>\n      <div class=\"toggle {{#metadata.2.is_enabled}}active{{/metadata.2.is_enabled}}\">\n        <input type=\"checkbox\" class=\"toggle-handle\" data-meta-position=\"2\" {{#metadata.2.is_enabled}}checked{{/metadata.2.is_enabled}}>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      <div class=\"set-school\"><span class=\"set-title\">School</span></div>\n      <div class=\"toggle {{#metadata.3.is_enabled}}active{{/metadata.3.is_enabled}}\">\n        <input type=\"checkbox\" class=\"toggle-handle\" data-meta-position=\"3\" {{#metadata.3.is_enabled}}checked{{/metadata.3.is_enabled}}>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      <div class=\"set-utilities\"><span class=\"set-title\">Utilities</span></div>\n      <div class=\"toggle {{#metadata.3.is_enabled}}active{{/metadata.3.is_enabled}}\">\n        <input type=\"checkbox\" class=\"toggle-handle\" data-meta-position=\"3\" {{#metadata.3.is_enabled}}checked{{/metadata.3.is_enabled}}>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      <div class=\"set-health\"><span class=\"set-title\">Health</span></div>\n      <div class=\"toggle {{#metadata.3.is_enabled}}active{{/metadata.3.is_enabled}}\">\n        <input type=\"checkbox\" class=\"toggle-handle\" data-meta-position=\"3\" {{#metadata.3.is_enabled}}checked{{/metadata.3.is_enabled}}>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      <div class=\"set-other\"><span class=\"set-title\">Other/Misc</span></div>\n      <div class=\"toggle {{#metadata.3.is_enabled}}active{{/metadata.3.is_enabled}}\">\n        <input type=\"checkbox\" class=\"toggle-handle\" data-meta-position=\"3\" {{#metadata.3.is_enabled}}checked{{/metadata.3.is_enabled}}>\n      </div>\n    </li>\n  </ul>\n</div>\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\" type=\"home-footer\"}}\n  <a class=\"tab-item active\" href=\"#\">\n    <span class=\"icon icon-info icon-settings__large\"></span>\n    <span class=\"tab-label\">Help</span>\n  </a>\n  {{#link \"profile\" trigger=\"close:settings\" data-toggle=\"aside\" class=\"tab-item\"}}\n    <span class=\"icon hpd icon-settings__large\"></span>\n    <span class=\"tab-label\">Community Force</span>\n  {{/link}}\n{{/view}}');Application.AnimView.extend({
+Handlebars.templates['home/settings'] = Handlebars.compile('{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\"}}\n  <h1 class=\"title\">Settings</h1>\n{{/view}}\n\n<div class=\"content s-content\">\n  <ul class=\"table-view\">\n  <li class=\"table-view-cell table-view-divider\">Adjust your alert priorities here: </li>\n    <li class=\"table-view-cell\">\n      <select name=\"\" id=\"\" class=\"item-select\">\n        <option value=\"#\">Level 1: </option>\n        <option value=\"#\">Level 2: </option>\n        <option value=\"#\">Level 3: </option>\n        <option value=\"#\">Level 4: </option>\n        <option value=\"#\">Level 5: </option>\n      </select>\n    </li>\n    <li class=\"table-view-cell table-view-divider\">Categories</li>\n    <li class=\"table-view-cell\">\n      <div class=\"set-police\"><span class=\"set-title\">Police</span></div>\n      <div class=\"toggle {{#metadata.0.is_enabled}}active{{/metadata.0.is_enabled}}\">\n       <input type=\"checkbox\" class=\"toggle-handle\" data-meta-position=\"0\" {{#metadata.0.is_enabled}}checked{{/metadata.0.is_enabled}}>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      <div class=\"set-fire\"><span class=\"set-title\">Fire</span></div>\n      <div class=\"toggle {{#metadata.1.is_enabled}}active{{/metadata.1.is_enabled}}\">\n        <input type=\"checkbox\" class=\"toggle-handle\" data-meta-position=\"1\" {{#metadata.1.is_enabled}}checked{{/metadata.1.is_enabled}}>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      <div class=\"set-traffic\"><span class=\"set-title\">Traffic</span></div>\n      <div class=\"toggle {{#metadata.2.is_enabled}}active{{/metadata.2.is_enabled}}\">\n        <input type=\"checkbox\" class=\"toggle-handle\" data-meta-position=\"2\" {{#metadata.2.is_enabled}}checked{{/metadata.2.is_enabled}}>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      <div class=\"set-school\"><span class=\"set-title\">School</span></div>\n      <div class=\"toggle {{#metadata.3.is_enabled}}active{{/metadata.3.is_enabled}}\">\n        <input type=\"checkbox\" class=\"toggle-handle\" data-meta-position=\"3\" {{#metadata.3.is_enabled}}checked{{/metadata.3.is_enabled}}>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      <div class=\"set-utilities\"><span class=\"set-title\">Utilities</span></div>\n      <div class=\"toggle {{#metadata.3.is_enabled}}active{{/metadata.3.is_enabled}}\">\n        <input type=\"checkbox\" class=\"toggle-handle\" data-meta-position=\"3\" {{#metadata.3.is_enabled}}checked{{/metadata.3.is_enabled}}>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      <div class=\"set-health\"><span class=\"set-title\">Health</span></div>\n      <div class=\"toggle {{#metadata.3.is_enabled}}active{{/metadata.3.is_enabled}}\">\n        <input type=\"checkbox\" class=\"toggle-handle\" data-meta-position=\"3\" {{#metadata.3.is_enabled}}checked{{/metadata.3.is_enabled}}>\n      </div>\n    </li>\n    <li class=\"table-view-cell\">\n      <div class=\"set-other\"><span class=\"set-title\">Other/Misc</span></div>\n      <div class=\"toggle {{#metadata.3.is_enabled}}active{{/metadata.3.is_enabled}}\">\n        <input type=\"checkbox\" class=\"toggle-handle\" data-meta-position=\"3\" {{#metadata.3.is_enabled}}checked{{/metadata.3.is_enabled}}>\n      </div>\n    </li>\n  </ul>\n</div>\n{{#view \"home/footer\" tag=\"nav\" className=\"bar bar-tab\" type=\"home-footer\"}}\n  <a class=\"tab-item active\" href=\"#\">\n    <span class=\"mbsc-ic mbsc-ic-question\"></span>\n    <span class=\"tab-label\">Help</span>\n  </a>\n  {{#link \"profile\" trigger=\"close:settings\" data-toggle=\"aside\" class=\"tab-item\"}}\n    <span class=\"icon hpd icon-settings__large\"></span>\n    <span class=\"tab-label\">Community Force</span>\n  {{/link}}\n{{/view}}');Application.AnimView.extend({
     name: "home/settings",
 
     // add animations
@@ -531,21 +531,13 @@ Handlebars.templates['home/list-empty'] = Handlebars.compile('<h1>Home Page home
             _.delay(function() {
                 // initialize the mobiscroll listview plugin
                 collectionView.$('ul').mobiscroll().listview({
-                    theme: 'ios7',
-                    swipe: 'right',
-                    actions: {
-                        right: [{
-                            icon: 'map',
-                            action: function(li, inst) {
-                                alert('Maps', inst.settings.context);
-                            }
-                        }, {
-                            icon: 'share',
-                            action: function(li, inst) {
-                                alert('Share on Facebook or Twitter', inst.settings.context);
-                            }
-                        }, ]
-                    }
+                	theme: 'ios7',
+                	swipe: 'left',
+					stages: [ { 
+                        percent: -50, 
+						icon: 'share',
+						confirm: true
+                    }]
                 });
             }, 0);
 
@@ -817,7 +809,7 @@ Application.Model["settings"] = Backbone.DeepModel.extend({
 // Instances of this model can be created by calling:
 // new Application.Models["home/setting"]()
 ;;
-Handlebars.templates['home/profile'] = Handlebars.compile('{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\"}}\n  {{#link \"\" expand-tokens=true class=\"icon icon-left-nav pull-left\"}}{{/link}}\n  <h1 class=\"title\">User Profile</h1>\n{{/view}}\n\n<div class=\"bar bar-standard bar-header-secondary\">\n  <div class=\"segmented-control\">\n    {{#link \"\" expand-tokens=true class=\"control-item\"}}List View{{/link}}\n    {{#link \"map\" expand-tokens=true class=\"control-item\"}}Map View{{/link}}\n  </div>\n</div>\n\n<div class=\"content\">\n  <form class=\"input-group\">\n    <div class=\"table-view-cell table-view-divider\">Account</div>\n    {{!-- All input elements are bound to the view\'s model via the `name` attribute --}}\n    {{!-- This gives us 2 way data-binding or \"reactivity\" with our view-model --}}\n    <div class=\"input-row\">\n      <label>Device ID</label>\n      <input type=\"text\" value=\"{{device.registration_id}}\" name=\"device.registration_id\" readonly>\n    </div>\n\n    <div class=\"input-row\">\n      <label>Username</label>\n      <input type=\"text\" value=\"{{device.user.username}}\" name=\"device.user.username\">\n    </div>\n\n    <div class=\"input-row\">\n      <label>ApiKey</label>\n      <input type=\"text\" value=\"{{device.user.api_key.key}}\" name=\"device.user.api_key.key\" readonly>\n    </div>\n\n    <div class=\"input-row\">\n      <label>Global Priority</label>\n      <input type=\"text\" name=\"global_priority\">\n    </div>\n\n    <div class=\"input-row\">\n      <label>Email</label>\n      <input type=\"email\" placeholder=\"yourEmailAddy@gmail.com\">\n    </div>\n\n    <div class=\"table-view-cell table-view-divider\">Categories</div>\n    <div class=\"table-view-cell\">\n      Police\n      {{!-- use the category model\'s `is_enabled` prop to set the state active or not --}}\n      <div class=\"toggle {{#metadata.0.is_enabled}}active{{/metadata.0.is_enabled}}\">\n         <input type=\"checkbox\" class=\"toggle-handle\" name=\"metadata.0.is_enabled\" data-meta-position=\"0\" {{#metadata.0.is_enabled}}checked{{/metadata.0.is_enabled}}>\n      </div>\n    </div>\n\n    <div class=\"table-view-cell\">\n      Fire\n      {{!-- use the category model\'s `is_enabled` prop to set the state active or not --}}\n      <div class=\"toggle {{#metadata.1.is_enabled}}active{{/metadata.1.is_enabled}}\">\n         <input type=\"checkbox\" class=\"toggle-handle\" name=\"metadata.1.is_enabled\" data-meta-position=\"1\" {{#metadata.1.is_enabled}}checked{{/metadata.1.is_enabled}}>\n      </div>\n    </div>\n\n    <div class=\"table-view-cell\">\n      School\n      {{!-- use the category model\'s `is_enabled` prop to set the state active or not --}}\n      <div class=\"toggle {{#metadata.2.is_enabled}}active{{/metadata.2.is_enabled}}\">\n         <input type=\"checkbox\" class=\"toggle-handle\" name=\"metadata.2.is_enabled\" data-meta-position=\"2\" {{#metadata.2.is_enabled}}checked{{/metadata.2.is_enabled}}>\n      </div>\n    </div>\n\n    <div class=\"table-view-cell\">\n      Traffic\n      {{!-- use the category model\'s `is_enabled` prop to set the state active or not --}}\n      <div class=\"toggle {{#metadata.3.is_enabled}}active{{/metadata.3.is_enabled}}\">\n         <input type=\"checkbox\" class=\"toggle-handle\" name=\"metadata.3.is_enabled\" data-meta-position=\"3\" {{#metadata.3.is_enabled}}checked{{/metadata.3.is_enabled}}>\n      </div>\n    </div>\n\n    <textarea name=\"metadata.0.extra\" placeholder=\"{{metadata.0.extra}}\" rows=\"5\"></textarea>\n\n    <button data-button-type=\"submit\" class=\"btn btn-positive btn-block\">Save Profile</button>\n  </form>\n</div>');Application.AnimView.extend({
+Handlebars.templates['home/profile'] = Handlebars.compile('{{#view \"home/header\" tag=\"header\" className=\"bar bar-nav\"}}\n  {{#link \"\" expand-tokens=true class=\"icon icon-left-nav pull-left\"}}{{/link}}\n  <h1 class=\"title\">User Profile</h1>\n{{/view}}\n\n<div class=\"bar bar-standard bar-header-secondary\">\n  <div class=\"segmented-control\">\n    {{#link \"\" expand-tokens=true class=\"control-item\"}}List View{{/link}}\n    {{#link \"map\" expand-tokens=true class=\"control-item\"}}Map View{{/link}}\n  </div>\n</div>\n\n<article class=\"content\">\n\t<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed aliquam tortor. Morbi in erat condimentum, hendrerit turpis quis, consequat purus. Phasellus rutrum rutrum orci, sit amet cursus ligula condimentum a. Pellentesque sit amet dolor posuere, aliquam tortor nec, fringilla mi. Vivamus in viverra felis, quis lacinia velit. Pellentesque vehicula vitae orci non cursus. Proin et tristique dui. Duis ut lacinia quam, eget tincidunt ligula. Quisque sit amet sagittis lacus. Nam posuere odio non magna bibendum, vitae elementum lacus volutpat. Aenean id magna mauris. Ut in vulputate risus. Aliquam accumsan varius nibh, ac dignissim nibh tempus ut. Proin eget placerat urna, id feugiat augue.</p>\n\n\t<p>Praesent pulvinar vehicula purus, in tempus mi condimentum mollis. Mauris laoreet lectus est, posuere dapibus quam aliquam vel. Ut in pharetra urna. Mauris consectetur nunc lectus. Fusce tempus facilisis dui id pharetra. Praesent sollicitudin libero ornare, gravida diam id, cursus urna. Vestibulum sagittis aliquet aliquet. Nullam gravida lacus mattis, placerat dui in, vehicula odio. Aliquam iaculis egestas augue, non rutrum ligula ornare ut. Sed in felis vel risus dignissim blandit ac ac mauris. Phasellus nec fringilla mi. Aliquam lacinia fermentum nisl id venenatis. Sed feugiat porta nisl quis bibendum. Phasellus posuere condimentum lacus a bibendum. Praesent id turpis sem. Curabitur laoreet, nibh nec lacinia malesuada, augue magna eleifend lacus, eu ultricies nunc felis vel massa.</p>\n\n\t<p>Suspendisse ut velit sed massa varius venenatis ac ac felis. Nunc mattis sem sit amet aliquet consequat. Ut gravida ante tellus, a venenatis purus tristique at. Nunc viverra, nisi sit amet dictum condimentum, nibh ante interdum urna, eu ultrices tellus odio sed magna. Curabitur ut aliquet lorem, in facilisis nunc. Pellentesque ac congue lacus. Quisque quis dignissim ante. Vestibulum consequat augue nec risus luctus, et tincidunt mi consequat. Vestibulum tempor dolor id nunc rhoncus lacinia. Curabitur erat ipsum, ultrices nec faucibus ac, tempus congue nisl. Etiam sollicitudin ut enim at gravida.</p>\n\n\t<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean pretium mollis eleifend. Sed ultrices interdum ligula, non fringilla elit. Aliquam erat volutpat. Aenean tincidunt odio eget velit congue, at lacinia urna dignissim. Fusce tristique erat eget tortor gravida, id suscipit arcu aliquet. Donec ligula libero, vehicula ac nunc a, vulputate euismod neque.</p>\n</article>');Application.AnimView.extend({
     name: "home/profile",
 
     className: "profile",
@@ -826,57 +818,8 @@ Handlebars.templates['home/profile'] = Handlebars.compile('{{#view \"home/header
     animateIn: 'bounceInUp',
     animateOut: 'slideOutDown',
 
-    // declaritve events hash
-    events: {
-        'click button[data-button-type="submit"]': function(event) {
-            event.preventDefault();
-            var attrs = this.serialize();
-
-            console.log('submit form triggered!');
-            console.log(attrs);
-
-            this.model.save({}, { 
-                wait: true, 
-                silent: true 
-            });
-        },
-        'change input[type="checkbox"]': function(event) {
-            event.preventDefault();
-            
-            var metadataPosition = this.$(event.target).data("meta-position"),
-                property = null,
-                attrs = this.serialize();
-
-
-            console.log("toggle was changed. Target:");
-            console.log(event.target);
-
-            property = "metadata." + metadataPosition + ".is_enabled";
-
-            // try to get the model
-            // this.model.set(
-            //     property, event.target.checked, {
-            //         silent: true
-            //     });
-
-            // since we have reactive/2-way data binding to template
-            // we should be able to take any changes and simply set them on 
-            // on this view's view-model 
-            // this.model.set(attrs, {
-            //     silent: true
-            // });
-
-            this.model.save({}, {
-                wait: true,
-                silent: true
-            });
-        }
-    },
-
     initialize: function() {
         console.log(this.getViewName() + "#initialize()");
-
-        this.model.fetch();
 
         return this;
     }
