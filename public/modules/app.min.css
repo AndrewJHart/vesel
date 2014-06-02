@@ -18350,9 +18350,9 @@ a.overlay.mask {
 }
 
 .leaflet-control-locate a {
-  background: url("../../img/sprites.png") no-repeat -15px -281px;
   width: 19px;
   height: 21px;
+  content: "\f1a6";
 }
 
 .leaflet-retina .leaflet-control-locate a {
