@@ -9,9 +9,7 @@
     "handlebars": "1.0.0",
     "backbone": "1.0.0",
     "lumbar-loader": "walmartlabs/lumbar-loader#~1.1.2",
-    "bootstrap": "components/bootstrap#~2.3.2"
-  },
-  "devDependencies": {
+    "bootstrap": "components/bootstrap#~2.3.2",
     "moment": "~2.6.0"
   }
 }

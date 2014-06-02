@@ -332,6 +332,17 @@ Application.Collection.extend({
 
     url: "https://headsuphuntington.herokuapp.com/api/app/v1/alerts/",
     urlRoot: 'https://headsuphuntington.herokuapp.com/api/app/v1/alerts/',
+    _cached: null,
+
+    events: {
+        // listen for *add* events and add them to cached collection too
+        'add': function(model) {
+            this.cached.add(model, {
+                merge: true,
+                silent: true
+            });
+        }
+    },
 
     initialize: function() {
         console.log("Alerts Collection#initialize");
@@ -360,7 +371,49 @@ Application.Collection.extend({
 
     comparator: function(model) {
         console.log('comparator triggered');
-        return -model.get('id');
+
+        // format the date while we're sorting (hack - logic should be moved to better function)
+        var date = moment(model.get('modified_at')).format("llll");
+
+        // set the date on the model since we never PUT/POST back on this resource
+        model.set('modified_at', date, {
+            silent: true
+        });
+
+        return -model.get('modified_at');
+
+
+    },
+
+    filterBy: function(key, value) {
+        var filteredCollection;
+
+        if (!this.cached)
+            this.cached = $.extend(true, {}, this);
+
+        if (key === "category") {
+            if (value !== "all") {
+                filteredCollection = this.getCategory(value);
+            } else {
+                filteredCollection = this.cached.models;
+            }
+        }
+
+        // reset the collection to show filtered models
+        this.reset(filteredCollection);
+
+        return this;
+    },
+
+    getCategory: function(name) {
+        // reset the state of the collection back to its original with all models
+        this.reset(this.cached.models);
+
+        // iterate and return models that contain the matching category name
+        return _.filter(this.models, function(model) {
+            var category = model.get('category').name.toLowerCase();
+            return category == name.toLowerCase();
+        });
     }
 });
 
@@ -436,7 +489,7 @@ Handlebars.templates['home/home'] = Handlebars.compile('{{!-- Home View -- repre
 // Instances of this view can be created by calling:
 // new Application.Views["home/home"]()
 ;;
-Handlebars.templates['home/list-empty'] = Handlebars.compile('<h1>Home Page home/home\'s subview home/list has an empty collection..</h1>');Handlebars.templates['home/list-item'] = Handlebars.compile('<li id=\"{{id}}\" class=\"\">\n  \t{{#link \"detail/{{id}}\" expand-tokens=true class=\"navigate-right media-object-cat__bg\"}}\n\t  \t<div class=\"{{category.name}}__bg {{category.name}}-l__bg\">\n\t\t    <div class=\"media-object__container\">\n\t\t\t    <div class=\"{{category.name}} {{category.name}}__center\"></div>\n\t\t\t\t<h2>{{category.name}}</h2>\n\t\t    </div>\n\t  \t</div>\n\n\t    <div class=\"media-body\">\n\t    \t<div class=\"media-body__wrap\">\n\t    \t\t<p>{{subject}}</p>\n\t    \t</div>\n\t    </div>\n      \t<div class=\"media-object__postdate\">\n      \t\t{{created_at}}\n      \t</div>\n  \t{{/link}}\n</li>\n');Handlebars.templates['home/list'] = Handlebars.compile('{{collection tag=\"ul\" class=\"table-view\"}}');Application.CollectionView.extend({
+Handlebars.templates['home/list-empty'] = Handlebars.compile('<h1>Home Page home/home\'s subview home/list has an empty collection..</h1>');Handlebars.templates['home/list-item'] = Handlebars.compile('<li id=\"{{id}}\" class=\"\">\n  \t{{#link \"detail/{{id}}\" expand-tokens=true class=\"navigate-right media-object-cat__bg\"}}\n\t  \t<div class=\"{{category.name}}__bg {{category.name}}-l__bg\">\n\t\t    <div class=\"media-object__container\">\n\t\t\t    <div class=\"{{category.name}} {{category.name}}__center\"></div>\n\t\t\t\t<h2>{{category.name}}</h2>\n\t\t    </div>\n\t  \t</div>\n\n\t    <div class=\"media-body\">\n\t    \t<div class=\"media-body__wrap\">\n\t    \t\t<p>{{subject}}</p>\n\t    \t</div>\n\t    </div>\n      \t<div class=\"media-object__postdate\">\n      \t\t{{modified_at}}\n      \t</div>\n  \t{{/link}}\n</li>\n');Handlebars.templates['home/list'] = Handlebars.compile('{{collection tag=\"ul\" class=\"table-view\"}}');Application.CollectionView.extend({
     name: "home/list",
 
     // this view holds ref to our 'Alerts' collection from server
