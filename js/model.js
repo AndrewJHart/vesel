@@ -1,3 +1,5 @@
-Application.Model = Thorax.Model.extend({
+define(['thorax'], function (Thorax) {
+  return Thorax.Model.extend({
 
+  });
 });

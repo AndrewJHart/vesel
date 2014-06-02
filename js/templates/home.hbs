@@ -1,0 +1,18 @@
+{{!-- Home View -- represents all the views that are needed to --}}
+{{!-- form the home "page" or "pane" (which has transitions) --}}
+
+<a class="overlay"></a>
+
+{{#view "header" tag="header" className="bar bar-nav"}}
+	<a class="icon icon-bars pull-left" data-toggle="aside"></a>
+    <h1 class="title">Vesel Framework</h1>
+{{/view}}
+
+<div class="bar bar-standard bar-header-secondary" data-multilevel="2">
+	<div class="segmented-control">
+		{{#link "" expand-tokens=true class="control-item active"}}List View{{/link}}
+		{{#link "map" expand-tokens=true class="control-item"}}Map View{{/link}}
+  	</div>
+</div>
+	
+{{view collectionView}}

@@ -18,6 +18,18 @@ Application.AnimView.extend({
             headerView.toggleSettings(event);
 
             return false;
+        },
+
+        'touchend .slide': function(event) {
+            var category = $(event.target).data("filter");
+
+
+            console.log("slide triggered for filter " + category);
+
+            if (category)
+                console.log(Application.Collection['alerts'].filterBy('category', category));
+
+            event.preventDefault();
         }
     },
 

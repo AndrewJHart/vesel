@@ -1,11 +1,5 @@
-Application.View = Thorax.View.extend({
+define(['thorax'], function (Thorax) {
+  return Thorax.View.extend({
 
-});
-
-Application.CollectionView = Thorax.CollectionView.extend({
-
-});
-
-Application.AnimView = window.AnimView.extend({
-
+  });
 });

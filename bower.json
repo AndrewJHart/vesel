@@ -1,14 +1,28 @@
 {
-    "name": "vesel",
-    "version": "0.0.1",
-    "dependencies": {
-        "thorax": "2.1.0",
-        "jquery": "1.9.0",
-        "underscore": "1.4.4",
-        "zepto": "1.0.0",
-        "handlebars": "1.0.0",
-        "backbone": "1.0.0",
-        "lumbar-loader": "walmartlabs/lumbar-loader#~1.1.2",
-        "bootstrap": "components/bootstrap#~2.3.2"
-    }
+  "name": "headsup",
+  "version": "0.0.0",
+  "dependencies": {
+    "requirejs": "~2.1",
+    "thorax": "2.1.0",
+    "underscore": "1.4.4",
+    "handlebars": "1.0.0",
+    "backbone": "1.0.0",
+    "almond": "~0.2.6",
+    "fixtures": "~1.3.1",
+    "mocha": "1.x",
+    "chai": "1.x",
+    "sinon": "http://sinonjs.org/releases/sinon-1.7.3.js",
+    "sinon-chai": "2.x",
+    "text": "requirejs/text#~2.0.10",
+    "requirejs-hbs": "trombom/requirejs-hbs#v0.1",
+    "require-cs": "~0.4.4",
+    "jquery": "1.9.0",
+    "momentjs": "~2.6.0",
+    "pusher": "https://github.com/pusher/pusher-js.git#2.2.0",
+    "backbone-deep-model": "https://github.com/powmedia/backbone-deep-model.git#0.10.4",
+    "backbone-websocket": "git@github.com:AndrewJHart/backbone-websocket.git",
+    "fastclick": "https://github.com/ftlabs/fastclick.git#1.0.1",
+    "mapbox": "https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js",
+    "L.Control.Locate": "https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.24.0/L.Control.Locate.js"
+  }
 }

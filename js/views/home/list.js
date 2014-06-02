@@ -37,6 +37,9 @@ Application.CollectionView.extend({
                 collectionView.$('ul').mobiscroll().listview({
                     theme: 'ios7',
                     swipe: 'right',
+                    // stages: [ { 
+                    //     percent: -20, color: 'red', icon: 'remove', action: function (li, inst) { inst.remove(li); return false; } 
+                    // } ]
                     actions: {
                         right: [{
                             icon: 'link',

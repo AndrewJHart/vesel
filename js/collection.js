@@ -1,3 +1,5 @@
-Application.Collection = Thorax.Collection.extend({
+define(['thorax'], function (Thorax) {
+  return Thorax.Collection.extend({
 
+  });
 });

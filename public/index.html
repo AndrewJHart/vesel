@@ -2,36 +2,52 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Vesel Framework</title>
-    <!-- Sets initial viewport load and disables zooming  -->
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <title>Headsup</title>
 
     <!-- bookmarkable meta tags that make app fullscreen web app -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <link rel="stylesheet" type="text/css" href="/modules/ratchet.css">
-    <link rel="stylesheet" type="text/css" href="/modules/ratchet-theme-ios.css">
-    <link rel="stylesheet" type="text/css" href="/modules/animate.css">
-    <link rel="stylesheet" type="text/css" href="/modules/vesel-ios-theme.css">
-    <link rel="stylesheet" type="text/css" href="/modules/mobiscroll.min.css">
-    <link rel="stylesheet" type="text/css" href="/modules/effeckt.css">
-    <link rel="stylesheet" type="text/css" href="https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css">
-    <link rel='stylesheet' type="text/css" href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.24.0/L.Control.Locate.css'>
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" href="css/ratchet.css">
+    <link rel="stylesheet" href="css/ratchet-theme-ios.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/effeckt.css">
+    <link rel="stylesheet" href="css/vesel-ios-theme.css">
+    <link rel="stylesheet" href="css/ios-animations.css">
+    <link rel="stylesheet" href="css/mobiscroll.min.css">
+    <link rel="stylesheet" href="css/home.css">
+    <script type="text/javascript" src="cordova.js"></script>
   </head>
   <body>
+
+    <!--
+        JavaScript files you'd normally include here should instead be loaded by
+        requirejs,   do not add `<script src="some-file.js"></script>` tags to
+        this file lest   you want to lose hours of your life debugging(this is
+        especially  important when deploying)
+
+         Instead, this project uses requirejs:
+         - During development, your-app/require-config.js is used in conjunction with
+           your-app/js/main.js to bootstrap your application and the module
+           dependency chain.
+         - During testing, your-app/test/main.js and your-app/test/main.karma.js are
+           also used to configure requirejs with your test files before booting
+           your application in your-app/js/main.js
+         - To deploy your application run `grunt production` from your terminal.
+           This task will read the same your-app/require-config.js and your-app/js/main.js
+           configuration files used during development and furthermore pre-process
+           coffeescript files you've required using the cs!./someModule syntax
+    -->
+
     <script>
-      // Set the prefix that lumbar-loader will look for the
-      // generated files in
-      var lumbarLoadPrefix = '/modules/';
+      var require = {
+        baseUrl: '../js'
+      }
     </script>
-    <script type="text/javascript" src="/modules/base.js"></script>
-    <script type="text/javascript" src="/modules/pusher-2.1.js"></script>
-    <script type="text/javascript" src="/modules/BackSocket.js"></script>
-    <script type="text/javascript" src="/modules/deepModel.js"></script>
-    <script type="text/javascript" src="/modules/mobiscroll.min.js"></script>
-    <script type="text/javascript" src="/modules/toggles.js"></script>
-    <script type="text/javascript" src='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js'></script>
-    <script type="text/javascript" src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.24.0/L.Control.Locate.js'></script>
+
+    <script type="text/javascript" src="vendor/toggles.js"></script>
+    <script data-main="../require-config" src="../bower_components/requirejs/require.js"></script>
+
   </body>
 </html>
