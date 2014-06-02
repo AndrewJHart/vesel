@@ -18613,3 +18613,7 @@ a:active {
   width: 30px !important;
   height: 30px !important;
 }
+
+.table-view_detail__push {
+  padding-bottom: 60px;
+}

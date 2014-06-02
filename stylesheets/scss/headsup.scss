@@ -304,7 +304,6 @@ a {
 
 
 
-
 //  Increase font size on help icon in footer to match HPD logo
 
 .icon-settings__large {
@@ -314,7 +313,12 @@ a {
 }
 
 
+//  Created table-view_detail__push class and added to last <li> item
+//  inside detail view to fix text overflow issues and make larger scrollable area
 
+.table-view_detail__push {
+	padding-bottom: 60px;
+}
 
 
 
