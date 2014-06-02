@@ -3976,21 +3976,21 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 .set-other {
-  background: url("../../img/sprites.png") no-repeat -100px -110px;
+  background: url("../../img/sprites.png") no-repeat -100px -108px;
   width: 20px;
-  height: 20px;
+  height: 22px;
 }
 
 .set-traffic {
-  background: url("../../img/sprites.png") no-repeat -130px -111px;
+  background: url("../../img/sprites.png") no-repeat -130px -109px;
   width: 20px;
-  height: 20px;
+  height: 22px;
 }
 
 .set-school {
-  background: url("../../img/sprites.png") no-repeat -160px -111px;
+  background: url("../../img/sprites.png") no-repeat -160px -109px;
   width: 20px;
-  height: 20px;
+  height: 22px;
 }
 
 .coh {
