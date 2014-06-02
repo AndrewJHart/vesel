@@ -26,6 +26,9 @@
                 }, {
                     "src": "bower_components/handlebars/handlebars.js",
                     "global": true
+                },{
+                    "src": "bower_components/moment/moment.js",
+                    "global": true
                 },
                 "bower_components/thorax/thorax.js",
                 "bower_components/lumbar-loader/lumbar-loader.js",
