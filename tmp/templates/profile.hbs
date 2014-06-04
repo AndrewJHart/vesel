@@ -1,0 +1,80 @@
+{{#view "home/header" tag="header" className="bar bar-nav"}}
+  {{#link "" expand-tokens=true class="icon icon-left-nav pull-left"}}{{/link}}
+  <h1 class="title">User Profile</h1>
+{{/view}}
+
+<div class="bar bar-standard bar-header-secondary">
+  <div class="segmented-control">
+    {{#link "" expand-tokens=true class="control-item"}}List View{{/link}}
+    {{#link "map" expand-tokens=true class="control-item"}}Map View{{/link}}
+  </div>
+</div>
+
+<div class="content">
+  <form class="input-group">
+    <div class="table-view-cell table-view-divider">Account</div>
+    {{!-- All input elements are bound to the view's model via the `name` attribute --}}
+    {{!-- This gives us 2 way data-binding or "reactivity" with our view-model --}}
+    <div class="input-row">
+      <label>Device ID</label>
+      <input type="text" value="{{device.registration_id}}" name="device.registration_id" readonly>
+    </div>
+
+    <div class="input-row">
+      <label>Username</label>
+      <input type="text" value="{{device.user.username}}" name="device.user.username">
+    </div>
+
+    <div class="input-row">
+      <label>ApiKey</label>
+      <input type="text" value="{{device.user.api_key.key}}" name="device.user.api_key.key" readonly>
+    </div>
+
+    <div class="input-row">
+      <label>Global Priority</label>
+      <input type="text" name="global_priority">
+    </div>
+
+    <div class="input-row">
+      <label>Email</label>
+      <input type="email" placeholder="yourEmailAddy@gmail.com">
+    </div>
+
+    <div class="table-view-cell table-view-divider">Categories</div>
+    <div class="table-view-cell">
+      Police
+      {{!-- use the category model's `is_enabled` prop to set the state active or not --}}
+      <div class="toggle {{#metadata.0.is_enabled}}active{{/metadata.0.is_enabled}}">
+         <input type="checkbox" class="toggle-handle" name="metadata.0.is_enabled" data-meta-position="0" {{#metadata.0.is_enabled}}checked{{/metadata.0.is_enabled}}>
+      </div>
+    </div>
+
+    <div class="table-view-cell">
+      Fire
+      {{!-- use the category model's `is_enabled` prop to set the state active or not --}}
+      <div class="toggle {{#metadata.1.is_enabled}}active{{/metadata.1.is_enabled}}">
+         <input type="checkbox" class="toggle-handle" name="metadata.1.is_enabled" data-meta-position="1" {{#metadata.1.is_enabled}}checked{{/metadata.1.is_enabled}}>
+      </div>
+    </div>
+
+    <div class="table-view-cell">
+      School
+      {{!-- use the category model's `is_enabled` prop to set the state active or not --}}
+      <div class="toggle {{#metadata.2.is_enabled}}active{{/metadata.2.is_enabled}}">
+         <input type="checkbox" class="toggle-handle" name="metadata.2.is_enabled" data-meta-position="2" {{#metadata.2.is_enabled}}checked{{/metadata.2.is_enabled}}>
+      </div>
+    </div>
+
+    <div class="table-view-cell">
+      Traffic
+      {{!-- use the category model's `is_enabled` prop to set the state active or not --}}
+      <div class="toggle {{#metadata.3.is_enabled}}active{{/metadata.3.is_enabled}}">
+         <input type="checkbox" class="toggle-handle" name="metadata.3.is_enabled" data-meta-position="3" {{#metadata.3.is_enabled}}checked{{/metadata.3.is_enabled}}>
+      </div>
+    </div>
+
+    <textarea name="metadata.0.extra" placeholder="{{metadata.0.extra}}" rows="5"></textarea>
+
+    <button data-button-type="submit" class="btn btn-positive btn-block">Save Profile</button>
+  </form>
+</div>

@@ -24,5 +24,8 @@
     "fastclick": "https://github.com/ftlabs/fastclick.git#1.0.1",
     "mapbox": "https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js",
     "L.Control.Locate": "https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.24.0/L.Control.Locate.js"
+  },
+  "devDependencies": {
+    "store": "https://github.com/marcuswestin/store.js/"
   }
 }

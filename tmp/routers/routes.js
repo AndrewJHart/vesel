@@ -6,15 +6,13 @@ define([
     'views/footer',
     'views/maplist',
     'views/detail',
-    'views/profile',
     'collections/alerts'
-], function(Backbone, RootView, HomeView, HeaderView, FooterView, MapView, DetailView, ProfileView, AlertsCollection) {
+], function(Backbone, RootView, HomeView, HeaderView, FooterView, MapView, DetailView, AlertsCollection) {
     return Backbone.Router.extend({
         routes: {
             "": "index",
             "map": "maplist",
             "about": "about",
-            "profile": "profile",
             "detail/:id": "detail"
         },
 
@@ -110,15 +108,7 @@ define([
             Application.goto(this.mapView, {
                 page: true
             });
-        },
-
-        profile: function(params) {
-
-            var profileView = new ProfileView();
-
-            Application.goto(profileView, {
-                page: true // this is its own page/pane so tell app to animate it
-            });
         }
+
     });
 });

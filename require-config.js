@@ -46,13 +46,13 @@ require.config({
         'cs': pathPrefix + 'bower_components/require-cs/cs',
         'text': pathPrefix + 'bower_components/text/text',
         'hbs': pathPrefix + 'bower_components/requirejs-hbs/hbs',
-        'mobiscroll': pathPrefix + 'bower_components/vendor/mobiscroll.min',
+        'mobiscroll': pathPrefix + 'js/vendor/mobiscroll',
         'deepmodel': pathPrefix + 'bower_components/backbone-deep-model/distribution/deep-model.min',
         'moment': pathPrefix + 'bower_components/momentjs/min/moment.min',
         'pusher': pathPrefix + 'bower_components/pusher/dist/pusher.min',
         'backsocket': pathPrefix + 'bower_components/backbone-websocket/dist/BackSocket',
-        //'L': pathPrefix + 'bower_components/mapbox/index'
-        //'locate': pathPrefix + 'bower_components/L.Control.Locate/index'
+        'store': pathPrefix + 'bower_components/store/store.min',
+        'fastclick': pathPrefix + 'bower_components/fastclick/lib/fastclick'
     },
     shim: {
         'handlebars': {
@@ -70,8 +70,7 @@ require.config({
             deps: ['handlebars', 'backbone']
         },
         'mobiscroll': {
-            exports: 'mobiscroll',
-            deps: ['jquery']
+            exports: 'mobiscroll'
         },
         'deepmodel': {
             exports: 'deepmodel',
@@ -80,14 +79,12 @@ require.config({
         'backsocket': {
             exports: 'BackSocket',
             deps: ['underscore', 'backbone', 'pusher']
+        },
+        'store': {
+            exports: 'store'
+        },
+        'fastclick': {
+            exports: 'FastClick'
         }
-        // 'L': {
-        //     exports: 'L',
-        //     deps: ['jquery']
-        // }
-        // 'locate': {
-        //     exports: 'L.Control.Locate',
-        //     deps: ['L']
-        // }
     }
 });
