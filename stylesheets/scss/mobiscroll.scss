@@ -381,14 +381,14 @@
     position: absolute;
     width: 1.875em;
     height: 1.875em;
-    border: .125em solid white;
+    // border: .125em solid white;
     color: #fff;
-    line-height: 1.875em;
-    -webkit-border-radius: 62.5em;
-    border-top-left-radius: 62.5em;
-    border-top-right-radius: 62.5em;
-    border-bottom-left-radius: 62.5em;
-    border-bottom-right-radius: 62.5em;
+    line-height: 2em;
+    // -webkit-border-radius: 62.5em;
+    // border-top-left-radius: 62.5em;
+    // border-top-right-radius: 62.5em;
+    // border-bottom-left-radius: 62.5em;
+    // border-bottom-right-radius: 62.5em;
 }
 
 .mbsc-lv-ic,.mbsc-lv-ic-m {
@@ -496,7 +496,7 @@
 }
 
 .mbsc-lv-ic-c .mbsc-lv-ic-text-only {
-    padding: 0 .625em;
+    padding: 0 .625em .5em .625em;
 }
 
 .mbsc-lv-multi {

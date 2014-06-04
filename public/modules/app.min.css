@@ -4459,14 +4459,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   position: absolute;
   width: 1.875em;
   height: 1.875em;
-  border: .125em solid white;
   color: #fff;
-  line-height: 1.875em;
-  -webkit-border-radius: 62.5em;
-  border-top-left-radius: 62.5em;
-  border-top-right-radius: 62.5em;
-  border-bottom-left-radius: 62.5em;
-  border-bottom-right-radius: 62.5em;
+  line-height: 2em;
 }
 
 .mbsc-lv-ic, .mbsc-lv-ic-m {
@@ -4574,7 +4568,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 .mbsc-lv-ic-c .mbsc-lv-ic-text-only {
-  padding: 0 .625em;
+  padding: 0 .625em .5em .625em;
 }
 
 .mbsc-lv-multi {
