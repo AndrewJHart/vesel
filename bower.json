@@ -26,6 +26,6 @@
     "L.Control.Locate": "https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.24.0/L.Control.Locate.js"
   },
   "devDependencies": {
-    "store": "https://github.com/marcuswestin/store.js/"
+    "store": "https://github.com/marcuswestin/store.js.git#~1.3.16"
   }
 }
