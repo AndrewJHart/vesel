@@ -1,11 +1,11 @@
 define([
-    'jquery',
+    'underscore',
     'mobiscroll',
     'collection-view',
     'hbs!templates/list',
     'hbs!templates/list-item',
     'hbs!templates/list-empty'
-], function($, mobiscroll, CollectionView, template, itemTemplate, emptyTemplate) {
+], function(_, mobiscroll, CollectionView, template, itemTemplate, emptyTemplate) {
 
     return CollectionView.extend({
         name: "list",
