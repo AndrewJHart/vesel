@@ -29,43 +29,55 @@
 
 var pathPrefix;
 if (window.__karma__) {
-  pathPrefix = '/base/';
+    pathPrefix = '/base/';
 } else {
-  pathPrefix = '../';
+    pathPrefix = '../';
 }
 
 require.config({
-  deps: ['main'],
-  paths: {
-    'jquery': pathPrefix + 'bower_components/jquery/jquery',
-    'underscore': pathPrefix + 'bower_components/underscore/underscore',
-    'handlebars': pathPrefix + 'bower_components/handlebars/handlebars',
-    'backbone': pathPrefix + 'bower_components/backbone/backbone',
-    'thorax': pathPrefix + 'bower_components/thorax/thorax',
-    'coffee-script': pathPrefix + 'bower_components/coffee-script/index',
-    'cs': pathPrefix + 'bower_components/require-cs/cs',
-    'text': pathPrefix + 'bower_components/text/text',
-    'hbs': pathPrefix + 'bower_components/requirejs-hbs/hbs',
-    'mobiscroll': pathPrefix + 'bower_components/vendor/mobiscroll.min'
-  },
-  shim: {
-    'handlebars': {
-      exports: 'Handlebars'
+    deps: ['main'],
+    paths: {
+        'jquery': pathPrefix + 'bower_components/jquery/jquery',
+        'underscore': pathPrefix + 'bower_components/underscore/underscore',
+        'handlebars': pathPrefix + 'bower_components/handlebars/handlebars',
+        'backbone': pathPrefix + 'bower_components/backbone/backbone',
+        'thorax': pathPrefix + 'bower_components/thorax/thorax',
+        'coffee-script': pathPrefix + 'bower_components/coffee-script/index',
+        'cs': pathPrefix + 'bower_components/require-cs/cs',
+        'text': pathPrefix + 'bower_components/text/text',
+        'hbs': pathPrefix + 'bower_components/requirejs-hbs/hbs',
+        'mobiscroll': pathPrefix + 'bower_components/vendor/mobiscroll.min',
+        'deepmodel': pathPrefix + 'bower_components/backbone-deep-model/distribution/deep-model.min',
+        'moment': pathPrefix + 'bower_components/momentjs/min/moment.min',
+        'pusher': pathPrefix + 'bower_components/pusher/dist/pusher.min',
+        'backsocket': pathPrefix + 'bower_components/backbone-websocket/dist/BackSocket'
     },
-    'backbone': {
-      exports: 'Backbone',
-      deps: ['jquery', 'underscore']
-    },
-    'underscore': {
-      exports: '_'
-    },
-    'thorax': {
-      exports: 'Thorax',
-      deps: ['handlebars', 'backbone']
-    },
-    'mobiscroll': {
-      exports: 'mobiscroll',
-      deps: ['jquery']
+    shim: {
+        'handlebars': {
+            exports: 'Handlebars'
+        },
+        'backbone': {
+            exports: 'Backbone',
+            deps: ['jquery', 'underscore']
+        },
+        'underscore': {
+            exports: '_'
+        },
+        'thorax': {
+            exports: 'Thorax',
+            deps: ['handlebars', 'backbone']
+        },
+        'mobiscroll': {
+            exports: 'mobiscroll',
+            deps: ['jquery']
+        },
+        'deepmodel': {
+            exports: 'deepmodel',
+            deps: ['underscore', 'backbone']
+        },
+        'backsocket': {
+            exports: 'BackSocket',
+            deps: ['underscore', 'backbone', 'pusher']
+        }
     }
-  }
 });
