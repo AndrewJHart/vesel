@@ -50,7 +50,9 @@ require.config({
         'deepmodel': pathPrefix + 'bower_components/backbone-deep-model/distribution/deep-model.min',
         'moment': pathPrefix + 'bower_components/momentjs/min/moment.min',
         'pusher': pathPrefix + 'bower_components/pusher/dist/pusher.min',
-        'backsocket': pathPrefix + 'bower_components/backbone-websocket/dist/BackSocket'
+        'backsocket': pathPrefix + 'bower_components/backbone-websocket/dist/BackSocket',
+        //'L': pathPrefix + 'bower_components/mapbox/index'
+        //'locate': pathPrefix + 'bower_components/L.Control.Locate/index'
     },
     shim: {
         'handlebars': {
@@ -79,5 +81,13 @@ require.config({
             exports: 'BackSocket',
             deps: ['underscore', 'backbone', 'pusher']
         }
+        // 'L': {
+        //     exports: 'L',
+        //     deps: ['jquery']
+        // }
+        // 'locate': {
+        //     exports: 'L.Control.Locate',
+        //     deps: ['L']
+        // }
     }
 });

@@ -1,15 +1,17 @@
 define([
-  'jquery',
-  'mobiscroll',
-  'collection-view',
-  'hbs!templates/list',
-  'hbs!templates/list-item'
-], function($, mobiscroll, CollectionView, template, itemTemplate) {
+    'jquery',
+    'mobiscroll',
+    'collection-view',
+    'hbs!templates/list',
+    'hbs!templates/list-item',
+    'hbs!templates/list-empty'
+], function($, mobiscroll, CollectionView, template, itemTemplate, emptyTemplate) {
 
     return CollectionView.extend({
         name: "list",
         template: template,
         itemTemplate: itemTemplate,
+        emptyTemplate: emptyTemplate,
 
         // this view holds ref to our 'Alerts' collection from server
         //collection: Application.Collection["alerts"],

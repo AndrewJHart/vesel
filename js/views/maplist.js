@@ -1,12 +1,13 @@
-
 define([
-  'anim-view',
-  'hbs!templates/maplist'
-], function(AnimView, template) {
+    'anim-view',
+    //'L',
+    //'locate',
+    'hbs!templates/maplist'
+], function(AnimView, /*L,*/ /* L.Control.Locate, */ template) {
 
-    return AnimView.extend({ 
+    return AnimView.extend({
         name: "maplist",
-        template: template, 
+        template: template,
 
         animateIn: 'bounceInDown',
         animateOut: 'slideOutUp',
@@ -31,7 +32,6 @@ define([
         },
 
         initialize: function() {
-
             // map list view can have settings aside toggle so 
             // we need to apply data-effeckt-page = true attribute
             this.$el.attr("data-effeckt-page", "home");

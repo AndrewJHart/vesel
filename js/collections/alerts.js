@@ -48,17 +48,19 @@ define([
         },
 
         comparator: function(model) {
+            // format the date while we're sorting (hack - logic should be moved to better function)
+
             console.log('comparator triggered');
 
-            // format the date while we're sorting (hack - logic should be moved to better function)
-            var date = moment(model.get('modified_at')).format("llll");
+            var originalTimestamp = model.get('modified_at'),
+                date = moment(originalTimestamp).format("llll");
 
             // set the date on the model since we never PUT/POST back on this resource
             model.set('modified_at', date, {
                 silent: true
             });
 
-            return -model.get('modified_at');
+            return -date;
         },
 
         filterBy: function(key, value) {
