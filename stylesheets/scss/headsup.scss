@@ -15,19 +15,7 @@ $orange:                          #e0985e !default;
 $white:                           #ffffff !default;
 
 $transparent:                     transparent !important;
-
-
-
-
 $item-padding:                    15px !default;
-
-
-
-
-
-// .mbsc-lv {
-// position: absolute !important;
-// }
 
 a {
 	color: #ffffff
@@ -72,8 +60,6 @@ h2 {
 	padding-left: 30px;
 	vertical-align: middle;
 }
-
-
 
 
 //  Background colors specific to each alert category
@@ -203,15 +189,6 @@ div[class$='__center'] {
 
 
 
-
-
-
-
-
-
-
-
-
 .content > .table-view:last-child {
 	margin-bottom: 0 !important;
 }
@@ -322,8 +299,10 @@ a {
 
 
 
-
-
+//  Coummunity Force Page - Just adding padding to all content.
+.cmf {
+	padding: 10px;
+}
 
 
 
