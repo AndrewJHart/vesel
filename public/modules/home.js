@@ -534,7 +534,7 @@ Handlebars.templates['home/list-empty'] = Handlebars.compile('<h1>Home Page home
                 	theme: 'ios7',
                 	swipe: 'left',
 					stages: [ { 
-                        percent: -50, 
+                        percent: -25, 
 						icon: 'share',
 						confirm: true
                     }]

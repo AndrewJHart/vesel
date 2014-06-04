@@ -3863,34 +3863,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   animation-name: rollOut;
 }
 
-/* ------------------------------------------*/
-/* IOS Animations by Andrew Hart @andruwhart */
-/*@keyframes iosFadeLeft {
-  0% {
-    opacity: 1;
-    -webkit-transform: translateX(0);
-    -ms-transform: translateX(0);
-    transform: translateX(0);
-  }
-
-  60% {
-    opacity: 1;
-    -webkit-transform: translateX(-15%);
-    -ms-transform: translateX(-15%);
-    transform: translateX(-15%);
-  }
-
-  100% {
-    opacity: 0.6;
-    -webkit-transform: translateX(-25%);
-    -ms-transform: translateX(-25%);
-    transform: translateX(-25%);
-  }
-}*/
-/*@-webkit-keyframes iosFadeLeft {
-  0% { -webkit-transform: translateX(0);    opacity: 1;   }
-  100%   { -webkit-transform: translateX(-20%); opacity: 0.9; }
-}*/
 @-webkit-viewport {
   width: device-width;
 }

@@ -43,7 +43,7 @@ Application.CollectionView.extend({
                 	theme: 'ios7',
                 	swipe: 'left',
 					stages: [ { 
-                        percent: -50, 
+                        percent: -25, 
 						icon: 'share',
 						confirm: true
                     }]
