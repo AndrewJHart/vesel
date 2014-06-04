@@ -99,8 +99,8 @@ Application.AnimView.extend({
         if (!this.map) {
 
             var layers = L.control.layers({
-                'Satellite': this.tiles,
-                'Streets': L.tileLayer('https://{s}.tiles.mapbox.com/v3/examples.map-20v6611k/{z}/{x}/{y}.png', {
+                'Street': this.tiles,
+                'Satellite': L.tileLayer('https://{s}.tiles.mapbox.com/v3/examples.map-i86nkdio/{z}/{x}/{y}.png', {
                     detectRetina: true
                 })
             }); //.addTo(this.map);

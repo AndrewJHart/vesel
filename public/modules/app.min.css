@@ -4037,24 +4037,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   height: 49px;
 }
 
-.leaflet-touch .leaflet-control-locate a {
-  background: url("../../img/sprites.png") no-repeat -15px -281px;
-  width: 19px;
-  height: 21px;
-}
-
-.gps-pointer {
-  background: url("../../img/sprites.png") no-repeat -15px -281px;
-  width: 19px;
-  height: 21px;
-}
-
-.map-icon {
-  background: url("../../img/sprites.png") no-repeat -65px -277px;
-  width: 27px;
-  height: 26px;
-}
-
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
   .health,
   .Health,
@@ -4090,11 +4072,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   .m-school,
   .m-health,
   .m-traffic,
-  .m-other,
-  .map-icon,
-  .gps-pointer,
-  .leaflet-touch,
-  .leaflet-control-locate a {
+  .m-other {
     /* Reference the @2x Sprite */
     background-image: url("../../img/sprites@x2.png");
     /* Translate the @2x sprite's dimensions back to 1x */
@@ -17882,19 +17860,6 @@ a.overlay.mask {
   display: block;
 }
 
-.leaflet-container.dark .map-tooltip .close, .leaflet-control-layers-toggle, .leaflet-control-zoom-in, .leaflet-control-zoom-out, .leaflet-popup-close-button, .map-tooltip .close, .mapbox-icon {
-  opacity: .75;
-  background-image: url(images/icons-000000.png);
-  background-repeat: no-repeat;
-  background-size: 26px 260px;
-}
-
-.leaflet-container.dark .leaflet-control-layers-toggle, .leaflet-container.dark .leaflet-control-zoom-in, .leaflet-container.dark .leaflet-control-zoom-out, .leaflet-container.dark .mapbox-icon, .mapbox-button-icon:before {
-  opacity: 1;
-  background-image: url(images/icons-ffffff.png);
-  background-size: 26px 260px;
-}
-
 .leaflet-bar .leaflet-control-zoom-in {
   background-position: 0 0;
 }
@@ -17935,15 +17900,6 @@ a.overlay.mask {
   background-position: 0 -234px;
 }
 
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
-  .leaflet-control-layers-toggle, .leaflet-control-zoom-in, .leaflet-control-zoom-out, .leaflet-popup-close-button, .mapbox-icon {
-    background-image: url(images/icons-000000@2x.png);
-  }
-
-  .leaflet-container.dark .leaflet-control-layers-toggle, .leaflet-container.dark .leaflet-control-zoom-in, .leaflet-container.dark .leaflet-control-zoom-out, .leaflet-container.dark .mapbox-icon, .mapbox-button-icon:before {
-    background-image: url(images/icons-ffffff@2x.png);
-  }
-}
 .leaflet-popup-content-wrapper, .map-legends, .map-tooltip {
   background: #fff;
   border-radius: 3px;
@@ -18316,19 +18272,16 @@ a.overlay.mask {
 }
 
 .leaflet-control-locate a {
-  width: 19px;
-  height: 21px;
-  content: "\f1a6";
+  background: url("../../img/locate.png") no-repeat;
+  margin: 10px;
 }
 
 .leaflet-retina .leaflet-control-locate a {
-  background-image: url(images/locate@2x.png);
+  background: url("../../img/locate.png") no-repeat;
 }
 
 .leaflet-touch .leaflet-control-locate a {
-  background: url("../../img/sprites.png") no-repeat -15px -281px;
-  width: 19px;
-  height: 21px;
+  background: url("../../img/locate.png") no-repeat;
 }
 
 .leaflet-control-locate.requesting a {
@@ -18341,18 +18294,15 @@ a.overlay.mask {
   background-image: url(images/spinner@2x.gif);
 }
 
-.leaflet-control-locate.active a {
-  background-position: -32px -2px;
-}
-
-.leaflet-control-locate.active.following a {
-  background-position: -62px -2px;
-}
-
 .leaflet-touch .leaflet-control-locate {
   box-shadow: none;
   border: 2px solid rgba(0, 0, 0, 0.2);
   background-clip: padding-box;
+}
+
+.leaflet-container.dark .map-tooltip .close, .leaflet-control-layers-toggle, .leaflet-control-zoom-in, .leaflet-control-zoom-out, .leaflet-popup-close-button, .map-tooltip .close, .mapbox-icon {
+  background: url("../../img/map-icon.png") no-repeat;
+  margin: 10px;
 }
 
 a {

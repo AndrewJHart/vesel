@@ -7,25 +7,20 @@
 }
 
 .leaflet-control-locate a {
-	    // background: url('../../img/sprites.png') no-repeat -15px -281px;
-    width: 19px;
-    height: 21px;
-    content: "\f1a6";
-	// background-image: url(images/locate.png);
- //    background-size:90px 30px;
-	// background-position: -2px -2px;
+    background: url('../../img/locate.png') no-repeat;
+    // width: 21px;
+    // height: 25px;
+    margin: 10px;
 }
 
 .leaflet-retina .leaflet-control-locate a {
-	background-image: url(images/locate@2x.png);
+    background: url('../../img/locate.png') no-repeat;
+    // width: 21px;
+    // height: 25px;
 }
 
 .leaflet-touch .leaflet-control-locate a {
-	// background-image: url(images/locate_touch.png);
-
-    background: url('../../img/sprites.png') no-repeat -15px -281px;
-    width: 19px;
-    height: 21px;
+    background: url('../../img/locate.png') no-repeat;
 }
 
 .leaflet-control-locate.requesting a {
@@ -38,16 +33,54 @@
 	background-image: url(images/spinner@2x.gif);
 }
 
-.leaflet-control-locate.active a {
-	background-position: -32px -2px;
-}
+// .leaflet-control-locate.active a {
+// 	background-position: -32px -2px;
+// }
 
-.leaflet-control-locate.active.following a {
-	background-position: -62px -2px;
-}
+// .leaflet-control-locate.active.following a {
+// 	background-position: -62px -2px;
+// }
 
 .leaflet-touch .leaflet-control-locate {
 	box-shadow: none;
 	border: 2px solid rgba(0,0,0,0.2);
 	background-clip: padding-box;
 }
+
+
+
+
+.leaflet-container.dark .map-tooltip .close,.leaflet-control-layers-toggle,.leaflet-control-zoom-in,.leaflet-control-zoom-out,.leaflet-popup-close-button,.map-tooltip .close,.mapbox-icon {
+    background: url('../../img/map-icon.png') no-repeat;
+    margin: 10px;
+
+}
+
+
+
+// @media (-webkit-min-device-pixel-ratio:2),(min-resolution:192dpi),(min-resolution:2dppx) {
+//     .leaflet-control-layers-toggle,.leaflet-control-zoom-in,.leaflet-control-zoom-out,.leaflet-popup-close-button,.mapbox-icon {
+// 	    background: url('../../img/map-icon@x2.png');
+//     }
+
+//     .leaflet-container.dark .leaflet-control-layers-toggle,.leaflet-container.dark .leaflet-control-zoom-in,.leaflet-container.dark .leaflet-control-zoom-out,.leaflet-container.dark .mapbox-icon,.mapbox-button-icon:before {
+//         background: url('../../img/map-icon@x2.png');
+//     }
+// }
+
+
+// @media only screen and (-webkit-min-device-pixel-ratio: 2),
+// only screen and (min-device-pixel-ratio: 2) {
+
+//      .leaflet-container.dark 
+//      .leaflet-control-layers-toggle,
+//      .leaflet-container.dark .leaflet-control-zoom-in,
+//      .leaflet-container.dark .leaflet-control-zoom-out,
+//      .leaflet-container.dark .mapbox-icon,
+//      .mapbox-button-icon:before {
+//         /* Reference the @2x Sprite */
+//         background-image: url('../../img/sprites@x2.png');
+//         /* Translate the @2x sprite's dimensions back to 1x */
+//         background-size: 24px 24px; 
+//     }
+// }
