@@ -1,11 +1,19 @@
-<li id="{{id}}" class="table-view-cell media">
-	{{!-- We can replace <a> w/ {{#link}} if expand-tokens=true (to nest {{id}}) --}}
-  {{#link "detail/{{id}}" expand-tokens=true class="navigate-right"}}
-    <img class="media-object pull-left" src="http://placehold.it/42x42">
-    <div class="media-body">
-      {{category.name}}
-      <p>{{subject}}</p>
-      <p><small>{{modified_at}}</small></p>
-    </div>
-  {{/link}}
+<li id="{{id}}" class="">
+  	{{#link "detail/{{id}}" expand-tokens=true class="navigate-right media-object-cat__bg"}}
+	  	<div class="{{category.name}}__bg {{category.name}}-l__bg">
+		    <div class="media-object__container">
+			    <div class="{{category.name}} {{category.name}}__center"></div>
+				<h2>{{category.name}}</h2>
+		    </div>
+	  	</div>
+
+	    <div class="media-body">
+	    	<div class="media-body__wrap">
+	    		<p>{{subject}}</p>
+	    	</div>
+	    </div>
+      	<div class="media-object__postdate">
+      		{{modified_at}}
+      	</div>
+  	{{/link}}
 </li>

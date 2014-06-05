@@ -113,6 +113,7 @@ define([
         },
 
         profile: function(params) {
+            console.log('Profile route triggered');
 
             var profileView = new ProfileView();
 

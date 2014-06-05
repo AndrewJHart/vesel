@@ -46,50 +46,6 @@ require([
 
     })();
 
-    // delegate to wrap ajax calls for registering with our server
-    function ajaxServerDelegate(token) {
-        // we now have a new registration id & need to save it to the server along w/ its related categories
-        $.ajax({
-            url: 'https://headsuphuntington.herokuapp.com/api/app/v1/device_settings/ios/',
-            type: 'POST',
-            data: JSON.stringify({
-                "categories": [{
-                    "id": 1,
-                    "name": "Police"
-                }, {
-                    "id": 2,
-                    "name": "Fire"
-                }, {
-                    "id": 3,
-                    "name": "School"
-                }, {
-                    "id": 4,
-                    "name": "Traffic"
-                }, {
-                    "id": 5,
-                    "name": "Utilities"
-                }, {
-                    "id": 6,
-                    "name": "Other"
-                }, {
-                    "id": 9,
-                    "name": "Health"
-                }],
-                "device": {
-                    "token": token
-                }
-            }),
-            contentType: 'application/json',
-            success: function(data, status) {
-                console.log('Zepto Success Handler triggered for POST to reg_id to server!');
-                console.log('Zepto Posted to server! Status Code of: ' + status);
-            },
-            error: function(xhr, type) {
-                console.log('****AJAX ERROR');
-            }
-        });
-    }
-
     // loads local settings & checks if first run etc...
     function getLocalSettings() {
         // var firstRun = store.get('firstRun');

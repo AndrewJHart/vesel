@@ -2,35 +2,59 @@
   <h1 class="title">Settings</h1>
 {{/view}}
 
-<div class="content">
+<div class="content s-content">
   <ul class="table-view">
+  <li class="table-view-cell table-view-divider">Adjust your default push notification priority level: </li>
     <li class="table-view-cell">
-      Item 1
-      <div class="toggle">
-        <input type="checkbox" class="toggle-handle"></input>
-      </div>
+      <form class="input-group">
+        <select name="global_priority" id="global_priority" class="item-select">
+          <option value="1" {{#ifvalue global_priority value=1}}selected{{/ifvalue}}>Level 1: Informational</option>
+          <option value="2" {{#ifvalue global_priority value=2}}selected{{/ifvalue}}>Level 2: </option>
+          <option value="3" {{#ifvalue global_priority value=3}}selected{{/ifvalue}}>Level 3: </option>
+          <option value="4" {{#ifvalue global_priority value=4}}selected{{/ifvalue}}>Level 4: </option>
+          <option value="5" {{#ifvalue global_priority value=5}}selected{{/ifvalue}}>Level 5: Severe</option>
+        </select>
+      </form>
     </li>
     <li class="table-view-cell table-view-divider">Categories</li>
     <li class="table-view-cell">
-      Police
+      <div class="set-police"><span class="set-title">Police</span></div>
       <div class="toggle {{#metadata.0.is_enabled}}active{{/metadata.0.is_enabled}}">
        <input type="checkbox" class="toggle-handle" data-meta-position="0" {{#metadata.0.is_enabled}}checked{{/metadata.0.is_enabled}}>
       </div>
     </li>
     <li class="table-view-cell">
-      Fire
+      <div class="set-fire"><span class="set-title">Fire</span></div>
       <div class="toggle {{#metadata.1.is_enabled}}active{{/metadata.1.is_enabled}}">
         <input type="checkbox" class="toggle-handle" data-meta-position="1" {{#metadata.1.is_enabled}}checked{{/metadata.1.is_enabled}}>
       </div>
     </li>
     <li class="table-view-cell">
-      Traffic
+      <div class="set-traffic"><span class="set-title">Traffic</span></div>
       <div class="toggle {{#metadata.2.is_enabled}}active{{/metadata.2.is_enabled}}">
         <input type="checkbox" class="toggle-handle" data-meta-position="2" {{#metadata.2.is_enabled}}checked{{/metadata.2.is_enabled}}>
       </div>
     </li>
     <li class="table-view-cell">
-      School
+      <div class="set-school"><span class="set-title">School</span></div>
+      <div class="toggle {{#metadata.3.is_enabled}}active{{/metadata.3.is_enabled}}">
+        <input type="checkbox" class="toggle-handle" data-meta-position="3" {{#metadata.3.is_enabled}}checked{{/metadata.3.is_enabled}}>
+      </div>
+    </li>
+    <li class="table-view-cell">
+      <div class="set-utilities"><span class="set-title">Utilities</span></div>
+      <div class="toggle {{#metadata.3.is_enabled}}active{{/metadata.3.is_enabled}}">
+        <input type="checkbox" class="toggle-handle" data-meta-position="3" {{#metadata.3.is_enabled}}checked{{/metadata.3.is_enabled}}>
+      </div>
+    </li>
+    <li class="table-view-cell">
+      <div class="set-health"><span class="set-title">Health</span></div>
+      <div class="toggle {{#metadata.3.is_enabled}}active{{/metadata.3.is_enabled}}">
+        <input type="checkbox" class="toggle-handle" data-meta-position="3" {{#metadata.3.is_enabled}}checked{{/metadata.3.is_enabled}}>
+      </div>
+    </li>
+    <li class="table-view-cell">
+      <div class="set-other"><span class="set-title">Other/Misc</span></div>
       <div class="toggle {{#metadata.3.is_enabled}}active{{/metadata.3.is_enabled}}">
         <input type="checkbox" class="toggle-handle" data-meta-position="3" {{#metadata.3.is_enabled}}checked{{/metadata.3.is_enabled}}>
       </div>
@@ -43,7 +67,7 @@
     <span class="tab-label">Help</span>
   </a>
   {{#link "profile" trigger="close:settings" data-toggle="aside" class="tab-item"}}
-    <span class="icon icon-person"></span>
-    <span class="tab-label">Profile</span>
+    <span class="icon hpd icon-settings__large"></span>
+    <span class="tab-label">Community Force</span>
   {{/link}}
 {{/view}}

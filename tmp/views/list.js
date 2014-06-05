@@ -26,33 +26,16 @@ define([
                     // initialize the mobiscroll listview plugin
                     collectionView.$('ul').mobiscroll().listview({
                         theme: 'ios7',
-                        swipe: 'right',
-                        // stages: [ { 
-                        //     percent: -20, color: 'red', icon: 'remove', action: function (li, inst) { inst.remove(li); return false; } 
-                        // } ]
-                        actions: {
-                            right: [{
-                                icon: 'link',
-                                action: function(li, inst) {
-                                    alert('Linked', inst.settings.context);
-                                }
-                            }, {
-                                icon: 'star3',
-                                action: function(li, inst) {
-                                    alert('Rated', inst.settings.context);
-                                }
-                            }, {
-                                icon: 'tag',
-                                action: function(li, inst) {
-                                    alert('Tagged', inst.settings.context);
-                                }
-                            }, {
-                                icon: 'download',
-                                action: function(li, inst) {
-                                    alert('Downloaded', inst.settings.context);
-                                }
-                            }, ]
-                        }
+                        swipe: 'left',
+                        stages: [{
+                            percent: -30,
+                            color: 'grey',
+                            icon: 'share',
+                            action: function(li, inst) {
+                                inst.remove(li);
+                                return false;
+                            }
+                        }]
                     });
                 }, 0);
 
