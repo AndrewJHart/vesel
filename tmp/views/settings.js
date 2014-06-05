@@ -1,8 +1,8 @@
 define([
-  'view',
-  'anim-view',
-  'models/settings',
-  'hbs!templates/settings'
+    'view',
+    'anim-view',
+    'models/settings',
+    'hbs!templates/settings'
 ], function(View, AnimView, SettingsModel, template) {
 
     return AnimView.extend({
@@ -17,6 +17,21 @@ define([
         settingsState: true, // todo: rename to better variable name
 
         events: {
+            'change form > #global_priority': function(event) {
+                event.preventDefault();
+
+                console.log("Changed priority to" + event.target.value);
+
+                this.model.set('global_priority', Number(event.target.value), {
+                    silent: true
+                });
+
+                this.model.save({}, {
+                    wait: true,
+                    silent: true
+                });
+            },
+
             'change div.toggle > input[type="checkbox"]': function(event) {
                 var metadataPosition = this.$(event.target).data("meta-position"),
                     property = null,

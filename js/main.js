@@ -19,10 +19,10 @@ require([
         firstRun;
 
     // store copy on local object
-    //pushNotification = window.plugins.pushNotification;
+    pushNotification = window.plugins.pushNotification;
 
     // IIFE to load backbone and app automatically separate from device ready
-    (function startApp() {
+    function startApp() {
 
         // attach fastclick
         FastClick.attach(document.body);
@@ -37,7 +37,6 @@ require([
         // first thing -- set this to first run!! 
         firstRun = store.get('firstRun');
         if (!firstRun) {
-            console.log('This is our first run baby! ******');
             // show the slide view first by pointing backbone to 
             // different route and ensure we only POST once
             createUserDeviceAccount(store.get('registration_id'));
@@ -70,10 +69,12 @@ require([
 
         }
 
-    })();
+    });
 
     // delegate to wrap ajax calls for registering with our server
     function createUserDeviceAccount(token) {
+        store.set('username', "Anon"+Date.now());
+
         // we now have a new registration id & need to save it to the server along w/ its related categories
         $.ajax({
             url: 'http://localhost:8005/api/app/v1/device_settings/ios/',
@@ -82,7 +83,7 @@ require([
                 "device": {
                     "token": token,
                     "user": {
-                        "username": "Anonuser",
+                        "username": store.get('username'),
                         "password": "test"
                     }
                 },
@@ -97,7 +98,7 @@ require([
                 store.set('api_key', data.device.user.api_key.key);
             },
             error: function(xhr, type) {
-                console.log('****AJAX ERROR');
+                console.log('** ERROR ON POST **');
             }
         });
     }

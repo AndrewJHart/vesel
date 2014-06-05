@@ -166,6 +166,10 @@ define(['underscore', 'thorax'], function (_, Thorax) {
     // hook and delegate to base remove
     onRemove: function() {
 
+        if (_.isFunction(this.onClose)) {
+            this.onClose();
+        }
+
         if (_.isFunction(this.remove)) {
             Thorax.View.prototype.remove.apply(this, arguments);
 

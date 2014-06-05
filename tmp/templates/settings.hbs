@@ -6,13 +6,15 @@
   <ul class="table-view">
   <li class="table-view-cell table-view-divider">Adjust your default push notification priority level: </li>
     <li class="table-view-cell">
-      <select name="" id="" class="item-select">
-        <option value="#">Level 1: Informational</option>
-        <option value="#">Level 2: </option>
-        <option value="#">Level 3: </option>
-        <option value="#">Level 4: </option>
-        <option value="#">Level 5: Severe</option>
-      </select>
+      <form class="input-group">
+        <select name="global_priority" id="global_priority" class="item-select">
+          <option value="1" {{#ifvalue global_priority value=1}}selected{{/ifvalue}}>Level 1: Informational</option>
+          <option value="2" {{#ifvalue global_priority value=2}}selected{{/ifvalue}}>Level 2: Low-Level Emergency</option>
+          <option value="3" {{#ifvalue global_priority value=3}}selected{{/ifvalue}}>Level 3: Mid-Level Emergency</option>
+          <option value="4" {{#ifvalue global_priority value=4}}selected{{/ifvalue}}>Level 4: Major Emergency</option>
+          <option value="5" {{#ifvalue global_priority value=5}}selected{{/ifvalue}}>Level 5: Severe</option>
+        </select>
+      </form>
     </li>
     <li class="table-view-cell table-view-divider">Categories</li>
     <li class="table-view-cell">
@@ -41,29 +43,29 @@
     </li>
     <li class="table-view-cell">
       <div class="set-utilities"><span class="set-title">Utilities</span></div>
-      <div class="toggle {{#metadata.3.is_enabled}}active{{/metadata.3.is_enabled}}">
-        <input type="checkbox" class="toggle-handle" data-meta-position="3" {{#metadata.3.is_enabled}}checked{{/metadata.3.is_enabled}}>
+      <div class="toggle {{#metadata.4.is_enabled}}active{{/metadata.4.is_enabled}}">
+        <input type="checkbox" class="toggle-handle" data-meta-position="4" {{#metadata.4.is_enabled}}checked{{/metadata.4.is_enabled}}>
       </div>
     </li>
     <li class="table-view-cell">
       <div class="set-health"><span class="set-title">Health</span></div>
-      <div class="toggle {{#metadata.3.is_enabled}}active{{/metadata.3.is_enabled}}">
-        <input type="checkbox" class="toggle-handle" data-meta-position="3" {{#metadata.3.is_enabled}}checked{{/metadata.3.is_enabled}}>
+      <div class="toggle {{#metadata.5.is_enabled}}active{{/metadata.5.is_enabled}}">
+        <input type="checkbox" class="toggle-handle" data-meta-position="5" {{#metadata.5.is_enabled}}checked{{/metadata.5.is_enabled}}>
       </div>
     </li>
     <li class="table-view-cell">
       <div class="set-other"><span class="set-title">Other/Misc</span></div>
-      <div class="toggle {{#metadata.3.is_enabled}}active{{/metadata.3.is_enabled}}">
-        <input type="checkbox" class="toggle-handle" data-meta-position="3" {{#metadata.3.is_enabled}}checked{{/metadata.3.is_enabled}}>
+      <div class="toggle {{#metadata.6.is_enabled}}active{{/metadata.6.is_enabled}}">
+        <input type="checkbox" class="toggle-handle" data-meta-position="6" {{#metadata.6.is_enabled}}checked{{/metadata.6.is_enabled}}>
       </div>
     </li>
   </ul>
 </div>
 {{#view "footer" tag="nav" className="bar bar-tab" type="home-footer"}}
-  <a class="tab-item active" href="#">
+  {{#link "intro" class="tab-item"}}
     <span class="icon icon-info"></span>
     <span class="tab-label">Help</span>
-  </a>
+  {{/link}}
   {{#link "profile" trigger="close:settings" data-toggle="aside" class="tab-item"}}
     <span class="icon hpd icon-settings__large"></span>
     <span class="tab-label">Community Force</span>

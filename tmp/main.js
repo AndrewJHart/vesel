@@ -3,9 +3,10 @@ require([
     'backbone',
     'views/root',
     'routers/routes',
+    'FastClick',
     'store',
     'helpers'
-], function($, Backbone, RootView, Router, store) {
+], function($, Backbone, RootView, Router, FastClick, store) {
 
     var app,
         cached_token,
@@ -17,12 +18,15 @@ require([
         onDeviceReady,
         firstRun;
 
-
     // store copy on local object
     pushNotification = window.plugins.pushNotification;
 
     // IIFE to load backbone and app automatically separate from device ready
-    (function startApp() {
+    function startApp() {
+
+        // attach fastclick
+        FastClick.attach(document.body);
+
         // start backbone history
         Backbone.history.start({
             pushState: false,
@@ -30,21 +34,75 @@ require([
             silent: true
         });
 
-        // RootView may use link or url helpers which
-        // depend on Backbone history being setup
-        // so need to wait to loadUrl() (which will)
-        // actually execute the route
-        RootView.getInstance(document.body);
+        // first thing -- set this to first run!! 
+        firstRun = store.get('firstRun');
+        if (!firstRun) {
+            // show the slide view first by pointing backbone to 
+            // different route and ensure we only POST once
+            createUserDeviceAccount(store.get('registration_id'));
 
-        // Instantiate the main router
-        new Router();
+            // RootView may use link or url helpers which
+            // depend on Backbone history being setup
+            // so need to wait to loadUrl() (which will)
+            // actually execute the route
+            RootView.getInstance(document.body);
 
-        // This will trigger your routers to start
-        Backbone.history.loadUrl();
+            // Instantiate the main router
+            new Router();
 
-        console.log('App Started....');
+            // This will trigger your routers to start
+            Backbone.history.loadUrl('#intro');
 
-    })();
+            store.set('firstRun', true);
+        } else {
+            // RootView may use link or url helpers which
+            // depend on Backbone history being setup
+            // so need to wait to loadUrl() (which will)
+            // actually execute the route
+            RootView.getInstance(document.body);
+
+            // Instantiate the main router
+            new Router();
+
+            // This will trigger your routers to start
+            Backbone.history.loadUrl();
+
+        }
+
+    });
+
+    // delegate to wrap ajax calls for registering with our server
+    function createUserDeviceAccount(token) {
+        store.set('username', "Anon"+Date.now());
+
+        // we now have a new registration id & need to save it to the server along w/ its related categories
+        $.ajax({
+            url: 'http://localhost:8005/api/app/v1/device_settings/ios/',
+            type: 'POST',
+            data: JSON.stringify({
+                "device": {
+                    "token": token,
+                    "user": {
+                        "username": store.get('username'),
+                        "password": "test"
+                    }
+                },
+                "global_priority": 1
+            }),
+            contentType: 'application/json',
+            success: function(data, status) {
+                console.log('POSTed to reg_id to server!');
+                console.log('Data resp is:');
+                console.log(data.device.user.api_key.key);
+
+                store.set('api_key', data.device.user.api_key.key);
+            },
+            error: function(xhr, type) {
+                console.log('** ERROR ON POST **');
+            }
+        });
+    }
+
 
     // loads local settings & checks if first run etc...
     function getLocalSettings() {
@@ -106,6 +164,9 @@ require([
 
         // register this device with apple
         pushNotification.register(function(status) {
+            // log the token
+            console.log(status);
+
             // store on global object
             if (window.registration_id == status) {
                 console.log('Registration from localstore matches token - no action');
@@ -117,8 +178,8 @@ require([
                 // save it to localstorage
                 store.set('registration_id', status);
 
-                // then post over SSL to server
-                ajaxServerDelegate(status);
+                // start the app 
+                startApp();
             }
         }, function(error) {
             console.log('Error handler called with message');

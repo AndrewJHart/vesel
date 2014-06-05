@@ -7,11 +7,13 @@ define([
     'views/maplist',
     'views/detail',
     'views/profile',
+    'views/slides',
     'collections/alerts'
-], function(Backbone, RootView, HomeView, HeaderView, FooterView, MapView, DetailView, ProfileView, AlertsCollection) {
+], function(Backbone, RootView, HomeView, HeaderView, FooterView, MapView, DetailView, ProfileView, SlidesView, AlertsCollection) {
     return Backbone.Router.extend({
         routes: {
             "": "index",
+            "intro": "intro",
             "map": "maplist",
             "about": "about",
             "profile": "profile",
@@ -60,6 +62,22 @@ define([
             Application.goto(this.indexView, {
                 page: true
             }); // alternative RootView.getInstance().setView(view);
+
+            return this;
+        },
+
+        intro: function() {
+            console.log('Intro route Triggered! ----------');
+
+            var introView = null;
+
+            introView = new SlidesView();
+
+            Application.goto(introView, {
+                page: true
+            }); 
+
+            return this;
         },
 
         detail: function(params) {
@@ -89,6 +107,8 @@ define([
                 page: true, // this is its own page/pane so tell app to animate it
                 toggleIn: 'right' // remove the class right before animating
             });
+
+            return this;
         },
 
         // triggered when route matches /#map
@@ -110,15 +130,20 @@ define([
             Application.goto(this.mapView, {
                 page: true
             });
+
+            return this;
         },
 
         profile: function(params) {
+            console.log('Profile route triggered');
 
             var profileView = new ProfileView();
 
             Application.goto(profileView, {
                 page: true // this is its own page/pane so tell app to animate it
             });
+
+            return this;
         }
     });
 });

@@ -5,6 +5,7 @@ define([
 
     return AnimView.extend({
         name: "profile",
+        template: template,
 
         className: "profile",
 

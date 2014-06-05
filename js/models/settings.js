@@ -10,12 +10,12 @@ define(['backbone', 'deepmodel', 'store'], function(Backbone, DeepModel, store) 
         defaults: function() {
             return {
                 "device": {
-                    "registration_id": store.get('registration_id'),
+                    "token": store.get('registration_id'),
                     "user": {
                         "api_key": {
                             "key": store.get('api_key')
                         },
-                        "username": "Anonuser"
+                        "username": store.get('username')
                     }
                 },
                 "global_priority": 1
@@ -23,7 +23,7 @@ define(['backbone', 'deepmodel', 'store'], function(Backbone, DeepModel, store) 
         },
 
         url: function() {
-            var device = this.get("device.registration_id"),
+            var device = this.get("device.token"),
                 //device_registration = device.get("registration_id"),
                 user = this.get("device.user"),
                 username = this.get("device.user.username"),

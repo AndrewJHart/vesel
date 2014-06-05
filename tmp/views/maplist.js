@@ -48,8 +48,6 @@ define([
         },
 
         beforeRender: function() {
-            console.log(this.getViewName() + "#beforeRender()");
-
             // add this as the active page for effeckt.css
             this.$el.addClass("effeckt-page-active");
 
@@ -57,30 +55,22 @@ define([
         },
 
         afterRender: function() {
-            console.log(this.getViewName() + "#afterRender()");
-
             var self = this;
 
             if (!this.map) {
 
                 var layers = L.control.layers({
-                    'Satellite': this.tiles,
-                    'Streets': L.tileLayer('https://{s}.tiles.mapbox.com/v3/examples.map-20v6611k/{z}/{x}/{y}.png', {
+                    'Streets': this.tiles,
+                    'Satellite': L.tileLayer('https://{s}.tiles.mapbox.com/v3/examples.map-i86nkdio/{z}/{x}/{y}.png', {
                         detectRetina: true
                     })
-                }); //.addTo(this.map);
+                });
 
                 // only create the map once
                 this.map = new L.map('mapmain', {
                     zoomControl: false, // prevent zoom control from being added (instead of removing it later)
                     locateControl: true
                 }).addLayer(this.tiles);
-                //.setView([38.412, -82.428], 13);
-
-                // this.map = new L.mapbox.map('mapmain', /*'mscnswv.hl37jh6m',*/ {
-                //     zoomControl: false,
-                //     locateControl: true
-                // }).setView([38.412, -82.428], 13);
 
                 // get our primary layer with geoJSON
                 this.primaryLayer = L.mapbox.featureLayer()

@@ -1,21 +1,21 @@
-define(['backbone', 'deepmodel'], function(Backbone, DeepModel) {
+define(['backbone', 'deepmodel', 'store'], function(Backbone, DeepModel, store) {
     // use deep model for nested properties
     return Backbone.DeepModel.extend({
         name: 'settings',
 
-        urlRoot: 'http://localhost:8005/api/app/v1/device_settings/gcm/',
+        urlRoot: 'http://localhost:8005/api/app/v1/device_settings/ios/',
 
         // gets the registration id, username, and pass from the user and device
         // then login will generate the api key
         defaults: function() {
             return {
                 "device": {
-                    "registration_id": window.registration_id,
+                    "token": store.get('registration_id'),
                     "user": {
                         "api_key": {
-                            "key": "8b4f5e8edde8842f28dd66210e1c7800fa6b8d87"
+                            "key": store.get('api_key')
                         },
-                        "username": "dhart7"
+                        "username": store.get('username')
                     }
                 },
                 "global_priority": 1
@@ -23,7 +23,7 @@ define(['backbone', 'deepmodel'], function(Backbone, DeepModel) {
         },
 
         url: function() {
-            var device = this.get("device.registration_id"),
+            var device = this.get("device.token"),
                 //device_registration = device.get("registration_id"),
                 user = this.get("device.user"),
                 username = this.get("device.user.username"),

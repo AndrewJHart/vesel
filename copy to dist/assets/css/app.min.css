@@ -18562,6 +18562,10 @@ a:active {
   padding: 10px;
 }
 
+#mySlider.intro-slide {
+  background-color: #4f5d73;
+}
+
 .intro-slide {
   position: absolute;
   top: 0;
@@ -18576,6 +18580,17 @@ a:active {
   display: block;
   max-width: 100%;
   height: auto;
+}
+
+.intro-slide .slide-group .slide-text {
+  position: absolute;
+  top: 45%;
+  left: 0;
+  width: 100%;
+  font-size: 24px;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 0 10px rgba(0,0,0,.5);
 }
 
 @-webkit-keyframes iosFadeLeft {
@@ -18668,7 +18683,6 @@ a:active {
           box-shadow: -10px 0 10px -5px rgba(0, 0, 0, 0.1);
 }
 
-
 .page {
   position: fixed;
   top: 0;
@@ -18688,13 +18702,8 @@ a:active {
           transform: translate3d(-100%, 0, 0);
 }
 
-#detailmap.map {
-  position: absolute;
-  top: 300px;
-  bottom: 0;
-  left: 0;
-  right: 0;
+#single-map.map {
   width: 100%;
-  height: auto;
-  min-height: 250px;
+  height: 100px;
+  max-height: 100px;
 }
