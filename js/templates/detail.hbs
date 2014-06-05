@@ -1,21 +1,37 @@
+{{!-- No reason to embed an actual header view here since no real functionality is required --}}
 <header class="bar bar-nav">
   	{{#link "" expand-tokens=true class="icon icon-left-nav pull-left"}}{{/link}}
   	<h1 class="title">Details</h1>
 </header>
-<div class="content">
-	<div class="content-padded">
-	  <h4>{{subject}}</h4>
 
-	  <h6>{{#visible}} Visible: {{id}} {{/visible}}</h6>
-	  <p>Item {{id}} has a visible status of {{visible}}</p>
-	  <p>{{information}}</p>
-	  <br>
-	  <small>Posted {{modified_at}} in category {{category.name}}</small>
-	</div>
+<div class="content">
+  <div class="{{category.name}}__bg {{category.name}}-d__bg">
+    <div class="detail-cat__icon">
+      <span class="{{category.name}}"></span>
+    </div>
+    <div class="detail-cat__subject">
+        <h4>{{subject}}</h4>
+    </div>
+  </div>
+
+  <div id="single-map" class="map">
+  </div>
+    
+  <ul class="table-view table-view_detail__push">
+      <li class="table-view-cell">
+          <div id="mapmain" class="map map-detail"></div>
+      </li>
+      <li class="table-view-cell table-view_detail__push">
+          <p>{{information}}</p>
+      </li>
+    </ul>
 </div>
-{{#view "footer" tag="nav" className="bar bar-tab" type="detail-footer"}}
+
+
+{{!-- No reason to create an extra view for the footer either. This allows us to handle events directly --}}
+<nav class="bar bar-tab">
   <a class="tab-item active toggle-share">
     <span class="icon icon-share"></span>
     <span class="tab-label">Share This</span>
   </a>
-{{/view}}
+</nav>

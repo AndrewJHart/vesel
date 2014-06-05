@@ -21,6 +21,8 @@ define([
             'rendered:collection': function(collectionView, collection) {
                 console.debug('Event "rendered:collection"');
 
+                var self = this;
+
                 // refactoring this may work without the delay call...
                 _.delay(function() {
                     // initialize the mobiscroll listview plugin
@@ -32,7 +34,32 @@ define([
                             color: 'grey',
                             icon: 'share',
                             action: function(li, inst) {
-                                inst.remove(li);
+                                var alert, 
+                                    message, 
+                                    post_msg, 
+                                    post_title, 
+                                    subject, 
+                                    model;
+                
+                                event.preventDefault();
+
+                                model = self.$(li).model();
+
+                                console.log(model);
+
+                                alert = model.get('information');
+                                post_msg = "Important alert from the HeadsUp Huntington Mobile App: \n" + alert;
+                                subject = model.get('subject');
+                                post_title = "Just received via Heads Up Huntington, " + subject;
+
+                                message = {
+                                    title: post_title,
+                                    text: post_msg,
+                                    url: "http://headsupapp.io/feed/"+model.get('id')+"/"
+                                };
+
+                                window.socialmessage.send(message);
+
                                 return false;
                             }
                         }]
@@ -40,16 +67,6 @@ define([
                 }, 0);
 
                 return false;
-            },
-
-            // nested collection listeners
-            collection: {
-                'change': function() {
-                    console.log('CollectionView.collection received a change event!');
-
-                    // trigger a re-render just for testing -- this is wasteful in production
-                    this.render();
-                }
             }
         }
     });

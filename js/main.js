@@ -3,9 +3,10 @@ require([
     'backbone',
     'views/root',
     'routers/routes',
+    'FastClick',
     'store',
     'helpers'
-], function($, Backbone, RootView, Router, store) {
+], function($, Backbone, RootView, Router, FastClick, store) {
 
     var app,
         cached_token,
@@ -17,14 +18,14 @@ require([
         onDeviceReady,
         firstRun;
 
-
-
-
     // store copy on local object
     //pushNotification = window.plugins.pushNotification;
 
     // IIFE to load backbone and app automatically separate from device ready
     (function startApp() {
+
+        // attach fastclick
+        FastClick.attach(document.body);
 
         // start backbone history
         Backbone.history.start({
@@ -39,7 +40,7 @@ require([
             console.log('This is our first run baby! ******');
             // show the slide view first by pointing backbone to 
             // different route and ensure we only POST once
-            ajaxServerDelegate(store.get('registration_id'));
+            createUserDeviceAccount(store.get('registration_id'));
 
             // RootView may use link or url helpers which
             // depend on Backbone history being setup
@@ -51,7 +52,7 @@ require([
             new Router();
 
             // This will trigger your routers to start
-            Backbone.history.loadUrl('#profile');
+            Backbone.history.loadUrl('#intro');
 
             store.set('firstRun', true);
         } else {
@@ -72,7 +73,7 @@ require([
     })();
 
     // delegate to wrap ajax calls for registering with our server
-    function ajaxServerDelegate(token) {
+    function createUserDeviceAccount(token) {
         // we now have a new registration id & need to save it to the server along w/ its related categories
         $.ajax({
             url: 'http://localhost:8005/api/app/v1/device_settings/ios/',
@@ -162,6 +163,9 @@ require([
 
         // register this device with apple
         pushNotification.register(function(status) {
+            // log the token
+            console.log(status);
+
             // store on global object
             if (window.registration_id == status) {
                 console.log('Registration from localstore matches token - no action');

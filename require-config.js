@@ -52,7 +52,7 @@ require.config({
         'pusher': pathPrefix + 'bower_components/pusher/dist/pusher.min',
         'backsocket': pathPrefix + 'bower_components/backbone-websocket/dist/BackSocket',
         'store': pathPrefix + 'bower_components/store/store.min',
-        'fastclick': pathPrefix + 'bower_components/fastclick/lib/fastclick'
+        'FastClick': pathPrefix + 'bower_components/fastclick/lib/fastclick'
     },
     shim: {
         'handlebars': {
@@ -83,7 +83,7 @@ require.config({
         'store': {
             exports: 'store'
         },
-        'fastclick': {
+        'FastClick': {
             exports: 'FastClick'
         }
     }
