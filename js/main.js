@@ -69,7 +69,7 @@ require([
 
         }
 
-    });
+    }
 
     // delegate to wrap ajax calls for registering with our server
     function createUserDeviceAccount(token) {

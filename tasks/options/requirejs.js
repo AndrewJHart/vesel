@@ -29,7 +29,7 @@ module.exports = {
                 'pusher': '../bower_components/pusher/dist/pusher.min',
                 'backsocket': '../bower_components/backbone-websocket/dist/BackSocket',
                 'store': '../bower_components/store/store.min',
-                'fastclick': '../bower_components/fastclick/lib/fastclick'
+                'FastClick': '../bower_components/fastclick/lib/fastclick'
             },
             shim: {
                 'handlebars': {
@@ -60,7 +60,7 @@ module.exports = {
                 'store': {
                     exports: 'store'
                 },
-                'fastclick': {
+                'FastClick': {
                     exports: 'FastClick'
                 }
             }
