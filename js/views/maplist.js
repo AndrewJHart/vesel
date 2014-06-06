@@ -74,7 +74,7 @@ define([
 
                 // get our primary layer with geoJSON
                 this.primaryLayer = L.mapbox.featureLayer()
-                    .loadURL('https://headsuphuntington.herokuapp.com/api/app/v1/alert_locations/')
+                    .loadURL('http://localhost:8005/api/app/v1/alert_locations/')
                     .addTo(this.map)
                     .on('ready', function() {
                         self.primaryLayer.eachLayer(function(l) {
