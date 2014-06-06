@@ -1,0 +1,8 @@
+{
+  "name": "thorax",
+  "version": "2.1.0",
+  "main": [
+    "thorax.js",
+    "thorax-mobile.js"
+  ]
+}

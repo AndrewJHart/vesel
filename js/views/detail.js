@@ -71,7 +71,7 @@ define([
 
                 // get our primary layer with geoJSON
                 primaryLayer = L.mapbox.featureLayer()
-                    .loadURL('http://localhost:8005/api/app/v1/alert_locations/'+self.model.get('map').id+'/')
+                    .loadURL('http://headsupapp.io:8005/api/app/v1/alert_locations/'+self.model.get('map').id+'/')
                     .addTo(self.map)
                     .on('ready', function() {
                         primaryLayer.eachLayer(function(l) {

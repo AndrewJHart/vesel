@@ -1,0 +1,13 @@
+{
+  "name": "backbone-websocket",
+  "homepage": "https://github.com/AndrewJHart/backbone-websocket",
+  "_release": "0ad08e1d66",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "0ad08e1d66f3ca84cd1fc76106e92931a7b79c7c"
+  },
+  "_source": "git@github.com:AndrewJHart/backbone-websocket.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:AndrewJHart/backbone-websocket.git"
+}

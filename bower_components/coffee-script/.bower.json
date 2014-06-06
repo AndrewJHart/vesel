@@ -1,0 +1,13 @@
+{
+  "name": "coffee-script",
+  "_cacheHeaders": {
+    "ETag": "\"1e124b343cce6a1fbfd274a304c26d919da1c99d\"",
+    "Content-Length": "197423",
+    "Content-Type": "text/plain; charset=utf-8"
+  },
+  "_release": "e-tag:1e124b343",
+  "main": "index.js",
+  "_source": "https://raw.github.com/jashkenas/coffee-script/1.6.2/extras/coffee-script.js",
+  "_target": "*",
+  "_originalSource": "https://raw.github.com/jashkenas/coffee-script/1.6.2/extras/coffee-script.js"
+}

@@ -1,0 +1,14 @@
+{
+  "name": "mapbox",
+  "_cacheHeaders": {
+    "ETag": "\"1a8015ea95a9a1db8c43a0d28f4c1db8\"",
+    "Last-Modified": "Fri, 07 Mar 2014 02:01:01 GMT",
+    "Content-Length": "194530",
+    "Content-Type": "application/javascript"
+  },
+  "_release": "e-tag:1a8015ea9",
+  "main": "index.js",
+  "_source": "https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js",
+  "_target": "*",
+  "_originalSource": "https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js"
+}

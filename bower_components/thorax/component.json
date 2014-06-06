@@ -1,0 +1,10 @@
+{
+  "name": "thorax",
+  "version": "2.1.0",
+  "repo": "components/thorax",
+  "main": "thorax.js",
+  "scripts": [
+    "thorax.js",
+    "thorax-mobile.js"
+  ]
+}

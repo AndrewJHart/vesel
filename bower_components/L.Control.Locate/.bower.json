@@ -1,0 +1,14 @@
+{
+  "name": "L.Control.Locate",
+  "_cacheHeaders": {
+    "ETag": "\"defca8c9a951b75ff94217659c24e1f3\"",
+    "Last-Modified": "Thu, 15 May 2014 17:16:03 GMT",
+    "Content-Length": "10649",
+    "Content-Type": "application/javascript"
+  },
+  "_release": "e-tag:defca8c9a",
+  "main": "index.js",
+  "_source": "https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.24.0/L.Control.Locate.js",
+  "_target": "*",
+  "_originalSource": "https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.24.0/L.Control.Locate.js"
+}

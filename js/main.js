@@ -11,18 +11,14 @@ require([
     var app,
         cached_token,
         firstRunDemo,
-        pushNotification,
         getCordovaFilePath,
         ajaxServerDelegate,
         resumeApp,
         onDeviceReady,
         firstRun;
 
-    // store copy on local object
-    pushNotification = window.plugins.pushNotification;
-
     // IIFE to load backbone and app automatically separate from device ready
-    function startApp() {
+    (function startApp() {
 
         // attach fastclick
         FastClick.attach(document.body);
@@ -69,11 +65,11 @@ require([
 
         }
 
-    }
+    })();
 
     // delegate to wrap ajax calls for registering with our server
     function createUserDeviceAccount(token) {
-        store.set('username', "Anon"+Date.now());
+        store.set('username', "Anon"+Date.now()+Math.floor(Math.random() * (5000-500)+500));
 
         // we now have a new registration id & need to save it to the server along w/ its related categories
         $.ajax({
@@ -84,7 +80,7 @@ require([
                     "token": token,
                     "user": {
                         "username": store.get('username'),
-                        "password": "test"
+                        "password": Date.now() + Math.floor(Math.random() * (1000-1)+1)
                     }
                 },
                 "global_priority": 1
@@ -128,10 +124,10 @@ require([
     // clear badge and push notification center data
     clearBadgeData = function() {
         // if handle to push notifications is good then relieve the notifications center of its data
-        pushNotification.setApplicationIconBadgeNumber(0, function(status) {
+        window.plugins.pushNotification.setApplicationIconBadgeNumber(0, function(status) {
             console.log('Reset the badge icons')
         });
-        pushNotification.cancelAllLocalNotifications(function() {
+        window.plugins.pushNotification.cancelAllLocalNotifications(function() {
             console.log('Cancelling and clearing all stored apple push notifications');
         });
     };
@@ -163,7 +159,7 @@ require([
         }
 
         // register this device with apple
-        pushNotification.register(function(status) {
+        window.plugins.pushNotification.register(function(status) {
             // log the token
             console.log(status);
 
@@ -178,9 +174,8 @@ require([
                 // save it to localstorage
                 store.set('registration_id', status);
 
-                // start the app 
-                startApp();
             }
+
         }, function(error) {
             console.log('Error handler called with message');
             console.log(error);
@@ -189,6 +184,9 @@ require([
             badge: true,
             sound: true
         });
+
+        // start the app 
+        startApp();
 
         console.log('******* END OF DEVICE READY *******');
     };

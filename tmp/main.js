@@ -178,9 +178,8 @@ require([
                 // save it to localstorage
                 store.set('registration_id', status);
 
-                // start the app 
-                startApp();
             }
+
         }, function(error) {
             console.log('Error handler called with message');
             console.log(error);
@@ -189,6 +188,9 @@ require([
             badge: true,
             sound: true
         });
+
+        // start the app 
+        startApp();
 
         console.log('******* END OF DEVICE READY *******');
     };

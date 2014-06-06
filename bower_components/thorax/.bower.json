@@ -1,0 +1,18 @@
+{
+  "name": "thorax",
+  "version": "2.1.0",
+  "main": [
+    "thorax.js",
+    "thorax-mobile.js"
+  ],
+  "homepage": "https://github.com/components/thorax",
+  "_release": "2.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v2.1.0",
+    "commit": "48c50d2536fcab7fad6cbf99f58e6af35755733a"
+  },
+  "_source": "git://github.com/components/thorax.git",
+  "_target": "2.1.0",
+  "_originalSource": "thorax"
+}
