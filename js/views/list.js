@@ -34,33 +34,38 @@ define([
                             color: 'grey',
                             icon: 'share',
                             action: function(li, inst) {
-                                var alert, 
-                                    message, 
-                                    post_msg, 
-                                    post_title, 
-                                    subject, 
-                                    model;
-                
-                                event.preventDefault();
 
-                                model = self.$(li).model();
+                                // make the method asyncronous to avoid complications 
+                                // with mobiscroll listreveal returning to default position
+                                _.delay(function(li, inst) {
+                                    var alert, 
+                                        message, 
+                                        post_msg, 
+                                        post_title, 
+                                        subject, 
+                                        model;
 
-                                console.log(model);
+                                    model = self.$(li).model();
 
-                                alert = model.get('information');
-                                post_msg = "Important alert from the HeadsUp Huntington Mobile App: \n" + alert;
-                                subject = model.get('subject');
-                                post_title = "Just received via Heads Up Huntington, " + subject;
+                                    alert = model.get('information');
+                                    post_msg = "Important alert from the HeadsUp Huntington Mobile App: \n" + alert;
+                                    subject = model.get('subject');
+                                    post_title = "Just received via Heads Up Huntington, " + subject;
 
-                                message = {
-                                    title: post_title,
-                                    text: post_msg,
-                                    url: "http://headsupapp.io/feed/"+model.get('id')+"/"
-                                };
+                                    message = {
+                                        title: post_title,
+                                        text: post_msg,
+                                        url: "http://headsupapp.io/feed/"+model.get('id')+"/"
+                                    };
 
-                                window.socialmessage.send(message);
+                                    console.log(model);
+                                    console.log(message);
 
-                                return false;
+                                    window.socialmessage.send(message);
+
+                                }, 0);
+
+                                return true;
                             }
                         }]
                     });
