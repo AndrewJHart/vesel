@@ -32,7 +32,7 @@ define([
                 });
             },
 
-            'change div.toggle > input[type="checkbox"]': function(event) {
+            'click div.toggle': function(event) {
                 var metadataPosition = this.$(event.target).data("meta-position"),
                     property = null,
                     model = this.$(event.target).model();

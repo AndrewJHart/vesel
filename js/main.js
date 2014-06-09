@@ -187,6 +187,8 @@ require([
 
         // start the app 
         startApp();
+
+        console.log('******* END OF DEVICE READY *******');
     };
 
     // bind listeners for cordova

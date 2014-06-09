@@ -42,12 +42,17 @@ define([
         initialize: function() {
             console.log(this.name + '#initialize');
 
-            // tile layer
-            this.tiles = L.tileLayer('https://{s}.tiles.mapbox.com/v3/examples.map-i86nkdio/{z}/{x}/{y}.png', {
-                attribution: '<a href="http://www.mscns.com" target="_blank">Powered by MSCNS</a>',
-                detectRetina: true
-            });
-            console.log(this.tiles);
+            // check that we have an ID for the map of this alert or nullify it
+            this.mapUUID = (this.model.get('map').id || null);
+
+            // load the tiles only if we have a map for this alert
+            if (this.mapUUID) {
+                // tile layer
+                this.tiles = L.tileLayer('https://{s}.tiles.mapbox.com/v3/examples.map-i86nkdio/{z}/{x}/{y}.png', {
+                    attribution: '<a href="http://www.mscns.com" target="_blank">Powered by MSCNS</a>',
+                    detectRetina: true
+                });
+            }
 
             return this;
         },
@@ -55,6 +60,10 @@ define([
         afterRender: function() {
             var self = this,
                 primaryLayer,
+                layers;
+
+            // only load the detail map view if delegate created a map point for it
+            if (this.mapUUID) {
                 layers = L.control.layers({
                     'Satellite': this.tiles,
                     'Streets': L.tileLayer('https://{s}.tiles.mapbox.com/v3/mscnswv.hl37jh6m/{z}/{x}/{y}.png', {
@@ -62,36 +71,45 @@ define([
                     })
                 });
 
-            _.delay(function() {
-                // only create the map once
-                self.map = new L.map('single-map', {
-                    zoomControl: false, // prevent zoom control from being added (instead of removing it later)
-                    locateControl: false
-                }).addLayer(self.tiles);
+                _.delay(function() {
+                    // only create the map once
+                    self.map = new L.map('single-map', {
+                        zoomControl: false, // prevent zoom control from being added (instead of removing it later)
+                        locateControl: false
+                    }).addLayer(self.tiles);
 
-                // get our primary layer with geoJSON
-                primaryLayer = L.mapbox.featureLayer()
-                    .loadURL('https://headsuphuntington.herokuapp.com/api/app/v1/alert_locations/'+self.model.get('map').id+'/')
-                    .addTo(self.map)
-                    .on('ready', function() {
-                        primaryLayer.eachLayer(function(l) {
-                            return self.map.panTo(l.getLatLng());
+                    // get our primary layer with geoJSON from the alert_locations/pk/ resource
+                    // notice that our api uses the pk / id of the Alert and not the pk / id of the map
+                    primaryLayer = L.mapbox.featureLayer()
+                        .loadURL('http://localhost:8005/api/app/v1/alert_locations/'+self.model.get('id')+'/')
+                        .addTo(self.map)
+                        .on('ready', function() {
+                            primaryLayer.eachLayer(function(l) {
+                                // set our icons and pan to the huntington area
+                                l.setIcon(L.icon(l.feature.properties.icon));
+                                return self.map.panTo(l.getLatLng());
+                            });
                         });
-                    });
 
-                layers.addTo(self.map);
-                
-                self.map.setView([38.412, -82.428], 11);
+                    layers.addTo(self.map);
+                    
+                    self.map.setView([38.412, -82.428], 11);
 
-            }, 250);
+                }, 250);
+            }
 
             return this;
         },
 
         onClose: function() {
-            if (this.map) {
+            if (this.map && this.mapUUID) {
                 this.map.off('ready');
-                //delete this.map;
+                
+                _.delay(function() {
+                    delete this.map;
+
+                }.bind(this), 0);
+                
             }
 
             return this;

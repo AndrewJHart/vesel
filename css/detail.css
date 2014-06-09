@@ -1,9 +1,0 @@
-/*
- * Overrides for the detail view styling -- only loaded when a detail view is
- * has been rendered and appended to the DOM because Lumbar loads this stylesheet
- * when the route for detail is triggered.
- */
-
- .detail {
-   z-index: 11;
- }
