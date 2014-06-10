@@ -81,7 +81,7 @@ define([
                     // get our primary layer with geoJSON from the alert_locations/pk/ resource
                     // notice that our api uses the pk / id of the Alert and not the pk / id of the map
                     primaryLayer = L.mapbox.featureLayer()
-                        .loadURL('http://localhost:8005/api/app/v1/alert_locations/'+self.model.get('id')+'/')
+                        .loadURL('https://headsuphuntington.herokuapp.com/api/app/v2/alert_locations/'+self.model.get('id')+'/')
                         .addTo(self.map)
                         .on('ready', function() {
                             primaryLayer.eachLayer(function(l) {
