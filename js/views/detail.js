@@ -107,7 +107,7 @@ define([
                 
                 _.delay(function() {
                     delete this.map;
-
+                    delete this.tiles;
                 }.bind(this), 0);
                 
             }
