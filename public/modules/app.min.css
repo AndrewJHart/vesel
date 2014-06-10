@@ -17260,6 +17260,10 @@ offset | guillotine-reverse | half-slide | sqkwoosh | tunnel>"
   z-index: 11;
 }
 
+.detail {
+  z-index: 11;
+}
+
 #mapmain.map {
   position: absolute;
   top: 88px;
@@ -17439,6 +17443,26 @@ a.overlay.mask {
 .effeckt-off-screen-nav-right-bounce-out {
   -moz-box-sizing: content-box;
   box-sizing: content-box;
+}
+
+.page {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.page.right {
+  -webkit-transform: translate3d(100%, 0, 0);
+  transform: translate3d(100%, 0, 0);
+}
+
+.page.left {
+  -webkit-transform: translate3d(-100%, 0, 0);
+  transform: translate3d(-100%, 0, 0);
 }
 
 .leaflet-container {

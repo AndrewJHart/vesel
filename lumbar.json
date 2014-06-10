@@ -26,8 +26,8 @@
                 }, {
                     "src": "bower_components/handlebars/handlebars.js",
                     "global": true
-                },{
-                    "src": "bower_components/moment/moment.js",
+                }, {
+                    "src": "bower_components/momentjs/moment.js",
                     "global": true
                 },
                 "bower_components/thorax/thorax.js",
