@@ -69,18 +69,22 @@ require([
 
     // delegate to wrap ajax calls for registering with our server
     function createUserDeviceAccount(token) {
-        store.set('username', "Anon"+Date.now()+Math.floor(Math.random() * (5000-500)+500));
+        store.set('username', "Anon" + Date.now() + Math.floor(Math.random() * (5000 - 500) + 500));
+        store.set('region', 1);
 
         // we now have a new registration id & need to save it to the server along w/ its related categories
         $.ajax({
-            url: 'http://localhost:8005/api/app/v1/device_settings/ios/',
+            url: 'http://localhost:8005/api/app/v2/device_settings/ios/',
             type: 'POST',
             data: JSON.stringify({
                 "device": {
                     "token": token,
                     "user": {
                         "username": store.get('username'),
-                        "password": Date.now() + Math.floor(Math.random() * (1000-1)+1)
+                        "password": Date.now() + Math.floor(Math.random() * (1000 - 1) + 1),
+                        "region_set": {
+                            "name": store.get('region')
+                        }
                     }
                 },
                 "global_priority": 1
@@ -95,6 +99,8 @@ require([
             },
             error: function(xhr, type) {
                 console.log('** ERROR ON POST **');
+                console.dir(xhr);
+                console.dir(type);
             }
         });
     }
@@ -125,10 +131,11 @@ require([
     clearBadgeData = function() {
         // if handle to push notifications is good then relieve the notifications center of its data
         window.plugins.pushNotification.setApplicationIconBadgeNumber(0, function(status) {
-            console.log('Reset the badge icons')
+            console.log('Reset the badge icons');
+            console.log(status);
         });
         window.plugins.pushNotification.cancelAllLocalNotifications(function() {
-            console.log('Cancelling and clearing all stored apple push notifications');
+            console.log('Cancelling and clearing all stored apple notifications');
         });
     };
 
@@ -142,7 +149,7 @@ require([
             });
         }
 
-        //clearBadgeData();
+        clearBadgeData();
     };
 
     // triggered by cordova when the device is ready

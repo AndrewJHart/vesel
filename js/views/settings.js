@@ -35,17 +35,62 @@ define([
             'click div.toggle': function(event) {
                 var metadataPosition = this.$(event.target).data("meta-position"),
                     property = null,
-                    model = this.$(event.target).model();
+                    model = this.$(event.target).model(),
+                    state = null;
 
-                event.preventDefault();
 
-                console.log("toggle was changed. Target:");
+                console.log("toggle was changed. meta position:");
+                console.log(metadataPosition);
+                console.log("Event:");
+                console.log(event);
+                console.log("Target");
                 console.log(event.target);
 
                 property = "metadata." + metadataPosition + ".is_enabled";
 
+                if ($(event.target).hasClass('active')) {
+                    state = true;
+                } else {
+                    state = false;
+                }
+
                 // try to get the model
-                this.model.set(property, event.target.checked, {
+                this.model.set(property, state, {
+                    silent: true
+                });
+
+                console.log(this.model);
+
+                this.model.save({}, {
+                    wait: true,
+                    silent: true
+                });
+            },
+
+            'touchend div.toggle > div.toggle-handle': function(event) {
+                var metadataPosition = this.$(event.target).data("meta-position"),
+                    property = null,
+                    model = this.$(event.target).model(),
+                    state = null;
+
+
+                console.log("toggle-handle was changed. meta position:");
+                console.log(metadataPosition);
+                console.log("Event:");
+                console.log(event);
+                console.log("Target");
+                console.log(event.target);
+
+                property = "metadata." + metadataPosition + ".is_enabled";
+
+                if ($(event.target).parent().hasClass('active')) {
+                    state = true;
+                } else {
+                    state = false;
+                }
+
+                // try to get the model
+                this.model.set(property, state, {
                     silent: true
                 });
 

@@ -18710,8 +18710,19 @@ a:active {
   max-height: 100px;
 }
 
-
 .bar .icon {
     width: 20%;
     padding-bottom: 20px;
+}
+
+.powered-by {
+  text-align: center;
+}
+
+.powered-logos {
+  text-align: center;
+}
+.powered-logos i {
+  display: inline-block;
+  margin: 10px;
 }

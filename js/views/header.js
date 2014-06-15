@@ -1,15 +1,15 @@
 define([
-  'underscore',
-  'view',
-  'views/settings',
-  'models/settings'
-  // 'hbs!templates/header'
-], function(_, View, SettingsView, SettingsModel/*, template*/) {
+    'underscore',
+    'view',
+    'views/settings',
+    'models/settings'
+    // 'hbs!templates/header'
+], function(_, View, SettingsView, SettingsModel /*, template*/ ) {
 
     return View.extend({
         name: "header",
         //template: template,
-        
+
         events: {
             'click a[data-toggle="aside"]': 'toggleSettings'
         },
@@ -47,7 +47,7 @@ define([
                     // notice the frameworks prepend call to keep aside at top of markup
                     Application.$el.prepend(Application["settings"].$el);
 
-                }, 300);
+                }, 1500);
             }
 
             return this;
