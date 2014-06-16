@@ -74,7 +74,7 @@ require([
 
         // we now have a new registration id & need to save it to the server along w/ its related categories
         $.ajax({
-            url: 'http://localhost:8005/api/app/v2/device_settings/ios/',
+            url: 'https://heads-up.herokuapp.com/api/app/v2/device_settings/ios/',
             type: 'POST',
             data: JSON.stringify({
                 "device": {

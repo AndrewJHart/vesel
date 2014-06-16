@@ -95,14 +95,6 @@ module.exports = function(grunt) {
    * with having to restart two different windows in the event of something
    * drastic.
    */
-  grunt.registerTask('autotest', [
-    'build',
-    'styles:development',
-    'thorax:inspector',
-    'karma:server',
-    'connect:development',
-    'watch'
-  ]);
 
   // compile production ready assets to dist/
   grunt.registerTask('production', [
@@ -115,17 +107,6 @@ module.exports = function(grunt) {
     'connect:production'
   ]);
 
-  // aliased as npm test, and therefore used by travis ci
-  grunt.registerTask('test', [
-    'build',
-    'karma:ci'
-  ]);
-
-  // run tests one time in chrome, firefox, safari
-  grunt.registerTask('test-deploy', [
-    'build',
-    'karma:deploy'
-  ]);
 
   // manually run grunt within a terminal window, provides nicer UI output
   // than karma
