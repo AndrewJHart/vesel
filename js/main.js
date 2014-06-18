@@ -74,11 +74,11 @@ require([
 
         // we now have a new registration id & need to save it to the server along w/ its related categories
         $.ajax({
-            url: 'http://localhost:8005/api/app/v2/device_settings/ios/',
+            url: 'http://localhost:8005/api/app/v2/device_settings/gcm/',
             type: 'POST',
             data: JSON.stringify({
                 "device": {
-                    "token": token,
+                    "registration_id": token,
                     "user": {
                         "username": store.get('username'),
                         "password": Date.now() + Math.floor(Math.random() * (1000 - 1) + 1),
@@ -103,21 +103,6 @@ require([
                 console.dir(type);
             }
         });
-    }
-
-
-    // loads local settings & checks if first run etc...
-    function getLocalSettings() {
-        // var firstRun = store.get('firstRun');
-        firstRun = store.get('firstRun');
-        console.debug('****FirstRun is equal to: ' + firstRun);
-
-        if (firstRun) {
-            window.gAppFirstRun = firstRun;
-        } else {
-            window.gAppFirstRun = true;
-            store.set('firstRun', 'false');
-        }
     }
 
     // method to get to root assets path on android or iOS
