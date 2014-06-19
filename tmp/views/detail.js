@@ -1,11 +1,11 @@
 define([
-  'underscore',
-  'anim-view',
-  'hbs!templates/detail'
+    'underscore',
+    'anim-view',
+    'hbs!templates/detail'
 ], function(_, AnimView, template) {
 
     return AnimView.extend({
-        name: "detail", 
+        name: "detail",
         template: template,
 
         // classes for this view
@@ -18,18 +18,17 @@ define([
         events: {
             'click a.toggle-share': function(event) {
                 var alert, message, post_msg, post_title, subject;
-                
+
                 event.preventDefault();
 
-                alert = this.model.get('information');
-                post_msg = "Important alert from the HeadsUp Huntington Mobile App: \n" + alert;
+                post_msg = this.model.get('information');
                 subject = this.model.get('subject');
-                post_title = "Just received via Heads Up Huntington, " + subject;
+                post_title = "Heads Up! " + subject;
 
                 message = {
                     title: post_title,
                     text: post_msg,
-                    url: "http://headsupapp.io/feed/"+this.model.get('id')+"/"
+                    url: "http://headsupapp.io/huntington/alerts/" + this.model.get('id') + "/"
                 };
 
                 window.socialmessage.send(message);
@@ -40,8 +39,6 @@ define([
 
         // init for detail view
         initialize: function() {
-            console.log(this.name + '#initialize');
-
             // check that we have an ID for the map of this alert or nullify it
             this.mapUUID = (this.model.get('map').id || null);
 
@@ -81,7 +78,7 @@ define([
                     // get our primary layer with geoJSON from the alert_locations/pk/ resource
                     // notice that our api uses the pk / id of the Alert and not the pk / id of the map
                     primaryLayer = L.mapbox.featureLayer()
-                        .loadURL('http://localhost:8005/api/app/v1/alert_locations/'+self.model.get('id')+'/')
+                        .loadURL('https://heads-up.herokuapp.com/api/app/v2/alert_locations/' + self.model.get('id') + '/')
                         .addTo(self.map)
                         .on('ready', function() {
                             primaryLayer.eachLayer(function(l) {
@@ -92,7 +89,7 @@ define([
                         });
 
                     layers.addTo(self.map);
-                    
+
                     self.map.setView([38.412, -82.428], 11);
 
                 }, 250);
@@ -104,12 +101,12 @@ define([
         onClose: function() {
             if (this.map && this.mapUUID) {
                 this.map.off('ready');
-                
+
                 _.delay(function() {
                     delete this.map;
-
+                    delete this.tiles;
                 }.bind(this), 0);
-                
+
             }
 
             return this;

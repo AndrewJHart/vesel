@@ -39,13 +39,6 @@ define([
                     state = null;
 
 
-                console.log("toggle was changed. meta position:");
-                console.log(metadataPosition);
-                console.log("Event:");
-                console.log(event);
-                console.log("Target");
-                console.log(event.target);
-
                 property = "metadata." + metadataPosition + ".is_enabled";
 
                 if ($(event.target).hasClass('active')) {
@@ -73,13 +66,6 @@ define([
                     model = this.$(event.target).model(),
                     state = null;
 
-
-                console.log("toggle-handle was changed. meta position:");
-                console.log(metadataPosition);
-                console.log("Event:");
-                console.log(event);
-                console.log("Target");
-                console.log(event.target);
 
                 property = "metadata." + metadataPosition + ".is_enabled";
 
@@ -119,9 +105,6 @@ define([
 
         toggle: function() {
             var self = this;
-
-            console.log('Toggled Settings - settingsState is ' + this.settingsState);
-            console.log(event.target);
 
             if (this.settingsState) {
                 // reveal and animate the aside view

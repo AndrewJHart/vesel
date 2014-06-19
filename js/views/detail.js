@@ -21,15 +21,14 @@ define([
 
                 event.preventDefault();
 
-                alert = this.model.get('information');
-                post_msg = "Important alert from the HeadsUp Huntington Mobile App: \n" + alert;
+                post_msg = this.model.get('information');
                 subject = this.model.get('subject');
-                post_title = "Just received via Heads Up Huntington, " + subject;
+                post_title = "Heads Up! " + subject;
 
                 message = {
                     title: post_title,
                     text: post_msg,
-                    url: "http://headsupapp.io/alerts/" + this.model.get('id') + "/"
+                    url: "http://headsupapp.io/huntington/alerts/" + this.model.get('id') + "/"
                 };
 
                 window.socialmessage.send(message);
@@ -40,8 +39,6 @@ define([
 
         // init for detail view
         initialize: function() {
-            console.log(this.name + '#initialize');
-
             // check that we have an ID for the map of this alert or nullify it
             this.mapUUID = (this.model.get('map').id || null);
 

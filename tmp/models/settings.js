@@ -3,7 +3,7 @@ define(['backbone', 'deepmodel', 'store'], function(Backbone, DeepModel, store) 
     return Backbone.DeepModel.extend({
         name: 'settings',
 
-        urlRoot: 'http://localhost:8005/api/app/v1/device_settings/ios/',
+        urlRoot: 'https://heads-up.herokuapp.com/api/app/v2/device_settings/ios/',
 
         // gets the registration id, username, and pass from the user and device
         // then login will generate the api key
@@ -15,7 +15,10 @@ define(['backbone', 'deepmodel', 'store'], function(Backbone, DeepModel, store) 
                         "api_key": {
                             "key": store.get('api_key')
                         },
-                        "username": store.get('username')
+                        "region_set": [{
+                            "name": store.get('region')
+                        }],
+                        "username": store.get('username'),
                     }
                 },
                 "global_priority": 1
@@ -24,7 +27,6 @@ define(['backbone', 'deepmodel', 'store'], function(Backbone, DeepModel, store) 
 
         url: function() {
             var device = this.get("device.token"),
-                //device_registration = device.get("registration_id"),
                 user = this.get("device.user"),
                 username = this.get("device.user.username"),
                 api = this.get("device.user.api_key"),

@@ -46,9 +46,9 @@ define(['underscore', 'thorax'], function (_, Thorax) {
         }
 
         // call the parent render since we're overriding it in thorax
-        console.debug('*!*!*! Thorax.View rendering taking over!*!* for view ' + this.name);
+        // console.debug('*!*!*! Thorax.View rendering taking over!*!* for view ' + this.name);
         Thorax.View.prototype.render.apply(this, arguments);
-        console.debug('Finshed');
+        // console.debug('Finshed');
 
         // Trigger any additional or special rendering a user may require
         if (_.isFunction(this.afterRender)) {
@@ -94,7 +94,6 @@ define(['underscore', 'thorax'], function (_, Thorax) {
 
                 if (_.isFunction(callback)) {
                     callback();
-                    console.debug('Callback triggered on event transitionend for TransitionIn');
                 }
             });
 
@@ -121,8 +120,6 @@ define(['underscore', 'thorax'], function (_, Thorax) {
                 callback(); // hard to track bug! He's binding to transitionend each time transitionOut called 
                 // resulting in the callback being triggered callback * num of times transitionOut
                 // has executed
-                console.debug('Callback triggered on event transitionend for TransitionOut');
-                console.debug('---------------------------');
             }
         });
     },

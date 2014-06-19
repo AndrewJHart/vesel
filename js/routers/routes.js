@@ -67,7 +67,7 @@ define([
         },
 
         intro: function() {
-            console.log('Intro route Triggered! ----------');
+            console.log('Intro Triggered');
 
             var introView = null;
 
@@ -85,9 +85,6 @@ define([
             // hoisting 
             var model = null,
                 pageView = null;
-
-            // log the route params passed to us
-            console.log("detail/index route received :id " + params);
 
             // use params to get model from our collection
             model = Application["alerts"].get(params);
@@ -120,9 +117,6 @@ define([
                 this.mapView = new MapView({
                     el: '#map',
                     className: 'maplist'
-                    // -- can use a new collection for locations 
-                    // or make the call directly w/ leaflet
-                    //collection: this.alerts
                 });
             }
 
@@ -135,8 +129,6 @@ define([
         },
 
         profile: function(params) {
-            console.log('Profile route triggered');
-
             var profileView = new ProfileView();
 
             Application.goto(profileView, {

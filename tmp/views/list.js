@@ -34,32 +34,30 @@ define([
                             color: 'grey',
                             icon: 'share',
                             action: function(li, inst) {
+                                var alert, 
+                                    message, 
+                                    post_msg, 
+                                    post_title, 
+                                    subject, 
+                                    model;
+
+                                    model = self.$(li).model();
 
                                 // make the method asyncronous to avoid complications 
                                 // with mobiscroll listreveal returning to default position
                                 _.delay(function(li, inst) {
-                                    var alert, 
-                                        message, 
-                                        post_msg, 
-                                        post_title, 
-                                        subject, 
-                                        model;
 
-                                    model = self.$(li).model();
+                                    console.log(model);
 
-                                    alert = model.get('information');
-                                    post_msg = "Important alert from the HeadsUp Huntington Mobile App: \n" + alert;
+                                    post_msg = model.get('information');
                                     subject = model.get('subject');
-                                    post_title = "Just received via Heads Up Huntington, " + subject;
+                                    post_title = "Heads Up! " + subject;
 
                                     message = {
                                         title: post_title,
                                         text: post_msg,
-                                        url: "http://headsupapp.io/feed/"+model.get('id')+"/"
+                                        url: "http://headsupapp.io/alerts/huntington/"+model.get('id')+"/"
                                     };
-
-                                    console.log(model);
-                                    console.log(message);
 
                                     window.socialmessage.send(message);
 

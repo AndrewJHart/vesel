@@ -20,13 +20,14 @@
     <li class="table-view-cell">
       <div class="set-police"><span class="set-title">Police</span></div>
       <div class="toggle {{#metadata.0.is_enabled}}active{{/metadata.0.is_enabled}}" data-meta-position="0">
-       <input type="checkbox" class="toggle-handle" {{#metadata.0.is_enabled}}checked{{/metadata.0.is_enabled}}>
+       <div class="toggle-handle" data-meta-position="0"></div>
       </div>
     </li>
+
     <li class="table-view-cell">
       <div class="set-fire"><span class="set-title">Fire</span></div>
       <div class="toggle {{#metadata.1.is_enabled}}active{{/metadata.1.is_enabled}}" data-meta-position="1">
-        <input type="checkbox" class="toggle-handle" {{#metadata.1.is_enabled}}checked{{/metadata.1.is_enabled}}>
+        <div class="toggle-handle" data-meta-position="1"></div>
       </div>
     </li>
     <li class="table-view-cell">
@@ -57,6 +58,15 @@
       <div class="set-other"><span class="set-title">Other/Misc</span></div>
       <div class="toggle {{#metadata.6.is_enabled}}active{{/metadata.6.is_enabled}}" data-meta-position="6" >
         <input type="checkbox" class="toggle-handle"{{#metadata.6.is_enabled}}checked{{/metadata.6.is_enabled}}>
+      </div>
+    </li>
+  </ul>
+  <ul class="table-view">
+    <li class="table-view-cell table-view-divider">
+      <p class="powered-by">Brough to you by: <br> Mountain State Computer and Network Solutions <br>Huntington Police Department <br> The City of Huntington</p>
+      <div class="powered-logos">
+        <i class="coh"></i>
+        <i class="hpd"></i>    
       </div>
     </li>
   </ul>

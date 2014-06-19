@@ -18,8 +18,7 @@ require([
         firstRun;
 
     // IIFE to load backbone and app automatically separate from device ready
-    (function startApp() {
-
+    function startApp() {
         // attach fastclick
         FastClick.attach(document.body);
 
@@ -65,53 +64,38 @@ require([
 
         }
 
-    })();
+    }
 
     // delegate to wrap ajax calls for registering with our server
     function createUserDeviceAccount(token) {
-        store.set('username', "Anon"+Date.now()+Math.floor(Math.random() * (5000-500)+500));
+        store.set('username', "Anon" + Date.now() + Math.floor(Math.random() * (5000 - 500) + 500));
+        store.set('region', 1);
 
         // we now have a new registration id & need to save it to the server along w/ its related categories
         $.ajax({
-            url: 'http://localhost:8005/api/app/v1/device_settings/ios/',
+            url: 'https://heads-up.herokuapp.com/api/app/v2/device_settings/ios/',
             type: 'POST',
             data: JSON.stringify({
                 "device": {
                     "token": token,
                     "user": {
                         "username": store.get('username'),
-                        "password": Date.now() + Math.floor(Math.random() * (1000-1)+1)
+                        "password": Date.now() + Math.floor(Math.random() * (1000 - 1) + 1),
+                        "region_set": [{
+                            "name": store.get('region')
+                        }]
                     }
                 },
                 "global_priority": 1
             }),
             contentType: 'application/json',
             success: function(data, status) {
-                console.log('POSTed to reg_id to server!');
-                console.log('Data resp is:');
-                console.log(data.device.user.api_key.key);
-
                 store.set('api_key', data.device.user.api_key.key);
             },
             error: function(xhr, type) {
                 console.log('** ERROR ON POST **');
             }
         });
-    }
-
-
-    // loads local settings & checks if first run etc...
-    function getLocalSettings() {
-        // var firstRun = store.get('firstRun');
-        firstRun = store.get('firstRun');
-        console.debug('****FirstRun is equal to: ' + firstRun);
-
-        if (firstRun) {
-            window.gAppFirstRun = firstRun;
-        } else {
-            window.gAppFirstRun = true;
-            store.set('firstRun', 'false');
-        }
     }
 
     // method to get to root assets path on android or iOS
@@ -125,10 +109,11 @@ require([
     clearBadgeData = function() {
         // if handle to push notifications is good then relieve the notifications center of its data
         window.plugins.pushNotification.setApplicationIconBadgeNumber(0, function(status) {
-            console.log('Reset the badge icons')
+            console.log('Reset the badge');
+            console.log(status);
         });
         window.plugins.pushNotification.cancelAllLocalNotifications(function() {
-            console.log('Cancelling and clearing all stored apple push notifications');
+            console.log('Cancelling and clearing all stored apple notifications');
         });
     };
 
@@ -142,7 +127,7 @@ require([
             });
         }
 
-        //clearBadgeData();
+        clearBadgeData();
     };
 
     // triggered by cordova when the device is ready
@@ -154,23 +139,17 @@ require([
         // delay with polling in device model for settings view
         cached_token = store.get('registration_id');
 
-        if (cached_token) {
-            window.registration_id = cached_token;
-        }
-
         // register this device with apple
         window.plugins.pushNotification.register(function(status) {
             // log the token
             console.log(status);
 
             // store on global object
-            if (window.registration_id == status) {
+            if (cached_token == status) {
                 console.log('Registration from localstore matches token - no action');
 
                 return;
             } else {
-                window.registration_id = status;
-
                 // save it to localstorage
                 store.set('registration_id', status);
 
@@ -187,6 +166,8 @@ require([
 
         // start the app 
         startApp();
+
+        console.log('******* END OF DEVICE READY *******');
     };
 
     // bind listeners for cordova
