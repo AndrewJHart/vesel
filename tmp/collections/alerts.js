@@ -8,10 +8,8 @@ define([
     return Thorax.Collection.extend({
         name: 'alerts',
 
-        //url: "https://headsuphuntington.herokuapp.com/api/app/v1/alerts/",
-        //urlRoot: 'https://headsuphuntington.herokuapp.com/api/app/v1/alerts/',
-        url: "http://localhost:8005/api/app/v1/alerts/",
-        urlRoot: "http://localhost:8005/api/app/v1/alerts/",
+        url: "https://heads-up.herokuapp.com/api/app/v2/alerts/?region=1",
+        urlRoot: 'https://heads-up.herokuapp.com/api/app/v2/alerts/?region=1',
         _cached: null,
 
         events: {
@@ -21,12 +19,12 @@ define([
                     merge: true,
                     silent: true
                 });
+
+                this.trigger('add'); // propagate
             }
         },
 
         initialize: function() {
-            console.log("Alerts Collection#initialize");
-
             // mixin websockets object
             _.extend(this, BackSocket.prototype);
 
@@ -51,9 +49,6 @@ define([
 
         comparator: function(model) {
             // format the date while we're sorting (hack - logic should be moved to better function)
-
-            console.log('comparator triggered');
-
             var originalTimestamp = model.get('modified_at'),
                 date = moment(originalTimestamp).format("llll");
 

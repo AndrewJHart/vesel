@@ -9,7 +9,7 @@ define([
   // Here we are defining the base Application "root" view class from AnimView
   var RootView = AnimView.extend({
 
-    el: 'body',
+    el: '#alerts-feed',
     template: template,
 
     goto: function(view, options) {
@@ -160,10 +160,10 @@ define([
     if (!instance) {
       instance = window.Application = new RootView({
         name: 'root', // will use template with name root.handlebars
-        el: 'body' // force view attach directly to body vs appending div to it
+        el: '#alerts-feed' // force view attach directly to body vs appending div to it
       });
 
-      instance.appendTo(target || document.body);
+      instance.appendTo(target || document.body('#alerts-feed'));
     }
     return instance;
   };

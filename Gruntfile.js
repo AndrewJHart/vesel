@@ -34,8 +34,8 @@
 module.exports = function(grunt) {
 
   var settings = {
-    liveReloadPort: process.env.LRPORT || 35729,
-    port: process.env.PORT || 8000,
+    liveReloadPort: process.env.LRPORT || 35723,
+    port: process.env.PORT || 8055,
     mochaPhantomPort: process.env.MOCHA_PHANTOM_PORT || 8001,
     hostname: 'localhost',
     templates: {},
