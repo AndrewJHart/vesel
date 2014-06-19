@@ -19,6 +19,7 @@ require([
 
     // IIFE to load backbone and app automatically separate from device ready
     (function startApp() {
+        store.set('registration_id', "466ff01a8f932281040a9b01bb7c2717878ff59d454e64");
 
         // attach fastclick
         FastClick.attach(document.body);
@@ -74,17 +75,17 @@ require([
 
         // we now have a new registration id & need to save it to the server along w/ its related categories
         $.ajax({
-            url: 'http://localhost:8005/api/app/v2/device_settings/gcm/',
+            url: 'http://localhost:8005/api/app/v2/device_settings/ios/',
             type: 'POST',
             data: JSON.stringify({
                 "device": {
-                    "registration_id": token,
+                    "token": token,
                     "user": {
                         "username": store.get('username'),
                         "password": Date.now() + Math.floor(Math.random() * (1000 - 1) + 1),
-                        "region_set": {
+                        "region_set": [{
                             "name": store.get('region')
-                        }
+                        }]
                     }
                 },
                 "global_priority": 1
