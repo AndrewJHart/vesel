@@ -19,8 +19,6 @@ define([
         // declaritive events for the view + nested declaritive events for collection
         events: {
             'rendered:collection': function(collectionView, collection) {
-                console.debug('Event "rendered:collection"');
-
                 var self = this;
 
                 // refactoring this may work without the delay call...
@@ -56,7 +54,7 @@ define([
                                     message = {
                                         title: post_title,
                                         text: post_msg,
-                                        url: "http://headsupapp.io/alerts/huntington/"+model.get('id')+"/"
+                                        url: "http://headsupapp.io/alerts/hancock/"+model.get('id')+"/"
                                     };
 
                                     window.socialmessage.send(message);
