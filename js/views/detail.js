@@ -81,7 +81,7 @@ define([
                     // get our primary layer with geoJSON from the alert_locations/pk/ resource
                     // notice that our api uses the pk / id of the Alert and not the pk / id of the map
                     primaryLayer = L.mapbox.featureLayer()
-                        .loadURL('https://headsuphuntington.herokuapp.com/api/app/v2/alert_locations/' + self.model.get('id') + '/')
+                        .loadURL('https://heads-up.herokuapp.com/api/app/v2/alert_locations/' + self.model.get('id') + '/')
                         .addTo(self.map)
                         .on('ready', function() {
                             primaryLayer.eachLayer(function(l) {
@@ -97,6 +97,15 @@ define([
 
                 }, 250);
             }
+
+             self.el.style.display = 'none';
+
+            // notice that delay must at least be >= length of animation duration
+            // or the re-draw will break the animation just showing the panel w/o it
+            _.delay(function() {
+                    console.log('Timing out bitchesssssssssss');
+                self.el.style.display = 'block';
+            }, 500);
 
             return this;
         },
