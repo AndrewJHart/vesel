@@ -8,8 +8,8 @@ define([
     return Thorax.Collection.extend({
         name: 'alerts',
 
-        url: "https://heads-up.herokuapp.com/api/app/v2/alerts/?region=1",
-        urlRoot: 'https://heads-up.herokuapp.com/api/app/v2/alerts/?region=1',
+        url: "https://heads-up.herokuapp.com/api/app/v2/alerts/?region=2",
+        urlRoot: 'https://heads-up.herokuapp.com/api/app/v2/alerts/?region=2',
         _cached: null,
 
         events: {

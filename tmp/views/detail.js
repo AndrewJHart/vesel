@@ -31,6 +31,8 @@ define([
                     url: "http://headsupapp.io/hancock/alerts/" + this.model.get('id') + "/"
                 };
 
+                console.log(message);
+
                 window.socialmessage.send(message);
 
                 return false;
@@ -90,7 +92,7 @@ define([
 
                     layers.addTo(self.map);
 
-                    self.map.setView([40.533, -80.621], 11);
+                    self.map.setView([40.533, -80.621], 17);
 
                 }, 250);
             }

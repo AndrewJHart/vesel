@@ -64,6 +64,8 @@ require([
 
         }
 
+        return;
+
     }
 
     // delegate to wrap ajax calls for registering with our server
@@ -98,20 +100,9 @@ require([
         });
     }
 
-    // method to get to root assets path on android or iOS
-    getCordovaFilePath = function() {
-        var path = window.location.pathname;
-        path = path.substr(path, path.length - 10); // -10 for index.html
-        return 'file://' + path;
-    };
-
     // clear badge and push notification center data
     clearBadgeData = function() {
-        // if handle to push notifications is good then relieve the notifications center of its data
-        window.plugins.pushNotification.setApplicationIconBadgeNumber(0, function(status) {
-            console.log('Reset the badge');
-            console.log(status);
-        });
+
         window.plugins.pushNotification.cancelAllLocalNotifications(function() {
             console.log('Cancelling and clearing all stored apple notifications');
         });
@@ -139,12 +130,9 @@ require([
         // register this device with apple
         window.plugins.pushNotification.register(function(status) {
             // store on global object
-            if (cached_token == status) {
-                return;
-            } else {
+            if (cached_token != status) {
                 // save it to localstorage
                 store.set('registration_id', status);
-
             }
 
         }, function(error) {
@@ -158,6 +146,8 @@ require([
 
         // start the app 
         startApp();
+
+        console.log('**** END OF DEVICE READY ****');
     };
 
     // bind listeners for cordova

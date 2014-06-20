@@ -31,6 +31,8 @@ define([
                     url: "http://headsupapp.io/hancock/alerts/" + this.model.get('id') + "/"
                 };
 
+                console.log(message);
+
                 window.socialmessage.send(message);
 
                 return false;
