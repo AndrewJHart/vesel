@@ -40,8 +40,6 @@ define([
 
         // default route, triggered on / or /#
         index: function(params) {
-            console.log('Index route triggered');
-
             // only instantiate the alerts collection once
             if (!this.alerts) {
                 this.alerts = Application["alerts"] = new AlertsCollection();
@@ -67,8 +65,6 @@ define([
         },
 
         intro: function() {
-            console.log('Intro Triggered');
-
             var introView = null;
 
             introView = new SlidesView();

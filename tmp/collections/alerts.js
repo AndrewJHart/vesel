@@ -32,7 +32,7 @@ define([
             if (_.isFunction(this.live)) {
                 this.live({
                     key: '3fb8e3f49e89f2640bc9',
-                    channel: 'huh',
+                    channel: 'hancock',
                     channelSuffix: 'channel',
                     messageSuffix: 'message',
                     autoListen: true,
