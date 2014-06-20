@@ -11,7 +11,7 @@ define([
         //template: template,
 
         events: {
-            'click a[data-toggle="aside"]': 'toggleSettings'
+            // 'click a[data-toggle="aside"]': 'toggleSettings'
         },
 
         initialize: function() {
