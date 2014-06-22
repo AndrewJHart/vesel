@@ -1,12 +1,13 @@
 require([
     'jquery',
+    'underscore',
     'backbone',
     'views/root',
     'routers/routes',
     'FastClick',
     'store',
     'helpers'
-], function($, Backbone, RootView, Router, FastClick, store) {
+], function($, _, Backbone, RootView, Router, FastClick, store) {
 
     var app,
         cached_token,
@@ -15,7 +16,9 @@ require([
         ajaxServerDelegate,
         resumeApp,
         onDeviceReady,
-        firstRun;
+        firstRun,
+        onNotificationAPN,
+        registerDevice;
 
     // IIFE to load backbone and app automatically separate from device ready
     function startApp() {
@@ -100,6 +103,26 @@ require([
         });
     }
 
+    onNotificationAPN = function(event) {
+        if (event.alert) {
+            navigator.notification.alert(event.alert);
+        }
+
+        if (event.sound) {
+            var snd = new Media(event.sound);
+            snd.play();
+        }
+
+        if (event.badge) {
+            pushNotification.setApplicationIconBadgeNumber(function(status) {
+                console.log(status);
+            }, function(status) {
+                console.log("error with application badge number..");
+                console.log(status);
+            }, event.badge);
+        }
+    };
+
     // clear badge and push notification center data
     clearBadgeData = function() {
 
@@ -117,17 +140,16 @@ require([
             });
         }
 
-        clearBadgeData();
+        //clearBadgeData();
     };
 
-    // triggered by cordova when the device is ready
-    onDeviceReady = function() {
-        // try to get cached copy of the device UUID for model 
-        // just in case nothing has changed on following check to prevent
-        // delay with polling in device model for settings view
+    registerDevice = function() {
+        console.log('-----register device triggered.----');
+
+        // local store token?
         cached_token = store.get('registration_id');
 
-        // register this device with apple
+        //register this device with apple
         window.plugins.pushNotification.register(function(status) {
             // store on global object
             if (cached_token != status) {
@@ -135,14 +157,32 @@ require([
                 store.set('registration_id', status);
             }
 
+            return this;
+
         }, function(error) {
             console.log('Error handler called with message');
             console.log(error);
+
+            return this;
         }, {
-            alert: true,
-            badge: true,
-            sound: true
+            "alert": true,
+            "badge": true,
+            "sound": true
         });
+    };
+
+    // triggered by cordova when the device is ready
+    onDeviceReady = function() {
+        // try to get cached copy of the device UUID for model 
+        // just in case nothing has changed on following check to prevent
+        // delay with polling in device model for settings view
+        // _.delay(function() {
+        //     // register device
+        //     _.bind(registerDevice(), this);
+
+        // }, 250);
+
+        registerDevice();
 
         // start the app 
         startApp();

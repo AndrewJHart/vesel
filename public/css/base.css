@@ -193,7 +193,6 @@ a.overlay.mask {
     -webkit-transform: translateX(-250px);
     transform: translateX(-250px);
     opacity: 0.9; } }
-
 @keyframes iosFadeLeft {
   0% {
     -webkit-transform: translateX(0);
@@ -204,7 +203,6 @@ a.overlay.mask {
     -webkit-transform: translateX(-250px);
     transform: translateX(-250px);
     opacity: 0.9; } }
-
 .iosFadeLeft {
   -webkit-animation-name: iosFadeLeft;
   animation-name: iosFadeLeft;
@@ -225,7 +223,6 @@ a.overlay.mask {
     -webkit-transform: translateX(0);
     -ms-transform: translateX(0);
     transform: translateX(0); } }
-
 @keyframes iosSlideInRight {
   0% {
     opacity: 0.9;
@@ -238,7 +235,6 @@ a.overlay.mask {
     -webkit-transform: translateX(0);
     -ms-transform: translateX(0);
     transform: translateX(0); } }
-
 .iosSlideInRight {
   -webkit-animation-name: iosSlideInRight;
   animation-name: iosSlideInRight;
