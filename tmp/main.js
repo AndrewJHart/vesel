@@ -42,6 +42,8 @@ require([
             // actually execute the route
             RootView.getInstance(document.body);
 
+            console.log("the app has been started");
+
             // Instantiate the main router
             new Router();
 
@@ -73,7 +75,7 @@ require([
 
         // we now have a new registration id & need to save it to the server along w/ its related categories
         $.ajax({
-            url: 'https://heads-up.herokuapp.com/api/app/v2/device_settings/ios/',
+            url: 'https://heads-up.herokuapp.com/api/app/v2/device_settings/gcm/',
             type: 'POST',
             data: JSON.stringify({
                 "device": {

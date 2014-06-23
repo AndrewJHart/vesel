@@ -20,8 +20,6 @@ define([
             'change form > #global_priority': function(event) {
                 event.preventDefault();
 
-                console.log("Changed priority to" + event.target.value);
-
                 this.model.set('global_priority', Number(event.target.value), {
                     silent: true
                 });
@@ -52,8 +50,6 @@ define([
                     silent: true
                 });
 
-                console.log(this.model);
-
                 this.model.save({}, {
                     wait: true,
                     silent: true
@@ -80,7 +76,6 @@ define([
                     silent: true
                 });
 
-                console.log(this.model);
 
                 this.model.save({}, {
                     wait: true,

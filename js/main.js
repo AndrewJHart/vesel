@@ -34,13 +34,15 @@ require([
         if (!firstRun) {
             // show the slide view first by pointing backbone to 
             // different route and ensure we only POST once
-            createUserDeviceAccount(store.get('registration_id'));
+            createUserDeviceAccount();
 
             // RootView may use link or url helpers which
             // depend on Backbone history being setup
             // so need to wait to loadUrl() (which will)
             // actually execute the route
             RootView.getInstance(document.body);
+
+            console.log("the app has been started");
 
             // Instantiate the main router
             new Router();
@@ -73,11 +75,11 @@ require([
 
         // we now have a new registration id & need to save it to the server along w/ its related categories
         $.ajax({
-            url: 'https://heads-up.herokuapp.com/api/app/v2/device_settings/ios/',
+            url: 'https://heads-up.herokuapp.com/api/app/v2/device_settings/gcm/',
             type: 'POST',
             data: JSON.stringify({
                 "device": {
-                    "token": token,
+                    "registration_id": store.get('registration_id'),
                     "user": {
                         "username": store.get('username'),
                         "password": Date.now() + Math.floor(Math.random() * (1000 - 1) + 1),
@@ -126,7 +128,7 @@ require([
             });
         }
 
-        clearBadgeData();
+        // clearBadgeData();
     };
 
     // triggered by cordova when the device is ready
@@ -139,9 +141,8 @@ require([
         // register this device with apple
         window.plugins.pushNotification.register(function(status) {
             // store on global object
-            if (cached_token == status) {
-                return;
-            } else {
+            if (cached_token != status) {
+             
                 // save it to localstorage
                 store.set('registration_id', status);
 
