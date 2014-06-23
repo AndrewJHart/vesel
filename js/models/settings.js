@@ -26,7 +26,7 @@ define(['backbone', 'deepmodel', 'store'], function(Backbone, DeepModel, store) 
         },
 
         url: function() {
-            var device = this.get("device.token"),
+            var device = this.get("device.registration_id"),
                 user = this.get("device.user"),
                 username = this.get("device.user.username"),
                 api = this.get("device.user.api_key"),

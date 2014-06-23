@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.cordova.hellocordova" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.mscns.headsuphancock" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>HeadsUp Hancock</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        The mobile application of the Heads Up Emergency notification system
     </description>
     <author email="dev@cordova.apache.org" href="http://cordova.io">
         Apache Cordova Team
@@ -11,4 +11,15 @@
     <access origin="*" />
 
     <preference name="Fullscreen" value="true" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="SplashScreen" value="screen" />
+    <preference name="SplashScreenDelay" value="3000" />
+    
+    <platform name="android">
+              <icon src="res/drawable/appicon.png" />
+              <icon src="res/drawable-hdpi/appicon.png"  />
+              <icon src="res/drawable-ldpi/appicon.png"  />
+              <icon src="res/drawable-mdpi/appicon.png"  />
+     </platform>
+    
 </widget>

@@ -111,8 +111,7 @@ module.exports = function(grunt) {
     'styles:development',
     'cssmin',
     'copy:prepareBuild',
-    'requirejs:production',
-    'connect:production'
+    'requirejs:production'
   ]);
 
   // aliased as npm test, and therefore used by travis ci

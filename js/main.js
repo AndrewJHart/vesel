@@ -1,12 +1,13 @@
 require([
     'jquery',
+    'underscore',
     'backbone',
     'views/root',
     'routers/routes',
     'FastClick',
     'store',
     'helpers'
-], function($, Backbone, RootView, Router, FastClick, store) {
+], function($, _, Backbone, RootView, Router, FastClick, store) {
 
     var app,
         cached_token,
@@ -34,7 +35,7 @@ require([
         if (!firstRun) {
             // show the slide view first by pointing backbone to 
             // different route and ensure we only POST once
-            createUserDeviceAccount();
+            //createUserDeviceAccount();
 
             // RootView may use link or url helpers which
             // depend on Backbone history being setup
@@ -100,6 +101,114 @@ require([
         });
     }
 
+    // handler for push notifications
+    window.notifyGCMglobal = function onNotificationGCM(e) {
+        var ls_x = null;
+
+        switch( e.event )
+        {
+            case 'registered':
+                if ( e.regid.length > 0 )
+                {
+                    window.registration_id = e.regid;
+                    console.debug("Regid " + e.regid);
+                    
+                    // get existing registration id if present or query the server to check
+                    //var local_id = localStorage.getItem('registration_id');
+                    var local_id = store.get('registration_id');
+
+                    // store on global object
+                    if (local_id != e.regid) {
+                     
+                        // save it to localstorage
+                        store.set('registration_id', e.regid);
+                    }
+
+
+                    // check that local storage was able to pull an existing value
+                    if (local_id !== null || local_id !== undefined) {
+                      console.debug('Has localstorage cached copy of registration id equal to: ' + local_id);
+
+                      if (local_id == e.regid) {
+                        console.debug('Registration ID is a match to one retrieved from google! No need for action!');
+                      } else {
+                        console.debug('Reg ID is not a match to the one received -- POSTING new one to server');
+
+                        // update global reference
+                        window.registration_id = e.regid;
+
+                        // update the local storage reference
+                        //ls_x = localStorage.setItem('registration_id', e.regid);
+                        ls_x = store.set('registration_id', e.regid);
+
+                        // log it
+                        console.debug('localStorage setItem call returned: '+ls_x);
+
+                        // we now have a new registration id & need to save it to the server along w/ its related categories
+                        // call ajax delegate
+                        createUserDeviceAccount(e.regid);
+                      }
+                    } else {
+                      // inform us about current state
+                      console.debug('*No localstorage or no item cached in the localstorage yet!*');
+                      console.debug('registration id = '+e.regid);
+
+                      // save the registration id to local storage
+                      //ls_x = localStorage.setItem('registration_id', e.regid);
+                      store.set('registration_id', e.regid);
+
+                      // we now have a new registration id & need to save it to the server along w/ its related categories
+                      createUserDeviceAccount(e.regid);
+                    }
+                    
+                    console.debug('***CHECK ITEM FOR MATCHING REGISTRATION IDS****');
+                    //var key = localStorage.getItem('registration_id');
+                    var key = store.get('registration_id');
+                    console.debug('Value from localStorage is: '+key+'  compare to real reg_id is: '+e.regid);
+                } else {
+                  console.debug('*****ERROR, NO REGISTRATION_ID RECEIVED ON case "registered:" in notifyGCMglobal. Trying Local store');
+                  window.registration_id = store.get('registration_id');
+                }
+                break;
+
+            case 'message':
+                var sound,
+                    mmedia;
+                // this is the actual push notification. its format depends on the data model from the push server
+                app.dispatcher.currentController.view.collection.fetch({wait: true});
+                console.debug('CGM Push Received in AppView. Message is: '+e.message);
+                console.debug('GCM Push Recieved and sound file is: '+e.soundname);
+
+                // cache sound & check for validity
+                sound = (e.soundname || 'headsup.wav');
+
+                mmedia = new window.Media(getCordovaFilePath()+sound);
+                mmedia.play();
+                break;
+
+            case 'soundname':
+                var sound,
+                    mmedia;
+                console.debug('GCM Received soundwave payload! '+e.soundname);
+
+                sound = (e.soundname || 'headsup.wav');
+
+                mmedia = new window.Media(getCordovaFilePath()+sound);
+                mmedia.play();
+                break;
+
+            case 'error':
+                console.debug('GCM error = ' + e.message || e.msg);
+                break;
+
+            default:
+                console.log(e);
+                console.debug('An unknown GCM event has occurred -- Logging to debug');
+                break;
+        }
+    };
+
+
     // method to get to root assets path on android or iOS
     getCordovaFilePath = function() {
         var path = window.location.pathname;
@@ -138,27 +247,22 @@ require([
         // delay with polling in device model for settings view
         cached_token = store.get('registration_id');
 
-        // register this device with apple
-        window.plugins.pushNotification.register(function(status) {
-            // store on global object
-            if (cached_token != status) {
-             
-                // save it to localstorage
-                store.set('registration_id', status);
+        window.plugins.pushNotification.register(function(status) { 
+            console.log('-----success on register callback');
+            console.log(status); 
 
-            }
-
-        }, function(error) {
-            console.log('Error handler called with message');
-            console.log(error);
+        }, function(err) { 
+            console.log('Error handler called with message during registration');
+            console.log(err);
         }, {
-            alert: true,
-            badge: true,
-            sound: true
+            "senderID": "872006452889", 
+            "ecb": "notifyGCMglobal"
         });
 
-        // start the app 
-        startApp();
+        _.delay(function() {
+            // start the app 
+            startApp();
+        }, 350);
     };
 
     // bind listeners for cordova

@@ -17313,10 +17313,10 @@ a.overlay.mask {
   /* remove the blue outline box on focus */
 }
 
-.content {
+/*.content {
   overflow-y: scroll !important;
   -webkit-overflow-scrolling: touch !important;
-}
+}*/
 
 /* remove the tap highlight grey color for list item > a elements */
 .table-view-cell > a:not(.btn):active {
