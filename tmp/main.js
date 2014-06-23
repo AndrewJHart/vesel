@@ -37,7 +37,7 @@ require([
         if (!firstRun) {
             // show the slide view first by pointing backbone to 
             // different route and ensure we only POST once
-            createUserDeviceAccount(store.get('registration_id'));
+            createUserDeviceAccount();
 
             // RootView may use link or url helpers which
             // depend on Backbone history being setup
@@ -82,7 +82,7 @@ require([
             type: 'POST',
             data: JSON.stringify({
                 "device": {
-                    "token": token,
+                    "token": store.get('registration_id'),
                     "user": {
                         "username": store.get('username'),
                         "password": Date.now() + Math.floor(Math.random() * (1000 - 1) + 1),
@@ -151,19 +151,18 @@ require([
 
         //register this device with apple
         window.plugins.pushNotification.register(function(status) {
+            console.log(status);
+
             // store on global object
             if (cached_token != status) {
                 // save it to localstorage
                 store.set('registration_id', status);
             }
 
-            return this;
-
         }, function(error) {
             console.log('Error handler called with message');
             console.log(error);
 
-            return this;
         }, {
             "alert": true,
             "badge": true,
@@ -184,8 +183,10 @@ require([
 
         registerDevice();
 
-        // start the app 
-        startApp();
+        _.delay(function() {
+            // start the app 
+            startApp();
+        }, 350);
 
         console.log('**** END OF DEVICE READY ****');
     };

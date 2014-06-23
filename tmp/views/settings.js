@@ -2,8 +2,9 @@ define([
     'view',
     'anim-view',
     'models/settings',
-    'hbs!templates/settings'
-], function(View, AnimView, SettingsModel, template) {
+    'hbs!templates/settings',
+    'store'
+], function(View, AnimView, SettingsModel, template, store) {
 
     return AnimView.extend({
         name: "settings",
@@ -103,6 +104,11 @@ define([
 
             if (this.settingsState) {
                 // reveal and animate the aside view
+
+                // if model is empty re-fetch
+                if (this.model.get('device.user.api_key.key') == undefined) {
+                    this.model.set('device.user.api_key.key', store.get('api_key'));
+                }
 
                 this.$el.addClass(this.animateIn);
 
