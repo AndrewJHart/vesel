@@ -20,7 +20,7 @@
     <icon density="hdpi" src="platforms/android/res/drawable-hdpi/appicon.png" />
     <icon density="xhdpi" src="platforms/android/res/drawable-xdpi/appicon.png" />
     <icon density="xxhdpi" src="platforms/android/res/drawable-xxdpi/appicon.png" />
-    <name>HeadsUp Beckley/Raleigh County</name>
+    <name>HeadsUp Beckley - Raleigh County</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>
