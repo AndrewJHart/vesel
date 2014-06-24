@@ -22,12 +22,15 @@
 /Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/res/drawable/appicon.png \
 /Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/res/drawable/screen.png \
 /Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/res/drawable-hdpi/appicon.png \
+/Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/res/drawable-hdpi/icon.png \
 /Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/res/drawable-land-hdpi/screen.png \
 /Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/res/drawable-land-ldpi/screen.png \
 /Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/res/drawable-land-mdpi/screen.png \
 /Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/res/drawable-land-xhdpi/screen.png \
 /Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/res/drawable-ldpi/appicon.png \
+/Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/res/drawable-ldpi/icon.png \
 /Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/res/drawable-mdpi/appicon.png \
+/Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/res/drawable-mdpi/icon.png \
 /Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/res/drawable-port-hdpi/screen.png \
 /Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/res/drawable-port-ldpi/screen.png \
 /Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/res/drawable-port-mdpi/screen.png \

@@ -14,7 +14,13 @@
     <feature name="SplashScreen">
         <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
     </feature>
-    <name>HeadsUpHuntington</name>
+    <icon src="platforms/android/res/drawable/appicon.png" />
+    <icon density="ldpi" src="platforms/android/res/drawable-ldpi/appicon.png" />
+    <icon density="mdpi" src="platforms/android/res/drawable-mdpi/appicon.png" />
+    <icon density="hdpi" src="platforms/android/res/drawable-hdpi/appicon.png" />
+    <icon density="xhdpi" src="platforms/android/res/drawable-xdpi/appicon.png" />
+    <icon density="xxhdpi" src="platforms/android/res/drawable-xxdpi/appicon.png" />
+    <name>HeadsUp Huntington</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>
@@ -23,4 +29,7 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
+    <preference name="SplashScreen" value="screen" />
+    <preference name="SplashScreenDelay" value="3000" />
+    <preference name="Orientation" value="portrait" />
 </widget>

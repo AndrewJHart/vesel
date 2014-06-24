@@ -54,7 +54,7 @@ define([
                                     message = {
                                         title: post_title,
                                         text: post_msg,
-                                        url: "http://headsupapp.io/alerts/hancock/"+model.get('id')+"/"
+                                        url: "http://headsupapp.io/alerts/huntington/"+model.get('id')+"/"
                                     };
 
                                     window.socialmessage.send(message);

@@ -28,7 +28,7 @@ define([
                 message = {
                     title: post_title,
                     text: post_msg,
-                    url: "http://headsupapp.io/hancock/alerts/" + this.model.get('id') + "/"
+                    url: "http://headsupapp.io/huntington/alerts/" + this.model.get('id') + "/"
                 };
 
                 window.socialmessage.send(message);
@@ -90,7 +90,7 @@ define([
 
                     layers.addTo(self.map);
 
-                    self.map.setView([40.533, -80.621], 17);
+                    map.setView([38.412, -82.428], 17); // changed this to huntington
 
                 }, 250);
             }

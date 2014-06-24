@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.mscns.headsuphuntington" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>HeadsUpHuntington</name>
+    <name>HeadsUp Huntington</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>
@@ -9,4 +9,17 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
+    
+    <platform name="android">
+        <icon src="platforms/android/res/drawable/appicon.png" />
+	    <icon src="platforms/android/res/drawable-ldpi/appicon.png" density="ldpi" />
+	    <icon src="platforms/android/res/drawable-mdpi/appicon.png" density="mdpi" />
+	    <icon src="platforms/android/res/drawable-hdpi/appicon.png" density="hdpi" />
+	    <icon src="platforms/android/res/drawable-xdpi/appicon.png" density="xhdpi" />
+	    <icon src="platforms/android/res/drawable-xxdpi/appicon.png" density="xxhdpi" />
+  </platform>
+  
+    <preference name="SplashScreen" value="screen" />
+    <preference name="SplashScreenDelay" value="3000" />
+    <preference name="Orientation" value="portrait" />
 </widget>

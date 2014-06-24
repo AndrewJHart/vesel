@@ -1,0 +1,20 @@
+/Users/jon/repos/vesel/HeadsUpHuntington/platforms/android/ant-build/classes.dex : \
+/Users/jon/repos/vesel/HeadsUpHuntington/platforms/android/ant-build/classes/com/mscns/headsuphuntington/BuildConfig.class \
+/Users/jon/repos/vesel/HeadsUpHuntington/platforms/android/ant-build/classes/com/mscns/headsuphuntington/HeadsUpHuntington.class \
+/Users/jon/repos/vesel/HeadsUpHuntington/platforms/android/ant-build/classes/com/mscns/headsuphuntington/Manifest$permission.class \
+/Users/jon/repos/vesel/HeadsUpHuntington/platforms/android/ant-build/classes/com/mscns/headsuphuntington/Manifest.class \
+/Users/jon/repos/vesel/HeadsUpHuntington/platforms/android/ant-build/classes/com/mscns/headsuphuntington/R$attr.class \
+/Users/jon/repos/vesel/HeadsUpHuntington/platforms/android/ant-build/classes/com/mscns/headsuphuntington/R$drawable.class \
+/Users/jon/repos/vesel/HeadsUpHuntington/platforms/android/ant-build/classes/com/mscns/headsuphuntington/R$string.class \
+/Users/jon/repos/vesel/HeadsUpHuntington/platforms/android/ant-build/classes/com/mscns/headsuphuntington/R$xml.class \
+/Users/jon/repos/vesel/HeadsUpHuntington/platforms/android/ant-build/classes/com/mscns/headsuphuntington/R.class \
+/Users/jon/repos/vesel/HeadsUpHuntington/platforms/android/ant-build/classes/com/plugin/gcm/CordovaGCMBroadcastReceiver.class \
+/Users/jon/repos/vesel/HeadsUpHuntington/platforms/android/ant-build/classes/com/plugin/gcm/GCMIntentService.class \
+/Users/jon/repos/vesel/HeadsUpHuntington/platforms/android/ant-build/classes/com/plugin/gcm/PushHandlerActivity.class \
+/Users/jon/repos/vesel/HeadsUpHuntington/platforms/android/ant-build/classes/com/plugin/gcm/PushPlugin.class \
+/Users/jon/repos/vesel/HeadsUpHuntington/platforms/android/ant-build/classes/org/apache/cordova/splashscreen/SplashScreen.class \
+/Users/jon/repos/vesel/HeadsUpHuntington/platforms/android/ant-build/classes/uk/co/ilee/socialmessage/SocialMessage$1.class \
+/Users/jon/repos/vesel/HeadsUpHuntington/platforms/android/ant-build/classes/uk/co/ilee/socialmessage/SocialMessage.class \
+/Users/jon/repos/vesel/HeadsUpHuntington/platforms/android/ant-build/dexedLibs/classes-19fd9b76ac7668a14bb389daaa1e8014.jar \
+/Users/jon/repos/vesel/HeadsUpHuntington/platforms/android/ant-build/dexedLibs/gcm-70740a3b066599f8c8243ee2ed24a35f.jar \
+/Users/jon/repos/vesel/HeadsUpHuntington/platforms/android/ant-build/dexedLibs/android-support-v13-efda30f819eab84890c08735897b85e5.jar \
