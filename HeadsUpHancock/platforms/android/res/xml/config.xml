@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.mscns.headsuphancock" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <preference name="loglevel" value="DEBUG" />
+    <preference name="AndroidLaunchMode" value="singleTop" />
+    <feature name="App">
+        <param name="android-package" value="org.apache.cordova.App" />
+    </feature>
+    <feature name="PushPlugin">
+        <param name="android-package" value="com.plugin.gcm.PushPlugin" />
+    </feature>
+    <feature name="SocialMessage">
+        <param name="android-package" value="uk.co.ilee.socialmessage.SocialMessage" />
+    </feature>
+    <feature name="SplashScreen">
+        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
+    </feature>
+    <icon src="platforms/android/res/drawable/appicon.png" />
+    <icon density="ldpi" src="platforms/android/res/drawable-ldpi/appicon.png" />
+    <icon density="mdpi" src="platforms/android/res/drawable-mdpi/appicon.png" />
+    <icon density="hdpi" src="platforms/android/res/drawable-hdpi/appicon.png" />
+    <icon density="xhdpi" src="platforms/android/res/drawable-xdpi/appicon.png" />
+    <icon density="xxhdpi" src="platforms/android/res/drawable-xxdpi/appicon.png" />
+    <name>HeadsUp Hancock</name>
+    <description>
+        A sample Apache Cordova application that responds to the deviceready event.
+    </description>
+    <author email="dev@cordova.apache.org" href="http://cordova.io">
+        Apache Cordova Team
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <preference name="SplashScreen" value="screen" />
+    <preference name="SplashScreenDelay" value="3000" />
+</widget>

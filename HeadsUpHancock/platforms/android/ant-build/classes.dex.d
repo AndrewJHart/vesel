@@ -1,0 +1,20 @@
+/Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/classes.dex : \
+/Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/classes/com/mscns/headsuphancock/BuildConfig.class \
+/Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/classes/com/mscns/headsuphancock/HeadsUpHancock.class \
+/Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/classes/com/mscns/headsuphancock/Manifest$permission.class \
+/Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/classes/com/mscns/headsuphancock/Manifest.class \
+/Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/classes/com/mscns/headsuphancock/R$attr.class \
+/Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/classes/com/mscns/headsuphancock/R$drawable.class \
+/Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/classes/com/mscns/headsuphancock/R$string.class \
+/Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/classes/com/mscns/headsuphancock/R$xml.class \
+/Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/classes/com/mscns/headsuphancock/R.class \
+/Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/classes/com/plugin/gcm/CordovaGCMBroadcastReceiver.class \
+/Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/classes/com/plugin/gcm/GCMIntentService.class \
+/Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/classes/com/plugin/gcm/PushHandlerActivity.class \
+/Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/classes/com/plugin/gcm/PushPlugin.class \
+/Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/classes/org/apache/cordova/splashscreen/SplashScreen.class \
+/Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/classes/uk/co/ilee/socialmessage/SocialMessage$1.class \
+/Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/classes/uk/co/ilee/socialmessage/SocialMessage.class \
+/Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/dexedLibs/classes-222d9798c6b326954bcf1e9ec0d8b15d.jar \
+/Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/dexedLibs/gcm-ffb07206273199fad19c28b11960497e.jar \
+/Users/jon/repos/vesel/HeadsUpHancock/platforms/android/ant-build/dexedLibs/android-support-v13-2c07b265e3e1453c292836f692a76faa.jar \

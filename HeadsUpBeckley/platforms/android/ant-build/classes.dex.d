@@ -1,9 +1,20 @@
 /Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/ant-build/classes.dex : \
 /Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/ant-build/classes/com/mscns/headsupbeckley/BuildConfig.class \
 /Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/ant-build/classes/com/mscns/headsupbeckley/HeadsUpBeckley.class \
+/Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/ant-build/classes/com/mscns/headsupbeckley/Manifest$permission.class \
+/Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/ant-build/classes/com/mscns/headsupbeckley/Manifest.class \
 /Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/ant-build/classes/com/mscns/headsupbeckley/R$attr.class \
 /Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/ant-build/classes/com/mscns/headsupbeckley/R$drawable.class \
 /Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/ant-build/classes/com/mscns/headsupbeckley/R$string.class \
 /Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/ant-build/classes/com/mscns/headsupbeckley/R$xml.class \
 /Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/ant-build/classes/com/mscns/headsupbeckley/R.class \
+/Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/ant-build/classes/com/plugin/gcm/CordovaGCMBroadcastReceiver.class \
+/Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/ant-build/classes/com/plugin/gcm/GCMIntentService.class \
+/Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/ant-build/classes/com/plugin/gcm/PushHandlerActivity.class \
+/Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/ant-build/classes/com/plugin/gcm/PushPlugin.class \
+/Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/ant-build/classes/org/apache/cordova/splashscreen/SplashScreen.class \
+/Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/ant-build/classes/uk/co/ilee/socialmessage/SocialMessage$1.class \
+/Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/ant-build/classes/uk/co/ilee/socialmessage/SocialMessage.class \
 /Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/ant-build/dexedLibs/classes-9d981f6a443ae2f881c4b3cd008288d6.jar \
+/Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/ant-build/dexedLibs/gcm-8f002d514a0fec10009e5015cb2002c4.jar \
+/Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/ant-build/dexedLibs/android-support-v13-5acf7c32c1ce6ba9e3e412d86ad8714e.jar \

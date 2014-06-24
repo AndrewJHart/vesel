@@ -35,7 +35,17 @@
 /Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/assets/www/img \
 /Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/assets/www/index.html \
 /Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/assets/www/js \
+/Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/assets/www/plugins \
 /Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/assets/www/css/index.css \
 /Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/assets/www/img/logo.png \
 /Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/assets/www/js/index.js \
+/Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/assets/www/plugins/com.phonegap.plugins.PushPlugin \
+/Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/assets/www/plugins/org.apache.cordova.splashscreen \
+/Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/assets/www/plugins/uk.co.ilee.socialmessage \
+/Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/assets/www/plugins/com.phonegap.plugins.PushPlugin/www \
+/Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/assets/www/plugins/com.phonegap.plugins.PushPlugin/www/PushNotification.js \
+/Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/assets/www/plugins/org.apache.cordova.splashscreen/www \
+/Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/assets/www/plugins/org.apache.cordova.splashscreen/www/splashscreen.js \
+/Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/assets/www/plugins/uk.co.ilee.socialmessage/www \
+/Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/assets/www/plugins/uk.co.ilee.socialmessage/www/socialmessage.js \
 /Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/ant-build/AndroidManifest.xml \
