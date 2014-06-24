@@ -28,7 +28,7 @@ define([
                 message = {
                     title: post_title,
                     text: post_msg,
-                    url: "http://headsupapp.io/beckley/alerts/" + this.model.get('id') + "/"
+                    url: "http://headsupapp.io/huntington/alerts/" + this.model.get('id') + "/"
                 };
 
                 window.socialmessage.send(message);
@@ -90,7 +90,7 @@ define([
 
                     layers.addTo(self.map);
 
-                    self.map.setView([37.788, -81.115], 16); // raleigh count 911 center
+                    self.map.setView([38.412, -82.428], 16); // huntington
 
                 }, 250);
             }
