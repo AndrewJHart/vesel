@@ -35,7 +35,7 @@ require([
         // depend on Backbone history being setup
         // so need to wait to loadUrl() (which will)
         // actually execute the route
-        RootView.getInstance(document.body);
+        RootView.getInstance(document.getElementById('alerts-feed'));
 
         // Instantiate the main router
         new Router();

@@ -163,7 +163,7 @@ define([
         el: '#alerts-feed' // force view attach directly to body vs appending div to it
       });
 
-      instance.appendTo(target || document.body('#alerts-feed'));
+      instance.appendTo(target || document.getElementById('alerts-feed'));
     }
     return instance;
   };
