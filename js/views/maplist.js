@@ -92,7 +92,7 @@ define([
                     self.primaryLayer.eachLayer(function(levent) {
                         // set our icons and pan to the huntington area
                         l.setIcon(L.icon(l.feature.properties.icon));
-                        return self.map.panTo(levent.getLatLng());
+                        return self.map.panTo(l.getLatLng());
                     });
                 });
             }

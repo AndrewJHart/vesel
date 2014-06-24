@@ -90,7 +90,7 @@ define([
 
                     layers.addTo(self.map);
 
-                    map.setView([37.788, -81.115], 17); // beaver wv raleigh county 911 center
+                    self.map.setView([37.788, -81.115], 16); // raleigh count 911 center
 
                 }, 250);
             }
