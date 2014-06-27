@@ -2,25 +2,46 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    
-    <meta name="format-detection" content="telephone=no" />
-
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+    <title>Headsup</title>
 
     <!-- bookmarkable meta tags that make app fullscreen web app -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <title>Heads Up Hancock</title>
-    
-    <link rel="stylesheet" type="text/css" href="assets/css/app.min.css">
+    <link rel="stylesheet" href="assets/css/app.min.css">
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="../bower_components/mapbox/index.js"></script>
+    <script type="text/javascript" src="../bower_components/L.Control.Locate/index.js"></script>
   </head>
   <body>
-    <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="vendor/mapbox.js"></script>
-    <script type="text/javascript" src="vendor/locate.js"></script>
-    <script type="text/javascript" src="vendor/toggles.js"></script>
-    <script type="text/javascript" src="vendor/sliders.js"></script>
-    <script data-main="main" src="vendor/require-2.1.5.js"></script>
+
+    <!--
+        JavaScript files you'd normally include here should instead be loaded by
+        requirejs,   do not add `<script src="some-file.js"></script>` tags to
+        this file lest   you want to lose hours of your life debugging(this is
+        especially  important when deploying)
+
+         Instead, this project uses requirejs:
+         - During development, your-app/require-config.js is used in conjunction with
+           your-app/js/main.js to bootstrap your application and the module
+           dependency chain.
+         - During testing, your-app/test/main.js and your-app/test/main.karma.js are
+           also used to configure requirejs with your test files before booting
+           your application in your-app/js/main.js
+         - To deploy your application run `grunt production` from your terminal.
+           This task will read the same your-app/require-config.js and your-app/js/main.js
+           configuration files used during development and furthermore pre-process
+           coffeescript files you've required using the cs!./someModule syntax
+    -->
+
+    <script>
+      var require = {
+        baseUrl: '../js'
+      }
+    </script>
+
+    <script type="text/javascript" src="js/vendor/toggles.js"></script>
+    <script type="text/javascript" src="js/vendor/sliders.js"></script>
+    <script data-main="../require-config" src="../bower_components/requirejs/require.js"></script>
   </body>
 </html>

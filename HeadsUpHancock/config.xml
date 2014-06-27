@@ -15,7 +15,7 @@
 	    <icon src="platforms/android/res/drawable-ldpi/appicon.png" density="ldpi" />
 	    <icon src="platforms/android/res/drawable-mdpi/appicon.png" density="mdpi" />
 	    <icon src="platforms/android/res/drawable-hdpi/appicon.png" density="hdpi" />
-	    <icon src="platforms/android/res/drawable-xdpi/appicon.png" density="xhdpi" />
+	    <icon src="platforms/android/res/drawable-xhdpi/appicon.png" density="xhdpi" />
 	    <icon src="platforms/android/res/drawable-xxdpi/appicon.png" density="xxhdpi" />
   </platform>
   

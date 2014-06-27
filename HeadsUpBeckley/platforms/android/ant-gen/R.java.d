@@ -16,6 +16,7 @@
 /Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/res/drawable-port-mdpi/screen.png \
 /Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/res/drawable-port-xhdpi/screen.png \
 /Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/res/drawable-xhdpi/appicon.png \
+/Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/res/drawable-xhdpi/icon.png \
 /Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/res/drawable-xxhdpi/appicon.png \
 /Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/res/values/strings.xml \
 /Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/res/xml/config.xml \
@@ -36,5 +37,6 @@
 /Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/ant-build/res/drawable-port-mdpi/screen.png \
 /Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/ant-build/res/drawable-port-xhdpi/screen.png \
 /Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/ant-build/res/drawable-xhdpi/appicon.png \
+/Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/ant-build/res/drawable-xhdpi/icon.png \
 /Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/ant-build/res/drawable-xxhdpi/appicon.png \
 /Users/jon/repos/vesel/HeadsUpBeckley/platforms/android/ant-build/AndroidManifest.xml \

@@ -18,7 +18,7 @@
     <icon density="ldpi" src="platforms/android/res/drawable-ldpi/appicon.png" />
     <icon density="mdpi" src="platforms/android/res/drawable-mdpi/appicon.png" />
     <icon density="hdpi" src="platforms/android/res/drawable-hdpi/appicon.png" />
-    <icon density="xhdpi" src="platforms/android/res/drawable-xdpi/appicon.png" />
+    <icon density="xhdpi" src="platforms/android/res/drawable-xhdpi/appicon.png" />
     <icon density="xxhdpi" src="platforms/android/res/drawable-xxdpi/appicon.png" />
     <name>HeadsUp Beckley - Raleigh County</name>
     <description>

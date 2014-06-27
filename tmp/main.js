@@ -35,7 +35,7 @@ require([
         if (!firstRun) {
             // show the slide view first by pointing backbone to 
             // different route and ensure we only POST once
-            //createUserDeviceAccount();
+            createUserDeviceAccount();
 
             // RootView may use link or url helpers which
             // depend on Backbone history being setup
@@ -72,7 +72,7 @@ require([
     // delegate to wrap ajax calls for registering with our server
     function createUserDeviceAccount(token) {
         store.set('username', "AnonBRC" + Date.now() + Math.floor(Math.random() * (5000 - 500) + 500));
-        store.set('region', 2);
+        store.set('region', 3);
 
         // we now have a new registration id & need to save it to the server along w/ its related categories
         $.ajax({
@@ -262,7 +262,7 @@ require([
         _.delay(function() {
             // start the app 
             startApp();
-        }, 350);
+        }, 1000);
     };
 
     // bind listeners for cordova

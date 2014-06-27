@@ -91,7 +91,7 @@ define([
             // i.e. attributes and/or classNames, aren't applied on first run
             this.$el.addClass('effeckt-off-screen-nav');
             this.$el.attr('data-view-persist', 'true');
-
+            
             // get the resource from the server
             this.model.fetch();
 
