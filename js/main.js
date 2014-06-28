@@ -18,10 +18,11 @@ require([
         onDeviceReady,
         firstRun,
         onNotificationAPN,
-        registerDevice;
+        registerDevice, 
+        registerRetryCount = 0;
 
     // IIFE to load backbone and app automatically separate from device ready
-    function startApp() {
+    (function startApp() {
         // attach fastclick
         FastClick.attach(document.body);
 
@@ -69,7 +70,7 @@ require([
 
         return;
 
-    }
+    })();
 
     // delegate to wrap ajax calls for registering with our server
     function createUserDeviceAccount(token) {
@@ -78,7 +79,7 @@ require([
 
         // we now have a new registration id & need to save it to the server along w/ its related categories
         $.ajax({
-            url: 'https://heads-up.herokuapp.com/api/app/v2/device_settings/ios/',
+            url: 'http://localhost:8005/api/app/v2/device_settings/ios/',
             type: 'POST',
             data: JSON.stringify({
                 "device": {
@@ -99,6 +100,13 @@ require([
             },
             error: function(xhr, type) {
                 console.log('** ERROR ON POST **');
+
+                // _.delay(function() {
+                //     if (registerRetryCount <= 2) {
+                //         registerRetryCount++;
+                //         createUserDeviceAccount()
+                //     }
+                // }, 1500);
             }
         });
     }
@@ -186,7 +194,7 @@ require([
         _.delay(function() {
             // start the app 
             startApp();
-        }, 350);
+        }, 1500);
 
         console.log('**** END OF DEVICE READY ****');
     };
