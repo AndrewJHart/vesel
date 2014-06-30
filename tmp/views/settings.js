@@ -37,6 +37,7 @@ define([
                     model = this.$(event.target).model(),
                     state = null;
 
+                event.preventDefault();
 
                 property = "metadata." + metadataPosition + ".is_enabled";
 
@@ -63,6 +64,7 @@ define([
                     model = this.$(event.target).model(),
                     state = null;
 
+                event.preventDefault();
 
                 property = "metadata." + metadataPosition + ".is_enabled";
 

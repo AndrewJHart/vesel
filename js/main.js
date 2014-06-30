@@ -18,7 +18,8 @@ require([
         onDeviceReady,
         firstRun,
         onNotificationAPN,
-        registerDevice;
+        registerDevice,
+        hasRegistered;
 
     // IIFE to load backbone and app automatically separate from device ready
     function startApp() {
@@ -37,7 +38,6 @@ require([
         if (!firstRun) {
             // show the slide view first by pointing backbone to 
             // different route and ensure we only POST once
-            createUserDeviceAccount();
 
             // RootView may use link or url helpers which
             // depend on Backbone history being setup
@@ -96,6 +96,7 @@ require([
             contentType: 'application/json',
             success: function(data, status) {
                 store.set('api_key', data.device.user.api_key.key);
+                store.set('uuid', data.id);
             },
             error: function(xhr, type) {
                 console.log('** ERROR ON POST **');
@@ -139,8 +140,6 @@ require([
                 wait: true
             });
         }
-
-        //clearBadgeData();
     };
 
     registerDevice = function() {
@@ -157,6 +156,14 @@ require([
             if (cached_token != status) {
                 // save it to localstorage
                 store.set('registration_id', status);
+            }
+
+            // first thing -- set this to first run!! 
+            hasRegistered = store.get('has_registered');
+            if (!hasRegistered) {
+                store.set('has_registered', true);
+                // only on successful registration and a first run do we POST
+                createUserDeviceAccount();
             }
 
         }, function(error) {
@@ -186,7 +193,7 @@ require([
         _.delay(function() {
             // start the app 
             startApp();
-        }, 350);
+        }, 1200);
 
         console.log('**** END OF DEVICE READY ****');
     };

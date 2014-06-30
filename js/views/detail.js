@@ -47,7 +47,7 @@ define([
             // load the tiles only if we have a map for this alert
             if (this.mapUUID) {
                 // tile layer
-                this.tiles = L.tileLayer('https://{s}.tiles.mapbox.com/v3/examples.map-i86nkdio/{z}/{x}/{y}.png', {
+                this.tiles = L.tileLayer('https://{s}.tiles.mapbox.com/v3/mscnswv.il5b6d5o/{z}/{x}/{y}.png', {
                     attribution: '<a href="http://www.mscns.com" target="_blank">Powered by MSCNS</a>',
                     detectRetina: true
                 });

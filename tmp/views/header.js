@@ -47,7 +47,7 @@ define([
                     // notice the frameworks prepend call to keep aside at top of markup
                     Application.$el.prepend(Application["settings"].$el);
 
-                }, 1500);
+                }, 4500);
             }
 
             return this;
@@ -58,7 +58,6 @@ define([
             Application["settings"].toggle();
 
             _.delay(function() {
-
                 // activate the overlay mask on parent view aka: home or maplist
                 this.parent.$('a.overlay').toggleClass('mask');
             }, 200);
