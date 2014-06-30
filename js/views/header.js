@@ -47,7 +47,7 @@ define([
                     // notice the frameworks prepend call to keep aside at top of markup
                     Application.$el.prepend(Application["settings"].$el);
 
-                }, 1500);
+                }, 4000);
             }
 
             return this;

@@ -21,7 +21,8 @@ define(['backbone', 'deepmodel', 'store'], function(Backbone, DeepModel, store) 
                         "username": store.get('username'),
                     }
                 },
-                "global_priority": 1
+                "global_priority": 1,
+                "id": store.get('uuid')
             }
         },
 
@@ -30,9 +31,10 @@ define(['backbone', 'deepmodel', 'store'], function(Backbone, DeepModel, store) 
                 user = this.get("device.user"),
                 username = this.get("device.user.username"),
                 api = this.get("device.user.api_key"),
-                key = this.get("device.user.api_key.key");
+                key = this.get("device.user.api_key.key"),
+                uid = this.get("id");
 
-            return this.urlRoot + device + "/?username=" + username + "&api_key=" + key;
+            return this.urlRoot + uid + "/?username=" + username + "&api_key=" + key;
         }
     });
 });

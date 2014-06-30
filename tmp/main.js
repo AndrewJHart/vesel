@@ -18,7 +18,8 @@ require([
         onDeviceReady,
         firstRun,
         onNotificationAPN,
-        registerDevice;
+        registerDevice,
+        hasRegistered;
 
     // IIFE to load backbone and app automatically separate from device ready
     function startApp() {
@@ -35,10 +36,6 @@ require([
         // first thing -- set this to first run!! 
         firstRun = store.get('firstRun');
         if (!firstRun) {
-            // show the slide view first by pointing backbone to 
-            // different route and ensure we only POST once
-            createUserDeviceAccount();
-
             // RootView may use link or url helpers which
             // depend on Backbone history being setup
             // so need to wait to loadUrl() (which will)
@@ -73,8 +70,8 @@ require([
 
     // delegate to wrap ajax calls for registering with our server
     function createUserDeviceAccount(token) {
-        store.set('username', "AnonHC" + Date.now() + Math.floor(Math.random() * (5000 - 500) + 500));
-        store.set('region', 2);
+        store.set('username', "AnonBR" + Date.now() + Math.floor(Math.random() * (5000 - 500) + 500));
+        store.set('region', 3);
 
         // we now have a new registration id & need to save it to the server along w/ its related categories
         $.ajax({
@@ -95,6 +92,7 @@ require([
             }),
             contentType: 'application/json',
             success: function(data, status) {
+                store.set('uuid', data.id);
                 store.set('api_key', data.device.user.api_key.key);
             },
             error: function(xhr, type) {
@@ -139,8 +137,6 @@ require([
                 wait: true
             });
         }
-
-        //clearBadgeData();
     };
 
     registerDevice = function() {
@@ -157,6 +153,14 @@ require([
             if (cached_token != status) {
                 // save it to localstorage
                 store.set('registration_id', status);
+            }
+
+            // first thing -- set this to first run!! 
+            hasRegistered = store.get('has_registered');
+            if (!hasRegistered) {
+                store.set('has_registered', true);
+                // only on successful registration and a first run do we POST
+                createUserDeviceAccount();
             }
 
         }, function(error) {
@@ -186,7 +190,7 @@ require([
         _.delay(function() {
             // start the app 
             startApp();
-        }, 350);
+        }, 750);
 
         console.log('**** END OF DEVICE READY ****');
     };
