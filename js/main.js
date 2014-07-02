@@ -16,10 +16,12 @@ require([
         ajaxServerDelegate,
         resumeApp,
         onDeviceReady,
-        firstRun;
+        firstRun,
+        registerDevice,
+        hasRegistered;
 
     // IIFE to load backbone and app automatically separate from device ready
-    function startApp() {
+    (function startApp() {
         // attach fastclick
         FastClick.attach(document.body);
 
@@ -67,16 +69,16 @@ require([
 
         }
 
-    }
+    })();
 
     // delegate to wrap ajax calls for registering with our server
     function createUserDeviceAccount(token) {
         store.set('username', "AnonBRC" + Date.now() + Math.floor(Math.random() * (5000 - 500) + 500));
         store.set('region', 3);
-
+        console.log("createUserDeviceAccount has been called!");
         // we now have a new registration id & need to save it to the server along w/ its related categories
         $.ajax({
-            url: 'https://heads-up.herokuapp.com/api/app/v2/device_settings/gcm/',
+            url: 'http://localhost:8005/api/app/v2/device_settings/gcm/',
             type: 'POST',
             data: JSON.stringify({
                 "device": {
@@ -94,6 +96,8 @@ require([
             contentType: 'application/json',
             success: function(data, status) {
                 store.set('api_key', data.device.user.api_key.key);
+                store.set('uuid', data.id);
+                console.log('help ive been posted!');
             },
             error: function(xhr, type) {
                 console.log('** ERROR ON POST **');
@@ -240,29 +244,68 @@ require([
         // clearBadgeData();
     };
 
+    registerDevice = function() {
+        console.log('-----register device triggered.----');
+
+        // local store token?
+        cached_token = store.get('registration_id');
+
+        //register this device with apple
+        window.plugins.pushNotification.register(function(status) {
+            console.log(status);
+
+            // store on global object
+            if (cached_token != status) {
+                // save it to localstorage
+                console.log('the cached_token does not equal status. status has been set in the local store');
+                store.set('registration_id', status);
+            }
+
+            // first thing -- set this to first run!! 
+            hasRegistered = store.get('has_registered');
+            if (!hasRegistered) {
+                store.set('has_registered', true);
+                // only on successful registration and a first run do we POST
+                createUserDeviceAccount();
+            }
+
+        }, function(error) {
+            console.log('Error handler called with message');
+            console.log(error);
+
+        }, {
+            "senderID": "872006452889", 
+            "ecb": "notifyGCMglobal"
+        });
+    };
+
     // triggered by cordova when the device is ready
     onDeviceReady = function() {
         // try to get cached copy of the device UUID for model 
         // just in case nothing has changed on following check to prevent
         // delay with polling in device model for settings view
-        cached_token = store.get('registration_id');
+        // cached_token = store.get('registration_id');
 
-        window.plugins.pushNotification.register(function(status) { 
-            console.log('-----success on register callback');
-            console.log(status); 
+        // window.plugins.pushNotification.register(function(status) { 
+        //     console.log('-----success on register callback');
+        //     console.log(status); 
 
-        }, function(err) { 
-            console.log('Error handler called with message during registration');
-            console.log(err);
-        }, {
-            "senderID": "872006452889", 
-            "ecb": "notifyGCMglobal"
-        });
+        // }, function(err) { 
+        //     console.log('Error handler called with message during registration');
+        //     console.log(err);
+        // }, {
+        //     "senderID": "872006452889", 
+        //     "ecb": "notifyGCMglobal"
+        // });
+
+        registerDevice();
 
         _.delay(function() {
             // start the app 
             startApp();
         }, 1000);
+
+        console.log('**** END OF DEVICE READY ****');
     };
 
     // bind listeners for cordova
