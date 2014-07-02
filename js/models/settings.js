@@ -31,7 +31,7 @@ define(['backbone', 'deepmodel', 'store'], function(Backbone, DeepModel, store) 
                 user = this.get("device.user"),
                 username = this.get("device.user.username"),
                 api = this.get("device.user.api_key"),
-                key = this.get("device.user.api_key.key").
+                key = this.get("device.user.api_key.key"),
                 uuid = this.get("id");
 
             return this.urlRoot + uuid + "/?username=" + username + "&api_key=" + key;

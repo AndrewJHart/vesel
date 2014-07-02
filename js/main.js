@@ -21,7 +21,7 @@ require([
         hasRegistered;
 
     // IIFE to load backbone and app automatically separate from device ready
-    (function startApp() {
+    function startApp() {
         // attach fastclick
         FastClick.attach(document.body);
 
@@ -37,7 +37,7 @@ require([
         if (!firstRun) {
             // show the slide view first by pointing backbone to 
             // different route and ensure we only POST once
-            createUserDeviceAccount();
+            // createUserDeviceAccount();
 
             // RootView may use link or url helpers which
             // depend on Backbone history being setup
@@ -69,7 +69,7 @@ require([
 
         }
 
-    })();
+    }
 
     // delegate to wrap ajax calls for registering with our server
     function createUserDeviceAccount(token) {
