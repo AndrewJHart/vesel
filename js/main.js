@@ -209,10 +209,15 @@ require([
         // register the device with our server
         registerDevice();
 
+        // make this method non-blocking
+        _.delay(function() {
+            checkVersion();
+        }, 0);
+
         _.delay(function() {
             // start the app 
             startApp();
-        }, 1500);
+        }, 750);
 
         console.log('**** END OF DEVICE READY ****');
     };

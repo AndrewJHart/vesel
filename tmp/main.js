@@ -19,7 +19,8 @@ require([
         firstRun,
         onNotificationAPN,
         registerDevice, 
-        registerRetryCount = 0;
+        currentVersion,
+        isUpdated;
 
     // IIFE to load backbone and app automatically separate from device ready
     function startApp() {
@@ -35,10 +36,8 @@ require([
 
         // first thing -- set this to first run!! 
         firstRun = store.get('firstRun');
-        if (!firstRun) {
-            // show the slide view first by pointing backbone to 
-            // different route and ensure we only POST once
-            createUserDeviceAccount();
+        isUpdated = store.get('isUpdated');
+        if (!firstRun || !isUpdated) {
 
             // RootView may use link or url helpers which
             // depend on Backbone history being setup
@@ -53,6 +52,7 @@ require([
             Backbone.history.loadUrl('#intro');
 
             store.set('firstRun', true);
+            store.set('isUpdated', true);
         } else {
             // RootView may use link or url helpers which
             // depend on Backbone history being setup
@@ -69,17 +69,17 @@ require([
         }
 
         return;
-
     }
 
     // delegate to wrap ajax calls for registering with our server
     function createUserDeviceAccount(token) {
-        store.set('username', "AnonHC" + Date.now() + Math.floor(Math.random() * (5000 - 500) + 500));
-        store.set('region', 2);
+        // todo: refactoring this so it doesnt try a new username each time
+        store.set('username', "AnonBRC" + Date.now() + Math.floor(Math.random() * (5000 - 500) + 500));
+        store.set('region', 3);
 
         // we now have a new registration id & need to save it to the server along w/ its related categories
         $.ajax({
-            url: 'https://heads-up-test.herokuapp.com/api/app/v2/device_settings/ios/',
+            url: 'https://heads-up.herokuapp.com/api/app/v2/device_settings/ios/',
             type: 'POST',
             data: JSON.stringify({
                 "device": {
@@ -97,16 +97,10 @@ require([
             contentType: 'application/json',
             success: function(data, status) {
                 store.set('api_key', data.device.user.api_key.key);
+                store.set('uuid', data.id);
             },
             error: function(xhr, type) {
                 console.log('** ERROR ON POST **');
-
-                _.delay(function() {
-                    if (registerRetryCount <= 10) {
-                        registerRetryCount++;
-                        createUserDeviceAccount()
-                    }
-                }, 1500);
             }
         });
     }
@@ -142,13 +136,11 @@ require([
     // Cordova Function Hooks -- observables
     resumeApp = function() {
         // re-sync with the server -- todo: update to only do this when opened by push notification
-        if (app) {
+        if (Application["alerts"]) {
             Application["alerts"].fetch({
                 wait: true
             });
         }
-
-        //clearBadgeData();
     };
 
     registerDevice = function() {
@@ -167,6 +159,14 @@ require([
                 store.set('registration_id', status);
             }
 
+            // first thing -- set this to first run!! 
+            hasRegistered = store.get('has_registered');
+            if (!hasRegistered) {
+                store.set('has_registered', true);
+                // only on successful registration and a first run do we POST
+                createUserDeviceAccount();
+            }
+
         }, function(error) {
             console.log('Error handler called with message');
             console.log(error);
@@ -178,23 +178,46 @@ require([
         });
     };
 
+    checkVersion = function() {
+        // store the new updated app version
+        cordova.getAppVersion().then(function (version) {
+            console.log(version);
+
+            // get the current version (if one exists)
+            currentVersion = store.get('version');
+
+            if (!currentVersion) {
+                // if current version is undefined or null then set it
+                store.set('version', version);
+
+                store.set('isUpdated', true);
+                isUpdated = true;
+            } else {
+                // check the current version returned against the local store
+                if (currentVersion <= version) {
+                    // this is an old version - update it
+                    store.set('version', version);
+                    store.set('isUpdated', false);
+                    isUpdated = false;
+                }
+            }
+        });
+    };
+
     // triggered by cordova when the device is ready
     onDeviceReady = function() {
-        // try to get cached copy of the device UUID for model 
-        // just in case nothing has changed on following check to prevent
-        // delay with polling in device model for settings view
-        // _.delay(function() {
-        //     // register device
-        //     _.bind(registerDevice(), this);
-
-        // }, 250);
-
+        // register the device with our server
         registerDevice();
+
+        // make this method non-blocking
+        _.delay(function() {
+            checkVersion();
+        }, 0);
 
         _.delay(function() {
             // start the app 
             startApp();
-        }, 1500);
+        }, 750);
 
         console.log('**** END OF DEVICE READY ****');
     };

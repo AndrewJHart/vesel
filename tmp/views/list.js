@@ -41,8 +41,6 @@ define([
 
                                     model = self.$(li).model();
 
-                                    console.log(model);
-
                                 // make the method asyncronous to avoid complications 
                                 // with mobiscroll listreveal returning to default position
                                 _.delay(function(li, inst) {
@@ -56,7 +54,7 @@ define([
                                     message = {
                                         title: post_title,
                                         text: post_msg,
-                                        url: "http://headsupapp.io/alerts/hancock/"+model.get('id')+"/"
+                                        url: "http://headsupapp.io/alerts/beckley/"+model.get('id')+"/"
                                     };
 
                                     window.socialmessage.send(message);
