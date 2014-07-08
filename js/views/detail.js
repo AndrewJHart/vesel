@@ -28,7 +28,7 @@ define([
                 message = {
                     title: post_title,
                     text: post_msg,
-                    url: "http://headsupapp.io/hancock/alerts/" + this.model.get('id') + "/"
+                    url: "http://headsupapp.io/beckley/alerts/" + this.model.get('id') + "/"
                 };
 
                 console.log(message);
@@ -47,7 +47,7 @@ define([
             // load the tiles only if we have a map for this alert
             if (this.mapUUID) {
                 // tile layer
-                this.tiles = L.tileLayer('https://{s}.tiles.mapbox.com/v3/examples.map-i86nkdio/{z}/{x}/{y}.png', {
+                this.tiles = L.tileLayer('https://{s}.tiles.mapbox.com/v3/mscnswv.il5b6d5o/{z}/{x}/{y}.png', {
                     attribution: '<a href="http://www.mscns.com" target="_blank">Powered by MSCNS</a>',
                     detectRetina: true
                 });
@@ -92,7 +92,7 @@ define([
 
                     layers.addTo(self.map);
 
-                    self.map.setView([40.533, -80.621], 17);
+                    self.map.setView([37.788, -81.115], 17);
 
                 }, 250);
             }
