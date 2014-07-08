@@ -188,15 +188,16 @@ require([
 
             if (!currentVersion) {
                 // if current version is undefined or null then set it
-                store.set('version', version);
+                store.set('version', version.toString());
 
                 store.set('isUpdated', true);
                 isUpdated = true;
             } else {
+                console.log(currentVersion + ' ' + version);
                 // check the current version returned against the local store
-                if (currentVersion <= version) {
+                if (currentVersion <= version.toString()) {
                     // this is an old version - update it
-                    store.set('version', version);
+                    store.set('version', version.toString());
                     store.set('isUpdated', false);
                     isUpdated = false;
                 }
