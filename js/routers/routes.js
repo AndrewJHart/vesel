@@ -8,8 +8,9 @@ define([
     'views/detail',
     'views/profile',
     'views/slides',
-    'collections/alerts'
-], function(Backbone, RootView, HomeView, HeaderView, FooterView, MapView, DetailView, ProfileView, SlidesView, AlertsCollection) {
+    'collections/alerts',
+    'models/alerts'
+], function(Backbone, RootView, HomeView, HeaderView, FooterView, MapView, DetailView, ProfileView, SlidesView, AlertsCollection, AlertsModel) {
     return Backbone.Router.extend({
         routes: {
             "": "index",
@@ -80,26 +81,38 @@ define([
 
             // hoisting 
             var model = null,
-                pageView = null;
+                pageView = null,
+                fetched = false;
 
             // use params to get model from our collection
-            model = Application["alerts"].get(params);
+            if (Application["alerts"]) {
+                model = Application["alerts"].get(params);
+                fetched = true;
+            } else {
+                model = new AlertsModel({ id: params});
+                model.fetch({wait: true}, function() {     
+                    fetched = true;         
+                });
+            }
 
-            // create the detail page-view that contains the header view,
-            // the footer view, and the actual content view nested within
-            // using the handlebars "view" helper
-            pageView = new DetailView({
-                className: 'detail right',
-                model: model
-            });
+            if (fetched) {
+                // create the detail page-view that contains the header view,
+                // the footer view, and the actual content view nested within
+                // using the handlebars "view" helper
+                pageView = new DetailView({
+                    className: 'detail right',
+                    model: model
+                });
 
-            // animate to this view and remove the classname 'right'
-            // after the view is appended to the DOM but right before 
-            // the transition happens. 
-            Application.goto(pageView, {
-                page: true, // this is its own page/pane so tell app to animate it
-                toggleIn: 'right' // remove the class right before animating
-            });
+                // animate to this view and remove the classname 'right'
+                // after the view is appended to the DOM but right before 
+                // the transition happens. 
+                Application.goto(pageView, {
+                    page: true, // this is its own page/pane so tell app to animate it
+                    toggleIn: 'right' // remove the class right before animating
+                });      
+            }
+
 
             return this;
         },

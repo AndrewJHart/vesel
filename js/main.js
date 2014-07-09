@@ -23,7 +23,7 @@ require([
         isUpdated;
 
     // IIFE to load backbone and app automatically separate from device ready
-    function startApp() {
+    (function startApp() {
         // attach fastclick
         FastClick.attach(document.body);
 
@@ -69,7 +69,7 @@ require([
         }
 
         return;
-    }
+    })();
 
     // delegate to wrap ajax calls for registering with our server
     function createUserDeviceAccount(token) {
@@ -181,8 +181,6 @@ require([
     checkVersion = function() {
         // store the new updated app version
         cordova.getAppVersion().then(function (version) {
-            console.log(version);
-
             // get the current version (if one exists)
             currentVersion = store.get('version');
 
@@ -195,7 +193,7 @@ require([
             } else {
                 console.log(currentVersion + ' ' + version);
                 // check the current version returned against the local store
-                if (currentVersion <= version.toString()) {
+                if (currentVersion < version.toString()) {
                     // this is an old version - update it
                     store.set('version', version.toString());
                     store.set('isUpdated', false);
