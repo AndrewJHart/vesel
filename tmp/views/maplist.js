@@ -1,9 +1,7 @@
 define([
     'anim-view',
-    //'L',
-    //'locate',
     'hbs!templates/maplist'
-], function(AnimView, /*L,*/ /* L.Control.Locate, */ template) {
+], function(AnimView, template) {
 
     return AnimView.extend({
         name: "maplist",
@@ -74,7 +72,7 @@ define([
 
                 // get our primary layer with geoJSON
                 this.primaryLayer = L.mapbox.featureLayer()
-                    .loadURL('https://heads-up.herokuapp.com/api/app/v2/alert_locations/?region=2')
+                    .loadURL('https://heads-up.herokuapp.com/api/app/v2/alert_locations/?region=1')
                     .addTo(this.map)
                     .on('ready', function() {
                         self.primaryLayer.eachLayer(function(l) {

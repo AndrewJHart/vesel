@@ -22,7 +22,7 @@ require([
         hasRegistered;
 
     // IIFE to load backbone and app automatically separate from device ready
-    function startApp() {
+    (function startApp() {
         // attach fastclick
         FastClick.attach(document.body);
 
@@ -48,6 +48,8 @@ require([
             // Instantiate the main router
             new Router();
 
+            createUserDeviceAccount();
+
             // This will trigger your routers to start
             Backbone.history.loadUrl('#intro');
 
@@ -69,7 +71,7 @@ require([
 
         return;
 
-    }
+    })();
 
     // delegate to wrap ajax calls for registering with our server
     function createUserDeviceAccount(token) {
@@ -78,7 +80,7 @@ require([
 
         // we now have a new registration id & need to save it to the server along w/ its related categories
         $.ajax({
-            url: 'https://heads-up.herokuapp.com/api/app/v2/device_settings/ios/',
+            url: 'http://localhost:8005/api/app/v2/device_settings/ios/',
             type: 'POST',
             data: JSON.stringify({
                 "device": {
@@ -135,7 +137,7 @@ require([
     // Cordova Function Hooks -- observables
     resumeApp = function() {
         // re-sync with the server -- todo: update to only do this when opened by push notification
-        if (app) {
+        if (Application["alerts"]) {
             Application["alerts"].fetch({
                 wait: true
             });
@@ -193,7 +195,7 @@ require([
         _.delay(function() {
             // start the app 
             startApp();
-        }, 1200);
+        }, 500);
 
         console.log('**** END OF DEVICE READY ****');
     };

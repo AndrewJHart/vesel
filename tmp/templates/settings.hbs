@@ -4,7 +4,7 @@
 
 <div class="content s-content">
   <ul class="table-view">
-  <li class="table-view-cell table-view-divider">Set your default push notification priority level</li>
+  <li class="table-view-cell table-view-divider"><small>Adjust Your Push Notification Level: The default Level 1 receives Notifications for all alerts. Choosing Level 3 would result in receiving Pushes that are ONLY Level 3 and higher. If you feel inundated try raising the level.</small></li>
     <li class="table-view-cell">
       <form class="input-group">
         <select name="global_priority" id="global_priority" class="item-select">
@@ -68,7 +68,13 @@
       <br> 
       Mountain State Computer and Network Solutions 
       <br>
-      Hancock County WV</p>
+      Huntington Police Department
+      <br>
+      The City of Huntington, WV</p>
+      <div class="powered-logos">
+        <i class="coh"></i>
+        <i class="hpd"></i>    
+      </div>
     </li>
   </ul>
 </div>
@@ -76,5 +82,9 @@
   {{#link "intro" class="tab-item"}}
     <span class="icon icon-info"></span>
     <span class="tab-label">Help</span>
+  {{/link}}
+    {{#link "profile" trigger="close:settings" data-toggle="aside" class="tab-item"}}
+    <span class="icon hpd icon-settings__large"></span>
+    <span class="tab-label">Community Force</span>
   {{/link}}
 {{/view}}
