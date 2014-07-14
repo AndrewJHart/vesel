@@ -101,7 +101,6 @@ define([
             // notice that delay must at least be >= length of animation duration
             // or the re-draw will break the animation just showing the panel w/o it
             _.delay(function() {
-                    console.log('Timing out bitchesssssssssss');
                 self.el.style.display = 'block';
             }, 500);
 

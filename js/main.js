@@ -19,6 +19,7 @@ require([
         //     root: '/',
         //     silent: true
         // });
+        Backbone.history.start();
 
         
         // RootView may use link or url helpers which
@@ -28,13 +29,12 @@ require([
         RootView.getInstance(document.getElementById('alerts-feed'));
 
         // Instantiate the main router
-        new Router();
+        var router = new Router();
 
         // This will trigger your routers to start
-        // Backbone.history.loadUrl('alerts');
-        Backbone.history.start({
-            root: '/alerts/huntington/'
-        });
+        Backbone.history.loadUrl('alerts');
+        //router.navigate('', {trigger: true});
+        //router.navigate(''+window.detail_pk+'');
 
     })();
 });

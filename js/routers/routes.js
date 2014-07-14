@@ -13,11 +13,11 @@ define([
 ], function(Backbone, RootView, HomeView, HeaderView, FooterView, MapView, DetailView, ProfileView, SlidesView, AlertsCollection, AlertModel) {
     return Backbone.Router.extend({
         routes: {
-            "": "Iphone",            // this is what will be loaded when the landing page is loaded 
+            "": "home",            // this is what will be loaded when the landing page is loaded 
             "alerts": "home",      // this is what will be loaded when a user goes to the /alerts   # had to chop off the s becuase of the collection name
             "intro": "intro",
             ":id": "detail",
-            "map": "maplist",
+            "list/map": "maplist",
             "about": "about",
             "profile": "profile"
         },

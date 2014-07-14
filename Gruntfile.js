@@ -103,8 +103,7 @@ module.exports = function(grunt) {
     'styles:development',
     'cssmin',
     'copy:prepareBuild',
-    'requirejs:production',
-    'connect:production'
+    'requirejs:production'
   ]);
 
 

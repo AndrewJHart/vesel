@@ -58,11 +58,6 @@ define([
                                         url: "http://headsupapp.io/feed/"+model.get('id')+"/"
                                     };
 
-                                    console.log(model);
-                                    console.log(message);
-
-                                    window.socialmessage.send(message);
-
                                 }, 0);
 
                                 return true;
