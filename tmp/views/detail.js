@@ -32,8 +32,6 @@ define([
                     url: "http://headsupapp.io/alerts/" + this.model.get('id') + "/"
                 };
 
-                window.socialmessage.send(message);
-
                 return false;
             }
         },
@@ -43,12 +41,12 @@ define([
             console.log(this.name + '#initialize');
 
             // check that we have an ID for the map of this alert or nullify it
-            this.mapUUID = (this.model.get('map').id || null);
+            this.mapUUID = true;  // temp hack for widget
 
             // load the tiles only if we have a map for this alert
             if (this.mapUUID) {
                 // tile layer
-                this.tiles = L.tileLayer('https://{s}.tiles.mapbox.com/v3/examples.map-i86nkdio/{z}/{x}/{y}.png', {
+                this.tiles = L.tileLayer('https://{s}.tiles.mapbox.com/v3/mscnswv.il5b6d5o/{z}/{x}/{y}.png', {
                     attribution: '<a href="http://www.mscns.com" target="_blank">Powered by MSCNS</a>',
                     detectRetina: true
                 });
@@ -103,7 +101,6 @@ define([
             // notice that delay must at least be >= length of animation duration
             // or the re-draw will break the animation just showing the panel w/o it
             _.delay(function() {
-                    console.log('Timing out bitchesssssssssss');
                 self.el.style.display = 'block';
             }, 500);
 
