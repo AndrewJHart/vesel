@@ -4,18 +4,8 @@ require([
     'views/root',
     'routers/routes',
     'FastClick',
-    'store',
     'helpers'
 ], function($, Backbone, RootView, Router, FastClick, store) {
-
-    var app,
-        cached_token,
-        firstRunDemo,
-        getCordovaFilePath,
-        ajaxServerDelegate,
-        resumeApp,
-        onDeviceReady,
-        firstRun;
 
     // IIFE to load backbone and app automatically separate from device ready
     (function startApp() {
@@ -24,11 +14,11 @@ require([
         FastClick.attach(document.body);
 
         // start backbone history
-        Backbone.history.start({
-            pushState: false,
-            root: '/',
-            silent: true
-        });
+        // Backbone.history.start({
+        //     pushState: false,
+        //     root: '/',
+        //     silent: true
+        // });
 
         
         // RootView may use link or url helpers which
@@ -41,7 +31,10 @@ require([
         new Router();
 
         // This will trigger your routers to start
-        Backbone.history.loadUrl('alerts');
+        // Backbone.history.loadUrl('alerts');
+        Backbone.history.start({
+            root: '/alerts/huntington/'
+        });
 
     })();
 });
