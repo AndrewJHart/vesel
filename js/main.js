@@ -32,10 +32,10 @@ require([
         var router = new Router();
 
         // This will trigger your routers to start
-        // Backbone.history.loadUrl('alerts');
+        //Backbone.history.loadUrl('alerts');
         //router.navigate('', {trigger: true});
         router.navigate(''+window.detail_pk+'', {
-            trigger: true
+            trigger: false
         });
 
     })();

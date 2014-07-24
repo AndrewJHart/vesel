@@ -8,8 +8,8 @@ define([
     return Thorax.Collection.extend({
         name: 'alerts',
 
-        url: "https://heads-up.herokuapp.com/api/app/v2/alerts/?region=1",
-        urlRoot: 'https://heads-up.herokuapp.com/api/app/v2/alerts/?region=1',
+        url: "https://heads-up.herokuapp.com/api/app/v2/alerts/?region=2",
+        urlRoot: 'https://heads-up.herokuapp.com/api/app/v2/alerts/?region=2',
         _cached: null,
 
         events: {
@@ -32,7 +32,7 @@ define([
             if (_.isFunction(this.live)) {
                 this.live({
                     key: '3fb8e3f49e89f2640bc9',
-                    channel: 'huh',
+                    channel: 'hancock',
                     channelSuffix: 'channel',
                     messageSuffix: 'message',
                     autoListen: true,
