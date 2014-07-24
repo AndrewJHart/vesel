@@ -6,8 +6,9 @@ require([
     'routers/routes',
     'FastClick',
     'store',
+    'UAParser',
     'helpers'
-], function($, _, Backbone, RootView, Router, FastClick, store) {
+], function($, _, Backbone, RootView, Router, FastClick, store, UAParser) {
 
     var app,
         cached_token,
@@ -19,10 +20,42 @@ require([
         firstRun,
         onNotificationAPN,
         registerDevice, 
-        registerRetryCount = 0;
+        currentVersion,
+        isUpdated;
 
     // IIFE to load backbone and app automatically separate from device ready
     (function startApp() {
+        // get user agent for device and browser detection
+        var parser = new UAParser(),
+            uaResults = null,
+            device = null,
+            os = null,
+            osVersion = null;
+
+        console.log(parser.getResult());
+
+        uaResults = parser.getResult();
+
+        device = uaResults.device;
+        os = uaResults.os.name;
+        osVersion = uaResults.os.version;
+
+        // check the device os and version and flag a global true or false
+        // this is hacky and horrible, fix it so i dont hate myself
+        if (os === 'iOS') {
+            // we have iOS so lets check the version to fix old webkit issues
+            store.set("OS", os);
+            store.set("OSVersion", osVersion);
+
+            if (osVersion <= "6.1") {
+                // device has old version of safari - hack the settings view animation
+                store.set("supportsComplexCSS", false);
+            } else {
+                store.set("supportsComplexCSS", true);
+            }
+        }
+
+
         // attach fastclick
         FastClick.attach(document.body);
 
@@ -35,10 +68,8 @@ require([
 
         // first thing -- set this to first run!! 
         firstRun = store.get('firstRun');
-        if (!firstRun) {
-            // show the slide view first by pointing backbone to 
-            // different route and ensure we only POST once
-            createUserDeviceAccount();
+        isUpdated = store.get('isUpdated');
+        if (!firstRun || !isUpdated) {
 
             // RootView may use link or url helpers which
             // depend on Backbone history being setup
@@ -53,6 +84,7 @@ require([
             Backbone.history.loadUrl('#intro');
 
             store.set('firstRun', true);
+            store.set('isUpdated', true);
         } else {
             // RootView may use link or url helpers which
             // depend on Backbone history being setup
@@ -179,23 +211,46 @@ require([
         });
     };
 
+    checkVersion = function() {
+        // store the new updated app version
+        cordova.getAppVersion().then(function (version) {
+            // get the current version (if one exists)
+            currentVersion = store.get('version');
+
+            if (!currentVersion) {
+                // if current version is undefined or null then set it
+                store.set('version', version.toString());
+
+                store.set('isUpdated', true);
+                isUpdated = true;
+            } else {
+                console.log(currentVersion + ' ' + version);
+                // check the current version returned against the local store
+                if (currentVersion < version.toString()) {
+                    // this is an old version - update it
+                    store.set('version', version.toString());
+                    store.set('isUpdated', false);
+                    isUpdated = false;
+                }
+            }
+        });
+    };
+
     // triggered by cordova when the device is ready
     onDeviceReady = function() {
-        // try to get cached copy of the device UUID for model 
-        // just in case nothing has changed on following check to prevent
-        // delay with polling in device model for settings view
-        // _.delay(function() {
-        //     // register device
-        //     _.bind(registerDevice(), this);
-
-        // }, 250);
 
         registerDevice();
+
+        // make this method non-blocking
+        _.delay(function() {
+            // check the app version to determine if the update screen slides show
+            checkVersion();
+        }, 0);
 
         _.delay(function() {
             // start the app 
             startApp();
-        }, 1500);
+        }, 750);
 
         console.log('**** END OF DEVICE READY ****');
     };

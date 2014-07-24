@@ -18706,3 +18706,7 @@ a:active {
   display: inline-block;
   margin: 10px;
 }
+
+aside#settings {
+  overflow-x: visible;
+}

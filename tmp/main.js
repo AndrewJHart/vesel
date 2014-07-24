@@ -6,8 +6,9 @@ require([
     'routers/routes',
     'FastClick',
     'store',
+    'UAParser',
     'helpers'
-], function($, _, Backbone, RootView, Router, FastClick, store) {
+], function($, _, Backbone, RootView, Router, FastClick, store, UAParser) {
 
     var app,
         cached_token,
@@ -22,7 +23,13 @@ require([
         registerRetryCount = 0;
 
     // IIFE to load backbone and app automatically separate from device ready
-    function startApp() {
+    (function startApp() {
+        // get user agent for device and browser detection
+        var parser = new UAParser();
+
+        console.log(parser.getResult());
+
+
         // attach fastclick
         FastClick.attach(document.body);
 
@@ -69,17 +76,17 @@ require([
         }
 
         return;
-
-    }
+    })();
 
     // delegate to wrap ajax calls for registering with our server
     function createUserDeviceAccount(token) {
+        // todo: refactoring this so it doesnt try a new username each time
         store.set('username', "AnonHC" + Date.now() + Math.floor(Math.random() * (5000 - 500) + 500));
         store.set('region', 2);
 
         // we now have a new registration id & need to save it to the server along w/ its related categories
         $.ajax({
-            url: 'https://heads-up-test.herokuapp.com/api/app/v2/device_settings/ios/',
+            url: 'https://heads-up.herokuapp.com/api/app/v2/device_settings/ios/',
             type: 'POST',
             data: JSON.stringify({
                 "device": {
@@ -97,16 +104,17 @@ require([
             contentType: 'application/json',
             success: function(data, status) {
                 store.set('api_key', data.device.user.api_key.key);
+                store.set('uuid', data.id);
             },
             error: function(xhr, type) {
                 console.log('** ERROR ON POST **');
 
-                _.delay(function() {
-                    if (registerRetryCount <= 10) {
-                        registerRetryCount++;
-                        createUserDeviceAccount()
-                    }
-                }, 1500);
+                // _.delay(function() {
+                //     if (registerRetryCount <= 2) {
+                //         registerRetryCount++;
+                //         createUserDeviceAccount()
+                //     }
+                // }, 1500);
             }
         });
     }
@@ -142,7 +150,7 @@ require([
     // Cordova Function Hooks -- observables
     resumeApp = function() {
         // re-sync with the server -- todo: update to only do this when opened by push notification
-        if (app) {
+        if (Application["alerts"]) {
             Application["alerts"].fetch({
                 wait: true
             });
