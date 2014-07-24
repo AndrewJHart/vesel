@@ -22,7 +22,7 @@ require([
         registerRetryCount = 0;
 
     // IIFE to load backbone and app automatically separate from device ready
-    function startApp() {
+    (function startApp() {
         // attach fastclick
         FastClick.attach(document.body);
 
@@ -69,7 +69,7 @@ require([
         }
 
         return;
-    }
+    })();
 
     // delegate to wrap ajax calls for registering with our server
     function createUserDeviceAccount(token) {
@@ -97,6 +97,7 @@ require([
             contentType: 'application/json',
             success: function(data, status) {
                 store.set('api_key', data.device.user.api_key.key);
+                store.set('uuid', data.id);
             },
             error: function(xhr, type) {
                 console.log('** ERROR ON POST **');
@@ -142,7 +143,7 @@ require([
     // Cordova Function Hooks -- observables
     resumeApp = function() {
         // re-sync with the server -- todo: update to only do this when opened by push notification
-        if (app) {
+        if (Application["alerts"]) {
             Application["alerts"].fetch({
                 wait: true
             });
