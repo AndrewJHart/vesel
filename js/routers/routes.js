@@ -8,8 +8,10 @@ define([
     'views/detail',
     'views/profile',
     'views/slides',
+    'views/fallback-settings',
+    'models/settings',
     'collections/alerts'
-], function(Backbone, RootView, HomeView, HeaderView, FooterView, MapView, DetailView, ProfileView, SlidesView, AlertsCollection) {
+], function(Backbone, RootView, HomeView, HeaderView, FooterView, MapView, DetailView, ProfileView, SlidesView, FallbackSettings, SettingsModel, AlertsCollection) {
     return Backbone.Router.extend({
         routes: {
             "": "index",
@@ -17,7 +19,8 @@ define([
             "map": "maplist",
             "about": "about",
             "profile": "profile",
-            "detail/:id": "detail"
+            "detail/:id": "detail",
+            "settings": "fallbackSettings"
         },
 
         // ----------
@@ -118,6 +121,19 @@ define([
 
             // show the settings view
             Application.goto(this.mapView, {
+                page: true
+            });
+
+            return this;
+        },
+
+        fallbackSettings: function(params) {
+            var fallbackView = Application["settings"] = new FallbackSettings({
+                el: '#settings', // stick this to the aside element in the DOM
+                model: new SettingsModel()
+            });
+
+            Application.goto(fallbackView, {
                 page: true
             });
 
