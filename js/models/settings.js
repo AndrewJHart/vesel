@@ -8,6 +8,7 @@ define(['backbone', 'deepmodel', 'store'], function(Backbone, DeepModel, store) 
         // gets the registration id, username, and pass from the user and device
         // then login will generate the api key
         defaults: function() {
+            // make defaults a method that always returns a fresh object
             return {
                 "device": {
                     "token": store.get('registration_id'),

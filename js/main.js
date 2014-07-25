@@ -70,6 +70,7 @@ require([
             store.set("supportsComplexCSS", true);
         }
 
+        store.set("supportsComplexCSS", false);
 
         // attach fastclick
         FastClick.attach(document.body);

@@ -1,5 +1,6 @@
 {{#view "header" tag="header" className="bar bar-nav"}}
   <h1 class="title">Settings</h1>
+  {{#link "" expand-tokens=true class="icon icon-close pull-right"}}{{/link}}
 {{/view}}
 
 <div class="content s-content">
@@ -79,6 +80,7 @@
     </li>
   </ul>
 </div>
+
 {{#view "footer" tag="nav" className="bar bar-tab"}}
   {{#link "intro" class="tab-item"}}
     <span class="icon icon-info"></span>
