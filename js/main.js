@@ -49,7 +49,6 @@ require([
         // check the device os and version and flag a global true or false
         // this is hacky and horrible, fix it so i dont hate myself
         if (os === 'iOS') {
-
             // we have iOS so lets check the version to fix old webkit issues
             if (osVersion <= "6.1") {
                 // device has old version of safari - hack the settings view animation
@@ -143,16 +142,15 @@ require([
             success: function(data, status) {
                 store.set('api_key', data.device.user.api_key.key);
                 store.set('uuid', data.id);
+
+                // set has_registered to true here.. might be best since callback
+                // or use a promise and put this elsewhere
             },
             error: function(xhr, type) {
                 console.log('** ERROR ON POST **');
 
-                // _.delay(function() {
-                //     if (registerRetryCount <= 2) {
-                //         registerRetryCount++;
-                //         createUserDeviceAccount()
-                //     }
-                // }, 1500);
+                // instead of retrying immediately, lets set has_registered to false
+                // here and when the app is re-opened it will try again. 
             }
         });
     }

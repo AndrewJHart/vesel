@@ -84,7 +84,7 @@ define([
                     });
 
                 layers.addTo(self.map);
-                this.map.setView([38.412, -82.428], 13);
+                this.map.setView([40.533, -80.621], 13);
 
             } else {
                 this.map.on('ready', function() {

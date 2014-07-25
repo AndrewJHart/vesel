@@ -26,7 +26,7 @@ require([
         isUpdated;
 
     // IIFE to load backbone and app automatically separate from device ready
-    (function startApp() {
+    function startApp() {
         // get user agent for device and browser detection
         var parser = new UAParser(),
             uaResults = null,
@@ -49,7 +49,6 @@ require([
         // check the device os and version and flag a global true or false
         // this is hacky and horrible, fix it so i dont hate myself
         if (os === 'iOS') {
-
             // we have iOS so lets check the version to fix old webkit issues
             if (osVersion <= "6.1") {
                 // device has old version of safari - hack the settings view animation
@@ -58,19 +57,15 @@ require([
                 store.set("supportsComplexCSS", true);
             }
         } else if (os === 'Android') {
-            console.debug('OS is Android version ' + osVersion);
-
             if (osVersion < "4.4") {
                 store.set("supportsComplexCSS", false);
             } else {
                 store.set("supportsComplexCSS", true);
             }
         } else {
-            console.debug('Testing app in the browser using ' + os + ' version ' + osVersion);
+            // running in the browser here i.e. testing
             store.set("supportsComplexCSS", true);
         }
-
-        store.set("supportsComplexCSS", false);
 
         // attach fastclick
         FastClick.attach(document.body);
@@ -118,7 +113,7 @@ require([
         }
 
         return;
-    })();
+    }
 
     // delegate to wrap ajax calls for registering with our server
     function createUserDeviceAccount(token) {
@@ -147,16 +142,15 @@ require([
             success: function(data, status) {
                 store.set('api_key', data.device.user.api_key.key);
                 store.set('uuid', data.id);
+
+                // set has_registered to true here.. might be best since callback
+                // or use a promise and put this elsewhere
             },
             error: function(xhr, type) {
                 console.log('** ERROR ON POST **');
 
-                // _.delay(function() {
-                //     if (registerRetryCount <= 2) {
-                //         registerRetryCount++;
-                //         createUserDeviceAccount()
-                //     }
-                // }, 1500);
+                // instead of retrying immediately, lets set has_registered to false
+                // here and when the app is re-opened it will try again. 
             }
         });
     }
@@ -193,6 +187,7 @@ require([
     resumeApp = function() {
         // re-sync with the server -- todo: update to only do this when opened by push notification
         if (Application["alerts"]) {
+            console.log('fetching updated list of alerts');
             Application["alerts"].fetch({
                 wait: true
             });
@@ -244,18 +239,23 @@ require([
                 // if current version is undefined or null then set it
                 store.set('version', version.toString());
 
-                store.set('isUpdated', true);
-                isUpdated = true;
-            } else {
-                console.log(currentVersion + ' ' + version);
-                // check the current version returned against the local store
-                if (currentVersion < version.toString()) {
-                    // this is an old version - update it
-                    store.set('version', version.toString());
-                    store.set('isUpdated', false);
-                    isUpdated = false;
-                }
+                store.set('isUpdated', false);
+                isUpdated = false;
+
+                return;
+            } 
+
+            //else {
+            console.log(currentVersion + ' ' + version);
+            
+            // check the current version returned against the local store
+            if (currentVersion < version.toString()) {
+                // this is an old version - update it
+                store.set('version', version.toString());
+                store.set('isUpdated', false);
+                isUpdated = false;
             }
+            //}
         });
     };
 

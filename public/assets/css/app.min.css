@@ -18810,6 +18810,9 @@ a:active {
   margin: 10px;
 }
 
-aside#settings {
-  overflow-x: visible;
+#ajax-loader {
+    position: relative;
+    width: auto;
+    display: block; 
+    margin: 0 auto;   
 }

@@ -1,9 +1,8 @@
 define([
     'anim-view',
     'models/settings',
-    'hbs!templates/fallback-settings',
-    'store'
-], function(AnimView, SettingsModel, template, store) {
+    'hbs!templates/fallback-settings'
+], function(AnimView, SettingsModel, template) {
 
     return AnimView.extend({
         name: "fallback-settings",

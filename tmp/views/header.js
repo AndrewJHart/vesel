@@ -18,6 +18,7 @@ define([
         },
 
         initialize: function() {
+            // extra instance vars are available to the template 
             this.settingsState = true;
             this.noFallback = store.get("supportsComplexCSS");
 
@@ -61,10 +62,10 @@ define([
                             Application.$el.prepend(Application["settings"].$el);
                         }
 
-                    }, 6000);
+                    }, 4000);
 
                 } else {
-                    // delay longer on inital run
+                    // delayed longer on inital run
                     _.delay(function() {
 
                         if (self.noFallback) {

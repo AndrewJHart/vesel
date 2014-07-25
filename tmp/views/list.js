@@ -4,14 +4,17 @@ define([
     'collection-view',
     'hbs!templates/list',
     'hbs!templates/list-item',
-    'hbs!templates/list-empty'
-], function(_, mobiscroll, CollectionView, template, itemTemplate, emptyTemplate) {
+    'hbs!templates/list-empty',
+    'hbs!templates/list-loading'
+], function(_, mobiscroll, CollectionView, template, itemTemplate, emptyTemplate, loadingTemplate) {
 
     return CollectionView.extend({
         name: "list",
         template: template,
         itemTemplate: itemTemplate,
         emptyTemplate: emptyTemplate,
+        // loadingTemplate: loadingTemplate,
+        // loadingPlacement: 0,
 
         // view represents the content area of its parent, the Home page-view
         className: 'content',

@@ -18789,3 +18789,10 @@ a:active {
   display: inline-block;
   margin: 10px;
 }
+
+#ajax-loader {
+    position: relative;
+    width: auto;
+    display: block; 
+    margin: 0 auto;   
+}

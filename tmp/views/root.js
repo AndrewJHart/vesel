@@ -44,7 +44,7 @@ define([
 
         // internal remove function to a) ensure we adhere to thorax 
         // structure b) clean-up child views c) undelegate events, etc..
-        remove = _.bind(function() {
+        var remove = _.bind(function() {
             if (previous) {
                 console.debug('RootView.goto.remove() was triggered w/ context view');
                 console.debug(this.name + " is removing: " + previous.name);

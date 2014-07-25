@@ -1,4 +1,4 @@
-7define([
+define([
   'underscore',
   'anim-view',
   'hbs!templates/root'
