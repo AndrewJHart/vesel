@@ -26,7 +26,7 @@ require([
         isUpdated;
 
     // IIFE to load backbone and app automatically separate from device ready
-    (function startApp() {
+    function startApp() {
         // get user agent for device and browser detection
         var parser = new UAParser(),
             uaResults = null,
@@ -58,19 +58,15 @@ require([
                 store.set("supportsComplexCSS", true);
             }
         } else if (os === 'Android') {
-            console.debug('OS is Android version ' + osVersion);
-
             if (osVersion < "4.4") {
                 store.set("supportsComplexCSS", false);
             } else {
                 store.set("supportsComplexCSS", true);
             }
         } else {
-            console.debug('Testing app in the browser using ' + os + ' version ' + osVersion);
+            // running in the browser here i.e. testing
             store.set("supportsComplexCSS", true);
         }
-
-        store.set("supportsComplexCSS", false);
 
         // attach fastclick
         FastClick.attach(document.body);
@@ -118,7 +114,7 @@ require([
         }
 
         return;
-    })();
+    }
 
     // delegate to wrap ajax calls for registering with our server
     function createUserDeviceAccount(token) {
@@ -193,6 +189,7 @@ require([
     resumeApp = function() {
         // re-sync with the server -- todo: update to only do this when opened by push notification
         if (Application["alerts"]) {
+            console.log('fetching updated list of alerts');
             Application["alerts"].fetch({
                 wait: true
             });
@@ -244,18 +241,23 @@ require([
                 // if current version is undefined or null then set it
                 store.set('version', version.toString());
 
-                store.set('isUpdated', true);
-                isUpdated = true;
-            } else {
-                console.log(currentVersion + ' ' + version);
-                // check the current version returned against the local store
-                if (currentVersion < version.toString()) {
-                    // this is an old version - update it
-                    store.set('version', version.toString());
-                    store.set('isUpdated', false);
-                    isUpdated = false;
-                }
+                store.set('isUpdated', false);
+                isUpdated = false;
+
+                return;
+            } 
+
+            //else {
+            console.log(currentVersion + ' ' + version);
+            
+            // check the current version returned against the local store
+            if (currentVersion < version.toString()) {
+                // this is an old version - update it
+                store.set('version', version.toString());
+                store.set('isUpdated', false);
+                isUpdated = false;
             }
+            //}
         });
     };
 
