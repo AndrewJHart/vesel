@@ -52,7 +52,8 @@ require.config({
         'pusher': pathPrefix + 'bower_components/pusher/dist/pusher.min',
         'backsocket': pathPrefix + 'bower_components/backbone-websocket/dist/BackSocket',
         'store': pathPrefix + 'bower_components/store/store.min',
-        'FastClick': pathPrefix + 'bower_components/fastclick/lib/fastclick'
+        'FastClick': pathPrefix + 'bower_components/fastclick/lib/fastclick',
+        'UAParser': pathPrefix + 'bower_components/ua-parser-js/src/ua-parser'
     },
     shim: {
         'handlebars': {

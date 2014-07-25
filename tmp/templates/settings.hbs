@@ -17,6 +17,7 @@
       </form>
     </li>
     <li class="table-view-cell table-view-divider">Categories</li>
+
     <li class="table-view-cell">
       <div class="set-police"><span class="set-title">Police</span></div>
       <div class="toggle {{#metadata.0.is_enabled}}active{{/metadata.0.is_enabled}}" data-meta-position="0">
@@ -30,37 +31,43 @@
         <div class="toggle-handle" data-meta-position="1"></div>
       </div>
     </li>
+
     <li class="table-view-cell">
       <div class="set-traffic"><span class="set-title">Traffic</span></div>
       <div class="toggle {{#metadata.2.is_enabled}}active{{/metadata.2.is_enabled}}" data-meta-position="2">
-        <input type="checkbox" class="toggle-handle" {{#metadata.2.is_enabled}}checked{{/metadata.2.is_enabled}}>
+        <div class="toggle-handle" data-meta-position="2"></div>
       </div>
     </li>
+
     <li class="table-view-cell">
       <div class="set-school"><span class="set-title">School</span></div>
-      <div class="toggle {{#metadata.3.is_enabled}}active{{/metadata.3.is_enabled}}">
-        <input type="checkbox" class="toggle-handle" {{#metadata.3.is_enabled}}checked{{/metadata.3.is_enabled}} data-meta-position="3">
+      <div class="toggle {{#metadata.3.is_enabled}}active{{/metadata.3.is_enabled}}" data-meta-position="3">
+        <div class="toggle-handle" data-meta-position="3"></div>
       </div>
     </li>
+
     <li class="table-view-cell">
       <div class="set-utilities"><span class="set-title">Utilities</span></div>
       <div class="toggle {{#metadata.4.is_enabled}}active{{/metadata.4.is_enabled}}" data-meta-position="4">
-        <input type="checkbox" class="toggle-handle" {{#metadata.4.is_enabled}}checked{{/metadata.4.is_enabled}}>
+        <div class="toggle-handle" data-meta-position="4"></div>
       </div>
     </li>
+
     <li class="table-view-cell">
       <div class="set-health"><span class="set-title">Health</span></div>
       <div class="toggle {{#metadata.5.is_enabled}}active{{/metadata.5.is_enabled}}" data-meta-position="5">
-        <input type="checkbox" class="toggle-handle" {{#metadata.5.is_enabled}}checked{{/metadata.5.is_enabled}}>
+        <div class="toggle-handle" data-meta-position="5"></div>
       </div>
     </li>
+
     <li class="table-view-cell">
       <div class="set-other"><span class="set-title">Other/Misc</span></div>
       <div class="toggle {{#metadata.6.is_enabled}}active{{/metadata.6.is_enabled}}" data-meta-position="6" >
-        <input type="checkbox" class="toggle-handle"{{#metadata.6.is_enabled}}checked{{/metadata.6.is_enabled}}>
+        <div class="toggle-handle" data-meta-position="6"></div>
       </div>
     </li>
   </ul>
+
   <ul class="table-view">
     <li class="table-view-cell table-view-divider">
       <p class="powered-by">

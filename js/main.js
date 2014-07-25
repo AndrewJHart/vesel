@@ -6,8 +6,9 @@ require([
     'routers/routes',
     'FastClick',
     'store',
+    'UAParser',
     'helpers'
-], function($, _, Backbone, RootView, Router, FastClick, store) {
+], function($, _, Backbone, RootView, Router, FastClick, store, UAParser) {
 
     var app,
         cached_token,
@@ -18,11 +19,48 @@ require([
         onDeviceReady,
         firstRun,
         onNotificationAPN,
+<<<<<<< HEAD
         registerDevice,
         hasRegistered;
+=======
+        registerDevice, 
+        currentVersion,
+        isUpdated;
+>>>>>>> 083c441696f35e30e6f4ac8a964ff77842ece146
 
     // IIFE to load backbone and app automatically separate from device ready
-    function startApp() {
+    (function startApp() {
+        // get user agent for device and browser detection
+        var parser = new UAParser(),
+            uaResults = null,
+            device = null,
+            os = null,
+            osVersion = null;
+
+        console.log(parser.getResult());
+
+        uaResults = parser.getResult();
+
+        device = uaResults.device;
+        os = uaResults.os.name;
+        osVersion = uaResults.os.version;
+
+        // check the device os and version and flag a global true or false
+        // this is hacky and horrible, fix it so i dont hate myself
+        if (os === 'iOS') {
+            // we have iOS so lets check the version to fix old webkit issues
+            store.set("OS", os);
+            store.set("OSVersion", osVersion);
+
+            if (osVersion <= "6.1") {
+                // device has old version of safari - hack the settings view animation
+                store.set("supportsComplexCSS", false);
+            } else {
+                store.set("supportsComplexCSS", true);
+            }
+        }
+
+
         // attach fastclick
         FastClick.attach(document.body);
 
@@ -35,9 +73,14 @@ require([
 
         // first thing -- set this to first run!! 
         firstRun = store.get('firstRun');
+<<<<<<< HEAD
         if (!firstRun) {
             // show the slide view first by pointing backbone to 
             // different route and ensure we only POST once
+=======
+        isUpdated = store.get('isUpdated');
+        if (!firstRun || !isUpdated) {
+>>>>>>> 083c441696f35e30e6f4ac8a964ff77842ece146
 
             // RootView may use link or url helpers which
             // depend on Backbone history being setup
@@ -52,6 +95,7 @@ require([
             Backbone.history.loadUrl('#intro');
 
             store.set('firstRun', true);
+            store.set('isUpdated', true);
         } else {
             // RootView may use link or url helpers which
             // depend on Backbone history being setup
@@ -68,11 +112,11 @@ require([
         }
 
         return;
-
-    }
+    })();
 
     // delegate to wrap ajax calls for registering with our server
     function createUserDeviceAccount(token) {
+        // todo: refactoring this so it doesnt try a new username each time
         store.set('username', "AnonHC" + Date.now() + Math.floor(Math.random() * (5000 - 500) + 500));
         store.set('region', 2);
 
@@ -100,6 +144,13 @@ require([
             },
             error: function(xhr, type) {
                 console.log('** ERROR ON POST **');
+
+                // _.delay(function() {
+                //     if (registerRetryCount <= 2) {
+                //         registerRetryCount++;
+                //         createUserDeviceAccount()
+                //     }
+                // }, 1500);
             }
         });
     }
@@ -135,7 +186,7 @@ require([
     // Cordova Function Hooks -- observables
     resumeApp = function() {
         // re-sync with the server -- todo: update to only do this when opened by push notification
-        if (app) {
+        if (Application["alerts"]) {
             Application["alerts"].fetch({
                 wait: true
             });
@@ -177,23 +228,50 @@ require([
         });
     };
 
+    checkVersion = function() {
+        // store the new updated app version
+        cordova.getAppVersion().then(function (version) {
+            // get the current version (if one exists)
+            currentVersion = store.get('version');
+
+            if (!currentVersion) {
+                // if current version is undefined or null then set it
+                store.set('version', version.toString());
+
+                store.set('isUpdated', true);
+                isUpdated = true;
+            } else {
+                console.log(currentVersion + ' ' + version);
+                // check the current version returned against the local store
+                if (currentVersion < version.toString()) {
+                    // this is an old version - update it
+                    store.set('version', version.toString());
+                    store.set('isUpdated', false);
+                    isUpdated = false;
+                }
+            }
+        });
+    };
+
     // triggered by cordova when the device is ready
     onDeviceReady = function() {
-        // try to get cached copy of the device UUID for model 
-        // just in case nothing has changed on following check to prevent
-        // delay with polling in device model for settings view
-        // _.delay(function() {
-        //     // register device
-        //     _.bind(registerDevice(), this);
-
-        // }, 250);
 
         registerDevice();
+
+        // make this method non-blocking
+        _.delay(function() {
+            // check the app version to determine if the update screen slides show
+            checkVersion();
+        }, 0);
 
         _.delay(function() {
             // start the app 
             startApp();
+<<<<<<< HEAD
         }, 1200);
+=======
+        }, 750);
+>>>>>>> 083c441696f35e30e6f4ac8a964ff77842ece146
 
         console.log('**** END OF DEVICE READY ****');
     };

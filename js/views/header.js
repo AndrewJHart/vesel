@@ -2,13 +2,16 @@ define([
     'underscore',
     'view',
     'views/settings',
-    'models/settings'
+    'models/settings',
+    'store'
     // 'hbs!templates/header'
-], function(_, View, SettingsView, SettingsModel /*, template*/ ) {
+], function(_, View, SettingsView, SettingsModel, store /*, template*/ ) {
 
     return View.extend({
         name: "header",
         //template: template,
+        settingsState: null,
+        noFallback: null,
 
         events: {
             'click a[data-toggle="aside"]': 'toggleSettings'
@@ -16,6 +19,8 @@ define([
 
         initialize: function() {
             this.settingsState = true;
+            this.noFallback = store.get("supportsComplexCSS");
+            console.log(this.noFallback);
 
             // create and prep the settings view 
             // Note: I'm using Application.View instead of this.settings to check
@@ -30,24 +35,60 @@ define([
             // Better Performance, less memory, no confusion with the collection/models
             //
             if (!Application["settings"]) {
+                var self = this;
 
-                _.delay(function() {
-                    // SRP pattern at its finest. The settings view is created & nested here
-                    // but ALL FUNCTIONS that are responsible for its state are managed by
-                    // the settings view itself internally e.g. toggle, settingsState
-                    // The header only acts as an *event mediator* here
-                    Application["settings"] = new SettingsView({
-                        el: '#settings', // stick this to the aside element in the DOM
-                        className: 'effeckt-off-screen-nav',
-                        model: new SettingsModel()
-                    });
+                firstRun = store.get('firstRun');
 
-                    Application["settings"].render();
+                if (!firstRun) {
+                    // delay longer on inital run
+                    _.delay(function() {
+                        /* Backwards compatibility */
+                        if (self.noFallback) {
+                            // SRP pattern at its finest. The settings view is created & nested here
+                            // but ALL FUNCTIONS that are responsible for its state are managed by
+                            // the settings view itself internally e.g. toggle, settingsState
+                            // The header only acts as an *event mediator* here
+                            Application["settings"] = new SettingsView({
+                                el: '#settings', // stick this to the aside element in the DOM
+                                className: 'effeckt-off-screen-nav',
+                                model: new SettingsModel()
+                            });
+                            // Settings panel has loaded 
+                            Application["settings"].render();
 
-                    // notice the frameworks prepend call to keep aside at top of markup
-                    Application.$el.prepend(Application["settings"].$el);
+                            // notice the frameworks prepend call to keep aside at top of markup
+                            Application.$el.prepend(Application["settings"].$el);
+                        }
 
+<<<<<<< HEAD
                 }, 4500);
+=======
+                    }, 6000);
+                    
+                } else {
+                    // delay longer on inital run
+                    _.delay(function() {
+
+                        if (self.noFallback) {
+                            // SRP pattern at its finest. The settings view is created & nested here
+                            // but ALL FUNCTIONS that are responsible for its state are managed by
+                            // the settings view itself internally e.g. toggle, settingsState
+                            // The header only acts as an *event mediator* here
+                            Application["settings"] = new SettingsView({
+                                el: '#settings', // stick this to the aside element in the DOM
+                                className: 'effeckt-off-screen-nav',
+                                model: new SettingsModel()
+                            });
+
+                            Application["settings"].render();
+
+                            // notice the frameworks prepend call to keep aside at top of markup
+                            Application.$el.prepend(Application["settings"].$el);
+                        }
+
+                    }, 1500);
+                }
+>>>>>>> 083c441696f35e30e6f4ac8a964ff77842ece146
             }
 
             return this;
@@ -56,11 +97,12 @@ define([
         toggleSettings: function(event) {
             // animate the settings view in
             Application["settings"].toggle();
-
+          
             _.delay(function() {
                 // activate the overlay mask on parent view aka: home or maplist
                 this.parent.$('a.overlay').toggleClass('mask');
             }, 200);
+
 
             return true;
         }
