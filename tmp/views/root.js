@@ -12,6 +12,31 @@ define([
     el: 'body',
     template: template,
 
+    // global events for all or any nested views
+    events: {
+
+        // any click event with this data-attr will trigger external url
+        'nested click [data-external-url]': function(e) {
+
+            // grab the url to be opened externally from data-external-url attr
+            var url = $(e.target).data('external-url');
+
+            console.log(e.originalContext);
+
+            console.log('** Opening url ' + url + ' from event handler for a[data-external-url]');
+
+            // prevent link from opening by default
+            e.preventDefault();
+
+            // force cordova to open the link in safari
+            window.open(url, '_system', 'location=no');
+
+            // return false just in case
+            return false;
+        }   
+    },
+
+    // root view-manager method to handle page animations and the page array stack
     goto: function(view, options) {
         var options = options || {},
             previous = this.currentPage || null, // cache current view

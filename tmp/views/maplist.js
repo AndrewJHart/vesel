@@ -18,14 +18,14 @@ define([
         secondLayer: null,
 
         events: {
-            'click a.overlay.mask': function(event) {
+            'click a.overlay.mask': function(e) {
 
                 // get reference to the nested header view using its data-view-cid
                 var headerView = this.children[this.$("header").data("view-cid")];
 
                 // call the "home/header" view method to trigger aside reveal
                 // forward the event data on to the header view too.
-                headerView.toggleSettings(event);
+                headerView.toggleSettings(e);
 
                 return false;
             }
@@ -39,10 +39,9 @@ define([
 
             // tile layer
             this.tiles = L.tileLayer('https://{s}.tiles.mapbox.com/v3/mscnswv.hl37jh6m/{z}/{x}/{y}.png', {
-                attribution: '<a href="http://www.mscns.com" target="_blank">Powered by MSCNS</a>',
+                attribution: '<a data-external-url="http://www.mscns.com" target="_system">Powered by MSCNS</a>',
                 detectRetina: true
             });
-            console.log(this.tiles);
 
             return this;
         },
