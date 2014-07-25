@@ -19,14 +19,11 @@ require([
         onDeviceReady,
         firstRun,
         onNotificationAPN,
-<<<<<<< HEAD
         registerDevice,
-        hasRegistered;
-=======
-        registerDevice, 
+        hasRegistered,
+        registerDevice,
         currentVersion,
         isUpdated;
->>>>>>> 083c441696f35e30e6f4ac8a964ff77842ece146
 
     // IIFE to load backbone and app automatically separate from device ready
     (function startApp() {
@@ -45,19 +42,32 @@ require([
         os = uaResults.os.name;
         osVersion = uaResults.os.version;
 
+        // set the device info in local storage
+        store.set("OS", os);
+        store.set("OSVersion", osVersion);
+
         // check the device os and version and flag a global true or false
         // this is hacky and horrible, fix it so i dont hate myself
         if (os === 'iOS') {
-            // we have iOS so lets check the version to fix old webkit issues
-            store.set("OS", os);
-            store.set("OSVersion", osVersion);
 
+            // we have iOS so lets check the version to fix old webkit issues
             if (osVersion <= "6.1") {
                 // device has old version of safari - hack the settings view animation
                 store.set("supportsComplexCSS", false);
             } else {
                 store.set("supportsComplexCSS", true);
             }
+        } else if (os === 'Android') {
+            console.debug('OS is Android version ' + osVersion);
+
+            if (osVersion < "4.4") {
+                store.set("supportsComplexCSS", false);
+            } else {
+                store.set("supportsComplexCSS", true);
+            }
+        } else {
+            console.debug('Testing app in the browser using ' + os + ' version ' + osVersion);
+            store.set("supportsComplexCSS", true);
         }
 
 
@@ -73,14 +83,9 @@ require([
 
         // first thing -- set this to first run!! 
         firstRun = store.get('firstRun');
-<<<<<<< HEAD
-        if (!firstRun) {
-            // show the slide view first by pointing backbone to 
-            // different route and ensure we only POST once
-=======
         isUpdated = store.get('isUpdated');
         if (!firstRun || !isUpdated) {
->>>>>>> 083c441696f35e30e6f4ac8a964ff77842ece146
+
 
             // RootView may use link or url helpers which
             // depend on Backbone history being setup
@@ -230,7 +235,7 @@ require([
 
     checkVersion = function() {
         // store the new updated app version
-        cordova.getAppVersion().then(function (version) {
+        cordova.getAppVersion().then(function(version) {
             // get the current version (if one exists)
             currentVersion = store.get('version');
 
@@ -267,11 +272,8 @@ require([
         _.delay(function() {
             // start the app 
             startApp();
-<<<<<<< HEAD
-        }, 1200);
-=======
+
         }, 750);
->>>>>>> 083c441696f35e30e6f4ac8a964ff77842ece146
 
         console.log('**** END OF DEVICE READY ****');
     };

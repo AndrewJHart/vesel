@@ -20,7 +20,9 @@ define([
         initialize: function() {
             this.settingsState = true;
             this.noFallback = store.get("supportsComplexCSS");
-            console.log(this.noFallback);
+
+            // delete me
+            console.debug(this.noFallback);
 
             // create and prep the settings view 
             // Note: I'm using Application.View instead of this.settings to check
@@ -35,9 +37,8 @@ define([
             // Better Performance, less memory, no confusion with the collection/models
             //
             if (!Application["settings"]) {
-                var self = this;
-
-                firstRun = store.get('firstRun');
+                var self = this,
+                    firstRun = store.get('firstRun');
 
                 if (!firstRun) {
                     // delay longer on inital run
@@ -60,11 +61,8 @@ define([
                             Application.$el.prepend(Application["settings"].$el);
                         }
 
-<<<<<<< HEAD
-                }, 4500);
-=======
                     }, 6000);
-                    
+
                 } else {
                     // delay longer on inital run
                     _.delay(function() {
@@ -88,7 +86,6 @@ define([
 
                     }, 1500);
                 }
->>>>>>> 083c441696f35e30e6f4ac8a964ff77842ece146
             }
 
             return this;
@@ -97,7 +94,7 @@ define([
         toggleSettings: function(event) {
             // animate the settings view in
             Application["settings"].toggle();
-          
+
             _.delay(function() {
                 // activate the overlay mask on parent view aka: home or maplist
                 this.parent.$('a.overlay').toggleClass('mask');

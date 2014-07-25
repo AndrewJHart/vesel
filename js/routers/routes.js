@@ -11,7 +11,7 @@ define([
     'views/fallback-settings',
     'models/settings',
     'collections/alerts'
-], function(Backbone, RootView, HomeView, HeaderView, FooterView, MapView, DetailView, ProfileView, SlidesView, FallbackSettings, SettingsModel, AlertsCollection) {
+], function(Backbone, RootView, HomeView, HeaderView, FooterView, MapView, DetailView, ProfileView, SlidesView, FallbackSettingsView, SettingsModel, AlertsCollection) {
     return Backbone.Router.extend({
         routes: {
             "": "index",
@@ -29,6 +29,7 @@ define([
         alerts: null,
         indexView: null,
         mapView: null,
+        fallbackView: null,
 
         // ------
         // methods
@@ -74,7 +75,7 @@ define([
 
             Application.goto(introView, {
                 page: true
-            }); 
+            });
 
             return this;
         },
@@ -101,7 +102,7 @@ define([
             // the transition happens. 
             Application.goto(pageView, {
                 page: true, // this is its own page/pane so tell app to animate it
-                toggleIn: 'right' // remove the class right before animating
+                toggleIn: 'right' // remove the class `right` before animating the view
             });
 
             return this;
@@ -128,12 +129,18 @@ define([
         },
 
         fallbackSettings: function(params) {
-            var fallbackView = Application["settings"] = new FallbackSettings({
-                el: '#settings', // stick this to the aside element in the DOM
-                model: new SettingsModel()
-            });
 
-            Application.goto(fallbackView, {
+            // load the settings panel only once
+            if (!this.fallbackView) {
+                // create the fallback settings panel for older devices
+                Application["settings"] = this.fallbackView = new FallbackSettingsView({
+                    //el: 'aside#settings', // stick this to the aside element in the DOM
+                    className: 'fallback-settings',
+                    model: new SettingsModel()
+                });
+            }
+
+            Application.goto(this.fallbackView, {
                 page: true
             });
 

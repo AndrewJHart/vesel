@@ -1,18 +1,17 @@
 define([
-    'view',
     'anim-view',
     'models/settings',
-	'hbs!templates/fallback-settings',
+    'hbs!templates/fallback-settings',
     'store'
-], function(View, AnimView, SettingsModel, template, store) {
+], function(AnimView, SettingsModel, template, store) {
 
     return AnimView.extend({
         name: "fallback-settings",
         template: template,
 
         // add animations
-        animateIn: "rotateInUpLeft",
-        animateOut: "rotateOutUpRight",
+        animateIn: "zoomInLeft",
+        animateOut: "zoomOutLeft",
 
         events: {
             'change form > #global_priority': function(event) {
@@ -87,6 +86,9 @@ define([
 
             // get the resource from the server
             this.model.fetch();
+
+            // tell vesel to persist this view on the page view stack instead of destroying it
+            this.$el.attr("data-view-persist", "true");
 
             return this;
         }
