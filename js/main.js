@@ -23,14 +23,14 @@ require([
         // attach fastclick
         FastClick.attach(document.body);
 
-        // start backbone history
+        // // start backbone history
         Backbone.history.start({
             pushState: false,
-            root: '/',
+            root: '/hancock/alerts/',
             silent: true
         });
 
-        
+
         // RootView may use link or url helpers which
         // depend on Backbone history being setup
         // so need to wait to loadUrl() (which will)
@@ -38,10 +38,15 @@ require([
         RootView.getInstance(document.getElementById('alerts-feed'));
 
         // Instantiate the main router
-        new Router();
+        var router = new Router();
 
         // This will trigger your routers to start
-        Backbone.history.loadUrl('alerts');
+
+        router.navigate('' + window.detail_pk + '', {
+            trigger: true
+        });
+        //Backbone.history.loadUrl('detail');
+        // Backbone.history.start();
 
     })();
 });
