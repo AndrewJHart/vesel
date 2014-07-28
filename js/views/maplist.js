@@ -60,7 +60,7 @@ define([
 
                 var layers = L.control.layers({
                     'Streets': this.tiles,
-                    'Satellite': L.tileLayer('https://{s}.tiles.mapbox.com/v3/examples.map-i86nkdio/{z}/{x}/{y}.png', {
+                    'Satellite': L.tileLayer('https://{s}.tiles.mapbox.com/v3/mscnswv.il5b6d5o/{z}/{x}/{y}.png', {
                         detectRetina: true
                     })
                 });
@@ -84,7 +84,7 @@ define([
                     });
 
                 layers.addTo(self.map);
-                this.map.setView([37.788, -81.115], 13);
+                this.map.setView([37.788, -81.115], 15);
 
             } else {
                 this.map.on('ready', function() {
