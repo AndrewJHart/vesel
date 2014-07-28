@@ -4,8 +4,16 @@
 <a class="overlay"></a>
 
 {{#view "header" tag="header" className="bar bar-nav"}}
-	<a class="icon icon-bars pull-left" data-toggle="aside"></a>
-    <h1 class="title">Heads Up Beckley</h1>
+	{{!-- check the header view's context for `noFallback` to determine if we --}}
+	{{!-- can use the preferred anchor w/ data-toggle attr for rendering settings --}}
+	{{!-- or if we need to use an anchor with a route for rendering the  --}}
+	{{!-- fallback settings panel as an entirely separate page view --}}
+	{{#if noFallback}}
+		<a class="icon icon-bars pull-left" data-toggle="aside"></a>
+	{{else}}
+		{{#link "settings" expand-tokens=true class="icon icon-bars pull-left"}}{{/link}}
+	{{/if}}
+  <h1 class="title">Heads Up Beckley</h1>
 {{/view}}
 
 <div class="bar bar-standard bar-header-secondary" data-multilevel="2">
