@@ -1,7 +1,11 @@
 <a class="overlay"></a>
 
 {{#view "header" tag="header" className="bar bar-nav"}}
-  <a class="icon icon-bars pull-left" data-toggle="aside"></a>
+  {{#if noFallback}}
+		<a class="icon icon-bars pull-left" data-toggle="aside"></a>
+	{{else}}
+		{{#link "settings" expand-tokens=true class="icon icon-bars pull-left"}}{{/link}}
+	{{/if}}
   <h1 class="title">Heads Up Beckley</h1>
 {{/view}}
 

@@ -8,8 +8,10 @@ define([
     'views/detail',
     'views/profile',
     'views/slides',
+    'views/fallback-settings',
+    'models/settings',
     'collections/alerts'
-], function(Backbone, RootView, HomeView, HeaderView, FooterView, MapView, DetailView, ProfileView, SlidesView, AlertsCollection) {
+], function(Backbone, RootView, HomeView, HeaderView, FooterView, MapView, DetailView, ProfileView, SlidesView, FallbackSettingsView, SettingsModel, AlertsCollection) {
     return Backbone.Router.extend({
         routes: {
             "": "index",
@@ -17,7 +19,8 @@ define([
             "map": "maplist",
             "about": "about",
             "profile": "profile",
-            "detail/:id": "detail"
+            "detail/:id": "detail",
+            "settings": "fallbackSettings"
         },
 
         // ----------
@@ -26,6 +29,7 @@ define([
         alerts: null,
         indexView: null,
         mapView: null,
+        fallbackView: null,
 
         // ------
         // methods
@@ -71,7 +75,7 @@ define([
 
             Application.goto(introView, {
                 page: true
-            }); 
+            });
 
             return this;
         },
@@ -118,6 +122,25 @@ define([
 
             // show the settings view
             Application.goto(this.mapView, {
+                page: true
+            });
+
+            return this;
+        },
+
+        fallbackSettings: function(params) {
+
+            // load the settings panel only once
+            if (!this.fallbackView) {
+                // create the fallback settings panel for older devices
+                Application["settings"] = this.fallbackView = new FallbackSettingsView({
+                    //el: 'aside#settings', // stick this to the aside element in the DOM
+                    className: 'fallback-settings',
+                    model: new SettingsModel()
+                });
+            }
+
+            Application.goto(this.fallbackView, {
                 page: true
             });
 

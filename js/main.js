@@ -25,7 +25,7 @@ require([
         isUpdated;
 
     // IIFE to load backbone and app automatically separate from device ready
-    function startApp() {
+    (function startApp() {
         // get user agent for device and browser detection
         var parser = new UAParser(),
             uaResults = null,
@@ -63,7 +63,7 @@ require([
             }
         } else {
             // running in the browser here i.e. testing
-            store.set("supportsComplexCSS", true);
+            store.set("supportsComplexCSS", false);
         }
 
         // attach fastclick
@@ -111,7 +111,7 @@ require([
 
         return;
 
-    }
+    })();
 
     // delegate to wrap ajax calls for registering with our server
     function createUserDeviceAccount(token) {

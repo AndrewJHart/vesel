@@ -2,9 +2,10 @@ define([
     'underscore',
     'view',
     'views/settings',
-    'models/settings'
+    'models/settings',
+    'store'
     // 'hbs!templates/header'
-], function(_, View, SettingsView, SettingsModel /*, template*/ ) {
+], function(_, View, SettingsView, SettingsModel, store /*, template*/ ) {
 
     return View.extend({
         name: "header",
