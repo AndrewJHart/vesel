@@ -73,7 +73,7 @@ define([
 
                 // get our primary layer with geoJSON
                 this.primaryLayer = L.mapbox.featureLayer()
-                    .loadURL('https://heads-up.herokuapp.com/api/app/v2/alert_locations/?region=3')
+                    .loadURL('https://heads-up.herokuapp.com/api/app/v2/alert_locations/?region=1')
                     .addTo(this.map)
                     .on('ready', function() {
                         self.primaryLayer.eachLayer(function(l) {
@@ -84,7 +84,7 @@ define([
                     });
 
                 layers.addTo(self.map);
-                this.map.setView([37.788, -81.115], 15);
+                this.map.setView([38.412, -82.428], 15);
 
             } else {
                 this.map.on('ready', function() {

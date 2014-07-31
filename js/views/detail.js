@@ -92,7 +92,7 @@ define([
 
                     layers.addTo(self.map);
 
-                    self.map.setView([37.788, -81.115], 17);
+                    self.map.setView([38.412, -82.428], 17);
 
                 }, 250);
             }

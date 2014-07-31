@@ -76,14 +76,23 @@
       <br> 
       Mountain State Computer and Network Solutions 
       <br>
-      Beckley-Raleigh WV</p>
+      Huntington Police Department
+      <br>
+      The City of Huntington, WV</p>
+      <div class="powered-logos">
+        <i class="coh"></i>
+        <i class="hpd"></i>    
+      </div>
     </li>
   </ul>
 </div>
-
 {{#view "footer" tag="nav" className="bar bar-tab"}}
   {{#link "intro" class="tab-item"}}
     <span class="icon icon-info"></span>
     <span class="tab-label">Help</span>
+  {{/link}}
+    {{#link "profile" trigger="close:settings" data-toggle="aside" class="tab-item"}}
+    <span class="icon hpd icon-settings__large"></span>
+    <span class="tab-label">Community Force</span>
   {{/link}}
 {{/view}}

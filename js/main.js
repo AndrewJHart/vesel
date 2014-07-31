@@ -25,7 +25,7 @@ require([
         isUpdated;
 
     // IIFE to load backbone and app automatically separate from device ready
-    (function startApp() {
+    function startApp() {
         // get user agent for device and browser detection
         var parser = new UAParser(),
             uaResults = null,
@@ -63,7 +63,7 @@ require([
             }
         } else {
             // running in the browser here i.e. testing
-            store.set("supportsComplexCSS", false);
+            store.set("supportsComplexCSS", true);
         }
 
         // attach fastclick
@@ -111,12 +111,12 @@ require([
 
         return;
 
-    })();
+    }
 
     // delegate to wrap ajax calls for registering with our server
     function createUserDeviceAccount(token) {
-        store.set('username', "AnonBR" + Date.now() + Math.floor(Math.random() * (5000 - 500) + 500));
-        store.set('region', 3);
+        store.set('username', "AnonHPD" + Date.now() + Math.floor(Math.random() * (5000 - 500) + 500));
+        store.set('region', 1);
 
         // we now have a new registration id & need to save it to the server along w/ its related categories
         $.ajax({

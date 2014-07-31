@@ -8,7 +8,7 @@ var BackSocket, defaults,
 
 defaults = {
     key: '3fb8e3f49e89f2640bc9',
-    channel: 'beckley',
+    channel: 'huh',
     channelSuffix: 'channel',
     messageSuffix: 'message',
     autoListen: true,
