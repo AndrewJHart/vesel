@@ -36,70 +36,104 @@ define([
             // the settings view. 
             // Better Performance, less memory, no confusion with the collection/models
             //
-            if (!Application["settings"]) {
-                var self = this,
-                    firstRun = store.get('firstRun');
+            // if (!Application["settings"]) {
+            //     var self = this,
+            //         firstRun = store.get('firstRun');
 
-                if (!firstRun) {
-                    // delay longer on inital run
-                    _.delay(function() {
-                        /* Backwards compatibility */
-                        if (self.noFallback) {
-                            // SRP pattern at its finest. The settings view is created & nested here
-                            // but ALL FUNCTIONS that are responsible for its state are managed by
-                            // the settings view itself internally e.g. toggle, settingsState
-                            // The header only acts as an *event mediator* here
-                            Application["settings"] = new SettingsView({
-                                el: '#settings', // stick this to the aside element in the DOM
-                                className: 'effeckt-off-screen-nav',
-                                model: new SettingsModel()
-                            });
-                            // Settings panel has loaded 
-                            Application["settings"].render();
+            //     if (!firstRun) {
+            //         // delay longer on inital run
+            //         _.delay(function() {
+            //             /* Backwards compatibility */
+            //             if (self.noFallback) {
+            //                 // SRP pattern at its finest. The settings view is created & nested here
+            //                 // but ALL FUNCTIONS that are responsible for its state are managed by
+            //                 // the settings view itself internally e.g. toggle, settingsState
+            //                 // The header only acts as an *event mediator* here
+            //                 Application["settings"] = new SettingsView({
+            //                     el: '#settings', // stick this to the aside element in the DOM
+            //                     className: 'effeckt-off-screen-nav',
+            //                     model: new SettingsModel()
+            //                 });
+            //                 // Settings panel has loaded 
+            //                 Application["settings"].render();
 
-                            // notice the frameworks prepend call to keep aside at top of markup
-                            Application.$el.prepend(Application["settings"].$el);
-                        }
+            //                 // notice the frameworks prepend call to keep aside at top of markup
+            //                 Application.$el.prepend(Application["settings"].$el);
+            //             }
 
-                    }, 6000);
+            //         }, 0);
 
-                } else {
-                    // delay longer on inital run
-                    _.delay(function() {
+            //     } else {
+            //         // delay longer on inital run
+            //         _.delay(function() {
 
-                        if (self.noFallback) {
-                            // SRP pattern at its finest. The settings view is created & nested here
-                            // but ALL FUNCTIONS that are responsible for its state are managed by
-                            // the settings view itself internally e.g. toggle, settingsState
-                            // The header only acts as an *event mediator* here
-                            Application["settings"] = new SettingsView({
-                                el: '#settings', // stick this to the aside element in the DOM
-                                className: 'effeckt-off-screen-nav',
-                                model: new SettingsModel()
-                            });
+            //             if (self.noFallback) {
+            //                 // SRP pattern at its finest. The settings view is created & nested here
+            //                 // but ALL FUNCTIONS that are responsible for its state are managed by
+            //                 // the settings view itself internally e.g. toggle, settingsState
+            //                 // The header only acts as an *event mediator* here
+            //                 Application["settings"] = new SettingsView({
+            //                     el: '#settings', // stick this to the aside element in the DOM
+            //                     className: 'effeckt-off-screen-nav',
+            //                     model: new SettingsModel()
+            //                 });
 
-                            Application["settings"].render();
+            //                 Application["settings"].render();
 
-                            // notice the frameworks prepend call to keep aside at top of markup
-                            Application.$el.prepend(Application["settings"].$el);
-                        }
+            //                 // notice the frameworks prepend call to keep aside at top of markup
+            //                 Application.$el.prepend(Application["settings"].$el);
+            //             }
 
-                    }, 1500);
-                }
-            }
+            //         }, 0);
+            //     }
+            // }
 
             return this;
         },
 
         toggleSettings: function(event) {
-            // animate the settings view in
-            Application["settings"].toggle();
 
-            _.delay(function() {
-                // activate the overlay mask on parent view aka: home or maplist
-                this.parent.$('a.overlay').toggleClass('mask');
-            }, 200);
+            if (!Application["settings"]) {
+                var self = this;
 
+                /* Backwards compatibility */
+                if (this.noFallback) {
+                    // SRP pattern at its finest. The settings view is created & nested here
+                    // but ALL FUNCTIONS that are responsible for its state are managed by
+                    // the settings view itself internally e.g. toggle, settingsState
+                    // The header only acts as an *event mediator* here
+                    Application["settings"] = new SettingsView({
+                        el: '#settings', // stick this to the aside element in the DOM
+                        className: 'effeckt-off-screen-nav',
+                        model: new SettingsModel()
+                    });
+                    // Settings panel has loaded 
+                    Application["settings"].render();
+
+                    // notice the frameworks prepend call to keep aside at top of markup
+                    Application.$el.prepend(Application["settings"].$el);
+
+
+                    _.delay(function() {
+                        // animate the settings view in
+                        Application["settings"].toggle();
+
+                        _.delay(function() {
+                            // activate the overlay mask on parent view aka: home or maplist
+                            this.parent.$('a.overlay').toggleClass('mask');
+                        }, 200);
+                    }, 500);
+                }
+            } else {
+
+                // animate the settings view in
+                Application["settings"].toggle();
+
+                _.delay(function() {
+                    // activate the overlay mask on parent view aka: home or maplist
+                    this.parent.$('a.overlay').toggleClass('mask');
+                }, 200);
+            }
 
             return true;
         }

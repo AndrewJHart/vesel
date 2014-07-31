@@ -67,10 +67,8 @@ require([
             }
         } else {
             console.debug('Testing app in the browser using ' + os + ' version ' + osVersion);
-            store.set("supportsComplexCSS", true);
+            store.set("supportsComplexCSS", false);
         }
-
-        store.set("supportsComplexCSS", false);
 
         // attach fastclick
         FastClick.attach(document.body);
@@ -87,6 +85,8 @@ require([
         isUpdated = store.get('isUpdated');
         if (!firstRun || !isUpdated) {
 
+            // temp
+            createUserAccount();
 
             // RootView may use link or url helpers which
             // depend on Backbone history being setup
@@ -121,14 +121,14 @@ require([
     })();
 
     // delegate to wrap ajax calls for registering with our server
-    function createUserDeviceAccount(token) {
+    var createUserAccount = function postUser(token) {
         // todo: refactoring this so it doesnt try a new username each time
         store.set('username', "AnonHC" + Date.now() + Math.floor(Math.random() * (5000 - 500) + 500));
         store.set('region', 2);
 
         // we now have a new registration id & need to save it to the server along w/ its related categories
         $.ajax({
-            url: 'https://heads-up.herokuapp.com/api/app/v2/device_settings/ios/',
+            url: 'http://localhost:8005/api/app/v2/device_settings/ios/',
             type: 'POST',
             data: JSON.stringify({
                 "device": {
@@ -147,6 +147,56 @@ require([
             success: function(data, status) {
                 store.set('api_key', data.device.user.api_key.key);
                 store.set('uuid', data.id);
+
+                // Successful registration - flag it so we never re-register!
+                store.set('has_registered', true);
+            },
+            error: function(xhr, type) {
+                console.log('** ERROR ON POST **');
+
+                // registration with the heads up server failed
+                store.set('has_registered', false);
+
+                // _.delay(function() {
+                //     if (registerRetryCount <= 2) {
+                //         registerRetryCount++;
+                //         createUserAccount()
+                //     }
+                // }, 1500);
+            }
+        });
+    };
+
+    var updateUserAccount = function putUser(newToken) {
+        // update the registration id since it has changed from
+        // what was stored on the device in local storage
+        // issue: We have to PUT a full representation of the resource
+        //   which will only work in a modular env with local storage
+        //   and that will require dual adapter storage for backbone models..
+
+        // we now have a new registration id & need to save it to the server along w/ its related categories
+        $.ajax({
+            url: 'https://heads-up.herokuapp.com/api/app/v2/device_settings/ios/' + store.get('uuid') + '/',
+            type: 'PUT',
+            data: JSON.stringify({
+                "device": {
+                    "token": newToken,
+                    "user": {
+                        "username": store.get('username'),
+                        "api_key": {
+                            "key": store.get('api_key')
+                        },
+                        "region_set": [{
+                            "name": store.get('region')
+                        }]
+                    }
+                },
+                "global_priority": store.get('global_priority') || 1
+            }),
+            contentType: 'application/json',
+            success: function(data, status) {
+                store.set('api_key', data.device.user.api_key.key);
+                store.set('uuid', data.id);
             },
             error: function(xhr, type) {
                 console.log('** ERROR ON POST **');
@@ -154,12 +204,12 @@ require([
                 // _.delay(function() {
                 //     if (registerRetryCount <= 2) {
                 //         registerRetryCount++;
-                //         createUserDeviceAccount()
+                //         createUserAccount()
                 //     }
                 // }, 1500);
             }
         });
-    }
+    };
 
     onNotificationAPN = function(event) {
         if (event.alert) {
@@ -209,18 +259,27 @@ require([
         window.plugins.pushNotification.register(function(status) {
             console.log(status);
 
-            // store on global object
+            // Has this app ever registered successfully?
+            hasRegistered = store.get('has_registered');
+
+            // if no token in local store or token is different set it or update it
             if (cached_token != status) {
+
+                // is this the first token or a new token?
+                // if app has registered once then this is an updated token.. update the server
+                if (hasRegistered) {
+                    // update the server with this users new registration id or token
+                    updateUserAccount(status);
+                }
+
                 // save it to localstorage
                 store.set('registration_id', status);
             }
 
-            // first thing -- set this to first run!! 
-            hasRegistered = store.get('has_registered');
+            // if not registered then do it now
             if (!hasRegistered) {
-                store.set('has_registered', true);
                 // only on successful registration and a first run do we POST
-                createUserDeviceAccount();
+                createUserAccount();
             }
 
         }, function(error) {
@@ -244,18 +303,21 @@ require([
                 // if current version is undefined or null then set it
                 store.set('version', version.toString());
 
-                store.set('isUpdated', true);
-                isUpdated = true;
-            } else {
-                console.log(currentVersion + ' ' + version);
-                // check the current version returned against the local store
-                if (currentVersion < version.toString()) {
-                    // this is an old version - update it
-                    store.set('version', version.toString());
-                    store.set('isUpdated', false);
-                    isUpdated = false;
-                }
+                store.set('isUpdated', false);
+
+                return;
             }
+
+            //else {
+            console.log(currentVersion + ' ' + version);
+
+            // check the current version returned against the local store
+            if (currentVersion < version.toString()) {
+                // this is an old version - update it
+                store.set('version', version.toString());
+                store.set('isUpdated', false);
+            }
+            //}
         });
     };
 

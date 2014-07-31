@@ -88,6 +88,8 @@ define([
         },
 
         initialize: function() {
+            var self = this;
+
             console.log(this.getViewName() + ' view init triggered!');
 
             // todo: bug: if `el` is specified then declaritve properties
@@ -96,7 +98,17 @@ define([
             this.$el.attr('data-view-persist', 'true');
 
             // get the resource from the server
-            this.model.fetch();
+            this.model.fetch({
+                success: function(model, response, options) {
+                    console.log('Settings Fetched! %s %s -- %s', model, response, options);
+
+                    // we have the settings, hide the loading gif
+                    self.$('#ajax-loader').hide();
+                },
+                error: function(model, response, options) {
+                    console.debug('!!!! Error fetching settings %s %s %s', model, response, options);
+                }
+            });
 
             return this;
         },

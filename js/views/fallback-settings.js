@@ -82,10 +82,25 @@ define([
         },
 
         initialize: function() {
+            var self = this;
+
             console.log(this.getViewName() + ' view init triggered!');
 
-            // get the resource from the server
-            this.model.fetch();
+            setTimeout(function() {
+                // get the resource from the server
+                self.model.fetch({
+                    success: function(model, response, options) {
+                        console.log('Settings Fetched! %s %s -- %s', model, response, options);
+
+                        // we have the settings, hide the loading gif
+                        self.$('#ajax-loader').hide();
+                    },
+                    error: function(model, response, options) {
+                        console.debug('!!!! Error fetching settings %s %s %s', model, response, options);
+                    }
+                });
+
+            }, 1500);
 
             // tell vesel to persist this view on the page view stack instead of destroying it
             this.$el.attr("data-view-persist", "true");
