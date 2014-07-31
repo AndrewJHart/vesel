@@ -1,12 +1,13 @@
 define([
-  'view'
-//  'hbs!templates/footer'
-], function(View /*, template*/) {
+    'view',
+    'views/modal-dialog'
+    //  'hbs!templates/footer'
+], function(View, ModalDialog /*, template*/ ) {
 
     return View.extend({
         name: "footer",
         //template: template,
-        
+
         events: {
             "close:settings": function(event) {
 
@@ -16,6 +17,21 @@ define([
 
                 // call header-view to forward event & toggle its nested aside view
                 headerView.toggleSettings(event);
+            },
+
+            'click a[data-toggle="modal"]': function(e) {
+
+                e.preventDefault();
+
+                // the modal dialog view has been clicked .. create & render
+                var modal = new ModalDialog().render();
+
+                // notice the frameworks prepend call to keep aside at top of markup
+                Application.$el.append(modal.$el);
+
+                modal.showDialog();
+
+                return false;
             }
         }
     });

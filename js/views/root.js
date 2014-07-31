@@ -12,6 +12,47 @@ define([
         el: 'body',
         template: template,
 
+        // global events for all or any nested views
+        events: {
+
+            // any click event with this data-attr will open url in external browser
+            'nested click [data-external-url]': function(e) {
+
+                // grab the url to be opened externally from data-external-url attr
+                var url = $(e.target).data('external-url');
+
+                console.log(e.originalContext);
+
+                console.log('** Opening url ' + url + ' from event handler for a[data-external-url]');
+
+                // prevent link from opening by default
+                e.preventDefault();
+
+                // force cordova to open the link in safari
+                window.open(url, '_system', 'location=no');
+
+                // return false just in case
+                return false;
+            } //,
+
+            // handle data-modal attr so that any view can nest a modal dialog view easily
+            // 'nested click a[data-toggle="modal"]': function(e) {
+            //     var view = $(e.target).data('modal-view');
+
+            //     console.log('instantiating and creating modal view for view name ' + view);
+
+            //     e.preventDefault();
+            //     e.stopPropagation();
+
+            //     var modalView = new ModalView({
+            //         className: 'modal'
+            //     }).render();
+
+            //     return false;
+            // }
+        },
+
+
         goto: function(view, options) {
             var options = options || {},
                 previous = this.currentPage || null, // cache current view
