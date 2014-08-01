@@ -29,6 +29,10 @@ define([
                 // notice the frameworks prepend call to keep aside at top of markup
                 Application.$el.append(modal.$el);
 
+                // Application.goto(modal, {
+                //     page: true
+                // });
+
                 modal.showDialog();
 
                 return false;

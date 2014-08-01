@@ -6,7 +6,7 @@ define([
         name: 'modal-dialog',
         template: template,
 
-        animateIn: "slideInUp",
+        animateIn: "fadeIn",
         animateOut: "fadeOut",
 
         events: {
