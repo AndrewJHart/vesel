@@ -10,7 +10,7 @@ define([
     return AnimView.extend({
         template: null,
 
-        className: 'modal',
+        className: 'modal-dialog',
 
         animateIn: 'bounceInUp',
         animateOut: 'slideOutDown',
