@@ -25,7 +25,7 @@ require([
         isUpdated;
 
     // IIFE to load backbone and app automatically separate from device ready
-    function startApp() {
+    (function startApp() {
         // get user agent for device and browser detection
         var parser = new UAParser(),
             uaResults = null,
@@ -111,7 +111,7 @@ require([
 
         return;
 
-    }
+    })();
 
     // delegate to wrap ajax calls for registering with our server
     function createUserDeviceAccount(token) {

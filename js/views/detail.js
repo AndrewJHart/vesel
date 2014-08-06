@@ -28,7 +28,7 @@ define([
                 message = {
                     title: post_title,
                     text: post_msg,
-                    url: "http://headsupapp.io/alerts/beckley/" + this.model.get('id') + "/"
+                    url: "http://headsupapp.io/alerts/huntington/" + this.model.get('id') + "/"
                 };
 
                 console.log(message);

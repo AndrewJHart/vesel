@@ -59,7 +59,7 @@ define([
                 });
             },
 
-            'touchend div.toggle > div.toggle-handle': function(event) {
+            'touchstart div.toggle > .toggle-handle': function(event) {
                 var metadataPosition = this.$(event.target).data("meta-position"),
                     property = null,
                     model = this.$(event.target).model(),
@@ -70,9 +70,11 @@ define([
                 property = "metadata." + metadataPosition + ".is_enabled";
 
                 if ($(event.target).parent().hasClass('active')) {
-                    state = true;
-                } else {
+                    console.log('touchstart state false');
+                    console.log($(event.target).parent());
                     state = false;
+                } else {
+                    state = true;
                 }
 
                 // try to get the model
