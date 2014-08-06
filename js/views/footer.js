@@ -24,14 +24,15 @@ define([
                 e.preventDefault();
 
                 // the modal dialog view has been clicked .. create & render
-                var modal = new ModalDialog().render();
+                var modal = new ModalDialog(); //.render();
 
                 // notice the frameworks prepend call to keep aside at top of markup
-                Application.$el.append(modal.$el);
+                //Application.$el.append(modal.$el);
 
-                // Application.goto(modal, {
-                //     page: true
-                // });
+                Application.goto(modal, {
+                    page: false
+                    // add modal param to perform only animate in and out on same view
+                });
 
                 modal.showDialog();
 
