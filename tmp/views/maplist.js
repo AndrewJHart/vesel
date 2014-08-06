@@ -61,6 +61,7 @@ define([
                 var layers = L.control.layers({
                     'Streets': this.tiles,
                     'Satellite': L.tileLayer('https://{s}.tiles.mapbox.com/v3/mscnswv.il5b6d5o/{z}/{x}/{y}.png', {
+                        attribution: '<a data-external-url="http://www.mscns.com" target="_system">Powered by MSCNS</a>',
                         detectRetina: true
                     })
                 });

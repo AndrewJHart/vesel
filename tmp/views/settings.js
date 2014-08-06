@@ -43,9 +43,9 @@ define([
                 property = "metadata." + metadataPosition + ".is_enabled";
 
                 if ($(event.target).hasClass('active')) {
-                    state = true;
-                } else {
                     state = false;
+                } else {
+                    state = true;
                 }
 
                 // try to get the model
@@ -59,7 +59,7 @@ define([
                 });
             },
 
-            'touchend div.toggle > div.toggle-handle': function(event) {
+            'touchstart div.toggle > .toggle-handle': function(event) {
                 var metadataPosition = this.$(event.target).data("meta-position"),
                     property = null,
                     model = this.$(event.target).model(),
@@ -70,9 +70,9 @@ define([
                 property = "metadata." + metadataPosition + ".is_enabled";
 
                 if ($(event.target).parent().hasClass('active')) {
-                    state = true;
-                } else {
                     state = false;
+                } else {
+                    state = true;
                 }
 
                 // try to get the model

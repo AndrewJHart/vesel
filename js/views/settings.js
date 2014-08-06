@@ -43,9 +43,9 @@ define([
                 property = "metadata." + metadataPosition + ".is_enabled";
 
                 if ($(event.target).hasClass('active')) {
-                    state = true;
-                } else {
                     state = false;
+                } else {
+                    state = true;
                 }
 
                 // try to get the model
@@ -70,8 +70,6 @@ define([
                 property = "metadata." + metadataPosition + ".is_enabled";
 
                 if ($(event.target).parent().hasClass('active')) {
-                    console.log('touchstart state false');
-                    console.log($(event.target).parent());
                     state = false;
                 } else {
                     state = true;
