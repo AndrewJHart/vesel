@@ -37,13 +37,13 @@ if (window.__karma__) {
 require.config({
     deps: ['main'],
     paths: {
-        'jquery': pathPrefix + 'bower_components/jquery/jquery',
-        'underscore': pathPrefix + 'bower_components/underscore/underscore',
+        'jquery': pathPrefix + 'bower_components/jquery/jquery.min',
+        'underscore': pathPrefix + 'bower_components/underscore/underscore-min',
         'handlebars': pathPrefix + 'bower_components/handlebars/handlebars',
         'backbone': pathPrefix + 'bower_components/backbone/backbone',
-        'thorax': pathPrefix + 'bower_components/thorax/thorax',
-        'coffee-script': pathPrefix + 'bower_components/coffee-script/index',
-        'cs': pathPrefix + 'bower_components/require-cs/cs',
+        'thorax': pathPrefix + 'bower_components/thorax/thorax-mobile.min',
+        //'coffee-script': pathPrefix + 'bower_components/coffee-script/index',
+        //'cs': pathPrefix + 'bower_components/require-cs/cs',
         'text': pathPrefix + 'bower_components/text/text',
         'hbs': pathPrefix + 'bower_components/requirejs-hbs/hbs',
         'mobiscroll': pathPrefix + 'js/vendor/mobiscroll',

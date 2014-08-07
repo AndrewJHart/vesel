@@ -2483,27 +2483,23 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 @-webkit-keyframes fadeOutLeft {
   0% {
-
     -webkit-transform: translateX(0);
     transform: translateX(0);
   }
 
   100% {
-
     -webkit-transform: translateX(-20px);
     transform: translateX(-20px);
   }
 }
 @keyframes fadeOutLeft {
   0% {
-    opacity: 1;
     -webkit-transform: translateX(0);
     -ms-transform: translateX(0);
     transform: translateX(0);
   }
 
   100% {
-    opacity: 0;
     -webkit-transform: translateX(-20px);
     -ms-transform: translateX(-20px);
     transform: translateX(-20px);
@@ -2511,7 +2507,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 .fadeOutLeft {
   -webkit-animation-name: fadeOutLeft;
-  animation-name: fadeOutLeft;
+          animation-name: fadeOutLeft;
+  -webkit-animation-duration: 275ms;
+          animation-duration: 275ms;
 }
 
 @-webkit-keyframes fadeOutLeftBig {
@@ -3507,6 +3505,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 .slideInDown {
   -webkit-animation-name: slideInDown;
   animation-name: slideInDown;
+  -webkit-animation-duration: 300ms;
+  animation-duration: 300ms;
 }
 
 @-webkit-keyframes slideInLeft {
@@ -18670,8 +18670,10 @@ a:active {
 .iosSlideInRight {
   -webkit-animation-name: iosSlideInRight;
           animation-name: iosSlideInRight;
-  -webkit-animation-duration: .4s;
-          animation-duration: .4s;
+  /*-webkit-animation-duration: .4s;*/
+          /*animation-duration: .4s;*/
+  -webkit-animation-duration: 300ms;
+          animation-duration: 300ms;
   -webkit-animation-timing-function: cubic-bezier(.1, .7, .1, 1);
           animation-timing-function: cubic-bezier(.1, .7, .1, 1);
 }
@@ -18729,6 +18731,7 @@ a:active {
   margin: 10px;
 }
 
-.profile {
-  z-index: 11;
+/* Set any views that are not the home view to z-index of 10 */
+.page:not([data-view-name="home"]) {
+  z-index: 10 !important;
 }

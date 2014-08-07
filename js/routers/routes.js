@@ -39,6 +39,26 @@ define([
             this.headerView = new HeaderView();
             this.footerView = new FooterView();
 
+            // create & pre-render the map view immediately
+            this.mapView = new MapView({
+                el: '#map',
+                className: 'maplist'
+            }).preRender({
+                page: true
+            });
+
+            return this;
+        },
+
+        intro: function() {
+            var introView = null;
+
+            introView = new SlidesView();
+
+            Application.goto(introView, {
+                page: true
+            });
+
             return this;
         },
 
@@ -68,17 +88,6 @@ define([
             return this;
         },
 
-        intro: function() {
-            var introView = null;
-
-            introView = new SlidesView();
-
-            Application.goto(introView, {
-                page: true
-            });
-
-            return this;
-        },
 
         detail: function(params) {
 

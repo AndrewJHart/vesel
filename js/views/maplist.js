@@ -9,7 +9,8 @@ define([
         name: "maplist",
         template: template,
 
-        animateIn: 'bounceInDown',
+        // animateIn: 'bounceInDown',
+        animateIn: 'slideInDown',
         animateOut: 'slideOutUp',
 
         map: null,
