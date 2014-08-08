@@ -9,7 +9,7 @@ Vesel is currently a part of a project and a work-in-progress framework. Interna
 
 
 From Zero to Hero
-------------------
+-----------------
 
     git clone git://github.com/AndrewJHart/vesel
 
