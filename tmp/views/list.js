@@ -27,10 +27,36 @@ define([
                     collectionView.$('ul').mobiscroll().listview({
                         theme: 'ios7',
                         swipe: 'left',
+                        confirm: true,
+                        sortable: true,
+                        onStageChange: function(item, index, stage, inst) {
+                            console.debug('StageChange triggered');
+                            console.log(item);
+                            console.log(index);
+                            console.log(stage);
+                            console.log(inst);
+
+                            return true;
+                        },
                         stages: [{
+                            percent: 10,
+                            color: 'green',
+                            icon: 'cogs',
+                            action: function(li, inst) {
+                                // animate the settings view in
+                                Application["settings"].toggle();
+
+                                _.delay(function() {
+
+                                    // activate the overlay mask on parent view aka: home or maplist
+                                    this.parent.$('a.overlay').toggleClass('mask');
+                                }, 200);
+                            }
+                        }, {
                             percent: -30,
                             color: 'grey',
                             icon: 'share',
+                            confirm: true,
                             action: function(li, inst) {
                                 var alert,
                                     message,
@@ -46,8 +72,6 @@ define([
                                 // make the method asyncronous to avoid complications 
                                 // with mobiscroll listreveal returning to default position
                                 _.delay(function(li, inst) {
-
-                                    console.log(model);
 
                                     post_msg = model.get('information');
                                     subject = model.get('subject');

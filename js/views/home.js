@@ -10,7 +10,7 @@ define([
 
         animateIn: "fadeInLeft",
         animateOut: "fadeOutLeft",
-        //animateOut: "bounceOutLeft",
+
         collectionView: null,
 
         events: {

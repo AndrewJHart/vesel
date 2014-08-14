@@ -9,8 +9,13 @@ define([
         name: "maplist",
         template: template,
 
-        animateIn: 'bounceInDown',
-        animateOut: 'slideOutUp',
+        // animateIn: 'bounceInDown',
+        // animateIn: 'slideInDown',
+        // animateOut: 'slideOutUp',
+
+        // animation properties
+        animateIn: "iosSlideInRight",
+        animateOut: "slideOutRight",
 
         map: null,
         tiles: null,

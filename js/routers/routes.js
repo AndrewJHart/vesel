@@ -39,13 +39,13 @@ define([
             this.headerView = new HeaderView();
             this.footerView = new FooterView();
 
-            // create & pre-render the map view immediately
-            this.mapView = new MapView({
-                el: '#map',
-                className: 'maplist'
-            }).preRender({
-                page: true
-            });
+            // // create & pre-render the map view immediately
+            // this.mapView = new MapView({
+            //     el: '#map',
+            //     className: 'maplist'
+            // }).preRender({
+            //     page: true
+            // });
 
             return this;
         },

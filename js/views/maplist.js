@@ -10,8 +10,12 @@ define([
         template: template,
 
         // animateIn: 'bounceInDown',
-        animateIn: 'slideInDown',
-        animateOut: 'slideOutUp',
+        // animateIn: 'slideInDown',
+        // animateOut: 'slideOutUp',
+
+        // animation properties
+        animateIn: "iosSlideInRight",
+        animateOut: "slideOutRight",
 
         map: null,
         tiles: null,

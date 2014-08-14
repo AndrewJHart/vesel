@@ -1,15 +1,16 @@
 define([
-  'anim-view',
-  'views/list',
-  'hbs!templates/home'
+    'anim-view',
+    'views/list',
+    'hbs!templates/home'
 ], function(AnimView, ListView, template) {
 
     return AnimView.extend({
         name: "home",
         template: template,
-        
-        animateIn: "fadeIn",
-        animateOut: "bounceOutLeft",
+
+        animateIn: "fadeInLeft",
+        animateOut: "fadeOutLeft",
+
         collectionView: null,
 
         events: {

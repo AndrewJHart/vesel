@@ -11,8 +11,11 @@ define([
         template: template,
 
         // add animations
-        animateIn: "effeckt-off-screen-nav-left-push ",
-        animateOut: "effeckt-off-screen-nav-left-push ",
+        // animateIn: "effeckt-off-screen-nav-left-push ",
+        // animateOut: "effeckt-off-screen-nav-left-push ",
+
+        animateIn: "effeckt-off-screen-nav-airbnb ",
+        animateOut: "effeckt-off-screen-nav-airbnb ",
 
         // Single Responsibility Pattern in action 
         settingsState: true, // todo: rename to better variable name
@@ -113,6 +116,7 @@ define([
                     this.model.set('device.user.api_key.key', store.get('api_key'));
                 }
 
+
                 this.$el.addClass(this.animateIn);
 
                 this.$el.on('webkitAnimationEnd transitionend', function() {
@@ -123,14 +127,14 @@ define([
 
                     // force a DOM redraw for webkit browsers see SO here:
                     // http://stackoverflow.com/questions/3485365/how-can-i-force-webkit-to-redraw-repaint-to-propagate-style-changes
-                    self.el.style.display = 'none';
+                    //self.el.style.display = 'none';
 
                     // notice that delay must at least be >= length of animation duration
                     // or the re-draw will break the animation just showing the panel w/o it
-                    _.delay(function() {
+                    // _.delay(function() {
 
-                        self.el.style.display = 'block';
-                    }, 250);
+                    //     self.el.style.display = 'block';
+                    // }, 250);
                 });
             } else {
                 // conceal the aside view and hide
