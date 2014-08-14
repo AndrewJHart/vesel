@@ -7,8 +7,8 @@ module.exports = {
             // mainConfigFile: 'tmp/main.build.js', // wont work :/ see TODO: remove build duplication
             name: '../bower_components/almond/almond',
             include: ['main'],
-            exclude: ['coffee-script'],
-            stubModules: ['cs'],
+            //exclude: ['coffee-script'],
+            //stubModules: ['cs'],
             out: 'dist/main.js',
             removeCombined: true,
             findNestedDependencies: true,
@@ -30,7 +30,8 @@ module.exports = {
                 'backsocket': '../bower_components/backbone-websocket/dist/BackSocket',
                 'store': '../bower_components/store/store.min',
                 'FastClick': '../bower_components/fastclick/lib/fastclick',
-                'UAParser': '../bower_components/ua-parser-js/src/ua-parser.min'
+                'UAParser': '../bower_components/ua-parser-js/src/ua-parser.min',
+                'Hammer': '../bower_components/hammerjs/hammer.min'
             },
             shim: {
                 'handlebars': {
@@ -63,6 +64,9 @@ module.exports = {
                 },
                 'FastClick': {
                     exports: 'FastClick'
+                },
+                'Hammer': {
+                    exports: 'Hammer'
                 }
             }
         }

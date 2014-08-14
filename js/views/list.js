@@ -26,7 +26,7 @@ define([
                     // initialize the mobiscroll listview plugin
                     collectionView.$('ul').mobiscroll().listview({
                         theme: 'ios7',
-                        //swipe: 'left',
+                        swipe: 'left',
                         sortable: true,
                         stages: [{
                             percent: 10,

@@ -233,6 +233,14 @@ define(['underscore', 'thorax'], function(_, Thorax) {
                 // trigger event in each child view too
                 child.trigger(eventName, options);
             });
+        },
+
+        getTranslateX: function() {
+            return parseFloat(this.el.style[vesel.CSS.TRANSFORM].replace('translate3d(', '').split(',')[0]);
+        },
+
+        setTranslateX: function(x) {
+            this.el.style[vesel.CSS.TRANSFORM] = 'translate3d(' + x + 'px, 0, 0)';
         }
     }); // -- end of Animation View base class definition
 

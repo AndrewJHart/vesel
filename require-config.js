@@ -53,7 +53,8 @@ require.config({
         'backsocket': pathPrefix + 'bower_components/backbone-websocket/dist/BackSocket',
         'store': pathPrefix + 'bower_components/store/store.min',
         'FastClick': pathPrefix + 'bower_components/fastclick/lib/fastclick',
-        'UAParser': pathPrefix + 'bower_components/ua-parser-js/src/ua-parser.min'
+        'UAParser': pathPrefix + 'bower_components/ua-parser-js/src/ua-parser.min',
+        'Hammer': pathPrefix + 'bower_components/hammerjs/hammer'
     },
     shim: {
         'handlebars': {
@@ -86,6 +87,9 @@ require.config({
         },
         'FastClick': {
             exports: 'FastClick'
+        },
+        'Hammer': {
+            exports: 'Hammer'
         }
     }
 });

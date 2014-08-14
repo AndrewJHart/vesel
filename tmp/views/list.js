@@ -27,10 +27,26 @@ define([
                     collectionView.$('ul').mobiscroll().listview({
                         theme: 'ios7',
                         swipe: 'left',
+                        sortable: true,
                         stages: [{
+                            percent: 10,
+                            color: 'green',
+                            icon: 'cogs',
+                            action: function(li, inst) {
+                                // animate the settings view in
+                                Application["settings"].toggle();
+
+                                _.delay(function() {
+
+                                    // activate the overlay mask on parent view aka: home or maplist
+                                    this.parent.$('a.overlay').toggleClass('mask');
+                                }, 200);
+                            }
+                        }, {
                             percent: -30,
                             color: 'grey',
                             icon: 'share',
+                            confirm: true,
                             action: function(li, inst) {
                                 var alert,
                                     message,
@@ -67,6 +83,50 @@ define([
                             }
                         }]
                     });
+                    // // initialize the mobiscroll listview plugin
+                    // collectionView.$('ul').mobiscroll().listview({
+                    //     theme: 'ios7',
+                    //     swipe: 'left',
+                    //     stages: [{
+                    //         percent: -30,
+                    //         color: 'grey',
+                    //         icon: 'share',
+                    //         action: function(li, inst) {
+                    //             var alert,
+                    //                 message,
+                    //                 post_msg,
+                    //                 post_title,
+                    //                 subject,
+                    //                 model;
+
+                    //             model = self.$(li).model();
+
+                    //             console.log(model);
+
+                    //             // make the method asyncronous to avoid complications 
+                    //             // with mobiscroll listreveal returning to default position
+                    //             _.delay(function(li, inst) {
+
+                    //                 console.log(model);
+
+                    //                 post_msg = model.get('information');
+                    //                 subject = model.get('subject');
+                    //                 post_title = "Heads Up! " + subject;
+
+                    //                 message = {
+                    //                     title: post_title,
+                    //                     text: post_msg,
+                    //                     url: "http://headsupapp.io/alerts/huntington/" + model.get('id') + "/"
+                    //                 };
+
+                    //                 window.socialmessage.send(message);
+
+                    //             }, 0);
+
+                    //             return true;
+                    //         }
+                    //     }]
+                    // });
                 }, 0);
 
                 return false;

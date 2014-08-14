@@ -24,6 +24,37 @@ require([
         currentVersion,
         isUpdated;
 
+    window.vesel = {};
+
+    // Ionic CSS polyfills
+    vesel.CSS = {};
+
+    (function() {
+
+        // transform
+        var i, keys = ['webkitTransform', 'transform', '-webkit-transform', 'webkit-transform',
+                '-moz-transform', 'moz-transform', 'MozTransform', 'mozTransform', 'msTransform'
+            ];
+
+        for (i = 0; i < keys.length; i++) {
+            if (document.documentElement.style[keys[i]] !== undefined) {
+                vesel.CSS.TRANSFORM = keys[i];
+                break;
+            }
+        }
+
+        // transition
+        keys = ['webkitTransition', 'mozTransition', 'msTransition', 'transition'];
+        for (i = 0; i < keys.length; i++) {
+            if (document.documentElement.style[keys[i]] !== undefined) {
+                vesel.CSS.TRANSITION = keys[i];
+                break;
+            }
+        }
+
+    })();
+
+
     // IIFE to load backbone and app automatically separate from device ready
     (function startApp() {
         // get user agent for device and browser detection

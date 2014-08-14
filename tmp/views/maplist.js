@@ -1,15 +1,14 @@
 define([
     'anim-view',
-    //'L',
-    //'locate',
     'hbs!templates/maplist'
-], function(AnimView, /*L,*/ /* L.Control.Locate, */ template) {
+], function(AnimView, template) {
 
     return AnimView.extend({
         name: "maplist",
         template: template,
 
-        animateIn: 'bounceInDown',
+        // animateIn: 'bounceInDown',
+        animateIn: 'slideInDown',
         animateOut: 'slideOutUp',
 
         map: null,
@@ -21,6 +20,14 @@ define([
             'click a.overlay.mask': function(event) {
 
                 // get reference to the nested header view using its data-view-cid
+                // access the array of child views e.g. ["header", "footer"]
+                // then using this views scoped this.$ get this templates 
+                // <header> attr & get the views cid by data-view-cid.. 
+                // *We now have access to this view's `header` view and send it
+                // msg or make a method call to open the settings panel.
+                // summary: using handlebars & pre-populated data-attributes in our
+                // summary: templates we can access other backbone views through
+                // summary: the DOM :) Andruw
                 var headerView = this.children[this.$("header").data("view-cid")];
 
                 // call the "home/header" view method to trigger aside reveal

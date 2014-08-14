@@ -2,12 +2,13 @@ define([
     'underscore',
     'view',
     'views/settings',
+    'views/side-menu',
     'models/settings',
     'store'
     // 'hbs!templates/header'
-], function(_, View, SettingsView, SettingsModel, store /*, template*/ ) {
+], function(_, View, SettingsView, SideMenuView, SettingsModel, store /*, template*/ ) {
 
-    return View.extend({
+    return AnimView.extend({
         name: "header",
         //template: template,
         settingsState: null,
@@ -37,60 +38,56 @@ define([
                 var self = this,
                     firstRun = store.get('firstRun');
 
-                if (!firstRun) {
-                    // delay longer on inital run
-                    _.delay(function() {
-                        /* Backwards compatibility */
-                        if (self.noFallback) {
-                            // SRP pattern at its finest. The settings view is created & nested here
-                            // but ALL FUNCTIONS that are responsible for its state are managed by
-                            // the settings view itself internally e.g. toggle, settingsState
-                            // The header only acts as an *event mediator* here
-                            Application["settings"] = new SettingsView({
-                                el: '#settings', // stick this to the aside element in the DOM
-                                className: 'effeckt-off-screen-nav',
-                                model: new SettingsModel()
-                            });
-                            // Settings panel has loaded 
-                            Application["settings"].render();
+                // delayed longer on inital run
+                _.delay(function() {
 
-                            // notice the frameworks prepend call to keep aside at top of markup
-                            Application.$el.prepend(Application["settings"].$el);
-                        }
+                    if (self.noFallback) {
+                        // SRP pattern at its finest. The settings view is created & nested here
+                        // but ALL FUNCTIONS that are responsible for its state are managed by
+                        // the settings view itself internally e.g. toggle, settingsState
+                        // The header only acts as an *event mediator* here
+                        Application["settings"] = new SettingsView({
+                            el: '#settings', // stick this to the aside element in the DOM
+                            className: 'effeckt-off-screen-nav',
+                            model: new SettingsModel()
+                        });
 
-                    }, 4000);
+                        Application["settings"].render();
 
-                } else {
-                    // delayed longer on inital run
-                    _.delay(function() {
+                        // notice the frameworks prepend call to keep aside at top of markup
+                        Application.$el.prepend(Application["settings"].$el);
+                    }
 
-                        if (self.noFallback) {
-                            // SRP pattern at its finest. The settings view is created & nested here
-                            // but ALL FUNCTIONS that are responsible for its state are managed by
-                            // the settings view itself internally e.g. toggle, settingsState
-                            // The header only acts as an *event mediator* here
-                            Application["settings"] = new SettingsView({
-                                el: '#settings', // stick this to the aside element in the DOM
-                                className: 'effeckt-off-screen-nav',
-                                model: new SettingsModel()
-                            });
-
-                            Application["settings"].render();
-
-                            // notice the frameworks prepend call to keep aside at top of markup
-                            Application.$el.prepend(Application["settings"].$el);
-                        }
-
-                    }, 1500);
-                }
+                }, 1500);
             }
 
             return this;
         },
 
         toggleSettings: function(event) {
+
+            if (!Application["settings"]) {
+
+                /* Backwards compatibility */
+                if (this.noFallback) {
+                    // follows cocoa touch View-Controller paradigm of each view
+                    // being nested inside of the view or element that triggers it
+                    Application["settings"] = new SettingsView({
+                        el: '#settings', // stick this to the aside element in the DOM
+                        className: 'effeckt-off-screen-nav',
+                        model: new SettingsModel()
+                    });
+                    // Settings panel has loaded 
+                    Application["settings"].render();
+
+                    // notice the frameworks prepend call to keep aside at top of markup
+                    Application.$el.prepend(Application["settings"].$el);
+                }
+            }
+
             // animate the settings view in
             Application["settings"].toggle();
+            //Application["settings"].toggleLeft();
 
             _.delay(function() {
 
