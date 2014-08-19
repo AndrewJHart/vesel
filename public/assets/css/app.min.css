@@ -10926,14 +10926,24 @@ div[class$='-l__bg'] {
   display: inline-block;
 }
 
+/* 
+ * applied to any el that has a classname containing -d__bg 
+ * updated by A. Hart.. This change also applies to the class
+ * detail-cat__subject to achieve the full effect..
+ * modified to use less css & provide dynamic sizing detail subject
+ * for alert `subject`s that exceed standard subject length or
+ * start a 3rd line due to the way the words were combined..
+ */
 div[class$='-d__bg'] {
   width: 100%;
   position: relative;
   display: inline-block;
   text-align: center;
-  padding: 15px;
+  /*padding: 15px; compensate padding to adjust for new layout */
+  padding: 5px 10px;
   height: auto;
-  min-height: 80px;
+  /*min-height: 80px; decrease minimum height */
+  min-height: 50px;
   margin-bottom: -5px;
 }
 
@@ -10985,11 +10995,18 @@ div[class$='__center'] {
   display: block;
 }
 
+/*
+ * Modified by A. Hart in conjuction with rules that match 
+ * class names that contain -d__bg
+ * purpose: adjusts the detail view subject bar to be dynamic in size;
+ */
 .detail-cat__subject {
   width: 85%;
-  position: absolute;
-  right: 0;
+  /*position: absolute;*/
+  position: relative;
+  /*right: 0;*/
   text-align: left;
+  margin-left: 2rem; /* add margin for relative text */
 }
 .detail-cat__subject h4 {
   font-size: 16px;
