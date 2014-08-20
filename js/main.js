@@ -10,18 +10,14 @@ require([
     'helpers'
 ], function($, _, Backbone, RootView, Router, FastClick, store, UAParser) {
 
-    var app,
-        cached_token,
-        firstRunDemo,
-        getCordovaFilePath,
-        ajaxServerDelegate,
+    // local var hoist; scoped to this module only
+    var cached_token,
         resumeApp,
         onDeviceReady,
         firstRun,
         onNotificationAPN,
         registerDevice,
         hasRegistered,
-        currentVersion,
         isUpdated;
 
     // IIFE to load backbone and app automatically separate from device ready
@@ -29,15 +25,12 @@ require([
         // get user agent for device and browser detection
         var parser = new UAParser(),
             uaResults = null,
-            device = null,
             os = null,
             osVersion = null;
 
-        console.log(parser.getResult());
-
+        // get all the info from the device's user agent
         uaResults = parser.getResult();
 
-        device = uaResults.device;
         os = uaResults.os.name;
         osVersion = uaResults.os.version;
 
@@ -62,7 +55,7 @@ require([
                 store.set("supportsComplexCSS", true);
             }
         } else {
-            // running in the browser here i.e. testing
+            // running headless or in the browser e.g. testing
             store.set("supportsComplexCSS", true);
         }
 
@@ -110,7 +103,6 @@ require([
         }
 
         return;
-
     })();
 
     // delegate to wrap ajax calls for registering with our server
@@ -137,16 +129,19 @@ require([
             }),
             contentType: 'application/json',
             success: function(data, status) {
+                // store the server response for the unique identifier & api-key
                 store.set('uuid', data.id);
                 store.set('api_key', data.device.user.api_key.key);
 
                 // set has_registered to true here.. might be best since callback
+                store.set('has_registered', true);
             },
             error: function(xhr, type) {
-                console.log('** ERROR ON POST **');
+                console.log('createUserDeviceAccount() Ajax Error callback triggered..');
 
                 // instead of retrying immediately, lets set has_registered to false
                 // here and when the app is re-opened it will try again. 
+                store.set('has_registered', false);
             }
         });
     }
@@ -187,6 +182,10 @@ require([
             Application["alerts"].fetch({
                 wait: true
             });
+        } else {
+            console.log('*********');
+            console.log('Application["alerts"] object is undefined');
+            console.log('*********');
         }
     };
 
@@ -209,13 +208,12 @@ require([
             // first thing -- set this to first run!! 
             hasRegistered = store.get('has_registered');
             if (!hasRegistered) {
-                store.set('has_registered', true);
                 // only on successful registration and a first run do we POST
                 createUserDeviceAccount();
             }
 
         }, function(error) {
-            console.log('Error handler called with message');
+            console.log('PushPlugin->Register() Error callback triggered..');
             console.log(error);
 
         }, {
@@ -226,10 +224,13 @@ require([
     };
 
     checkVersion = function() {
+        // todo: Refactor this to clean it up.. use one local store
+        // todo: var e.g. `showIntro` or `showUpdated`
+
         // store the new updated app version
         cordova.getAppVersion().then(function(version) {
             // get the current version (if one exists)
-            currentVersion = store.get('version');
+            var currentVersion = store.get('version');
 
             if (!currentVersion) {
                 // if current version is undefined or null then set it

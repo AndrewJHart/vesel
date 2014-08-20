@@ -14,8 +14,11 @@ define([
         // animateIn: "effeckt-off-screen-nav-left-push ",
         // animateOut: "effeckt-off-screen-nav-left-push ",
 
-        animateIn: "effeckt-off-screen-nav-airbnb ",
-        animateOut: "effeckt-off-screen-nav-airbnb ",
+        // animateIn: "effeckt-off-screen-nav-airbnb ",
+        // animateOut: "effeckt-off-screen-nav-airbnb ",
+
+        animateIn: "effeckt-off-screen-nav-left-reveal ",
+        animateOut: "effeckt-off-screen-nav-left-reveal ",
 
         // Single Responsibility Pattern in action 
         settingsState: true, // todo: rename to better variable name

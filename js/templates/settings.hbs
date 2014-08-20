@@ -77,6 +77,21 @@
       </div>
     </li>
   </ul>
+
+    {{!-- Testing --}}
+  <ul class="table-view">
+    <li class="table-view-cell table-view-divider"><small>Push Notification Categories</small></li>
+    
+    {{#each metadata}}
+    <li class="table-view-cell">
+      <div class="set-{{category.name}}"><span class="set-title">{{category.name}}</span></div>
+      <div class="toggle {{#is_enabled}}active{{/is_enabled}}" data-meta-position="{{@index}}">
+       <div class="toggle-handle" data-meta-position="{{@index}}"></div>
+      </div>
+    </li>
+    {{/each}}
+  </ul>
+
 </div>
 {{#view "footer" tag="nav" className="bar bar-tab"}}
   {{#link "intro" class="tab-item"}}

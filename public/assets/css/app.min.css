@@ -9531,6 +9531,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   background-size: 32px auto;
 }
 
+/* Loading spinner */
 .effeckt-button,
 .effeckt-button .spinner,
 .effeckt-button .label {
@@ -9539,6 +9540,16 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   transition: 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275) all;
 }
 
+/*
+ * Offscreen/SideMenu Nav panel animations & effects
+ * A. hart -- trimmed all but 2 animations from the 
+ * the original effeckt css; kept `push` & `reveal`
+ * -- Additionally I ported css for airbnb effect &
+ * set it up to work same way other effeckt animations
+ * do with vesel.
+ */
+
+ /* Pushes the home screen over 80% and reveals the side menu nav */
 .effeckt-off-screen-nav-left-push {
   -webkit-transform: translateX(-80%);
   -ms-transform: translateX(-80%);
@@ -9572,6 +9583,40 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   -o-transform: translateX(0);
   transform: translateX(0);
 }
+/* End side menu nav PUSH animation & rules */
+
+/* offscreen nav REVEAL animation rules */
+.effeckt-off-screen-nav-left-reveal {
+  /*width: 0px;*/
+  -webkit-transform: translate3D(0, 0, 0);
+  -ms-transform: translate3D(0, 0, 0);
+  transform: translate3D(0, 0, 0);
+  -webkit-transition: 75ms;
+  transition: 75ms;
+}
+
+.effeckt-off-screen-nav-left-reveal.effeckt-show {
+  /* Left the width to rem's b/c it fixes chrome/ratchet header/footer width issue */
+  width: 17rem;
+  /* and to get the width we really want just used min-width @ 80% */
+/*  min-width: 75%;
+  max-width: 80%;*/
+  -webkit-transform: translateX(0);
+  -ms-transform: translateX(0);
+  transform: translateX(0);
+}
+
+.effeckt-off-screen-nav-left-reveal.effeckt-show ~ [data-effeckt-page] {
+  -webkit-transform: translateX(17rem);
+  -ms-transform: translateX(17rem);
+  transform: translateX(17rem);
+}
+
+.effeckt-off-screen-nav-left-reveal ~ [data-effeckt-page] {
+  -webkit-transition: 170ms;
+  transition: 170ms;
+}
+/* end offscreen nav REVEAL effect */
 
 /* airbnb effect */
 .effeckt-off-screen-nav-airbnb {
@@ -10858,7 +10903,9 @@ h2 {
 }
 
 .bar {
-  background-color: rgba(77, 99, 112, 0.92);
+  /* Was adjusted from original ratchet opacity to 0.92 */
+  /* At .92 it seems too transparent so adjusting to 0.97 */
+  background-color: rgba(77, 99, 112, 0.97);
 }
 
 .bar-border {
@@ -11267,14 +11314,14 @@ aside#settings > header:before {
   width: 100%;
 }
 aside#settings > header {
-  max-width: 80%;
+  max-width: 100%;
 }
 aside#settings > header:after {
-  width: 100% !important;
+  width: 80% !important;
 }
 
 aside#settings > nav[data-view-name="footer"] {
-  width: 80%;
+  width: 100%;
 }
 
 /* Set any views that are not the home view to z-index of 10 */

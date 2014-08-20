@@ -20,7 +20,6 @@ define([
         map: null,
         tiles: null,
         primaryLayer: null,
-        secondLayer: null,
 
         events: {
             'click a.overlay.mask': function(event) {
@@ -43,7 +42,7 @@ define([
             this.$el.attr("data-view-persist", "true");
 
             // tile layer
-            this.tiles = L.tileLayer('https://{s}.tiles.mapbox.com/v3/mscnswv.hl37jh6m/{z}/{x}/{y}.png', {
+            this.tiles = L.tileLayer('https://{s}.tiles.mapbox.com/v3/mscnswv.il5b6d5o/{z}/{x}/{y}.png', {
                 attribution: '<a data-external-url="http://www.mscns.com" target="_system">Powered by MSCNS</a>',
                 detectRetina: true
             });
@@ -64,8 +63,8 @@ define([
             if (!this.map) {
 
                 var layers = L.control.layers({
-                    'Streets': this.tiles,
-                    'Satellite': L.tileLayer('https://{s}.tiles.mapbox.com/v3/mscnswv.il5b6d5o/{z}/{x}/{y}.png', {
+                    'Satellite': this.tiles,
+                    'Streets': L.tileLayer('https://{s}.tiles.mapbox.com/v3/mscnswv.hl37jh6m/{z}/{x}/{y}.png', {
                         attribution: '<a data-external-url="http://www.mscns.com" target="_system">Powered by MSCNS</a>',
                         detectRetina: true
                     })
@@ -89,7 +88,7 @@ define([
                         });
                     });
 
-                layers.addTo(self.map);
+                layers.addTo(this.map);
                 this.map.setView([38.412, -82.428], 15);
 
             } else {
