@@ -10,6 +10,17 @@ require([
     'helpers'
 ], function($, _, Backbone, RootView, Router, FastClick, store, UAParser) {
 
+    // global app object thats accessible throughout the project for 
+    // fixed project parameters like region, title, etc.. 
+    window.headsup_params = {
+        title: "Heads Up Huntington",
+        region: 1,
+        userPrefix: "HPD",
+        shareURL: "/huntington/",
+        debug: false,
+        vendor: "ios" // if android set this equal to "gcm"
+    };
+
     // local var hoist; scoped to this module only
     var cached_token,
         resumeApp,
@@ -107,8 +118,8 @@ require([
 
     // delegate to wrap ajax calls for registering with our server
     function createUserDeviceAccount(token) {
-        store.set('username', "AnonHPD" + Date.now() + Math.floor(Math.random() * (5000 - 500) + 500));
-        store.set('region', 1);
+        store.set('username', "Anon" + headsup_params.userPrefix + Date.now() + Math.floor(Math.random() * (5000 - 500) + 500));
+        store.set('region', headsup_params.region);
 
         // we now have a new registration id & need to save it to the server along w/ its related categories
         $.ajax({
