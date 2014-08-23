@@ -15,8 +15,11 @@
   </div>
     
   <ul class="table-view table-view_detail__push">
-      <div id="single-map" class="map">
+      {{!-- map container --}}
+      <div id="single-map" class="map" style="display: {{mapVisibility}}">
       </div>
+
+      {{!-- notification detail text --}}
       <li class="table-view-cell table-view_detail__push">
           <p>{{information}}</p>
       </li>

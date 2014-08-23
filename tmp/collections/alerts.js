@@ -26,7 +26,7 @@ define([
 
         initialize: function() {
             // mixin websockets object
-            _.extend(this, BackSocket.prototype);
+            //_.extend(this, BackSocket.prototype);
 
             // instantiate backSocket for websockets on this collection
             if (_.isFunction(this.live)) {

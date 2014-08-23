@@ -2223,8 +2223,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 .fadeInLeft {
   -webkit-animation-name: fadeInLeft;
   animation-name: fadeInLeft;
-  -webkit-animation-duration: 150ms;
-          animation-duration: 150ms;
+  -webkit-animation-duration: 170ms;
+          animation-duration: 170ms;
 }
 
 @-webkit-keyframes fadeInLeftBig {
@@ -9587,7 +9587,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 /* offscreen nav REVEAL animation rules */
 .effeckt-off-screen-nav-left-reveal {
-  /*width: 0px;*/
+  width: 0px;
   -webkit-transform: translate3D(0, 0, 0);
   -ms-transform: translate3D(0, 0, 0);
   transform: translate3D(0, 0, 0);
@@ -11310,7 +11310,7 @@ a:active {
   margin: 10px;
 }
 
-aside#settings > header:before {
+/*aside#settings > header:before {
   width: 100%;
 }
 aside#settings > header {
@@ -11322,7 +11322,7 @@ aside#settings > header:after {
 
 aside#settings > nav[data-view-name="footer"] {
   width: 100%;
-}
+}*/
 
 /* Set any views that are not the home view to z-index of 10 */
 /*.page:not([data-view-name="home"]) {
@@ -11330,8 +11330,9 @@ aside#settings > nav[data-view-name="footer"] {
 }*/
 
 /* Added to demonstrate the airbnb animation effect for offscreen nav */
-[data-view-name="home"] {
-  -webkit-transform: translateZ(0) translateX(0) rotateY(0deg); /* reset transforms (Chrome bug) */
+/* reset transforms (Chrome bug) */
+/*[data-view-name="home"] {
+  -webkit-transform: translateZ(0) translateX(0) rotateY(0deg); 
   transform: translateZ(0) translateX(0) rotateY(0deg);
 }
 
@@ -11341,3 +11342,4 @@ body {
   perspective: 1500px;
   background: #b8b6b4;
 }
+*/

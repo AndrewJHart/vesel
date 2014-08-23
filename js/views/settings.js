@@ -120,25 +120,24 @@ define([
                 }
 
 
-                this.$el.addClass(this.animateIn);
+                this.$el.addClass(this.animateIn)
+                    .on('webkitAnimationEnd transitionend', function() {
 
-                this.$el.on('webkitAnimationEnd transitionend', function() {
+                        self.$el.off('webkitAnimationEnd transitionend');
+                        // show the aside panel
+                        self.$el.addClass("effeckt-show");
 
-                    self.$el.off('webkitAnimationEnd transitionend');
-                    // show the aside panel
-                    self.$el.addClass("effeckt-show");
+                        // force a DOM redraw for webkit browsers see SO here:
+                        // http://stackoverflow.com/questions/3485365/how-can-i-force-webkit-to-redraw-repaint-to-propagate-style-changes
+                        //self.el.style.display = 'none';
 
-                    // force a DOM redraw for webkit browsers see SO here:
-                    // http://stackoverflow.com/questions/3485365/how-can-i-force-webkit-to-redraw-repaint-to-propagate-style-changes
-                    //self.el.style.display = 'none';
+                        // notice that delay must at least be >= length of animation duration
+                        // or the re-draw will break the animation just showing the panel w/o it
+                        // _.delay(function() {
 
-                    // notice that delay must at least be >= length of animation duration
-                    // or the re-draw will break the animation just showing the panel w/o it
-                    // _.delay(function() {
-
-                    //     self.el.style.display = 'block';
-                    // }, 250);
-                });
+                        //     self.el.style.display = 'block';
+                        // }, 250);
+                    });
             } else {
                 // conceal the aside view and hide
 

@@ -39,13 +39,11 @@ define([
             this.headerView = new HeaderView();
             this.footerView = new FooterView();
 
-            // // create & pre-render the map view immediately
+            // create & pre-render the map view immediately
             // this.mapView = new MapView({
             //     el: '#map',
             //     className: 'maplist'
-            // }).preRender({
-            //     page: true
-            // });
+            // }).preRender();
 
             return this;
         },
@@ -72,18 +70,17 @@ define([
             // only instantiate on the initial run
             if (!this.indexView) {
                 // create an instance of the home page-view (AnimView)
-                this.indexView =
-                    new HomeView({
-                        el: '#home',
-                        className: 'home page',
-                        collection: this.alerts
-                    });
+                this.indexView = new HomeView({
+                    el: '#home',
+                    className: 'home page',
+                    collection: this.alerts
+                });
             }
 
             // Tell the root view to render the view and render it as a page w/ animations
             Application.goto(this.indexView, {
                 page: true
-            }); // alternative RootView.getInstance().setView(view);
+            }); // alternative RootView.getInstance().goto(this.indexView);
 
             return this;
         },

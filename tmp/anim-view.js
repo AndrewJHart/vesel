@@ -80,9 +80,10 @@ define(['underscore', 'thorax'], function(_, Thorax) {
             return this;
         },
 
-        // pre-rendering allows us to create the view, call render it w/ any 
-        // pre or post render hooks still triggered but does not interfere 
+        // pre-rendering allows us to create the view, call it w/ any options
+        // and trigger post render hooks still triggered but does not interfere 
         // with the animations for future renders. Performance boost!
+        // NOTE: This does not trigger the pre-render() hook method for good reason
         preRender: function(options) {
 
             // get existing options or init empty object
@@ -93,11 +94,16 @@ define(['underscore', 'thorax'], function(_, Thorax) {
                 this.$el.addClass('page');
             }
 
-            // BeforeRender Hook for users (devs) to handle special cases like jQuery
-            // plugin instantiation, etc.. before the view & template are rendered
-            if (_.isFunction(this.beforeRender)) {
-                // trigger whatever current/caller view's beforeRender() method
-                this.beforeRender();
+            // is this view preprended or appended to the DOM?
+            if (options.attachType) {
+                console.debug('AnimView-> Shared Prototype method preRender()');
+                console.debug('AttachType is: ' + options.attachType);
+            }
+
+            if (options.display) {
+                this.$el.css('display', display);
+            } else {
+                this.$el.hide();
             }
 
             // call the parent render since we're overriding it in thorax

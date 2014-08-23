@@ -38,17 +38,23 @@ define([
 
         goto: function(view, options) {
             var options = options || {},
+                attachType = options.attachType || "append",
                 previous = this.currentPage || null, // cache current view
                 next = view; // cache new view too
 
+            // is this view appended or prepended to the DOM?? 
+            console.log('Attaching view ' + next.getViewName() + ' to DOM using attachType of: ' + attachType);
+
             // internal remove function to a) ensure we adhere to thorax 
             // structure b) clean-up child views c) undelegate events, etc..
-            remove = _.bind(function() {
+            var remove = _.bind(function() {
                 if (previous) {
                     console.debug('RootView.goto.remove() was triggered w/ context view');
                     console.debug(this.name + " is removing: " + previous.name);
 
                     previous.$el && previous.$el.remove();
+
+                    // TODO: trigger onClose() for the previous view if it exists
 
                     // event broadcast -- useless the way thorax has done this.
                     // todo: deprecate and refactor by extending Bacbkone.events
@@ -69,11 +75,15 @@ define([
 
                 // check for a previous view before trying anything
                 if (previous) {
+
+                    // Animate the previous view based on its animateOut property
+                    // and pass it this function as a callback, after the animation
+                    // has completed, so we can remove & destroy the previous view.
                     previous.transitionOut(options, function() {
 
-                        // only remove the old view if its not the Home view
-                        if (previous.getViewName() == 'home' ||
-                            previous.$el.data('view-persist') == true) {
+                        // save the previous view's DOM el & state entirely
+                        // if it has a `data-view-persist` attribute = true
+                        if (previous.$el.data('view-persist') == true) {
 
                             // this view does not get removed
                             console.debug("Previous view " + previous.getViewName() + "'s data-view-persist is true - not removing!");
@@ -106,13 +116,13 @@ define([
 
 
                 // if the new view has not already been rendered before
-                // then render it and append it the dom. Otherwise we 
+                // then render it and append it the dom. Otherwise were 
                 // performing 2 wasteful ops here: rendering again.. but 
                 // more importantly: appending an existing view to an 
                 // existing DOM that has the same view...
                 // This works because persistent views still exist so 
                 // hasRendered will return the same value, whereas non-persistant
-                // views, like detail, were removed and hasRendered will be true.
+                // views, like detail, were removed and hasRendered will be false.
                 if (!next.hasRendered()) {
 
                     // render the new view as a page
@@ -120,12 +130,19 @@ define([
                         page: true
                     });
 
-                    // append new view to the body (the el for this root view)
-                    this.$el.append(next.$el);
-                } else {
+                    // attach the new view to the DOM element belonging to 
+                    // (this) the base page view manager aka: root view
+                    if (attachType) {
+                        // NOTE: attachType = "append" or "prepend"
+                        this.$el[attachType](next.$el);
+                    } else {
+                        // default to append'ing the view to DOM
+                        this.$el.append(next.$el);
+                    }
 
-                    // persistent view has been rendered once so we call 
-                    // conservative render to trigger hooks only  
+                } else {
+                    // persisting view has already been rendered once so 
+                    // call a *conservative render* to trigger hooks only  
                     next.conservativeRender();
                 }
 

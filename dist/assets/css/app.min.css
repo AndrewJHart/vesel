@@ -2223,8 +2223,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 .fadeInLeft {
   -webkit-animation-name: fadeInLeft;
   animation-name: fadeInLeft;
-  -webkit-animation-duration: 150ms;
-          animation-duration: 150ms;
+  -webkit-animation-duration: 170ms;
+          animation-duration: 170ms;
 }
 
 @-webkit-keyframes fadeInLeftBig {
@@ -9531,6 +9531,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   background-size: 32px auto;
 }
 
+/* Loading spinner */
 .effeckt-button,
 .effeckt-button .spinner,
 .effeckt-button .label {
@@ -9539,6 +9540,16 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   transition: 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275) all;
 }
 
+/*
+ * Offscreen/SideMenu Nav panel animations & effects
+ * A. hart -- trimmed all but 2 animations from the 
+ * the original effeckt css; kept `push` & `reveal`
+ * -- Additionally I ported css for airbnb effect &
+ * set it up to work same way other effeckt animations
+ * do with vesel.
+ */
+
+ /* Pushes the home screen over 80% and reveals the side menu nav */
 .effeckt-off-screen-nav-left-push {
   -webkit-transform: translateX(-80%);
   -ms-transform: translateX(-80%);
@@ -9572,6 +9583,40 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   -o-transform: translateX(0);
   transform: translateX(0);
 }
+/* End side menu nav PUSH animation & rules */
+
+/* offscreen nav REVEAL animation rules */
+.effeckt-off-screen-nav-left-reveal {
+  width: 0px;
+  -webkit-transform: translate3D(0, 0, 0);
+  -ms-transform: translate3D(0, 0, 0);
+  transform: translate3D(0, 0, 0);
+  -webkit-transition: 75ms;
+  transition: 75ms;
+}
+
+.effeckt-off-screen-nav-left-reveal.effeckt-show {
+  /* Left the width to rem's b/c it fixes chrome/ratchet header/footer width issue */
+  width: 17rem;
+  /* and to get the width we really want just used min-width @ 80% */
+/*  min-width: 75%;
+  max-width: 80%;*/
+  -webkit-transform: translateX(0);
+  -ms-transform: translateX(0);
+  transform: translateX(0);
+}
+
+.effeckt-off-screen-nav-left-reveal.effeckt-show ~ [data-effeckt-page] {
+  -webkit-transform: translateX(17rem);
+  -ms-transform: translateX(17rem);
+  transform: translateX(17rem);
+}
+
+.effeckt-off-screen-nav-left-reveal ~ [data-effeckt-page] {
+  -webkit-transition: 170ms;
+  transition: 170ms;
+}
+/* end offscreen nav REVEAL effect */
 
 /* airbnb effect */
 .effeckt-off-screen-nav-airbnb {
@@ -10858,7 +10903,9 @@ h2 {
 }
 
 .bar {
-  background-color: rgba(77, 99, 112, 0.92);
+  /* Was adjusted from original ratchet opacity to 0.92 */
+  /* At .92 it seems too transparent so adjusting to 0.97 */
+  background-color: rgba(77, 99, 112, 0.97);
 }
 
 .bar-border {
@@ -10926,14 +10973,24 @@ div[class$='-l__bg'] {
   display: inline-block;
 }
 
+/* 
+ * applied to any el that has a classname containing -d__bg 
+ * updated by A. Hart.. This change also applies to the class
+ * detail-cat__subject to achieve the full effect..
+ * modified to use less css & provide dynamic sizing detail subject
+ * for alert `subject`s that exceed standard subject length or
+ * start a 3rd line due to the way the words were combined..
+ */
 div[class$='-d__bg'] {
   width: 100%;
   position: relative;
   display: inline-block;
   text-align: center;
-  padding: 15px;
+  /*padding: 15px; compensate padding to adjust for new layout */
+  padding: 5px 10px;
   height: auto;
-  min-height: 80px;
+  /*min-height: 80px; decrease minimum height */
+  min-height: 50px;
   margin-bottom: -5px;
 }
 
@@ -10985,11 +11042,18 @@ div[class$='__center'] {
   display: block;
 }
 
+/*
+ * Modified by A. Hart in conjuction with rules that match 
+ * class names that contain -d__bg
+ * purpose: adjusts the detail view subject bar to be dynamic in size;
+ */
 .detail-cat__subject {
   width: 85%;
-  position: absolute;
-  right: 0;
+  /*position: absolute;*/
+  position: relative;
+  /*right: 0;*/
   text-align: left;
+  margin-left: 2rem; /* add margin for relative text */
 }
 .detail-cat__subject h4 {
   font-size: 16px;
@@ -11193,17 +11257,6 @@ a:active {
           animation-timing-function: cubic-bezier(.1, .7, .1, 1);
 }
 
-
-.contentMask {
-  width: 100%;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  background-color: rgb(255, 255, 255);
-  -webkit-box-shadow: -10px 0 10px -5px rgba(0, 0, 0, 0.1);
-          box-shadow: -10px 0 10px -5px rgba(0, 0, 0, 0.1);
-}
-
 .page {
   position: fixed;
   top: 0;
@@ -11244,36 +11297,4 @@ a:active {
 .powered-logos i {
   display: inline-block;
   margin: 10px;
-}
-
-aside#settings > header:before {
-  width: 100%;
-}
-aside#settings > header {
-  max-width: 80%;
-}
-aside#settings > header:after {
-  width: 100% !important;
-}
-
-aside#settings > nav[data-view-name="footer"] {
-  width: 80%;
-}
-
-/* Set any views that are not the home view to z-index of 10 */
-/*.page:not([data-view-name="home"]) {
-  z-index: 10 !important;
-}*/
-
-/* Added to demonstrate the airbnb animation effect for offscreen nav */
-[data-view-name="home"] {
-  -webkit-transform: translateZ(0) translateX(0) rotateY(0deg); /* reset transforms (Chrome bug) */
-  transform: translateZ(0) translateX(0) rotateY(0deg);
-}
-
-body {
-  position: fixed;
-  -webkit-perspective: 1500px;
-  perspective: 1500px;
-  background: #b8b6b4;
 }

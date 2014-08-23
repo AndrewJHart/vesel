@@ -15,6 +15,10 @@ define([
         animateIn: "iosSlideInRight",
         animateOut: "slideOutRight",
 
+        // explicit declaration of instance props & template context vars
+        mapCoords: null,
+        mapVisibility: null,
+
         events: {
             'click a.toggle-share': function(event) {
                 var alert, message, post_msg, post_title, subject;
@@ -42,10 +46,17 @@ define([
         // init for detail view
         initialize: function() {
             // check that we have an ID for the map of this alert or nullify it
-            this.mapUUID = (this.model.get('map').id || null);
+            this.mapCoords = (this.model.get('map').geometry || null);
+
+            console.log(this.mapCoords);
+
+            console.dir(this.mapCoords);
+
+            // template context/helper so that template knows to show/hide this map
+            this.mapVisibility = this.mapCoords ? "block" : "none";
 
             // load the tiles only if we have a map for this alert
-            if (this.mapUUID) {
+            if (this.mapCoords) {
                 // tile layer
                 this.tiles = L.tileLayer('https://{s}.tiles.mapbox.com/v3/mscnswv.il5b6d5o/{z}/{x}/{y}.png', {
                     attribution: '<a href="http://www.mscns.com" target="_blank">Powered by MSCNS</a>',
@@ -61,8 +72,8 @@ define([
                 primaryLayer,
                 layers;
 
-            // only load the detail map view if delegate created a map point for it
-            if (this.mapUUID) {
+            // only load the map if this data/model results.map.geometry (coords) is NOT null
+            if (this.mapCoords) {
                 layers = L.control.layers({
                     'Satellite': this.tiles,
                     'Streets': L.tileLayer('https://{s}.tiles.mapbox.com/v3/mscnswv.hl37jh6m/{z}/{x}/{y}.png', {
@@ -94,24 +105,23 @@ define([
 
                     self.map.setView([38.412, -82.428], 17);
 
-                }, 250);
-            }
+                }, 0); // PERFORMANCE update #11; optimized detail page map load
+            } // by removing 200ms delay; helps with flicker
 
             return this;
         },
 
         onClose: function() {
-            if (this.map && this.mapUUID) {
+            if (this.map && this.mapCoords) {
                 this.map.off('ready');
 
                 _.delay(function() {
                     delete this.map;
                     delete this.tiles;
                 }.bind(this), 0);
-
             }
 
-            return this;
+            return this || null;
         }
     });
 
