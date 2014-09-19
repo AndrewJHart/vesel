@@ -11277,3 +11277,10 @@ body {
   perspective: 1500px;
   background: #b8b6b4;
 }
+
+#ajax-loader {
+    position: relative;
+    width: auto;
+    display: block; 
+    margin: 0 auto;   
+}
