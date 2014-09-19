@@ -1,7 +1,7 @@
 From Zero to Hero
 ------------------
 
-    git clone git://github.com/AndrewJHart/vesel
+    git clone git@github.com:AndrewJHart/vesel.git
 
 Once your clone is complete, change directories into your cloned seed and run:
 
