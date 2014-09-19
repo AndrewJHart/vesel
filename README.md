@@ -1,4 +1,4 @@
-# Vesel
+<img src="http://andrewjhart.github.io/vesel/vesel-logo.svg" alt="Vesel logo" width="130px">
 
 [Vesel](https://github.com/AndrewJHart/vesel) is work in progress framework for building Single
 Page Applications that are designed for mobile devices with transitions and animations baked into
