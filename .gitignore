@@ -35,10 +35,6 @@ node_modules
 .sass-cache
 
 
-### Bower ###
-bower_components
-
-
 ### SublimeText ###
 # cache files for sublime text
 *.tmlanguage.cache
