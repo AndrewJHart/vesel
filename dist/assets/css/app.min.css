@@ -11257,6 +11257,17 @@ a:active {
           animation-timing-function: cubic-bezier(.1, .7, .1, 1);
 }
 
+
+.contentMask {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  background-color: rgb(255, 255, 255);
+  -webkit-box-shadow: -10px 0 10px -5px rgba(0, 0, 0, 0.1);
+          box-shadow: -10px 0 10px -5px rgba(0, 0, 0, 0.1);
+}
+
 .page {
   position: fixed;
   top: 0;
@@ -11297,4 +11308,36 @@ a:active {
 .powered-logos i {
   display: inline-block;
   margin: 10px;
+}
+
+/*aside#settings > header:before {
+  width: 100%;
+}
+aside#settings > header {
+  max-width: 100%;
+}
+aside#settings > header:after {
+  width: 80% !important;
+}
+
+aside#settings > nav[data-view-name="footer"] {
+  width: 100%;
+}*/
+
+/* Set any views that are not the home view to z-index of 10 */
+/*.page:not([data-view-name="home"]) {
+  z-index: 10 !important;
+}*/
+
+/* Added to demonstrate the airbnb animation effect for offscreen nav */
+[data-view-name="home"] {
+  -webkit-transform: translateZ(0) translateX(0) rotateY(0deg); /* reset transforms (Chrome bug) */
+  transform: translateZ(0) translateX(0) rotateY(0deg);
+}
+
+body {
+  position: fixed;
+  -webkit-perspective: 1500px;
+  perspective: 1500px;
+  background: #b8b6b4;
 }

@@ -103,8 +103,13 @@ define([
                                 previous.beforeRemove();
                             }
 
+                            // allow user cleanup by defining onRemove callback
+                            if (_.isFunction(previous.onRemove)) {
+                                previous.onRemove();
+                            }
+
                             // remove the previous view (copied from LayoutView)
-                            remove();
+                            // remove();
 
                             // allow user to trigger actions post-removal w/ this hook
                             if (_.isFunction(previous.afterRemove)) {
@@ -147,7 +152,35 @@ define([
                 }
 
                 // animate the new view 
-                next.transitionIn(options);
+                // next.transitionIn(options);
+
+                // animate the new view 
+                next.transitionIn(options, function() {
+                    // if a previous view does exist & is disposable then drop it.
+                    if (previous) {
+                        // on transition new view in delete any disposable views
+                        if (!previous.$el.data('view-persist')) {
+
+                            // allow user to cleanup actions pre-removal w/ this hook
+                            if (_.isFunction(previous.beforeRemove)) {
+                                previous.beforeRemove();
+                            }
+
+                            // allow user cleanup by defining onRemove callback
+                            if (_.isFunction(previous.onRemove)) {
+                                previous.onRemove();
+                            }
+
+                            // remove the previous view (copied from LayoutView)
+                            remove();
+
+                            // allow user to trigger actions post-removal w/ this hook
+                            if (_.isFunction(previous.afterRemove)) {
+                                previous.afterRemove();
+                            }
+                        }
+                    }
+                });
 
             } else { // this view is not a page/pane so apply no transitions
 

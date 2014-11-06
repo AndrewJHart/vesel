@@ -18,7 +18,8 @@ require([
         userPrefix: "HPD",
         shareURL: "/huntington/",
         debug: false,
-        vendor: "ios" // if android set this equal to "gcm"
+        vendor: "ios", // if android set this equal to "gcm"
+        urlPrefix: "headsuptraining"
     };
 
     // local var hoist; scoped to this module only
@@ -123,7 +124,7 @@ require([
 
         // we now have a new registration id & need to save it to the server along w/ its related categories
         $.ajax({
-            url: 'https://heads-up.herokuapp.com/api/app/v2/device_settings/ios/',
+            url: 'https://'+headsup_params.urlPrefix+'.herokuapp.com/api/app/v2/device_settings/ios/',
             type: 'POST',
             data: JSON.stringify({
                 "device": {
