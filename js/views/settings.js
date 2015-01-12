@@ -41,26 +41,39 @@ define([
                 var metadataPosition = this.$(event.target).data("meta-position"),
                     property = null,
                     model = this.$(event.target).model(),
-                    state = null;
+                    state = null,
+                    currentState = null;
 
                 event.preventDefault();
 
+                console.log('click event triggered');
 
                 property = "metadata." + metadataPosition + ".is_enabled";
 
+                // Use the model as one source of truth! versus checking DOM 
+                // control state and setting model values based on them
+
+                // get the current model state for this property
+                currentState = model.get(property) || false;
+                console.debug(currentState);
+
+                state = !currentState;  // set state opposite to current
+
+                /*
                 if ($(event.target).hasClass('active')) {
                     state = false;
                 } else {
                     state = true;
                 }
+                */
 
                 // try to get the model
                 this.model.set(property, state, {
-                    silent: true
+                    silent: false
                 });
 
                 this.model.save({}, {
-                    wait: true,
+                    wait: false,
                     silent: true
                 });
             },
@@ -69,17 +82,30 @@ define([
                 var metadataPosition = this.$(event.target).data("meta-position"),
                     property = null,
                     model = this.$(event.target).model(),
-                    state = null;
+                    state = null,
+                    currentState = null;
+
+                console.debug('touchstart event triggered');
 
                 event.preventDefault();
 
                 property = "metadata." + metadataPosition + ".is_enabled";
 
-                if ($(event.target).parent().hasClass('active')) {
-                    state = false;
-                } else {
-                    state = true;
-                }
+
+                // Use the model as one source of truth! versus checking DOM 
+                // control state and setting model values based on them
+
+                // get the current model state for this property
+                currentState = model.get(property) || false;
+                console.debug(currentState);
+
+                state = !currentState;  // set state opposite to current
+
+                // if ($(event.target).parent().hasClass('active')) {
+                //     state = false;
+                // } else {
+                //     state = true;
+                // }
 
                 // try to get the model
                 this.model.set(property, state, {
@@ -88,7 +114,7 @@ define([
 
 
                 this.model.save({}, {
-                    wait: true,
+                    wait: false,
                     silent: true
                 });
             }
