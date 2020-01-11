@@ -1,5 +1,9 @@
 <img src="http://andrewjhart.github.io/vesel/vesel-logo.svg" alt="Vesel logo" width="130px">
 
+## This project is long deprecated. 
+
+> Adding easily animatable views, performance optimizations like view caching, and creating something that has a root view, long before the big frameworks did so, was a lot of fun and hard work. However, this is dated and MVC based - not nearly as nice as the much improved component based structure we have now and improved state management. 
+
 [Vesel](https://github.com/AndrewJHart/vesel) is work in progress framework for building Single
 Page Applications that are designed for mobile devices with transitions and animations baked into
 the core (see AnimView).
